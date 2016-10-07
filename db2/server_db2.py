@@ -26,7 +26,7 @@ def get_sqldb_dsn(vcap_services):
 
 @app.route('/')
 def home_page():
-    return "Hello, Flask!"
+    return "Hello, Flask! 1"
 
 
 @app.route('/initdb')
