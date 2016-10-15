@@ -12,6 +12,10 @@ app = Flask(__name__)
 def home_page():
     now = datetime.datetime.now()
     return render_template('home.html')
+                           
+@app.route('/test')
+def test_page():
+    return render_template('test.html')
 
 
 if __name__ == '__main__':

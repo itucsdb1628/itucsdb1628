@@ -3,7 +3,6 @@ body {
   color: #6F6F6F;
   font-family: 'Droid Sans', 'Helvetica', 'sans';
   font-size: 12pt;
-  margin: 2ex 2em;
 }
 
 h1, h2, h3, h4 {
@@ -18,4 +17,18 @@ a {
 div#datetime {
   font-size: 80%;
   text-align: right;
+}
+
+.footer {
+    clear: both;
+    position: fixed;
+    width:100%;
+    padding:5px;
+    text-align: center;
+    background-color: #ececec;
+    bottom:0;
+
+}
+.navbar{
+
 }
