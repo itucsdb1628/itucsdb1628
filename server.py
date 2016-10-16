@@ -26,6 +26,18 @@ def test_page():
 def profile_page():
     return render_template("profile.html")
 
+@app.route('/music')
+def music_page():
+    return render_template("music.html")
+
+@app.route('/timeline')
+def timeline_page():
+    return render_template("timeline.html")
+
+@app.route('/activities')
+def activities_page():
+    return render_template("activities.html")
+
 if __name__ == '__main__':
     VCAP_APP_PORT = os.getenv('VCAP_APP_PORT')
     if VCAP_APP_PORT is not None:
