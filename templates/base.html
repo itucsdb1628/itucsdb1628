@@ -11,22 +11,23 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
 
     {% block static_links %}{% endblock %}
+    {% block layout_static_links %}{% endblock %}
 
 
     <script src="{{ url_for('static', filename='jquery.min.js') }}"></script>
     <script src="{{ url_for('static', filename='bootstrap/js/bootstrap.min.js') }}"></script>
   </head>
   <body>
-  
+
 
     {% block layout %}{% endblock %}
-    
+
 
 
     <div class="footer">
     	this is footer
     </div>
 
-     
+
   </body>
 </html>
