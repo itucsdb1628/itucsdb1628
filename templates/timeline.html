@@ -1,6 +1,13 @@
 {% extends "profile.html" %}
-{% block c2 %}
+
+
+{% block static_links %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/profile.css') }}" />
  	<link rel="stylesheet" href="{{ url_for('static', filename='css/timeline.css') }}" />
+{% endblock %}
+
+
+{% block c2 %}
 <div class = "timeline">
 <div class="container">
 <div class = "row_short">
