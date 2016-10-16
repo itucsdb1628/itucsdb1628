@@ -1,0 +1,54 @@
+{% extends "layout.html" %}
+{% block title %}
+
+      Profile
+      
+{% endblock %}
+
+{% block content %}
+
+      <link href="{{ url_for('static', filename='css/profile.css') }}" rel="stylesheet">
+<div class="container">
+	<div class="row">
+		<div class="col-lg-3 col-sm-6">
+
+            <div class="card hovercard">
+                <div class="cardheader">
+
+                </div>
+                <div class="avatar">
+                    <img alt="" src="{{ url_for('static', filename='images/logo.jpg') }}">
+                </div>
+                <div class="info">
+                    <div class="title">
+                        <a>First Second</a>
+                    </div>
+                    <p>biography biography biography biography biography</p> 
+                    	<a href="#">
+                    	</br>
+							<i class="glyphicon glyphicon-user"></i>
+							Followers</a>	<span class="badge">   5K</span>
+						</br>
+						<a href = "#">	
+							<i class="glyphicon glyphicon-headphones"></i>
+							    Following</a> <span class="badge">   5K</span>
+						</br>	    
+						 <a href = "#">	
+							<i class="glyphicon glyphicon-heart"></i>
+							    Likes </a>   <span class="badge">   100</span>
+							</br></br></br>
+				
+                    <div class="profile-userbuttons">
+						<button type="button" class="btn btn-success btn-sm">Follow</button>
+						<button type="button" class="btn btn-success btn-sm">View</button>
+						<button type="button" class="btn btn-danger btn-sm">Message</button>
+					</div>
+                </div>
+            </div>
+
+        </div>
+
+	</div>
+</div>
+      
+{% endblock %}

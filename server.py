@@ -22,6 +22,9 @@ def messages_page():
 def test_page():
     return render_template('test.html')
 
+@app.route('/profile')
+def profile_page():
+    return render_template("profile.html")
 
 if __name__ == '__main__':
     VCAP_APP_PORT = os.getenv('VCAP_APP_PORT')
