@@ -93,6 +93,11 @@
     border-radius: 30px;
 }
 
+.message_item .media-bottom{
+    float: right;
+    font-size: 0.7em;
+}
+
 .message_outgoing {
     float: right;
     direction: rtl;
@@ -101,5 +106,9 @@
 .message_outgoing .media-body{
     direction: ltr;
     text-align: right;
+}
+
+.message_outgoing .media-bottom{
+    float: left;
 }
 
