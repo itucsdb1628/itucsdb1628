@@ -1,0 +1,95 @@
+
+.messages {
+    position: fixed;
+
+    left: 0;
+    right: 0;
+    top: 80px;
+    bottom: 32px;
+}
+
+.messages .left_col {
+    position: absolute;
+
+    width: 400px;
+
+    left: 0;
+    top: 0;
+    bottom: 0;
+
+    padding: 0 10px;
+
+    overflow-y: auto;
+    direction: rtl;
+}
+
+.messages .right_col {
+    position: absolute;
+
+    left: 400px;
+    right: 0;
+    top: 0;
+    bottom: 0;
+}
+
+.message_filter {
+    margin: 10px 0;
+
+}
+
+.message_userlist img {
+    float: left;
+    margin-right: 10px;
+}
+
+.message_action {
+    position: absolute;
+    margin: 0;
+    bottom: 10px;
+    right: 10px;
+    left: 0;
+}
+
+.message_action .panel-body textarea {
+    resize: none;
+}
+
+.message_action .panel-footer {
+    text-align: right;
+}
+
+.message_history {
+    position: absolute;
+    margin: 0;
+
+    top: 10px;
+    right: 10px;
+    left: 0;
+    bottom: 200px;
+
+}
+
+.message_history .panel-body {
+    position: absolute;
+    top: 43px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    overflow-y: auto;
+}
+
+.message_item {
+    float: left;
+    max-width: 85%;
+}
+
+.message_item .alert{
+    max-width: 85%;
+    width:auto;
+}
+
+.message_outgoing {
+    float: right;
+    direction: rtl;
+}
+

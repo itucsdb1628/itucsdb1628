@@ -4,7 +4,6 @@ import os
 from flask import Flask
 from flask import render_template
 
-
 app = Flask(__name__)
 
 
@@ -12,7 +11,13 @@ app = Flask(__name__)
 def home_page():
     now = datetime.datetime.now()
     return render_template('home.html')
-                           
+
+
+@app.route('/messages')
+def messages_page():
+    return render_template('messages.html')
+
+
 @app.route('/test')
 def test_page():
     return render_template('test.html')

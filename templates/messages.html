@@ -1,0 +1,222 @@
+{% extends "layout.html" %}
+{% block title %}Messages{% endblock %}
+
+{% block content %}
+
+    <div class="messages">
+
+        <div class="left_col" style="direction: rtl">
+
+            <div style="direction: ltr">
+
+
+                <div class="input-group message_filter">
+
+                    <input type="text" class="form-control" placeholder="Search User">
+
+
+                    <span class="input-group-btn">
+                    <button class="btn btn-default" type="button"><span
+                            class="glyphicon glyphicon-search"></span> </button>
+                </span>
+
+                </div>
+
+
+                <div class="list-group message_userlist">
+                    <a href="#" class="list-group-item list-group-item-warning">
+                        <img src="{{ url_for('static', filename='images/logo.jpg') }}" width="40px"/>
+                        <span class="badge">14</span>
+                        <h4 class="list-group-item-heading">first name last name</h4>
+                        <p class="list-group-item-text">last message</p>
+                    </a>
+                    <a href="#" class="list-group-item list-group-item">
+                        <img src="{{ url_for('static', filename='images/logo.jpg') }}" width="40px"/>
+                        <h4 class="list-group-item-heading">first name last name</h4>
+                        <p class="list-group-item-text">last message</p>
+                    </a>
+                    <a href="#" class="list-group-item list-group-item">
+                        <img src="{{ url_for('static', filename='images/logo.jpg') }}" width="40px"/>
+                        <h4 class="list-group-item-heading">first name last name</h4>
+                        <p class="list-group-item-text">last message</p>
+                    </a>
+                    <a href="#" class="list-group-item list-group-item">
+                        <img src="{{ url_for('static', filename='images/logo.jpg') }}" width="40px"/>
+                        <h4 class="list-group-item-heading">first name last name</h4>
+                        <p class="list-group-item-text">last message</p>
+                    </a>
+                    <a href="#" class="list-group-item list-group-item">
+                        <img src="{{ url_for('static', filename='images/logo.jpg') }}" width="40px"/>
+                        <h4 class="list-group-item-heading">first name last name</h4>
+                        <p class="list-group-item-text">last message</p>
+                    </a>
+                    <a href="#" class="list-group-item list-group-item">
+                        <img src="{{ url_for('static', filename='images/logo.jpg') }}" width="40px"/>
+                        <h4 class="list-group-item-heading">first name last name</h4>
+                        <p class="list-group-item-text">last message</p>
+                    </a>
+                    <a href="#" class="list-group-item list-group-item">
+                        <img src="{{ url_for('static', filename='images/logo.jpg') }}" width="40px"/>
+                        <h4 class="list-group-item-heading">first name last name</h4>
+                        <p class="list-group-item-text">last message</p>
+                    </a>
+                    <a href="#" class="list-group-item list-group-item">
+                        <img src="{{ url_for('static', filename='images/logo.jpg') }}" width="40px"/>
+                        <h4 class="list-group-item-heading">first name last name</h4>
+                        <p class="list-group-item-text">last message</p>
+                    </a>
+                    <a href="#" class="list-group-item list-group-item">
+                        <img src="{{ url_for('static', filename='images/logo.jpg') }}" width="40px"/>
+                        <h4 class="list-group-item-heading">first name last name</h4>
+                        <p class="list-group-item-text">last message</p>
+                    </a>
+                    <a href="#" class="list-group-item list-group-item">
+                        <img src="{{ url_for('static', filename='images/logo.jpg') }}" width="40px"/>
+                        <h4 class="list-group-item-heading">first name last name</h4>
+                        <p class="list-group-item-text">last message</p>
+                    </a>
+                    <a href="#" class="list-group-item list-group-item">
+                        <img src="{{ url_for('static', filename='images/logo.jpg') }}" width="40px"/>
+                        <h4 class="list-group-item-heading">first name last name</h4>
+                        <p class="list-group-item-text">last message</p>
+                    </a>
+                    <a href="#" class="list-group-item list-group-item">
+                        <img src="{{ url_for('static', filename='images/logo.jpg') }}" width="40px"/>
+                        <h4 class="list-group-item-heading">first name last name</h4>
+                        <p class="list-group-item-text">last message</p>
+                    </a>
+                    <a href="#" class="list-group-item list-group-item">
+                        <img src="{{ url_for('static', filename='images/logo.jpg') }}" width="40px"/>
+                        <h4 class="list-group-item-heading">first name last name</h4>
+                        <p class="list-group-item-text">last message</p>
+                    </a>
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="right_col">
+
+            <div class="panel panel-default message_history">
+
+                <div class="panel-heading">
+                    Messages: First Name Last Name
+                </div>
+                <div class="panel-body">
+
+
+                    <div class="media message_item">
+                        <div class="media-left">
+                            <a href="#">
+                                <img class="media-object" src="{{ url_for('static', filename='images/logo.jpg') }}"
+                                     width="53px">
+                            </a>
+                        </div>
+                        <div class="media-body alert alert-success">
+                            Gelen Mesaj
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+
+                    <div class="media message_item message_outgoing">
+                        <div class="media-right">
+                            <a href="#">
+                                <img class="media-object" src="{{ url_for('static', filename='images/logo.jpg') }}"
+                                     width="53px">
+                            </a>
+                        </div>
+                        <div class="media-body alert alert-info">
+                            Giden Mesaj
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+
+                    <div class="media message_item">
+                        <div class="media-left">
+                            <a href="#">
+                                <img class="media-object" src="{{ url_for('static', filename='images/logo.jpg') }}"
+                                     width="53px">
+                            </a>
+                        </div>
+                        <div class="media-body alert alert-success">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin sapien lectus, vulputate at
+                            nulla sit amet, scelerisque semper mauris. In hac habitasse platea dictumst. Vivamus vel
+                            arcu vel nibh posuere suscipit. Vivamus et lorem at risus suscipit molestie. Curabitur
+                            imperdiet nibh lacus, sit amet euismod dui elementum quis. Morbi metus neque, luctus ac eros
+                            a, facilisis porttitor nibh. Suspendisse nibh tortor, venenatis a iaculis non, iaculis quis
+                            velit. In scelerisque ipsum lacinia, consequat libero non, mattis metus. Nulla tortor
+                            tellus, laoreet ut lorem ut, malesuada auctor diam.
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+
+                    <div class="media message_item message_outgoing">
+                        <div class="media-right">
+                            <a href="#">
+                                <img class="media-object" src="{{ url_for('static', filename='images/logo.jpg') }}"
+                                     width="53px">
+                            </a>
+                        </div>
+                        <div class="media-body alert alert-info">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin sapien lectus, vulputate at
+                            nulla sit amet, scelerisque semper mauris. In hac habitasse platea dictumst. Vivamus vel
+                            arcu vel nibh posuere suscipit. Vivamus et lorem at risus suscipit molestie. Curabitur
+                            imperdiet nibh lacus, sit amet euismod dui elementum quis. Morbi metus neque, luctus ac eros
+                            a, facilisis porttitor nibh. Suspendisse nibh tortor, venenatis a iaculis non, iaculis quis
+                            velit. In scelerisque ipsum lacinia, consequat libero non, mattis metus. Nulla tortor
+                            tellus, laoreet ut lorem ut, malesuada auctor diam.
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+
+
+                    <div class="media message_item">
+                        <div class="media-left">
+                            <a href="#">
+                                <img class="media-object" src="{{ url_for('static', filename='images/logo.jpg') }}"
+                                     width="53px">
+                            </a>
+                        </div>
+                        <div class="media-body alert alert-success">
+                            Gelen Mesaj
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+
+                    <div class="media message_item message_outgoing">
+                        <div class="media-right">
+                            <a href="#">
+                                <img class="media-object" src="{{ url_for('static', filename='images/logo.jpg') }}"
+                                     width="53px">
+                            </a>
+                        </div>
+                        <div class="media-body alert alert-info">
+                            Giden Mesaj
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+
+
+                </div>
+
+
+            </div>
+
+
+            <div class="panel panel-default message_action">
+                <div class="panel-body">
+                    <textarea class="form-control" placeholder="Write a message..." rows="4"></textarea>
+                </div>
+                <div class="panel-footer">
+                    <button type="button" class="btn btn-default">Cancel</button>
+                    <button type="button" class="btn btn-primary">Send</button>
+                </div>
+            </div>
+
+
+        </div>
+
+    </div>
+
+{% endblock %}
