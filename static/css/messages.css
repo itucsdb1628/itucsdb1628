@@ -40,6 +40,7 @@
 .message_userlist img {
     float: left;
     margin-right: 10px;
+    border-radius: 20px;
 }
 
 .message_action {
@@ -88,8 +89,11 @@
     width:auto;
 }
 
+.message_item .media-object{
+    border-radius: 30px;
+}
+
 .message_outgoing {
     float: right;
     direction: rtl;
 }
-
