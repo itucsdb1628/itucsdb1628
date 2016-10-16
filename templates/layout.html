@@ -1,48 +1,83 @@
 {% extends "base.html" %}
 {% block layout %}
-      
-      
+
+	<!----------------------------------------------------- Header ------------------------------------------------------------>
+	<link rel="stylesheet" href="{{ url_for('static', filename='style_header.css') }}" />
       <div class="mainheader">
 		<nav class="navbar navbar-default navbar-static-top">
 		  <div class="container-fluid">
-		  
-		  
-		  <div class="navbar-header">
-    		  <a class="navbar-brand" href="#">
-        		<img alt="Brand" src="{{ url_for('static', filename='images/logo.jpg') }}"
-        		width = "20px"	>
-      		</a>
-   	 	 </div>
-		  
-		  
+
+			<div class="empty header-element navbar-left"></div>
+
+			  <div class="header-banner"> 						<!-- banner -->
+			  	<a class="header-banner" href="#">
+	        		<img alt="Logo" src="{{ url_for('static', filename='images/logo/logo_vector.svg') }}"
+	        		width = "80px"> ListnTo
+	      		</a>
+	   	 	 </div>												<!-- banner -->
+
+			<div class="empty header-element navbar-left"></div><div class="empty header-element navbar-left"></div>
+			<div class="empty header-element navbar-left"></div><div class="empty header-element navbar-left"></div>
+			<div class="empty header-element navbar-left"></div><div class="empty header-element navbar-left"></div>
+
+															<!-- search -->
+			<form class="header-search navbar-left">
+		        <div class="form-group">
+		          <input type="text" class="form-control" placeholder="Search">
+		        </div>
+		        <button type="submit" class="btn btn-default">Submit</button>
+		    </form>
+	    													<!-- search -->
+
+															<!-- profile -->
 		   <ul class="nav navbar-nav navbar-right">
-		  
-        <li><a href="#"> <span class="glyphicon glyphicon-align-left" aria-hidden="true"></span></a></li>
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
-          <ul class="dropdown-menu">
-            <li><a href="#">Action</a></li>
-            <li><a href="#">Another action</a></li>
-            <li><a href="#">Something else here</a></li>
-            <li role="separator" class="divider"></li>
-            <li><a href="#">Separated link</a></li>
-          </ul>
-        </li>
-      </ul>
+
+	        	<li class="dropdown">
+	        	<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+	        	<img alt="ProfilePic" src="{{ url_for('static', filename='images/logo/logo_vector.svg') }}"
+        		width = "50px">Profile<span class="caret"></span></a>
+	          			<ul class="dropdown-menu">
+				            <li><a href="#">Action</a></li>
+				            <li><a href="#">Another action</a></li>
+				            <li><a href="#">Something else here</a></li>
+				            <li role="separator" class="divider"></li>
+				            <li><a href="#">Separated link</a></li>
+				          </ul>
+	        	</li>
+	      	</ul>											<!-- profile -->
+
+
+															<!--  tabs  -->
+			<div class="header-tabs navbar-right">
+      			<ul>
+					<li><a href="#"><span class="glyphicon glyphicon-home" aria-hidden="true"></span></a></li>
+					<li><a href="#"><span class="glyphicon glyphicon-music" aria-hidden="true"></span></a></li>
+					<li><a href="#"><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span></a></li>
+					<li><a href="#"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span></a></li>
+				</ul>
+			</div>
+															<!--  tabs  -->
+
+
+
+
+
+
+
 		  </div>
-		  
-		</nav>        
+		</nav>
       </div>
-      
-      
+	<!------------------------------------------------------ Header ------------------------------------------------------------>
+
+
     <div class="container" role="main">
 		{% block content %}{% endblock %}
     </div>
-    
+
     <script>
     $('.dropdown-toggle').dropdown();
     </script>
-      
-      
-      
+
+
+
 {% endblock %}
