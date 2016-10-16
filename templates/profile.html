@@ -5,9 +5,14 @@
       
 {% endblock %}
 
+
+{% block static_links %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/profile.css') }}" />
+{% endblock %}
+
+
 {% block content %}
 
-      <link href="{{ url_for('static', filename='css/profile.css') }}" rel="stylesheet">
 <div class="container">
 	<div class="row">
 		<div class="col-lg-3 col-sm-6">

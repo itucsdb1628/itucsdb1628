@@ -1,5 +1,8 @@
 {% extends "layout.html" %}
 {% block title %}Messages{% endblock %}
+{% block static_links %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/messages.css') }}" />
+{% endblock %}
 
 {% block content %}
 
