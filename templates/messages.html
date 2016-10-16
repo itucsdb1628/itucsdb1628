@@ -8,7 +8,7 @@
 
     <div class="messages">
 
-        <div class="left_col" style="direction: rtl">
+        <div class="left_col">
 
             <div style="direction: ltr">
 
@@ -105,6 +105,14 @@
 
                 <div class="panel-heading">
                     Messages: First Name Last Name
+
+
+                    <button type="button" class="btn btn-link">
+                            <span class="glyphicon glyphicon-refresh" aria-label="refresh"
+                                  data-toggle="tooltip" data-placement="left" title="Reload Messages"></span>
+                    </button>
+
+
                 </div>
                 <div class="panel-body">
 
@@ -230,8 +238,19 @@
                     <textarea class="form-control" placeholder="Write a message..." rows="4"></textarea>
                 </div>
                 <div class="panel-footer">
-                    <button type="button" class="btn btn-default">Cancel</button>
+
+                    <div class="btn-group dropup">
+                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="false">
+                            Action <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a href="#"> Delete Conversation </a></li>
+                        </ul>
+                    </div>
+
                     <button type="button" class="btn btn-primary">Send</button>
+                    <button type="button" class="btn btn-default">Cancel</button>
                 </div>
             </div>
 

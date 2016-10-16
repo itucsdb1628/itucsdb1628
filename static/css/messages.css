@@ -8,6 +8,10 @@
     bottom: 32px;
 }
 
+.messages a{
+    text-decoration: none;
+}
+
 .messages .left_col {
     position: absolute;
 
@@ -55,8 +59,8 @@
     resize: none;
 }
 
-.message_action .panel-footer {
-    text-align: right;
+.message_action .panel-footer .btn{
+    float: right;
 }
 
 .message_history {
@@ -70,6 +74,12 @@
 
 }
 
+.message_history .panel-heading .btn{
+    padding: 0;
+    float: right;
+    margin-left: 5px;
+}
+
 .message_history .panel-body {
     position: absolute;
     top: 43px;
@@ -78,6 +88,7 @@
     bottom: 0;
     overflow-y: auto;
 }
+
 
 .message_item {
     float: left;
