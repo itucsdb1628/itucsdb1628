@@ -8,7 +8,7 @@
     bottom: 32px;
 }
 
-.messages a{
+.messages a {
     text-decoration: none;
 }
 
@@ -59,7 +59,7 @@
     resize: none;
 }
 
-.message_action .panel-footer .btn{
+.message_action .panel-footer .btn {
     float: right;
 }
 
@@ -74,7 +74,7 @@
 
 }
 
-.message_history .panel-heading .btn{
+.message_history .panel-heading .btn {
     padding: 0;
     float: right;
     margin-left: 5px;
@@ -89,22 +89,21 @@
     overflow-y: auto;
 }
 
-
 .message_item {
     float: left;
     max-width: 85%;
 }
 
-.message_item .alert{
+.message_item .media-body {
     max-width: 85%;
-    width:auto;
+    width: auto;
 }
 
-.message_item .media-object{
+.message_item .media-object {
     border-radius: 30px;
 }
 
-.message_item .media-bottom{
+.message_item .media-bottom {
     float: right;
     font-size: 0.7em;
 }
@@ -114,12 +113,12 @@
     direction: rtl;
 }
 
-.message_outgoing .media-body{
+.message_outgoing .media-body {
     direction: ltr;
     text-align: right;
 }
 
-.message_outgoing .media-bottom{
+.message_outgoing .media-bottom {
     float: left;
 }
 

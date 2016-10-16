@@ -245,7 +245,8 @@
                             Action <span class="caret"></span>
                         </button>
                         <ul class="dropdown-menu">
-                            <li><a href="#"> Delete Conversation </a></li>
+                            <li><a type="button" class="btn" data-toggle="modal" data-target="#deleteConfirmationModal">
+                                Delete Conversation</a></li>
                         </ul>
                     </div>
 
@@ -259,10 +260,31 @@
 
     </div>
 
-    <script>
-        $(function () {
-            $('[data-toggle="tooltip"]').tooltip()
-        })
-    </script>
+
+
+
+    <!-- Delete Conversation Approval Modal -->
+    <div class="modal fade" id="deleteConfirmationModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Delete Entire Conversation?</h4>
+                </div>
+                <div class="modal-body">
+                    Are you sure to delete all messages in this conversation?
+                    <p>This cannot be undone.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-danger"><span class="glyphicon glyphicon-trash"
+                                                                       aria-hidden="true"></span>
+                        &nbsp;Delete Conversation
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
 
 {% endblock %}
