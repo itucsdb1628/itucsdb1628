@@ -1,0 +1,60 @@
+.musicspage {
+    position: fixed;
+	overflow-y: auto;
+	overflow-x: hidden;
+    left: 0;
+    right: 0;
+    top: 100px;
+    bottom: 32px;
+    margin-left: 2%;
+    margin-right: 2%;
+}
+
+.musicspage a {
+    text-decoration: none;
+}
+audio {
+	width: 300px;
+}
+.musicspage .left_holder{
+	padding-top: 10px;
+	background-color: #5E6B8A;
+	box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 1), 0 6px 20px 0 rgba(0, 0, 0, 0.4);
+}
+.musicspage .right_holder{
+	padding-top: 10px;
+	background-color: #5E6B8A;
+	box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 1), 0 6px 20px 0 rgba(0, 0, 0, 0.4);
+}
+.musicspage .thumbnail{
+	background-color: #EFEFEF;
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+.musicspage .thumbnail img{
+	border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 5px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    margin-bottom: 10px;
+}
+
+.musicspage .thumbnail .name{
+	text-shadow: 2px 2px 2px #000000;
+	font-family: "Verdana";
+	font-weight: bold;
+	font-size: 1vw;
+	text-align: center;
+	text-transform: capitalize;
+	margin-bottom: 0;
+	color: #f98100;
+}
+.musicspage .thumbnail .song_count{
+	font-size: 0.7vw;
+	text-align: center;
+	margin-bottom: 0;
+	color: #3C5E89;
+}
+
+.musicspage .right_holder .panel-body{
+	padding: 0;
+}
