@@ -1,16 +1,153 @@
 {% extends "base.html" %}
-{% block title %}ListnTo{% endblock %}
+{% block home_static_links %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/homepage.css') }}" />
+{% endblock %}
+
 {% block layout %}
-      <div class="page-header">
-        <h1>Welcome to ITUCSDB1628!</h1>
-        <p> dsf sd fds1</p>
-        <p> dsf sd fds1</p>
-        <p> dsf sd fds1</p>
-        <p> dsf sd fds1</p>
-        <p> dsf sd fds1</p>
-        <p> dsf sd fds1</p>
-        <p> dsf sd fds1</p>
-        <p> dsf sd fds1</p>
-        <p> dsf sd fds1</p>
+<div class = "navbar-fixed-top">
+	<nav class="navbar navbar-default">
+
+  		<div class="container-fluid">
+    		<div class="navbar-header">			<!------------ logo ------------>
+		      <img alt="Logo" src="{{ url_for('static', filename='images/logo/logo_vector.svg') }}"
+			        		width = "80px">
+			  <img alt="Logo" src="{{ url_for('static', filename='images/logo/ListnTo.svg') }}"
+			        		width = "80px">
+   			 </div>								<!------------ logo ------------>
+
+
+    		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+           <! --------------------------buttons -------------------------------------->
+				<ul class="nav navbar-nav header-menu navbar-right">
+					<li class="signin-button"><button type="button" class="btn btn-default " data-toggle="modal" data-target="#signin_modal">Sign In </button>
+					<li class="signup-button"><button type="button" class="btn btn-success" data-toggle="modal" data-target="#signup_modal">Sign Up </button>
+      			</ul>
+           <!-----------------------------buttons---------------------------------------------------------->
+			</div><!-- /.navbar-collapse -->
+    	</div><!-- /.container-fluid -->
+    </nav>
+</div>
+
+
+<div class="images">
+	</br>
+	</br>
+	</br>
+	<center><img src="{{ url_for('static', filename='images/logo.jpg') }}" class="img-circle" alt="Logo" width="350" height="350"></center>
+</div>
+
+<div class="temp-button">
+	</br>
+	</br>
+	<center><a href="{{ url_for('timeline_page') }}"><button type="submit" class="btn btn-default">Go to Timeline</button></span></a></center>
+</div>
+
+  <!-------------------------Sign In Modal -------------------------------->
+<div id="signin_modal" class="modal fade" role="dialog">
+  <div class="modal-dialog modal-sm">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Sign In</h4>
       </div>
+      <div class="modal-body">
+        <div class="login-form-1">
+		<form id="login-form" class="text-left">
+			<div class="login-form-main-message"></div>
+			<div class="main-login-form">
+				<div class="login-group">
+					<div class="form-group">
+						<label for="lg_username" class="sr-only">Username</label>
+						<input type="text" class="form-control" id="lg_username" name="lg_username" placeholder="username">
+					</div>
+					<div class="form-group">
+						<label for="lg_password" class="sr-only">Password</label>
+						<input type="password" class="form-control" id="lg_password" name="lg_password" placeholder="password">
+					</div>
+					<div class="form-group login-group-checkbox">
+						<input type="checkbox" id="lg_remember" name="lg_remember">
+						<label for="lg_remember">remember</label>
+					</div>
+				</div>
+			</div>
+			<div class="etc-login-form">
+				<p>forgot your password? <a href="#">click here</a></p>
+			</div>
+		</form>
+	</div>
+      </div>
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-default">Sign In</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+<!-------------------------------Sign In Modal--------------------------------->
+
+<!-------------------------Sign Up Modal -------------------------------->
+<div id="signup_modal" class="modal fade" role="dialog">
+  <div class="modal-dialog modal-sm">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Sign Up</h4>
+      </div>
+      <div class="modal-body">
+       	<div class="login-form-1">
+		<form id="register-form" class="text-left">
+			<div class="login-form-main-message"></div>
+			<div class="main-login-form">
+				<div class="login-group">
+					<div class="form-group">
+						<label for="reg_username" class="sr-only">Email address</label>
+						<input type="text" class="form-control" id="reg_username" name="reg_username" placeholder="username">
+					</div>
+					<div class="form-group">
+						<label for="reg_password" class="sr-only">Password</label>
+						<input type="password" class="form-control" id="reg_password" name="reg_password" placeholder="password">
+					</div>
+					<div class="form-group">
+						<label for="reg_password_confirm" class="sr-only">Password Confirm</label>
+						<input type="password" class="form-control" id="reg_password_confirm" name="reg_password_confirm" placeholder="confirm password">
+					</div>
+
+					<div class="form-group">
+						<label for="reg_email" class="sr-only">Email</label>
+						<input type="text" class="form-control" id="reg_email" name="reg_email" placeholder="email">
+					</div>
+					<div class="form-group">
+						<label for="reg_fullname" class="sr-only">Full Name</label>
+						<input type="text" class="form-control" id="reg_fullname" name="reg_fullname" placeholder="full name">
+					</div>
+
+					<div class="form-group login-group-checkbox">
+						<input type="radio" class="" name="reg_gender" id="male" placeholder="username">
+						<label for="male">male</label>
+
+						<input type="radio" class="" name="reg_gender" id="female" placeholder="username">
+						<label for="female">female</label>
+					</div>
+
+					<div class="form-group login-group-checkbox">
+						<input type="checkbox" class="" id="reg_agree" name="reg_agree">
+						<label for="reg_agree">i agree with <a href="#">terms</a></label>
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-success" data-dismiss="modal">Sign Up</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+<!-------------------------------Sign Up Modal--------------------------------->
 {% endblock %}
