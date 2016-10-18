@@ -5,27 +5,25 @@
 
 {% block layout %}
 
-<body background="{{ url_for('static', filename='images/background_800.jpg') }}">
+<body background="{{ url_for('static', filename='images/background_1600.jpg') }}">
 
 <div class="images">
-	</br>
-	</br>
-	</br>
-	<center><img src="{{ url_for('static', filename='images/logo.jpg') }}" class="img-circle" alt="Logo" width="350" height="350"><center>
+	<center><img src="{{ url_for('static', filename='images/logo/logo_vector.svg') }}" class="img-circle mylogo" alt="Logo" width="350" height="350"><center>
+	<center><img src="{{ url_for('static', filename='images/logo/ListnTo.svg') }}" class="mylogo2" alt="Logo" width="350"><center>
 </div>
 
 <center><div class="button">
 	</br>
 	</br>
-	<a href="{{ url_for('timeline_page') }}"><button type="submit" class="btn btn-danger">Go to Timeline</button></span></a>
+	<a href="{{ url_for('timeline_page') }}"><button type="submit" class="btn-danger btn-lg">Go to Timeline</button></span></a>
 </div></center>
 
 <! --------------------------buttons -------------------------------------->
 
 <center><div class="row">
 	</br></br>
-	<button type="button" class="btn btn-danger " data-toggle="modal" data-target="#signin_modal">Sign In </button>
-	<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#signup_modal">Sign Up </button>
+	<button type="button" class="btn-lg btn-info " data-toggle="modal" data-target="#signin_modal">Sign In </button>
+	<button type="button" class="btn-lg btn-success" data-toggle="modal" data-target="#signup_modal">Sign Up </button>
 </div><center>
            <!-----------------------------buttons---------------------------------------------------------->
   <!-------------------------Sign In Modal -------------------------------->
