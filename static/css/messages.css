@@ -106,6 +106,15 @@
 .message_item .media-bottom {
     float: right;
     font-size: 0.7em;
+    color: #999;
+}
+
+.message_item .media-bottom .status{
+    margin-right: 3px;
+}
+
+.message_item .media-bottom .read {
+    color: #2aabd2;
 }
 
 .message_outgoing {
