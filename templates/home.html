@@ -1,47 +1,33 @@
 {% extends "base.html" %}
-{% block home_static_links %}
+{% block static_links %}
     <link rel="stylesheet" href="{{ url_for('static', filename='css/homepage.css') }}" />
 {% endblock %}
 
 {% block layout %}
-<div class = "navbar-fixed-top">
-	<nav class="navbar navbar-default">
 
-  		<div class="container-fluid">
-    		<div class="navbar-header">			<!------------ logo ------------>
-		      <img alt="Logo" src="{{ url_for('static', filename='images/logo/logo_vector.svg') }}"
-			        		width = "80px">
-			  <img alt="Logo" src="{{ url_for('static', filename='images/logo/ListnTo.svg') }}"
-			        		width = "80px">
-   			 </div>								<!------------ logo ------------>
-
-
-    		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-           <! --------------------------buttons -------------------------------------->
-				<ul class="nav navbar-nav header-menu navbar-right">
-					<li class="signin-button"><button type="button" class="btn btn-default " data-toggle="modal" data-target="#signin_modal">Sign In </button>
-					<li class="signup-button"><button type="button" class="btn btn-success" data-toggle="modal" data-target="#signup_modal">Sign Up </button>
-      			</ul>
-           <!-----------------------------buttons---------------------------------------------------------->
-			</div><!-- /.navbar-collapse -->
-    	</div><!-- /.container-fluid -->
-    </nav>
-</div>
-
+<body background="{{ url_for('static', filename='images/background_800.jpg') }}">
 
 <div class="images">
 	</br>
 	</br>
 	</br>
-	<center><img src="{{ url_for('static', filename='images/logo.jpg') }}" class="img-circle" alt="Logo" width="350" height="350"></center>
+	<center><img src="{{ url_for('static', filename='images/logo.jpg') }}" class="img-circle" alt="Logo" width="350" height="350"><center>
 </div>
 
-<div class="temp-button">
+<center><div class="button">
 	</br>
 	</br>
-	<center><a href="{{ url_for('timeline_page') }}"><button type="submit" class="btn btn-default">Go to Timeline</button></span></a></center>
-</div>
+	<a href="{{ url_for('timeline_page') }}"><button type="submit" class="btn btn-danger">Go to Timeline</button></span></a>
+</div></center>
 
+<! --------------------------buttons -------------------------------------->
+
+<center><div class="row">
+	</br></br>
+	<button type="button" class="btn btn-danger " data-toggle="modal" data-target="#signin_modal">Sign In </button>
+	<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#signup_modal">Sign Up </button>
+</div><center>
+           <!-----------------------------buttons---------------------------------------------------------->
   <!-------------------------Sign In Modal -------------------------------->
 <div id="signin_modal" class="modal fade" role="dialog">
   <div class="modal-dialog modal-sm">
