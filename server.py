@@ -33,21 +33,6 @@ def messages_page():
     return render_template('messages.html')
 
 
-
-
-@app.route('/count')
-def test_page():
-    with dbapi2.connect(app.config['dsn']) as connection:
-        cursor = connection.cursor()
-        query ="UPDATE COUNTER SET N = N+1"
-        cursor.execute(query)
-        connection.commit()
-        
-        query = "SELECT N FROM COUNTER"
-        cursor.execute(query)
-        count = cursor.fetchone()[0]
-    return "This page was %d times." % count
-
 @app.route('/profile')
 def profile_page():
     return render_template("profile.html")
