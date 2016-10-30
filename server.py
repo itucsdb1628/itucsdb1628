@@ -58,6 +58,10 @@ def initialize_database():
     create_user_table()
     firstuser = User(1,"user1","password1")
     insert_user(firstuser)
+
+    create_comment_table()
+    first_comment = Comment("first",1,1,datetime.datetime.now())
+    insert_comment(first_comment)
     return redirect(url_for('home_page'))
 
 
