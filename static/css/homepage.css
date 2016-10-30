@@ -1,0 +1,19 @@
+.images{
+	margin-left: auto;
+    margin-right: auto;
+    border: none !important;
+}
+.button{
+	margin-left: auto;
+    margin-right: auto;
+    border: none !important;
+}
+.mylogo{
+	background-color:rgba(111, 11, 11, 0.2);
+	box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 1), 0 6px 20px 0 rgba(0, 0, 0, 0.4);
+}
+.mylogo2{
+	margin-top: 10px;
+	box-shadow: 0 0 250px #ffffff;
+	background-color:rgba(222, 222, 222, 0.3);
+}

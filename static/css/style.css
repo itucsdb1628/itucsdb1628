@@ -1,0 +1,35 @@
+body {
+  background-color: white;
+  color: #6F6F6F;
+  font-family: 'Droid Sans', 'Helvetica', 'sans';
+  font-size: 12pt;
+  padding-top: 100px;
+}
+
+h1, h2, h3, h4 {
+  color: #E9601A;
+}
+
+a {
+  color: #6F6F6F;
+  text-decoration: underline;
+}
+
+div#datetime {
+  font-size: 80%;
+  text-align: right;
+}
+
+.footer {
+    clear: both;
+    position: fixed;
+    width:100%;
+    padding:5px;
+    text-align: center;
+    background-color: #ececec;
+    bottom:0;
+
+}
+.navbar{
+	height: 80px;
+}

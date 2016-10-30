@@ -1,0 +1,80 @@
+{% extends "layout.html" %}
+
+{% block title %}
+
+      Activities
+
+{% endblock %}
+
+{% block static_links %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/profile.css') }}" />
+ 	<link rel="stylesheet" href="{{ url_for('static', filename='css/activities.css') }}" />
+{% endblock %}
+
+{% block content  %}
+	<div class = "container">
+		<div class = "activities">
+			<div class="panel panel-danger panel1">
+  				<div class="panel-heading">
+    				<h3 class="panel-title"> <span class="glyphicon glyphicon-heart" aria-hidden="true" style = "color:red;"></span> <a href="#" title="First Name Last Name">First Name Last Name</a> liked your post!</h3>
+  				</div>
+  				<div class="panel-body">
+  					<div class = row>
+  						<div class = "col-xs-3">
+  						<p style="float:left; padding-top:10px;"><a href="#" title="Pink Floyd"><img src="{{ url_for('static', filename='images/pinkfloyd.jpg') }}" width="40px"/></a></p>
+  						<h4 style = "padding-left: 50px; color: black;"> Pink Floyd</h4>
+  						<p class = "list-group-item-text" style = "padding-left: 50px;"> content content content content content content content content content</p>
+  						</div>
+  					</div>
+  				</div>
+  				<div class = "panel-footer">
+  				<i class="glyphicon glyphicon-time"></i> 3 days ago <span class="twitter"> <i class="fa fa-twitter"></i> </span>
+  				</div>
+			</div>
+
+			<div class="panel panel-primary panel2">
+  				<div class="panel-heading">
+    				<h3 class="panel-title"> <span class="glyphicon glyphicon-comment" aria-hidden="true" style = "color:white;"></span> <a href="#" title="First Name Last Name">First Name Last Name</a> commented on your post!</h3>
+  				</div>
+  				<div class="panel-body">
+  					<div class = row>
+  						<div class = "col-xs-3">
+  						<p style="float:left; padding-top:10px;"><a href="#" title="Metallica"><img src="{{ url_for('static', filename='images/metallica.jpg') }}" width="40px"/></a></p>
+  						<h4 style = "padding-left: 50px; color: black;">Metallica</h4>
+  						<p class = "list-group-item-text" style = "padding-left: 50px;"> content content content content content content content content content</p>
+  						<blockquote>
+  						<p style="float:left; padding-top:10px;"><a href="#" title="First Name Last Name"><img src="{{ url_for('static', filename='images/avatar.jpg') }}" width="40px"/></a></p>
+  						<p style = "padding-top:10px;"><footer>Nice!</footer></p>
+  						</blockquote>
+  						</div>
+  					</div>
+  				</div>
+  				<div class = "panel-footer">
+  				<i class="glyphicon glyphicon-time"></i> 2 weeks ago <span class="twitter"> <i class="fa fa-twitter"></i> </span>
+  				</div>
+			</div>
+
+			<div class="panel panel-warning panel3">
+  				<div class="panel-heading">
+    				<h3 class="panel-title"> <span class="glyphicon glyphicon-share" aria-hidden="true"></span> <a href="#" title="First Name Last Name">First Name Last Name</a> shared your post!</h3>
+  				</div>
+  				<div class="panel-body">
+  					<div class = row>
+  						<div class = "col-xs-3">
+  						<p style="float:left; padding-top:10px;"><a href="#" title="Led Zeppelin"><img src="{{ url_for('static', filename='images/ledzeplin.jpg') }}" width="40px"/></a></p>
+  						<h4 style = "padding-left: 50px; color: black;">Led Zeppelin</h4>
+  						<p class = "list-group-item-text" style = "padding-left: 50px;"> content content content content content content content content content</p>
+
+  						</div>
+  					</div>
+  				</div>
+  				<div class = "panel-footer">
+  				<i class="glyphicon glyphicon-time"></i> a month ago <span class="twitter"> <i class="fa fa-twitter"></i> </span>
+  				</div>
+			</div>
+
+
+		</div>
+	</div>
+{% endblock %}
+
