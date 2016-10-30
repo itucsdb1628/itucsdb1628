@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<item value="0" key="org.eclipse.egit.ui.internal.clone.GitSelectWizardPageWizardSel"/>
+	<list key="RepositorySelectionPage.UsedUris">
+		<item value="https://github.com/itucsdb1628/itucsdb1628.git"/>
+		<item value="https://github.com/itucsdb1628/itucsdb1628"/>
+	</list>
+	<list key="EGit.KnownHosts">
+		<item value="git.eclipse.org"/>
+		<item value="bitbucket.org"/>
+		<item value="github.com"/>
+	</list>
+	<list key="CommitDialog.authorValues">
+		<item value="kgn95&lt;kaganozgun@gmail.com&gt;"/>
+		<item value="kagan &lt;kagan@kagan-ABRA-A5-V2&gt;"/>
+	</list>
+	<list key="CommitDialog.committerValues">
+		<item value="kgn95&lt;kaganozgun@gmail.com&gt;"/>
+		<item value="kagan &lt;kagan@kagan-ABRA-A5-V2&gt;"/>
+		<item value="kagan&lt;kaganozgun@gmail.com&gt;"/>
+	</list>
+	<section name="GitImportWizard">
+		<item value="true" key="GitProjectsImportPage.STORE_NESTED_PROJECTS"/>
+	</section>
+	<section name="org.eclipse.egit.ui.internal.push.PushResultDialog.dialogBounds">
+		<item value="650" key="DIALOG_WIDTH"/>
+		<item value="1|Ubuntu|11.0|0|GTK|1|" key="DIALOG_FONT_NAME"/>
+		<item value="456" key="DIALOG_HEIGHT"/>
+		<item value="278" key="DIALOG_X_ORIGIN"/>
+		<item value="238" key="DIALOG_Y_ORIGIN"/>
+		<list key="sashWeights">
+			<item value="600"/>
+			<item value="400"/>
+		</list>
+	</section>
+	<section name="org.eclipse.egit.ui.internal.pull.PullResultDialog.dialogBounds">
+		<item value="751" key="DIALOG_WIDTH"/>
+		<item value="1|Ubuntu|11.0|0|GTK|1|" key="DIALOG_FONT_NAME"/>
+		<item value="406" key="DIALOG_HEIGHT"/>
+		<item value="177" key="DIALOG_X_ORIGIN"/>
+		<item value="397" key="DIALOG_Y_ORIGIN"/>
+	</section>
+	<section name="GitCommitMessageComponent">
+		<list key="/home/kagan/git/itucsdb1628/.git">
+			<item value="false"/>
+			<item value="kgn95 &lt;kaganozgun@gmail.com&gt;"/>
+			<item value="Added user table sql&apos;s for CREATE and INSERT operation and added user.py class under data access objects folder"/>
+			<item value="kgn95 &lt;kaganozgun@gmail.com&gt;"/>
+			<item value="18c826a7a3d6933fcb23d8369fcff5f59c8418e7"/>
+		</list>
+	</section>
+	<section name="org.eclipse.egit.ui.internal.staging.StagingView">
+		<item value="500,500" key="STAGING_SASH_FORM_WEIGHT"/>
+		<item value="false" key="sortItemState"/>
+		<item value="500,500" key="HORIZONTAL_SASH_FORM_WEIGHT"/>
+	</section>
+</section>

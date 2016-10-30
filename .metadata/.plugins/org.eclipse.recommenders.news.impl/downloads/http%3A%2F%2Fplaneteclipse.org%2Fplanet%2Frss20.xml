@@ -1,0 +1,612 @@
+<?xml version="1.0"?>
+<rss version="2.0">
+
+<channel>
+	<title>Planet Eclipse</title>
+	<link>http://planeteclipse.org/planet/</link>
+	<language>en</language>
+	<description>Planet Eclipse - http://planeteclipse.org/planet/</description>
+
+<item>
+	<title>Melanie Bats: Sirius 4.1 is Out! What’s Inside ? Sadness</title>
+	<guid isPermaLink="false">http://melb.enix.org/?p=404</guid>
+	<link>http://melb.enix.org/sirius/sirius-4-1-is-out-whats-inside-sadness/</link>
+	<description>&lt;p dir=&quot;ltr&quot;&gt;That’s too sad! &lt;a href=&quot;https://www.eclipsecon.org/europe2016/&quot;&gt;EclipseCon Europe&lt;/a&gt; finished yesterday.&lt;img alt=&quot;&quot; class=&quot;aligncenter&quot; height=&quot;163&quot; src=&quot;https://lh5.googleusercontent.com/TPpOymkpFHaoSaG6PaO6QOx-pkEHfyb30AJXutJRvzseHcYrVLjXqjHvLW6RmEtLL-XQLhaNwdAXJ5ZLoTbcite9ThdRFPFMAvWAAKw7YbJU2XAB9AkGH-QqFwd-feKlnP9VSjCZ&quot; style=&quot;font-weight: 300;&quot; width=&quot;180&quot; /&gt;&lt;/p&gt;
+&lt;p dir=&quot;ltr&quot;&gt;It was again a great conference, with inspiring talks and excellent discussions with different members of the Eclipse community. These moments with our community are motivating us to prepare the future of &lt;a href=&quot;https://www.eclipse.org/sirius&quot;&gt;Eclipse Sirius&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt; &lt;span style=&quot;font-weight: 300;&quot;&gt;So what’s next? What would we cook for you in Eclipse Oxygen?&lt;/span&gt;&lt;/p&gt;
+&lt;p dir=&quot;ltr&quot;&gt;&lt;img alt=&quot;3ba14416270031.5632259d47f7e.jpg&quot; class=&quot;aligncenter&quot; height=&quot;518px;&quot; src=&quot;https://lh5.googleusercontent.com/86Q-tucOegM1hBilPjX7MnVz799SAXs06VYsr00cG0vfvG6yuYIQd4KOsh8JBcRZ39CNjlMBiNEe2B55ZVn8LAZr24oH_fhcntTu3CxBIN3_fsQ2DoXhzIKQWEPRnXJIudqgAIrUTJM&quot; width=&quot;481px;&quot; /&gt;&lt;/p&gt;
+&lt;p dir=&quot;ltr&quot;&gt;&lt;span style=&quot;font-weight: 300;&quot;&gt;As we already said in our talk, we are already preparing the future with Sirius 4.1 when we introduce the &lt;em&gt;DRepresentationDescriptor&lt;/em&gt;. This internal change has no impact on normal users: it was made as a first step to &lt;strong&gt;prepare for better scalability&lt;/strong&gt; down the road. For specifiers and developers who wrote code that depends on the internal organisation of the *.aird files, you may need to adapt your code.&lt;/span&gt;&lt;/p&gt;
+&lt;p dir=&quot;ltr&quot;&gt;To learn more about the Sirius roadmap, be sure to not missed Cedric’s talk at &lt;a href=&quot;http://www.siriuscon.org/&quot;&gt;SiriusCon&lt;/a&gt;.&lt;/p&gt;
+&lt;p dir=&quot;ltr&quot;&gt;&lt;img alt=&quot;&quot; class=&quot;aligncenter&quot; height=&quot;365&quot; src=&quot;https://lh3.googleusercontent.com/gMyJVnQOtgkYSQqj-GrFnmxLwmRNKrB1j2UNDgYoKJw3bIyY3NDYf3CBx3N-AFKe9FInu0jWqeptY63fX3VsqHoaxijTFHodZt2wh3t3stErq1NZ0boxgaA-B_jiRNiF9DbGo6w_&quot; width=&quot;408&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;span style=&quot;font-weight: 300;&quot;&gt;I will also give a talk with Stéphane specifically about the Properties view feature, we will detail what’s possible with this new feature:&lt;/span&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p dir=&quot;ltr&quot;&gt;Let Sirius automatically create default properties views for your designer&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p dir=&quot;ltr&quot;&gt;Create a simple properties view description and customize it as you do for other types of representations thanks to the following widgets: label, text, text area, checkbox, radio, list, reference&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p dir=&quot;ltr&quot;&gt;Use the new EMF.Edit customizations provided by Sirius&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p dir=&quot;ltr&quot;&gt;Discover the power of the dynamic mappings to automatically create the properties view fields for the different types of elements used in your metamodels&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p dir=&quot;ltr&quot;&gt;Understand how to provide filters and validation programmatically&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p dir=&quot;ltr&quot;&gt;&lt;span style=&quot;font-weight: 300;&quot;&gt;Learn how to contribute some custom widgets&lt;/span&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p dir=&quot;ltr&quot;&gt;And much more!&lt;/p&gt;
+&lt;p dir=&quot;ltr&quot;&gt;Do not look for excuses, SiriusCon is where you have to be if you are interested in graphical modeling: easy to come as it will be held in Paris near the tour Eiffel, it’s a one day event, and it’s free. The &lt;a href=&quot;http://www.siriuscon.org/#program&quot;&gt;program&lt;/a&gt; promises to be interesting with talks about case studies on the morning, technical sessions by the afternoon and a clinic all the day.&lt;/p&gt;
+&lt;p&gt;I am counting on you &lt;a href=&quot;http://www.siriuscon.org/register.php&quot;&gt;being there&lt;/a&gt; on November 15th and I hope to see you soon at SiriusCon!&lt;/p&gt;</description>
+	<pubDate>Fri, 28 Oct 2016 05:30:51 +0000</pubDate>
+</item>
+<item>
+	<title>Pascal Rapicault: 5 reasons to use EGerrit - #3, In-place comments</title>
+	<guid isPermaLink="false">tag:blogger.com,1999:blog-27225531.post-4283871304406313285</guid>
+	<link>http://prapicault.blogspot.com/2016/10/5-reasons-to-use-egerrit-3-in-place.html</link>
+	<description>To celebrate the release of &lt;a href=&quot;http://wiki.eclipse.org/EGerrit/New_and_Noteworthy/1.1.1&quot;&gt;EGerrit 1.1&lt;/a&gt;, we are enumerating the &lt;a href=&quot;http://prapicault.blogspot.ca/2016/10/5-reasons-to-use-egerrit-5-being-in.html&quot;&gt;top&lt;/a&gt; &lt;a href=&quot;http://prapicault.blogspot.com/2016/10/5-reasons-to-use-egerrit-4-simple.html&quot;&gt;5&lt;/a&gt; features of the tool.&lt;br /&gt;&lt;br /&gt;&lt;h3&gt;&lt;b&gt;Reason #3 – In-place comments.&lt;/b&gt;&lt;/h3&gt;Performing a review means commenting. As you go through the changes, you want to enter comments right here and there, and this can be done directly from the compare editor! Simply start typing in the editor and you will see the new text appear with a yellow background indicating that this is a comment (see picture).&lt;br /&gt;&lt;br /&gt;&lt;div class=&quot;separator&quot; style=&quot;clear: both; text-align: center;&quot;&gt;&lt;a href=&quot;http://2.bp.blogspot.com/-trTf7rtUngI/WA9ybxR53mI/AAAAAAAAAUU/gSLYvjNJdik51PrR4lOXtYrwCrcKBJtywCK4B/s1600/800px-Compare1.0.png&quot; style=&quot;margin-left: 1em; margin-right: 1em;&quot;&gt;&lt;img border=&quot;0&quot; height=&quot;360&quot; src=&quot;https://2.bp.blogspot.com/-trTf7rtUngI/WA9ybxR53mI/AAAAAAAAAUU/gSLYvjNJdik51PrR4lOXtYrwCrcKBJtywCK4B/s640/800px-Compare1.0.png&quot; width=&quot;640&quot; /&gt;&lt;/a&gt;&lt;/div&gt;Saving the editor will push the comments as drafts.  Of course comments that have been entered by other users are also shown in place. &lt;br /&gt;You can download EGerrit from the &lt;a href=&quot;http://download.eclipse.org/releases/neon&quot; target=&quot;_blank&quot;&gt;Neon release &lt;/a&gt;repo or from the &lt;a href=&quot;http://marketplace.eclipse.org/content/egerrit&quot; target=&quot;_blank&quot;&gt;Eclipse Marketplace&lt;/a&gt;. For questions, you can connect with us on &lt;a href=&quot;https://dev.eclipse.org/mailman/listinfo/egerrit-dev&quot;&gt;egerrit-dev@eclipse.org&lt;/a&gt;; and for bugs or to take a peek at the future you can see our &lt;a href=&quot;https://tuleap.eclipse.org/plugins/agiledashboard/?group_id=102&amp;amp;action=showKanban&amp;amp;id=6#/kanban&quot; target=&quot;_blank&quot;&gt;Kanban board&lt;/a&gt;.</description>
+	<pubDate>Fri, 28 Oct 2016 05:30:24 +0000</pubDate>
+	<author>noreply@blogger.com (Pascal)</author>
+</item>
+<item>
+	<title>Jeremie Bresson: Asciidoctor instead of MediaWiki?</title>
+	<guid isPermaLink="true">http://jmini.github.io/blog/2016/2016-10-28_from_mediawiki_to_asciidoc.html</guid>
+	<link>http://jmini.github.io/blog/2016/2016-10-28_from_mediawiki_to_asciidoc.html</link>
+	<description>&lt;div class=&quot;paragraph&quot;&gt; 
+ &lt;p&gt;During &lt;a href=&quot;https://www.eclipsecon.org/europe2016/&quot;&gt;EclipseCon Europe 2016&lt;/a&gt; we had a great BoF Session about documentation with Asciidoctor at Eclipse. A lot of subjects were discussed, from the editing possibilities inside or outside Eclipse IDE to the best toolchains for document generation/customization.&lt;/p&gt; 
+&lt;/div&gt; 
+&lt;div class=&quot;imageblock&quot;&gt; 
+ &lt;div class=&quot;content&quot;&gt; 
+  &lt;img alt=&quot;BoFs Session Schedule at EclipseCon Europe 2016&quot; src=&quot;http://jmini.github.io/blog/2016/2016-10-28_bofs_eclipsecon_europe_2016.jpg&quot; /&gt; 
+ &lt;/div&gt; 
+&lt;/div&gt; 
+&lt;div class=&quot;paragraph&quot;&gt; 
+ &lt;p&gt;One topic that was discussed during the meeting was the conversion of MediaWiki documentation to the AsciiDoc format. I am happy to blog about this topic and to propose a solution.&lt;/p&gt; 
+&lt;/div&gt; 
+&lt;div class=&quot;paragraph&quot;&gt; 
+ &lt;p&gt;A lot of Eclipse projects are using the &lt;a href=&quot;https://wiki.eclipse.org/&quot;&gt;Eclipse MediaWiki instance&lt;/a&gt; for their documentation. Maybe I can summarize my vision on this topic: I consider the usage of a Git repository better as a wiki engine. A wiki engine is not enough when it comes to documentation of different versions of your project/product (git branches, cherry pick…​). If you host the repository on GitHub (it works also with GitLab) and if you use one of the markup syntaxes supported by the online editor, you get almost the same experience as with a wiki engine (online edition, online preview of changes, navigation in the history, diffs…​). Reviews and discussions inside pull requests are a great way to collaborate. Having also everything offline is a big plus (I work a lot in the train). Amongst the different markup syntaxes you can choose, I consider the AsciiDoc format as the best option (management of code snippets, callout support in listings blocs, variable substitution and conditional inclusion, multiple output formats, live preview in browser during edition in any text editor, easy integration in existing build toolchain, possibility to extend the language with custom macros…​). In my opinion Asciidoctor is becoming a state of the art documentation toolchain in many projects.&lt;/p&gt; 
+&lt;/div&gt; 
+&lt;div class=&quot;paragraph&quot;&gt; 
+ &lt;p&gt;This immediately raises the next question: what can we do with the great content we have on the Eclipse wiki? How can it be migrated to the AsciiDoc format? In my opinion the &lt;a href=&quot;https://eclipse.org/mylyn/docs&quot;&gt;Mylyn Wikitext project&lt;/a&gt; can help, but an &lt;code&gt;AsciiDocDocumentBuilder&lt;/code&gt; is missing. I have opened &lt;a href=&quot;https://bugs.eclipse.org/bugs/show_bug.cgi?id=506643&quot;&gt;Bug 506643&lt;/a&gt; for that and &lt;a href=&quot;https://git.eclipse.org/r/84040&quot;&gt;contributed&lt;/a&gt; a first implementation. My code will now go through the eclipse review process. To test it today, you need to check out the repo (and the corresponding gerrit change).&lt;/p&gt; 
+&lt;/div&gt; 
+&lt;div class=&quot;paragraph&quot;&gt; 
+ &lt;p&gt;Here a simple example:&lt;/p&gt; 
+&lt;/div&gt; 
+&lt;div class=&quot;listingblock&quot;&gt; 
+ &lt;div class=&quot;title&quot;&gt;
+  Listing 1. Example MediaWiki document
+ &lt;/div&gt; 
+ &lt;div class=&quot;content&quot;&gt; 
+  &lt;pre&gt;'''Lorem ipsum''' sed tempor euismod elit, et eleifend tellus lacinia a.
+
+=== Penatibus et magnis
+
+Pellentesque ut ''lorem lorem''.
+
+[[Image:foo.png|Foo image]]
+
+Nulla ut sapien tellus. Quisque id semper nulla. Nullam facilisis risus turpis.
+
+* Cras posuere tempor urna
+* Laoreet pharetra diam rhoncus at
+* Quisque ornare diam eu iaculis auctor.
+
+Pellentesque tincidunt ultricies varius. [http://eclipse.org/ Lorem ipsum dolor] sit amet, consectetur adipiscing elit.
+
+Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Suspendisse potenti.&lt;/pre&gt; 
+ &lt;/div&gt; 
+&lt;/div&gt; 
+&lt;div class=&quot;paragraph&quot;&gt; 
+ &lt;p&gt;That will be converted to:&lt;/p&gt; 
+&lt;/div&gt; 
+&lt;div class=&quot;listingblock&quot;&gt; 
+ &lt;div class=&quot;title&quot;&gt;
+  Listing 2. Result of the conversion to AsciiDoc
+ &lt;/div&gt; 
+ &lt;div class=&quot;content&quot;&gt; 
+  &lt;pre&gt;*Lorem ipsum* sed tempor euismod elit, et eleifend tellus lacinia a.
+
+=== Penatibus et magnis
+
+Pellentesque ut _lorem lorem_.
+
+image:foo.png[title=&quot;Foo image&quot;]
+
+Nulla ut sapien tellus. Quisque id semper nulla. Nullam facilisis risus turpis.
+
+* Cras posuere tempor urna
+* Laoreet pharetra diam rhoncus at
+* Quisque ornare diam eu iaculis auctor.
+
+Pellentesque tincidunt ultricies varius. link:http://eclipse.org/[Lorem ipsum dolor] sit amet, consectetur adipiscing elit.
+
+Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Suspendisse potenti.&lt;/pre&gt; 
+ &lt;/div&gt; 
+&lt;/div&gt; 
+&lt;div class=&quot;paragraph&quot;&gt; 
+ &lt;p&gt;Of course my tool has certainly some limitations. Markup conversion is never an easy task. I think that the MediaWiki parser provided by the Mylyn Wikitext project is a good choice, because it is already used for the generation of some eclipse help pages. For the conversion to AsciiDoc there is already some support in the Wikitext framework (AsciiDoc is just an other output Markup there). I just created a new class: &lt;code&gt;AsciiDocDocumentBuilder&lt;/code&gt; (plus an other one for the test suite). I have used the &lt;code&gt;MarkdownDocumentBuilder&lt;/code&gt; as base and adapted it for AsciiDoc. I consider my implementation as a first usable version. Any feedback is welcomed (on the Bug, on Gerrit, twitter or on the mailing list). Depending on the feedback, I will be happy to iterate and to improve it for concrete use cases.&lt;/p&gt; 
+&lt;/div&gt; 
+&lt;div class=&quot;paragraph&quot;&gt; 
+ &lt;p&gt;By the way, if an Eclipse Project wants to migrate and start to use Asciidoctor, I will be happy to help as much as I can.&lt;/p&gt; 
+&lt;/div&gt;</description>
+	<pubDate>Thu, 27 Oct 2016 22:00:00 +0000</pubDate>
+</item>
+<item>
+	<title>Melanie Bats: Sirius 4.1 is Out! What’s Inside ? Anger</title>
+	<guid isPermaLink="false">http://melb.enix.org/?p=399</guid>
+	<link>http://melb.enix.org/sirius/sirius-4-1-is-out-whats-inside-anger/</link>
+	<description>&lt;p dir=&quot;ltr&quot;&gt;&lt;img alt=&quot;&quot; class=&quot;aligncenter&quot; height=&quot;199&quot; src=&quot;https://lh5.googleusercontent.com/i-BbA6KpaRVD8UnMMUT6OtGUdDJO7ZyRe-lz-Ck0Bn8n1Gf7zR7m516l9UYGDteWGPboc8KDH3bkfqZgXKhO9KqFXApNZco_LjfjEy4kKPaRg5vf44MifWSusoSdaSWyVEvhY0cu&quot; style=&quot;font-weight: 300;&quot; width=&quot;160&quot; /&gt;&lt;/p&gt;
+&lt;p dir=&quot;ltr&quot;&gt;Do you ever feel that? This week I often dreamt I had the gift of ubiquity… I could replicate myself and be in several places at once. It would be a really useful skill to participate to EclipseCon Europe. I am angry to not be able to see all the talks I would have liked to attend. Happily, as every year all the slides will be available on the EclipseCon website and most of the talks are recorded and will be available on the Eclipse Foundation &lt;a href=&quot;https://www.youtube.com/user/EclipseFdn&quot;&gt;youtube channel&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;If you missed our talk yesterday, do not miss our &lt;a href=&quot;https://www.eclipsecon.org/europe2016/session/sirius-41-let-me-sirius-you&quot;&gt;slides available online&lt;/a&gt;.&lt;/p&gt;</description>
+	<pubDate>Thu, 27 Oct 2016 05:30:49 +0000</pubDate>
+</item>
+<item>
+	<title>itemis: BMW builds AUTOSAR backbone with open source projects sponsored by itemis</title>
+	<guid isPermaLink="true">https://blogs.itemis.com/en/bmw-builds-autosar-backbone-with-open-source-projects-sponsored-by-itemis</guid>
+	<link>https://blogs.itemis.com/en/bmw-builds-autosar-backbone-with-open-source-projects-sponsored-by-itemis</link>
+	<description>&lt;p&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;On &lt;/span&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;September 28th the &lt;/span&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;9th AUTOSAR Open Conference took place in Gothenburg.&lt;/span&gt; From an Eclipse/Open Source point of view, &lt;a href=&quot;http://www.autosar.org/fileadmin/files/events/2016-09-28-9th-autosar-open/AUTOSAR_Methodology%40BMW_JAEGER.pdf&quot;&gt;Bernd Jäger's (BMW) talk on their Symphony project&lt;/a&gt; is very interesting.&lt;/p&gt;  
+&lt;p&gt;&lt;span&gt;BMW&lt;/span&gt;&lt;span&gt; has built&lt;/span&gt; the impressive AUTOSAR ECU engineering backbone with Eclipse open source technologies. Engineering data is consolidated from different data sources, merged in a big common model and then exported to AUTOSAR.&lt;/p&gt; 
+&lt;p&gt;Bernd Jäger mentions in his slides a few projects and I am happy to see that some of them are sponsored mainly or in part by itemis. Let us have a look, what the benefits of some of these technologies are.&lt;/p&gt; 
+&lt;h3&gt;Xtend: F&lt;span&gt;lexible and expressive Java-dialect&lt;/span&gt;&lt;/h3&gt; 
+&lt;p&gt;Obviously, we can infer that there are a lot of model-to-model transformations. &lt;a href=&quot;http://www.eclipse.org/xtend/&quot;&gt;Xtend&lt;/a&gt; supports these transformations with its &quot;create&quot; statements that help a lot to avoid caching and multiple passes. Also, you can create strong transformator frameworks &lt;span&gt;with active annotations&lt;/span&gt;. In addition, its concise syntax and lambda support makes it a better Java-dialect – not only for transformations but for any code. &lt;/p&gt; 
+&lt;h3&gt;&lt;span&gt;Xtext: Develop applications based on text based languages&lt;/span&gt;&lt;/h3&gt; 
+&lt;p&gt;&lt;span&gt;&lt;a href=&quot;https://www.itemis.com/en/xtext/&quot;&gt;Xtext&lt;/a&gt; supports the creation of textual domain specific languages. It can be used e.g. to easily create parsers for input files that follow a textual syntax (e.g. a LIN description file - .ldf). In addition, you can create languages for modifying, managing and serializing EMF models. This helps e.g. in creating test data.&lt;/span&gt;&lt;/p&gt; 
+&lt;h3&gt;Artop: Sphinx based framework &lt;/h3&gt; 
+&lt;p&gt;As the common platform for Eclipse/Java based AUTOSAR tooling &lt;a href=&quot;https://www.artop.org/&quot;&gt;Artop&lt;/a&gt; provides you with an implementation of the AUTOSAR metamodel, complete with (de-) serialization to ARXML. It is the most convenient way to read, process and write AUTOSAR.&lt;/p&gt; 
+&lt;h3&gt;Sphinx: Eclipse Modeling Framework-Extension&lt;/h3&gt; 
+&lt;p&gt;Artop is based on &lt;a href=&quot;https://www.eclipse.org/sphinx/&quot;&gt;Sphinx&lt;/a&gt; – a powerful open source project that manages complex models and adds a strong framework on top of the modelling supported by Eclipse EMF.&lt;/p&gt; 
+&lt;p&gt;All of the technologies above have been created and/or are maintained with the involvement of itemis. It is great to see the acceptance they find in the automotive industry.&lt;/p&gt; 
+&lt;p&gt;If you want to know more about the open source projects of itemis &lt;a href=&quot;https://www.eclipsecon.org/europe2016/program/sessions/accepted?keys=itemis&amp;amp;field_experience_value=All&amp;amp;field_session_type_tid=All&quot;&gt;meet us at EclipseCon 2016&lt;/a&gt;! &lt;/p&gt;  
+&lt;img alt=&quot;&quot; height=&quot;1&quot; src=&quot;http://track.hubspot.com/__ptq.gif?a=761475&amp;amp;k=14&amp;amp;r=https%3A%2F%2Fblogs.itemis.com%2Fen%2Fbmw-builds-autosar-backbone-with-open-source-projects-sponsored-by-itemis&amp;amp;bu=https%253A%252F%252Fblogs.itemis.com&amp;amp;bvt=rss&quot; style=&quot;width: 1px!important;&quot; width=&quot;1&quot; /&gt;</description>
+	<pubDate>Wed, 26 Oct 2016 10:37:28 +0000</pubDate>
+	<author>graf@itemis.de (Andreas Graf)</author>
+</item>
+<item>
+	<title>Christian Pontesegger: ECE 2016: Elevate your IDE with scripts</title>
+	<guid isPermaLink="false">tag:blogger.com,1999:blog-3460102793186140898.post-6561843788357367156</guid>
+	<link>http://codeandme.blogspot.com/2016/10/ece-2016-elevate-your-ide-with-scripts.html</link>
+	<description>Being at EclipseCon Europe for me is always a highlight throughout the year. While I am enjoying the talks and discussions (and some beer) you might be interested in what to expect from &lt;a href=&quot;https://www.eclipsecon.org/europe2016/session/elevate-your-ide-scripts&quot; target=&quot;_blank&quot;&gt;my talk&lt;/a&gt; on &lt;a href=&quot;https://www.eclipse.org/ease/&quot; target=&quot;_blank&quot;&gt;EASE &lt;/a&gt;today:&lt;br /&gt;&lt;br /&gt;Well I guess lots of you are already familiar with the basic concept of running scripts in Eclipse. Therefore the talk will focus on scripts that augment the IDE (or any other RCP application) in special ways. We will use them to add toolbar and menu items, we will create a custom builder prototype, learn something about the Event Broker and finally have a look at script deployment methods. Therefore we will use a generic keyword mechanism which can be extended easily to your own needs.&lt;br /&gt;&lt;div class=&quot;separator&quot; style=&quot;clear: both; text-align: center;&quot;&gt;&lt;a href=&quot;https://4.bp.blogspot.com/-8syg5m-cOmE/VIHE9VTtFpI/AAAAAAAAAgk/vWIxHfxmn5EImfx-KL1-A57Gb4Yn9Kh4QCPcB/s1600/explore2.png&quot; style=&quot;margin-left: 1em; margin-right: 1em;&quot;&gt;&lt;img border=&quot;0&quot; src=&quot;https://4.bp.blogspot.com/-8syg5m-cOmE/VIHE9VTtFpI/AAAAAAAAAgk/vWIxHfxmn5EImfx-KL1-A57Gb4Yn9Kh4QCPcB/s1600/explore2.png&quot; /&gt;&lt;/a&gt;&lt;/div&gt;&lt;br /&gt;Even if you do not care about scripting but prefer pure Java this talk might be for you. Using EASE you may extend the IDE without deployment of features (and without a restart).&lt;br /&gt;&lt;br /&gt;As I am a big fan of live sessions we will rush through some slides in 3 minutes and use the rest for a live demo. &lt;br /&gt;&lt;br /&gt;Got your interest? Join me on Wednesday, 11:45 at Silchersaal.</description>
+	<pubDate>Wed, 26 Oct 2016 08:03:16 +0000</pubDate>
+	<author>noreply@blogger.com (Christian Pontesegger)</author>
+</item>
+<item>
+	<title>Lars Vogel: Dependency injection for Eclipse 3.x views available for Eclipse 4.7 M3</title>
+	<guid isPermaLink="false">http://blog.vogella.com/?p=7501</guid>
+	<link>http://blog.vogella.com/2016/10/26/dependency-injection-for-eclipse-3-x-views-available-for-eclipse-4-7-m3/</link>
+	<description>&lt;p&gt;You can now use dependency injection (di) in your Eclipse 3.x. views.You can enable this for a view via the new &lt;b&gt;inject&lt;/b&gt; flag in the &lt;code&gt;org.eclipse.ui.views&lt;/code&gt; extension.&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;http://blog.vogella.com/wp-content/uploads/2016/10/e3-views-enable-di.png&quot;&gt;&lt;img alt=&quot;e3-views-enable-di&quot; class=&quot;aligncenter size-full wp-image-7503&quot; height=&quot;344&quot; src=&quot;http://blog.vogella.com/wp-content/uploads/2016/10/e3-views-enable-di.png&quot; width=&quot;450&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;&lt;br /&gt;
+public class SampleView extends ViewPart {&lt;/code&gt;&lt;/p&gt;&lt;code&gt;
+&lt;p&gt;	@Inject IWorkbench workbench;&lt;/p&gt;
+&lt;p&gt;	private TableViewer viewer;&lt;/p&gt;
+&lt;p&gt;	@Override&lt;br /&gt;
+	public void createPartControl(Composite parent) {&lt;br /&gt;
+		viewer = new TableViewer(parent, SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL);&lt;/p&gt;
+&lt;p&gt;		viewer.setContentProvider(ArrayContentProvider.getInstance());&lt;br /&gt;
+		viewer.setInput(new String[] { &quot;One&quot;, &quot;Two&quot;, &quot;Three&quot; });&lt;br /&gt;
+		viewer.setLabelProvider(new ViewLabelProvider());&lt;/p&gt;
+&lt;/code&gt;&lt;p&gt;&lt;code&gt;		// Create the help context id for the viewer's control&lt;br /&gt;
+		workbench.getHelpSystem().setHelp(viewer.getControl(), &quot;test7.viewer&quot;);&lt;br /&gt;
+	}&lt;br /&gt;
+	// more stuff&lt;br /&gt;
+}&lt;br /&gt;
+&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;I hope that this will help Eclipse IDE extenders to move towards the Eclipse 4.x programming approach. &lt;/p&gt;</description>
+	<pubDate>Wed, 26 Oct 2016 07:30:43 +0000</pubDate>
+</item>
+<item>
+	<title>Melanie Bats: Sirius 4.1 is Out! What’s Inside ? Fear</title>
+	<guid isPermaLink="false">http://melb.enix.org/?p=396</guid>
+	<link>http://melb.enix.org/sirius/sirius-4-1-is-out-whats-inside-fear/</link>
+	<description>&lt;p dir=&quot;ltr&quot;&gt;&lt;img alt=&quot;&quot; class=&quot;aligncenter&quot; height=&quot;243&quot; src=&quot;https://lh6.googleusercontent.com/wB9zXLWn-UnBqWesAJQLqVWYnvfd1N07Zb3R6b-ZGEe-kXaEEKbCxhZWuTOH7piIAUjLSOLV-C9GmppvSfFpvS3nWx6h2_NglUsm-eTGKAr9tcMe71MRuOYRucLIF0wcMCC-frtl&quot; width=&quot;155&quot; /&gt;&lt;/p&gt;
+&lt;p dir=&quot;ltr&quot;&gt;Wednesday will be a huge day for &lt;a href=&quot;https://www.obeo.fr/en/&quot;&gt;Obeo&lt;/a&gt; at &lt;a href=&quot;https://www.eclipsecon.org/europe2016&quot;&gt;EclipseCon Europe 2016&lt;/a&gt;. You will find &lt;a href=&quot;https://www.eclipsecon.org/europe2016/program/sessions/accepted?keys=sirius&amp;amp;field_experience_value=All&amp;amp;field_session_type_tid=All&quot;&gt;several talks about Eclipse Sirius&lt;/a&gt; in the program, and one thing for you, you have to attend our talk about &lt;a href=&quot;https://www.eclipsecon.org/europe2016/session/sirius-41-let-me-sirius-you&quot;&gt;Sirius 4.1: Let Me Sirius That For You!&lt;/a&gt;&lt;/p&gt;
+&lt;p dir=&quot;ltr&quot;&gt;As usual when I have to give a talk I am a little frightened but in fact I love this feeling which pushes me to do my best &lt;img alt=&quot;:)&quot; class=&quot;wp-smiley&quot; src=&quot;http://melb.enix.org/wp-includes/images/smilies/icon_smile.gif&quot; /&gt; &lt;/p&gt;
+&lt;p&gt;Our slides are ready, our demo is exciting, now we just need you at Theater Stage – Wednesday, October 26, 2016 – 16:00.&lt;/p&gt;</description>
+	<pubDate>Wed, 26 Oct 2016 05:30:10 +0000</pubDate>
+</item>
+<item>
+	<title>Pascal Rapicault: 5 reasons to use EGerrit - #4, Simple checkout</title>
+	<guid isPermaLink="false">tag:blogger.com,1999:blog-27225531.post-2677203353301958020</guid>
+	<link>http://prapicault.blogspot.com/2016/10/5-reasons-to-use-egerrit-4-simple.html</link>
+	<description>To celebrate the release of &lt;a href=&quot;http://wiki.eclipse.org/EGerrit/New_and_Noteworthy/1.1.1&quot;&gt;EGerrit 1.1&lt;/a&gt;, we are enumerating the top 5 features of the tool. After last week's &lt;a href=&quot;http://prapicault.blogspot.ca/2016/10/5-reasons-to-use-egerrit-5-being-in.html&quot;&gt;#5 - Being in Eclipse&lt;/a&gt;, this week reason is simple checkout.&lt;br /&gt;&lt;br /&gt;&lt;h3&gt;&lt;b&gt;Reason #4 – Simple checkout.&lt;/b&gt;&lt;/h3&gt;Reviews often need to be downloaded to be examined in depth. For efficiency, EGerrit allows to download the code by the push of a button. &lt;a href=&quot;http://4.bp.blogspot.com/-J8i_kqF4yGA/WA9tfugcZzI/AAAAAAAAAUE/kw5Y1X0Gs4wuVsZaD1-Cefoe9hDl7x7ZgCK4B/s1600/Download.png&quot; style=&quot;margin-left: 1em; margin-right: 1em;&quot;&gt;&lt;img border=&quot;0&quot; height=&quot;140&quot; src=&quot;https://4.bp.blogspot.com/-J8i_kqF4yGA/WA9tfugcZzI/AAAAAAAAAUE/kw5Y1X0Gs4wuVsZaD1-Cefoe9hDl7x7ZgCK4B/s400/Download.png&quot; width=&quot;400&quot; /&gt;&lt;/a&gt;&lt;br /&gt;You can find this button in two places: in the EGerrit dashboard (see picture), where it will always cause the most recent revision to be downloaded, and in the editor where you can chose the revision to download.  &lt;br /&gt; You can download EGerrit from the &lt;a href=&quot;http://download.eclipse.org/releases/neon&quot; target=&quot;_blank&quot;&gt;Neon release &lt;/a&gt;repo or from the &lt;a href=&quot;http://marketplace.eclipse.org/content/egerrit&quot; target=&quot;_blank&quot;&gt;Eclipse Marketplace&lt;/a&gt;. For questions, you can connect with us on &lt;a href=&quot;https://dev.eclipse.org/mailman/listinfo/egerrit-dev&quot;&gt;egerrit-dev@eclipse.org&lt;/a&gt;; and for bugs or to take a peek at the future you can see our &lt;a href=&quot;https://tuleap.eclipse.org/plugins/agiledashboard/?group_id=102&amp;amp;action=showKanban&amp;amp;id=6#/kanban&quot; target=&quot;_blank&quot;&gt;Kanban board&lt;/a&gt;.</description>
+	<pubDate>Tue, 25 Oct 2016 14:42:03 +0000</pubDate>
+	<author>noreply@blogger.com (Pascal)</author>
+</item>
+<item>
+	<title>Alex Blewitt: EclipseCon 2016: Optimising Eclipse Plug-ins</title>
+	<guid isPermaLink="false">http://alblue.bandlem.com/2016/10/eclipsecon-books</guid>
+	<link>http://alblue.bandlem.com/2016/10/eclipsecon-books.html</link>
+	<description>&lt;p&gt;It doesn’t seem that long ago since I was &lt;a href=&quot;http://alblue.bandlem.com/2013/11/eclipsecon-success.html&quot;&gt;last at EclipseCon Europe&lt;/a&gt;,
+but time has flown by – and my hair has gone even more grey 👴🏻
+– someone complained that my headshot was out of date!&lt;/p&gt;
+
+&lt;p&gt;In any case, as with last time, I’ve managed to negotiate a discount on
+my newest Eclipse book – Eclipse Plug-in Development for Beginners, 2nd ed –
+which came out &lt;a href=&quot;http://alblue.bandlem.com/2016/08/eclipse-book-second-edition.html&quot;&gt;earlier this year&lt;/a&gt;.
+You can get 30% off the eBook until the end of October with CONECD30,
+or you can reach out to me via &lt;a href=&quot;https://twitter.com/alblue&quot;&gt;@alblue&lt;/a&gt; on Twitter if you’re interested&lt;/p&gt;
+
+&lt;p&gt;&lt;img class=&quot;center&quot; src=&quot;http://alblue.bandlem.com/2016/10/EclipseConBooks.jpg&quot; title=&quot;EclipseCon Books Giveaway&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;I’ve also got a pair of my Eclipse Plug-in books (Eclipse Plug-in Development,
+second edition, and Mastering Eclipse Plug-in Development) that I’m going to
+give away to someone randomly chosen from those who
+&lt;a href=&quot;https://twitter.com/alblue/status/790894457835118593&quot;&gt;retweet this link&lt;/a&gt; 🐦,
+and will hand it out after
+&lt;a href=&quot;https://www.eclipsecon.org/europe2016/session/optimising-eclipse-plug-ins&quot;&gt;my session on Thursday before lunchtime&lt;/a&gt;.
+I’ll tweet out the winner of the books before my session starts, and you can
+meet me at the Bürgersaal 2 room at 11:35 or shortly thereafter.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://alblue.bandlem.com/2016/10/EclipseFlameGraph.png&quot; title=&quot;Eclipse Flame Graph&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;My session is on optimising Eclipse plug-ins; a generally useful overview
+for how to optimise Java programs generally, but also tailored to some of
+the specifics that affect Eclipse and OSGi applications. I’ll talk about
+how to measure Eclipse’s use with Java Flight Recorder and Memory Analyzer
+Toolkit, as well as touching on YourKit and Censum as well. Slides will be
+available on &lt;a href=&quot;https://speakerdeck.com/alblue/&quot;&gt;my speakerdeck&lt;/a&gt;
+profile afterwards. I’m also happy to have a discussion over lunch in more
+detail if anyone is interested.&lt;/p&gt;</description>
+	<pubDate>Tue, 25 Oct 2016 12:00:00 +0000</pubDate>
+</item>
+<item>
+	<title>itemis: Language development on .NET with Xtext – Part 1: Overview</title>
+	<guid isPermaLink="true">https://blogs.itemis.com/en/language-development-on-.net-with-xtext-part-1-overview</guid>
+	<link>https://blogs.itemis.com/en/language-development-on-.net-with-xtext-part-1-overview</link>
+	<description>&lt;p&gt;This blog series will illustrate the integration of a simple Xtext DSL within a .NET command-line application written in C# by using the Java-to-.NET translator &lt;a href=&quot;https://www.ikvm.net/&quot;&gt;IKVM.NET&lt;/a&gt;.&lt;/p&gt; 
+&lt;p&gt;In this first part of the series, we will give an overview of the example use case, a command-line calculator.&lt;br /&gt;&lt;/p&gt; 
+&lt;h3&gt;Introduction &lt;/h3&gt; 
+&lt;p&gt;Developing a textual DSL in .NET is a tedious process consisting of manually defining data structures and writing a grammar with actions to construct syntax trees, symbol tables, basic validations and so on.&lt;/p&gt; 
+&lt;p&gt;&lt;a href=&quot;http://www.xtext.org/&quot;&gt;Xtext&lt;/a&gt; automatizes a large part of the process of DSL creation: By writing an Xtext grammar, one doesn't only get a parser and a serializer, but also abstract syntax trees and the corresponding classes, syntax validations and cross-references to other EMF models. Apart from the generated classes, Xtext includes a runtime library which provides an extensive infrastructure of re-usable, customizable services for handling DSL models.&lt;/p&gt; 
+&lt;h3&gt;Use case overview&lt;/h3&gt; 
+&lt;p&gt;To demonstrate the integration, we start with a DSL developed with Xtext – in this case a language for simple arithmetical expressions and functions. A snippet of this language's grammar is listed below.&lt;/p&gt; 
+&lt;p&gt;&lt;a href=&quot;https://github.com/itemis/itemis-blog/blob/ikvm-xtext-standalone/ikvm-xtext-standalone/grammar.png&quot;&gt;&lt;img alt=&quot;C# Interpreter&quot; src=&quot;https://github.com/itemis/itemis-blog/raw/ikvm-xtext-standalone/ikvm-xtext-standalone/grammar.png&quot; style=&quot;display: block; margin-left: auto; margin-right: auto;&quot; /&gt;&lt;/a&gt;&lt;/p&gt; 
+&lt;p&gt;From the grammar Xtext generates a parser which maps DSL instances to Java objects. For example, the parser would map the expression &lt;code&gt;1 + 2&lt;/code&gt; to an instance of the generated class &lt;code&gt;Plus&lt;/code&gt; whose &lt;code&gt;left&lt;/code&gt; and &lt;code&gt;right&lt;/code&gt; properties are &lt;code&gt;NumberLiteral&lt;/code&gt;s with &lt;code&gt;value = 1&lt;/code&gt; and &lt;code&gt;value = 2&lt;/code&gt;, respectively.&lt;/p&gt; 
+&lt;p&gt;Based on this, we will write a C# interpreter for evaluating the arithmetical expressions of our DSL and a command-line interface to the interpreter, in order to show that it's possible to embed Xtext DSLs in .NET applications by consuming them in C# programs and thus avoid most of the tedious work connected with parser development.&lt;/p&gt; 
+&lt;p&gt;In order to realize this embedding, we first convert the DSL's generated Java classes and the runtime libraries to a .NET assembly. To do this, we build an &lt;a href=&quot;http://stackoverflow.com/a/11947093/512227&quot;&gt;Uber JAR&lt;/a&gt; containing all these classes and their dependencies using Maven and the &lt;a href=&quot;https://maven.apache.org/plugins/maven-shade-plugin/&quot;&gt;Maven Shade Plugin&lt;/a&gt;, and then invoke IKVM.NET from Maven to create a DLL from the JAR. Then, we can reference this DLL from a C# project and use the classes originally written in Java in our C# application.&lt;/p&gt; 
+&lt;p&gt;&lt;a href=&quot;https://github.com/itemis/itemis-blog/blob/ikvm-xtext-standalone/ikvm-xtext-standalone/csharp-interpreter.png&quot;&gt;&lt;img alt=&quot;C# Interpreter&quot; src=&quot;https://github.com/itemis/itemis-blog/raw/ikvm-xtext-standalone/ikvm-xtext-standalone/csharp-interpreter.png&quot; /&gt;&lt;/a&gt;&lt;/p&gt; 
+&lt;p&gt;The figure above illustrates the integration of the Xtext DSL in C# – it shows a part of the interpreter, whose purpose is to evaluate an arithmetical expression (input parameter type &lt;code&gt;Expression&lt;/code&gt;), with a number (&lt;code&gt;BigDecimal&lt;/code&gt;) as result. In the &lt;code&gt;evaluate&lt;/code&gt; method, we dispatch by expression class, such that for a &lt;code&gt;Plus&lt;/code&gt;, first the left and right summand are evaluated and the results are added with &lt;code&gt;add&lt;/code&gt;, and similarly for &lt;code&gt;Minus&lt;/code&gt; and so on.&lt;/p&gt; 
+&lt;h3&gt;&lt;a class=&quot;anchor&quot; href=&quot;https://github.com/itemis/itemis-blog/blob/ikvm-xtext-standalone/ikvm-xtext-standalone/ikvm-standalone-1.md#running-the-example&quot;&gt;&lt;/a&gt;Running the example&lt;/h3&gt; 
+&lt;p&gt;In order to run the example, download the &lt;a href=&quot;https://github.com/stadlerb/ikvm-arithmetics-cli/releases/download/1.0.0-preview20161018/calculate-1.0.0-preview20161018.zip&quot;&gt;binary distribution&lt;/a&gt; and unzip it, e.g. to &lt;code&gt;C:\apps&lt;/code&gt; on Windows. The execulable file is called &lt;code&gt;calculate.exe&lt;/code&gt;. It can be used either with in-line expressions using the &lt;code&gt;-e&lt;/code&gt; switch or with input files using the &lt;code&gt;-f&lt;/code&gt; switch. For importing modules, the files containing the module have to be added using the &lt;code&gt;-i &lt;/code&gt;switch (multiple files separated by colons).&lt;/p&gt; 
+&lt;p&gt;Examples are:&lt;/p&gt; 
+&lt;pre&gt;&lt;code&gt;    C:\apps\calculate&amp;gt;calculate.exe -e &quot;2 + 3&quot;
+    - 2 + 3: 5
+
+    C:\apps\calculate&amp;gt;calculate.exe -i example\polynomialexample.calc:example\linearexample.calc ^
+    -e &quot;examplepolynomial(4,7) ; examplepolynomial(weightedsum(3, 4), 19)&quot;
+    - examplepolynomial(4, 7): 73
+    - examplepolynomial(weightedsum(3, 4), 19): 1665
+
+    C:\apps\calculate&amp;gt;calculate.exe -i example\linearexample.calc -f example\evaluation.calc
+    - weightedsum(10, 12): 80
+    - weightedsum(0, 1): 5
+    - (weightedsum(1, 0)): 2
+    - 15 * 44 + 12: 672
+&lt;/code&gt;&lt;/pre&gt; 
+&lt;h3&gt;&lt;a class=&quot;anchor&quot; href=&quot;https://github.com/itemis/itemis-blog/blob/ikvm-xtext-standalone/ikvm-xtext-standalone/ikvm-standalone-1.md#conclusion&quot;&gt;&lt;/a&gt;Conclusion&lt;/h3&gt; 
+&lt;p&gt;In this post we have sketched a way of integrating Xtext developed DSLs into the .NET platform by using IKVM.NET, which allows to consume Xtext generated classes in a C# program. The following blog entries of this series will provide more detail regarding the creation of the .NET assembly and the integration into the C# application.&lt;/p&gt;  
+&lt;img alt=&quot;&quot; height=&quot;1&quot; src=&quot;http://track.hubspot.com/__ptq.gif?a=761475&amp;amp;k=14&amp;amp;r=https%3A%2F%2Fblogs.itemis.com%2Fen%2Flanguage-development-on-.net-with-xtext-part-1-overview&amp;amp;bu=https%253A%252F%252Fblogs.itemis.com&amp;amp;bvt=rss&quot; style=&quot;width: 1px!important;&quot; width=&quot;1&quot; /&gt;</description>
+	<pubDate>Tue, 25 Oct 2016 09:45:39 +0000</pubDate>
+	<author>stadler@itemis.de (Bernhard Stadler)</author>
+</item>
+<item>
+	<title>Karsten Thoms: EclipseCon Europe 2016 – I’m coming!</title>
+	<guid isPermaLink="false">http://kthoms.wordpress.com/?p=725</guid>
+	<link>https://kthoms.wordpress.com/2016/10/23/eclipsecon-europe-2016-im-coming/</link>
+	<description>&lt;p&gt;&lt;a href=&quot;https://www.eclipsecon.org/europe2016/user/185&quot; target=&quot;_blank&quot;&gt;&lt;img alt=&quot;130x130 I'm Speaking logo&quot; border=&quot;0&quot; height=&quot;130&quot; src=&quot;https://www.eclipsecon.org/europe2016/sites/default/files/ECEFriendsbright130x130Speaking.jpg&quot; width=&quot;130&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;I’m sitting now in the train on my way to Ludwigsburg. For sure I cannot miss this great event, where so many smart people and friends come together. Although ECE is always at the same time of the year and I knew for long that I want to go there again, it comes not at the best time for me – or better: for my family. The reason is a really positive one: Almost 3 weeks ago on October 4th I became for the second time father of a lovely daughter, Sophia.&lt;/p&gt;
+&lt;p&gt;&lt;img alt=&quot;IMG_1433.jpg&quot; class=&quot;  wp-image-732 aligncenter&quot; height=&quot;403&quot; src=&quot;https://kthoms.files.wordpress.com/2016/10/img_1433.jpg?w=403&amp;amp;h=403&quot; width=&quot;403&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;I am missing her already deeply, and my wife would need some supporting hands at home right now. However she understands that EclipseCon is important for me and supports me. The past weeks I did not get much sleep, but the reason was mostly not Sophia, but mainly preparing my talks – in the late evening and night it was most suitable. I will definitely enjoy EclipseCon, but this year I will also be happy when I can leave towards home again and will take 3 days off afterwards for regeneration and caring for the family.&lt;/p&gt;
+&lt;p&gt;This year’s EclipseCon will be fully packed for me. Today, on Sunday, it will start with a small pre-conference event at the Rossknecht, where the Eclipse Scout community comes together. Tomorrow at the &lt;a href=&quot;https://www.eclipsecon.org/europe2016/unconference&quot;&gt;Unconference&lt;/a&gt; day I will attend the Eclipse Scout User Day, which I attended the past two years already. At the moment I do not work with Scout, but I really enjoyed working with this framework in the past and would like to do another project with it again. The recent year Scout has much evolved, and I am keen to learn all the news.&lt;/p&gt;
+&lt;p&gt;On tuesday the Xtext developers plan to schedule a BoF Session. A beta of Xtext 2.11 was released this week, and we have to work much now to make the 2.11 release round. I plan to invest quite some time on this, and we have to talk about the concrete tasks and collaboration. Since we are now a team spanning several companies, it is important to have the chance to get the whole team together at EclipseCon.&lt;/p&gt;
+&lt;p&gt;On wednesday it is time for action. I was recently contacted that the proposal for the session “&lt;a href=&quot;https://www.eclipsecon.org/europe2016/session/recipes-build-code-generators-non-xtext-models-xtend&quot;&gt;Recipes to build Code Generators for Non-Xtext Models with Xtend&lt;/a&gt;” got picked from the waiting list. I will perform the talk with my colleague and friend Holger Schill.&lt;/p&gt;
+&lt;p&gt;&lt;img alt=&quot;screenshot 68.png&quot; class=&quot;alignnone size-full wp-image-750&quot; src=&quot;https://kthoms.files.wordpress.com/2016/10/screenshot-68.png?w=584&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;We give this talk because Xtend is a very nice language when it comes to developing template based code generators, but is mostly only used in the context of Xtext. Xtext projects seamlessly integrate a generator infrastructure with Xtend, but it is not that common to use Xtend based generators with models that are not Xtext DSL files. We will show how simple it can be to integrate Xtend for other use cases, e.g. with JSON as input.&lt;/p&gt;
+&lt;p&gt;After that talk we will participate at the &lt;a href=&quot;https://www.eclipsecon.org/europe2016/session/modeling-symposium&quot;&gt;Modeling Symposium (17:45 Theater Stage)&lt;/a&gt;. There we will shortly (7 minutes slot only) present a generator fragment that creates an extension package for VisualStudio Code to embed support for a DSL with an embedded language server. The &lt;a href=&quot;https://github.com/Microsoft/language-server-protocol&quot;&gt;Language Server Protocol&lt;/a&gt; support is the main feature for Xtext 2.11. We plan to contribute the created generator fragment to the Xtext project.&lt;/p&gt;
+&lt;p&gt;On thursday it is time for my talk “&lt;a href=&quot;https://www.eclipsecon.org/europe2016/session/stairway-heaven-highway-hell-xtext&quot;&gt;From stairway to heaven onto the highway to hell with Xtext&lt;/a&gt;” (11:00 Theater Stage). In this talk I will explain why I love Xtext and why it is used successfully in so many projects first, but then discuss where users have or run into trouble when using the framework. We see in many projects that first steps are easily done and don’t require much experience, but as requirements grow the complexity of DSL projects also grow and extensive experience with details of Xtext and the technologies behind is crucial. I hopefully compiled an informative set of issues.&lt;/p&gt;
+&lt;p&gt;&lt;img alt=&quot;screenshot 69.png&quot; class=&quot;alignnone size-full wp-image-762&quot; src=&quot;https://kthoms.files.wordpress.com/2016/10/screenshot-69.png?w=584&quot; /&gt;&lt;/p&gt;
+&lt;p class=&quot;page-header&quot;&gt;Right after this talk Holger will present “&lt;a href=&quot;https://www.eclipsecon.org/europe2016/session/xtext-beyond-defaults-how-tackle-performance-problems&quot;&gt;Xtext beyond the defaults – How to tackle performance problems&lt;/a&gt;” (Bürgersaal 2, 13:00). Our talks are quite related without overlapping much, so I recommend to join also his talk. I will address some issues regarding defaults and performance, but more from a general perspective. Holger will discuss them more detailed then.&lt;/p&gt;
+&lt;p class=&quot;page-header&quot;&gt;Besides these talks I plan mostly to attend talks related to Xtext, language server, modeling, build, Che, DevOps and general Eclipse topics.&lt;/p&gt;
+&lt;p class=&quot;page-header&quot;&gt;itemis has also a booth where you can find me often in the pauses. If you would like to discuss some stuff or get a small demo, just drop by.&lt;/p&gt;
+&lt;p class=&quot;page-header&quot;&gt;I expect an intense conference with lots of excellent talks and nice chats with lots of people I met before, and look forward to get some more known. Either at the conference venue or of course at the Nestor bar later. The real conference is happening besides the conference! See you there!&lt;/p&gt;
+&lt;p class=&quot;page-header&quot;&gt;~Karsten&lt;/p&gt;&lt;br /&gt;  &lt;a href=&quot;http://feeds.wordpress.com/1.0/gocomments/kthoms.wordpress.com/725/&quot; rel=&quot;nofollow&quot;&gt;&lt;img alt=&quot;&quot; border=&quot;0&quot; src=&quot;http://feeds.wordpress.com/1.0/comments/kthoms.wordpress.com/725/&quot; /&gt;&lt;/a&gt; &lt;img alt=&quot;&quot; border=&quot;0&quot; height=&quot;1&quot; src=&quot;https://pixel.wp.com/b.gif?host=kthoms.wordpress.com&amp;amp;blog=6829080&amp;amp;post=725&amp;amp;subd=kthoms&amp;amp;ref=&amp;amp;feed=1&quot; width=&quot;1&quot; /&gt;</description>
+	<pubDate>Sun, 23 Oct 2016 15:02:07 +0000</pubDate>
+</item>
+<item>
+	<title>Eike Stepper: Fancy Merge Support in CDO</title>
+	<guid isPermaLink="false">tag:blogger.com,1999:blog-824652428103224164.post-5985530487210631204</guid>
+	<link>http://thegordian.blogspot.com/2016/10/fancy-merge-support-in-cdo.html</link>
+	<description>CDO's merge support has recently been enhanced in several ways. Please enjoy this 7:00 minutes screen-cast that I've recorded for you:&lt;br /&gt;&lt;br /&gt;&lt;div class=&quot;separator&quot; style=&quot;clear: both; text-align: center;&quot;&gt;&lt;/div&gt;&lt;br /&gt;If you'd like to learn more about CDO come to the EclipseCon Europe next week where I'll give a session on &lt;a href=&quot;https://www.eclipsecon.org/europe2016/session/cdo-application-programmers&quot; target=&quot;_blank&quot;&gt;CDO for Application Programmers&lt;/a&gt;. I'd be happy to meet you there!</description>
+	<pubDate>Sat, 22 Oct 2016 06:01:12 +0000</pubDate>
+	<author>noreply@blogger.com (Eike Stepper)</author>
+</item>
+<item>
+	<title>Eclipse Announcements: Eclipse Foundation Collaboration Yields Open Source Technology for Computational Science</title>
+	<guid isPermaLink="true">http://feedproxy.google.com/~r/eclipse/fnews/~3/CTR646K5wrI/20161021scienceICESoftware.php</guid>
+	<link>http://feedproxy.google.com/~r/eclipse/fnews/~3/CTR646K5wrI/20161021scienceICESoftware.php</link>
+	<description>The gap between computational science &amp;amp; open source software is shrinking – thanks to collaboration.&lt;img alt=&quot;&quot; height=&quot;1&quot; src=&quot;http://feeds.feedburner.com/~r/eclipse/fnews/~4/CTR646K5wrI&quot; width=&quot;1&quot; /&gt;</description>
+	<pubDate>Fri, 21 Oct 2016 13:00:00 +0000</pubDate>
+</item>
+<item>
+	<title>JBoss Tools Team: JBoss Tools 4.4.2.AM2 for Eclipse Neon</title>
+	<guid isPermaLink="true">http://tools.jboss.org/blog/am2.4.4.2.neon.html</guid>
+	<link>http://tools.jboss.org/blog/am2.4.4.2.neon.html</link>
+	<description>&lt;div&gt;&lt;div id=&quot;preamble&quot;&gt;
+      &lt;div class=&quot;sectionbody&quot;&gt;
+      &lt;div class=&quot;paragraph&quot;&gt;
+      &lt;p&gt;Happy to announce 4.4.2.AM2 (Developer Milestone 2) build for Eclipse Neon.&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;paragraph&quot;&gt;
+      &lt;p&gt;Downloads available at &lt;a href=&quot;http://tools.jboss.org/downloads/jbosstools/neon/4.4.2.AM2.html&quot;&gt;JBoss Tools 4.4.2 AM2&lt;/a&gt;.&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;sect1&quot;&gt;
+      &lt;h2 id=&quot;what-is-new&quot;&gt;&lt;a class=&quot;anchor&quot; href=&quot;http://tools.jboss.org/blog/news.atom#what-is-new&quot;&gt;&lt;/a&gt;What is New?&lt;/h2&gt;
+      &lt;div class=&quot;sectionbody&quot;&gt;
+      &lt;div class=&quot;paragraph&quot;&gt;
+      &lt;p&gt;Full info is at &lt;a href=&quot;http://tools.jboss.org/documentation/whatsnew/jbosstools/4.4.2.AM2.html&quot;&gt;this page&lt;/a&gt;. Some highlights are below.&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;sect2&quot;&gt;
+      &lt;h3 id=&quot;openshift-3&quot;&gt;&lt;a class=&quot;anchor&quot; href=&quot;http://tools.jboss.org/blog/news.atom#openshift-3&quot;&gt;&lt;/a&gt;OpenShift 3&lt;/h3&gt;
+      &lt;div class=&quot;paragraph&quot;&gt;
+      &lt;p&gt;Although our main focus is bug fixes, we continue to work on providing better experience for container based development in JBoss Tools and Developer Studio. Let’s go through a few interesting updates here and you can find more details on &lt;a href=&quot;http://tools.jboss.org/documentation/whatsnew/jbosstools/4.4.2.AM2.html&quot;&gt;the What’s New page&lt;/a&gt;.&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;sect3&quot;&gt;
+      &lt;h4 id=&quot;common-namespace-template-support&quot;&gt;&lt;a class=&quot;anchor&quot; href=&quot;http://tools.jboss.org/blog/news.atom#common-namespace-template-support&quot;&gt;&lt;/a&gt;Common namespace template support&lt;/h4&gt;
+      &lt;div class=&quot;paragraph&quot;&gt;
+      &lt;p&gt;Common namespace was &lt;a href=&quot;http://tools.jboss.org/documentation/whatsnew/jbosstools/4.4.2.AM1.html#openshift&quot;&gt;added&lt;/a&gt; but templates were still loaded from the hardcoded &lt;code&gt;openshift&lt;/code&gt; namespace.
+      They are now loaded from the configured common namespace (which still default to &lt;code&gt;openshift&lt;/code&gt;)&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;sect3&quot;&gt;
+      &lt;h4 id=&quot;user-controlled-hostname-when-creating-routes&quot;&gt;&lt;a class=&quot;anchor&quot; href=&quot;http://tools.jboss.org/blog/news.atom#user-controlled-hostname-when-creating-routes&quot;&gt;&lt;/a&gt;User controlled hostname when creating routes&lt;/h4&gt;
+      &lt;div class=&quot;paragraph&quot;&gt;
+      &lt;p&gt;When an application is being deployed to Openshift, a route is optionally created if required by the user.
+      Openshift/CDK used to create an &lt;a href=&quot;http://xip.io&quot;&gt;xip.io&lt;/a&gt; based hostname. User can now set its own hostname.
+      This allows for both changing the DNS to local IP provider (&lt;a href=&quot;http://nip.io&quot;&gt;nip.io&lt;/a&gt;) or using you own enterprise DNS naming strategy.&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;paragraph&quot;&gt;
+      &lt;p&gt;The hostname can be accessed from the Services and Routing Settings page when deploying an application:&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;imageblock&quot;&gt;
+      &lt;div class=&quot;content&quot;&gt;
+      &lt;img alt=&quot;wizard new application hostname&quot; src=&quot;http://tools.jboss.org/documentation/whatsnew/openshift/images/wizard-new-application-hostname.png&quot; width=&quot;600&quot; /&gt;
+      &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;sect2&quot;&gt;
+      &lt;h3 id=&quot;forge&quot;&gt;&lt;a class=&quot;anchor&quot; href=&quot;http://tools.jboss.org/blog/news.atom#forge&quot;&gt;&lt;/a&gt;Forge&lt;/h3&gt;
+      &lt;div class=&quot;sect3&quot;&gt;
+      &lt;h4 id=&quot;forge-runtime-updated-to-3-3-2-final&quot;&gt;&lt;a class=&quot;anchor&quot; href=&quot;http://tools.jboss.org/blog/news.atom#forge-runtime-updated-to-3-3-2-final&quot;&gt;&lt;/a&gt;Forge Runtime updated to 3.3.2.Final&lt;/h4&gt;
+      &lt;div class=&quot;paragraph&quot;&gt;
+      &lt;p&gt;The included Forge runtime is now 3.3.2.Final. Read the official announcement &lt;a href=&quot;http://forge.jboss.org/news/jboss-forge-3.3.2.final-is-here&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;imageblock&quot;&gt;
+      &lt;div class=&quot;content&quot;&gt;
+      &lt;img alt=&quot;startup&quot; src=&quot;http://tools.jboss.org/documentation/whatsnew/forge/images/4.4.2.AM2/startup.png&quot; /&gt;
+      &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;sect3&quot;&gt;
+      &lt;h4 id=&quot;new-menu-in-forge-console-view-to-trigger-the-command-selection-dialog&quot;&gt;&lt;a class=&quot;anchor&quot; href=&quot;http://tools.jboss.org/blog/news.atom#new-menu-in-forge-console-view-to-trigger-the-command-selection-dialog&quot;&gt;&lt;/a&gt;New Menu in Forge Console view to trigger the Command Selection Dialog&lt;/h4&gt;
+      &lt;div class=&quot;paragraph&quot;&gt;
+      &lt;p&gt;Now it’s possible to bring the Command Selection Dialog menu (invoked when Ctrl/Command + 4 is pressed) by choosing the &quot;Open Command Selection Dialog…​&quot; menu item in the Forge Console view.&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;imageblock&quot;&gt;
+      &lt;div class=&quot;content&quot;&gt;
+      &lt;img alt=&quot;open command dialog&quot; src=&quot;http://tools.jboss.org/documentation/whatsnew/forge/images/4.4.2.AM2/open-command-dialog.png&quot; /&gt;
+      &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;paragraph&quot;&gt;
+      &lt;p&gt;Enjoy!&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;paragraph&quot;&gt;
+      &lt;p&gt;Jeff Maury&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;/div&gt;&lt;/div&gt;</description>
+	<pubDate>Thu, 20 Oct 2016 13:39:24 +0000</pubDate>
+</item>
+<item>
+	<title>Maximilian and Jonas: Modeling Symposium at EclipseCon Europe 2016</title>
+	<guid isPermaLink="false">http://eclipsesource.com/blogs/?p=27319</guid>
+	<link>http://eclipsesource.com/blogs/2016/10/20/modeling-symposium-at-eclipsecon-europe-2016/</link>
+	<description>&lt;p&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;The modeling symposium at &lt;/span&gt;&lt;a href=&quot;http://eclipsecon.org&quot;&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;EclipseCon Europe 2016&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt; takes place on Wednesday, October 26th from 17.45pm-18.20pm (see &lt;/span&gt;&lt;a href=&quot;https://www.eclipsecon.org/europe2016/session/modeling-symposium&quot;&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;here&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;).&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;I’m happy to present the agenda of selected talks:&lt;/span&gt;&lt;/p&gt;
+&lt;ol&gt;
+&lt;li style=&quot;font-weight: 400;&quot;&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;Exploring the Future of Eclipse&lt;/span&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;&lt;br /&gt;
+&lt;/span&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;Modeling: Web and Semantic Collaboration – István Ráth (7 Minutes)&lt;/span&gt;&lt;/li&gt;
+&lt;li style=&quot;font-weight: 400;&quot;&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;The Genmodel Addon project – Olivier Prouvost (5 Minutes)&lt;/span&gt;&lt;/li&gt;
+&lt;li style=&quot;font-weight: 400;&quot;&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;App-up in 5 minutes – Jörg Riegel (10 Minutes)&lt;/span&gt;&lt;/li&gt;
+&lt;li style=&quot;font-weight: 400;&quot;&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;Generating Visual Studio Code extensions for Xtext DSLs&lt;/span&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;&lt;br /&gt;
+&lt;/span&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt; – Karsten Toms (7 Minutes)&lt;/span&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;I’m looking forward to this event and interesting discussions afterwards. Hope to see you there!&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;&lt;div style=&quot;display: inline-block;&quot;&gt;&lt;a href=&quot;https://twitter.com/intent/tweet?source=webclient&amp;amp;text=Modeling+Symposium+at+EclipseCon+Europe+2016&amp;amp;via=eclipsesource&amp;amp;url=http://eclipsesource.com/blogs/2016/10/20/modeling-symposium-at-eclipsecon-europe-2016/&quot; style=&quot;margin-right: 5px;&quot; target=&quot;_blank&quot; title=&quot;Share on Twitter&quot;&gt;&lt;img alt=&quot;Twitter&quot; src=&quot;http://eclipsesource.com/blogs/wp-content/plugins/custom-about-author/images/social_media/twitter.png&quot; title=&quot;Twitter&quot; /&gt;&lt;/a&gt;&lt;a href=&quot;https://plus.google.com/share?url=http://eclipsesource.com/blogs/2016/10/20/modeling-symposium-at-eclipsecon-europe-2016/&quot; style=&quot;margin-right: 5px;&quot; target=&quot;_blank&quot; title=&quot;+1&quot;&gt;&lt;img alt=&quot;Google+&quot; src=&quot;http://eclipsesource.com/blogs/wp-content/plugins/custom-about-author/images/social_media/google_plus.png&quot; title=&quot;Google+&quot; /&gt;&lt;/a&gt;&lt;a href=&quot;http://www.linkedin.com/cws/share?url=http://eclipsesource.com/blogs/2016/10/20/modeling-symposium-at-eclipsecon-europe-2016/&quot; style=&quot;margin-right: 5px;&quot; target=&quot;_blank&quot; title=&quot;Share on LinkedIn&quot;&gt;&lt;img alt=&quot;LinkedIn&quot; src=&quot;http://eclipsesource.com/blogs/wp-content/plugins/custom-about-author/images/social_media/linkedin.png&quot; title=&quot;LinkedIn&quot; /&gt;&lt;/a&gt;&lt;a href=&quot;https://www.facebook.com/sharer/sharer.php?u=http://eclipsesource.com/blogs/2016/10/20/modeling-symposium-at-eclipsecon-europe-2016/&amp;amp;t=Modeling+Symposium+at+EclipseCon+Europe+2016&quot; style=&quot;margin-right: 5px;&quot; target=&quot;_blank&quot; title=&quot;Facebook&quot;&gt;&lt;img alt=&quot;Facebook&quot; src=&quot;http://eclipsesource.com/blogs/wp-content/plugins/custom-about-author/images/social_media/facebook.png&quot; title=&quot;Facebook&quot; /&gt;&lt;/a&gt;&lt;/div&gt;&lt;br /&gt;&lt;a href=&quot;http://eclipsesource.com/blogs/2016/10/20/modeling-symposium-at-eclipsecon-europe-2016/#comments&quot;&gt;2 Comments&lt;/a&gt;. Tagged with &lt;a href=&quot;http://eclipsesource.com/blogs/tag/eclipse/&quot; title=&quot;eclipse Tag&quot;&gt;eclipse&lt;/a&gt;, &lt;a href=&quot;http://eclipsesource.com/blogs/tag/eclipsecon/&quot; title=&quot;eclipsecon Tag&quot;&gt;eclipsecon&lt;/a&gt;, &lt;a href=&quot;http://eclipsesource.com/blogs/tag/emf/&quot; title=&quot;emf Tag&quot;&gt;emf&lt;/a&gt;, &lt;a href=&quot;http://eclipsesource.com/blogs/tag/modeling/&quot; title=&quot;modeling Tag&quot;&gt;modeling&lt;/a&gt;, &lt;a href=&quot;http://eclipsesource.com/blogs/tag/eclipse/&quot; title=&quot;eclipse Tag&quot;&gt;eclipse&lt;/a&gt;, &lt;a href=&quot;http://eclipsesource.com/blogs/tag/eclipsecon/&quot; title=&quot;eclipsecon Tag&quot;&gt;eclipsecon&lt;/a&gt;, &lt;a href=&quot;http://eclipsesource.com/blogs/tag/emf/&quot; title=&quot;emf Tag&quot;&gt;emf&lt;/a&gt;, &lt;a href=&quot;http://eclipsesource.com/blogs/tag/modeling/&quot; title=&quot;modeling Tag&quot;&gt;modeling&lt;/a&gt;&lt;p&gt;&lt;/p&gt;</description>
+	<pubDate>Thu, 20 Oct 2016 07:56:05 +0000</pubDate>
+</item>
+<item>
+	<title>Orion: Google Cloud Shell adopts the Orion Code Editor</title>
+	<guid isPermaLink="false">http://planetorion.org/news/?p=859</guid>
+	<link>http://planetorion.org/news/2016/10/google-cloud-shell-adopts-the-orion-code-editor/</link>
+	<description>&lt;p&gt;It’s nice to see &lt;a href=&quot;https://cloud.google.com/shell/&quot;&gt;Google Cloud Shell&lt;/a&gt; using Orion in their latest offering. Google Cloud Shell is just that: a shell (really a bunch of shells) to a machine in the cloud. The machine contains source files (go figure) and Orion is great at editing files, syntax coloring, code assist, refactoring, dynamic linting and much more.&lt;/p&gt;
+&lt;p&gt;This is how you get to Orion in Cloud Shell:&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;http://planetorion.org/news/wp-content/uploads/2016/09/google-cloud-editor-launch.png&quot;&gt;&lt;img alt=&quot;google-cloud-editor-launch&quot; class=&quot;alignnone size-full wp-image-862&quot; height=&quot;349&quot; src=&quot;http://planetorion.org/news/wp-content/uploads/2016/09/google-cloud-editor-launch.png&quot; width=&quot;664&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Here is Orion running in Google Platform Shell:&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;http://planetorion.org/news/wp-content/uploads/2016/09/google-cloud-editor-orion.png&quot;&gt;&lt;img alt=&quot;google-cloud-editor-orion&quot; class=&quot;alignnone size-full wp-image-861&quot; height=&quot;628&quot; src=&quot;http://planetorion.org/news/wp-content/uploads/2016/09/google-cloud-editor-orion.png&quot; width=&quot;934&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;I am reminded that IBM makes extensive use of Orion as a code editor in Bluemix DevOps Services and that we should really blog about that again soon.  Development in the cloud for the cloud!&lt;/p&gt;
+&lt;p&gt;Steve&lt;/p&gt;</description>
+	<pubDate>Wed, 19 Oct 2016 21:38:41 +0000</pubDate>
+</item>
+<item>
+	<title>itemis: Editing Graphviz *.dot files with the GEF DOT Editor</title>
+	<guid isPermaLink="true">https://blogs.itemis.com/en/editing-graphviz-.dot-files-with-the-gef-dot-editor</guid>
+	<link>https://blogs.itemis.com/en/editing-graphviz-.dot-files-with-the-gef-dot-editor</link>
+	<description>&lt;p&gt;&lt;strong&gt;&lt;a href=&quot;http://www.graphviz.org/&quot;&gt;Graphviz&lt;/a&gt; *.dot files&lt;/strong&gt; are usual text files containing the textual representation of graph definitions. The structure of these *.dot files are defined by the &lt;a href=&quot;http://www.graphviz.org/content/dot-language&quot;&gt;DOT Language&lt;/a&gt; that provides more than 150 graph, subgraph, node and edge attributes to influence the graph visualization. &lt;span&gt;Some of these dot attribute values are distinct, some of them are following their own language specification and some of them depend on the previously defined dot attribute values. Remembering the name and the possible values of all these dot attributes or searching them continuously within the &lt;/span&gt;&lt;a href=&quot;http://www.graphviz.org/content/attrs&quot;&gt;Graphviz documentation&lt;/a&gt;&lt;span&gt; not only ties up valuable resources, but also makes the entire process more error prone. And here is where the GEF DOT Editor could be of your assistance.&lt;/span&gt;&lt;/p&gt;  
+&lt;h3&gt;Xtext-based editor within the Eclipse workbench UI&lt;/h3&gt; 
+&lt;p&gt;&lt;strong&gt;The GEF DOT Editor&lt;/strong&gt;&lt;sup&gt;1&lt;/sup&gt; is an &lt;a href=&quot;https://www.eclipse.org/Xtext/&quot;&gt;Xtext&lt;/a&gt;-based textual editor registered for *.dot files within the Eclipse workbench UI. It is – together with the GEF DOT Graph View&lt;sup&gt;2&lt;/sup&gt; – part of the GEF Graphviz DOT authoring environment and – amongst others – provides support for the following features.&lt;/p&gt; 
+&lt;h3&gt;&lt;strong&gt;Syntax Highlighting&lt;/strong&gt; &lt;/h3&gt; 
+&lt;p&gt;The GEF DOT Editor uses different visual styles (different colors and fonts) for the different dot language elements. The keywords (such as 'graph', 'digraph', 'node', 'edge', ...) are represented in bold, the dot attribute names appear in blue, their values are shown in brown (or in red if they are quoted), while the embedded comments are highlighted in green. This kind of text decoration not only makes it easier to distinguish between the different dot language elements but also helps the user to find possible errors within the currently opened dot file.&lt;/p&gt; 
+&lt;p&gt;&lt;img alt=&quot;1_GEF_SyntaxHighlighting_1.png&quot; height=&quot;504&quot; src=&quot;https://blogs.itemis.com/hs-fs/hubfs/blog-files/1_GEF_SyntaxHighlighting_1.png?t=1477684191669&amp;amp;width=573&amp;amp;height=504&amp;amp;name=1_GEF_SyntaxHighlighting_1.png&quot; style=&quot;display: block; margin-left: auto; margin-right: auto;&quot; width=&quot;573&quot; /&gt;&lt;/p&gt; 
+&lt;h3&gt;&lt;strong&gt;Content Assist&lt;/strong&gt; &lt;/h3&gt; 
+&lt;p&gt;The GEF DOT Editor is able to provide suggestions on how to complete the statement/expression the user has just started to type. This content assist functionality can be accessed on any place within the opened dot file using the keyboard shortcut &lt;code&gt;Ctrl + Space&lt;/code&gt;. Depending on the current cursor position, only those dot language elements will be offered that make sense within the given context: graph attributes names within a graph context, edge attribute names within an edge context and all possible attribute values within a certain attribute context.&lt;/p&gt; 
+&lt;p&gt;&lt;img alt=&quot;2_GEF_ContentAssist_2.png&quot; height=&quot;504&quot; src=&quot;https://blogs.itemis.com/hs-fs/hubfs/blog-files/2_GEF_ContentAssist_2.png?t=1477684191669&amp;amp;width=573&amp;amp;height=504&amp;amp;name=2_GEF_ContentAssist_2.png&quot; style=&quot;display: block; margin-left: auto; margin-right: auto;&quot; width=&quot;573&quot; /&gt;&lt;/p&gt; 
+&lt;h3&gt;&lt;strong&gt;Background Validation&lt;/strong&gt;&lt;/h3&gt; 
+&lt;p&gt;The GEF DOT Editor continuously validates the content of the opened dot file while the user is editing, even if the current dot file has not been saved yet. When the editor issues a warning/error, e.g. in case of using a deprecated/invalid dot language element, it underlines the corresponding part in yellow/red that contains the warning/error. It also puts some warning/error markers with a meaningful message on the left and right side of the editor and also populates the Problems view with all the recognized issues. With such a support the user can easily identify the parts of the dot file that need to be fixed.&lt;/p&gt; 
+&lt;p&gt;&lt;img alt=&quot;3_GEF_BackgroundValidation_1.png&quot; height=&quot;632&quot; src=&quot;https://blogs.itemis.com/hs-fs/hubfs/blog-files/3_GEF_BackgroundValidation_1.png?t=1477684191669&amp;amp;width=702&amp;amp;height=632&amp;amp;name=3_GEF_BackgroundValidation_1.png&quot; style=&quot;display: block; margin-left: auto; margin-right: auto;&quot; width=&quot;702&quot; /&gt;&lt;/p&gt; 
+&lt;h3&gt;&lt;strong&gt;Quickfixes&lt;/strong&gt;&lt;/h3&gt; 
+&lt;p&gt;The GEF DOT Editor is – in certain cases – able to automatically fix the problems the user made while editing a dot file. In such cases, the editor offers so called quickfixes to the user. This functionality is available either throught the context menu of the warning/error marker or using the keyboard shortcut &lt;code&gt;Ctrl + 1&lt;/code&gt;. Applying such a quickfix can for instance replace an invalid dot attribute value by a valid one.&lt;/p&gt; 
+&lt;p&gt;&lt;img alt=&quot;4_GEF_Quickfixes_1.png&quot; height=&quot;630&quot; src=&quot;https://blogs.itemis.com/hs-fs/hubfs/blog-files/4_GEF_Quickfixes_1.png?t=1477684191669&amp;amp;width=700&amp;amp;height=630&amp;amp;name=4_GEF_Quickfixes_1.png&quot; style=&quot;display: block; margin-left: auto; margin-right: auto;&quot; width=&quot;700&quot; /&gt;&lt;/p&gt; 
+&lt;h3&gt;&lt;strong&gt;Folding&lt;/strong&gt;&lt;/h3&gt; 
+&lt;p&gt;The GEF DOT Editor supports collapsing certain parts of the currently opened dot file. This functionality is especially handy for large dot files to hide unnecessary details, e.g. the attributes belonging to a certain edge. Hovering on a collapsed part still enables the user to take a look at the hidden part without explicitly expanding it.&lt;/p&gt; 
+&lt;p&gt;&lt;img alt=&quot;5_GEF_Folding_1.png&quot; height=&quot;428&quot; src=&quot;https://blogs.itemis.com/hs-fs/hubfs/blog-files/5_GEF_Folding_1.png?t=1477684191669&amp;amp;width=584&amp;amp;height=428&amp;amp;name=5_GEF_Folding_1.png&quot; style=&quot;display: block; margin-left: auto; margin-right: auto;&quot; width=&quot;584&quot; /&gt;&lt;img alt=&quot;5_GEF_Folding_2.png&quot; height=&quot;430&quot; src=&quot;https://blogs.itemis.com/hs-fs/hubfs/blog-files/5_GEF_Folding_2.png?t=1477684191669&amp;amp;width=586&amp;amp;height=430&amp;amp;name=5_GEF_Folding_2.png&quot; style=&quot;display: block; margin-left: auto; margin-right: auto;&quot; width=&quot;586&quot; /&gt;&lt;/p&gt; 
+&lt;h3&gt;&lt;strong&gt;Outline View&lt;/strong&gt; &lt;/h3&gt; 
+&lt;p&gt;The GEF DOT Editor provides an outline view to help the user navigating through the opened dot file. It provides a hierarchical view of the graph nodes and edges together with their attributes. By default, it represents the elements in the same order as defined within the dot file, but also allows the user to sort them alphabetically. Moreover, the user can choose to synchronize the outline view selection with the editor selection by switching the&lt;em&gt;'Link with Editor'&lt;/em&gt; mode on, so a selection on an element within the outline view automatically highlights the corresponding dot element within the GEF DOT Editor.&lt;/p&gt; 
+&lt;p&gt;&lt;img alt=&quot;6_GEF_OutlineView_1.png&quot; height=&quot;506&quot; src=&quot;https://blogs.itemis.com/hs-fs/hubfs/blog-files/6_GEF_OutlineView_1.png?t=1477684191669&amp;amp;width=724&amp;amp;height=506&amp;amp;name=6_GEF_OutlineView_1.png&quot; style=&quot;display: block; margin-left: auto; margin-right: auto;&quot; width=&quot;724&quot; /&gt;&lt;/p&gt; 
+&lt;h3&gt;&lt;strong&gt;Automatic Sync&lt;/strong&gt; &lt;/h3&gt; 
+&lt;p&gt;The GEF DOT Editor is also able to automatically notify the GEF DOT Graph View when the user saves the currently modified dot file. Using the &lt;em&gt;'Link with DOT Editor'&lt;/em&gt; functionality, there is no need to manually trigger the graph visualization to re-render the currently edited dot file within the GEF DOT Graph View.&lt;/p&gt; 
+&lt;p&gt;&lt;img alt=&quot;7_GEF_AutomaticSync_1.png&quot; height=&quot;378&quot; src=&quot;https://blogs.itemis.com/hs-fs/hubfs/blog-files/7_GEF_AutomaticSync_1.png?t=1477684191669&amp;amp;width=724&amp;amp;height=378&amp;amp;name=7_GEF_AutomaticSync_1.png&quot; style=&quot;display: block; margin-left: auto; margin-right: auto;&quot; width=&quot;724&quot; /&gt;&lt;/p&gt; 
+&lt;h3&gt;&lt;strong&gt;Conclusion&lt;/strong&gt;&lt;/h3&gt; 
+&lt;p&gt;The GEF DOT Editor provides useful functionalities that come in handy when working with Graphviz *.dot files. Apart from that, the open source &lt;a href=&quot;https://github.com/eclipse/gef/wiki&quot;&gt;GEF Framework&lt;/a&gt; provides further components as parts of the GEF Graphviz DOT authoring environment. For further information, take a look at the &lt;a href=&quot;https://github.com/eclipse/gef/wiki/DOT-User-Guide&quot;&gt;GEF DOT User Guide&lt;/a&gt; or visit the &lt;a href=&quot;https://www.eclipsecon.org/europe2016/session/gef4-dot-oh-dot-oh&quot;&gt;GEF session on the EclipseCon Europe 2016&lt;/a&gt;.&lt;/p&gt;  
+&lt;p&gt;At the time of this writing, the functionality of the GEF Graphviz DOT authoring environment is limited as follows:&lt;/p&gt; 
+&lt;p&gt;&lt;sup&gt;1&lt;/sup&gt; The GEF DOT Editor is not yet able to read all the dot attribute values (e.g: html-like labels)&lt;/p&gt; 
+&lt;p&gt;&lt;sup&gt;2&lt;/sup&gt; The GEF DOT Graph View is not yet able to visualize all the dot attribute values.&lt;/p&gt;  
+&lt;img alt=&quot;&quot; height=&quot;1&quot; src=&quot;http://track.hubspot.com/__ptq.gif?a=761475&amp;amp;k=14&amp;amp;r=https%3A%2F%2Fblogs.itemis.com%2Fen%2Fediting-graphviz-.dot-files-with-the-gef-dot-editor&amp;amp;bu=https%253A%252F%252Fblogs.itemis.com&amp;amp;bvt=rss&quot; style=&quot;width: 1px!important;&quot; width=&quot;1&quot; /&gt;</description>
+	<pubDate>Wed, 19 Oct 2016 07:19:42 +0000</pubDate>
+	<author>miklossy@itemis.de (Tamas Miklossy)</author>
+</item>
+<item>
+	<title>JBoss Tools Team: JBoss Tools 4.4.2.AM1 for Eclipse Neon</title>
+	<guid isPermaLink="true">http://tools.jboss.org/blog/am1.4.4.2.neon.html</guid>
+	<link>http://tools.jboss.org/blog/am1.4.4.2.neon.html</link>
+	<description>&lt;div&gt;&lt;div id=&quot;preamble&quot;&gt;
+      &lt;div class=&quot;sectionbody&quot;&gt;
+      &lt;div class=&quot;paragraph&quot;&gt;
+      &lt;p&gt;Happy to announce 4.4.2.AM1 (Developer Milestone 1) build for Eclipse Neon.&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;paragraph&quot;&gt;
+      &lt;p&gt;Downloads available at &lt;a href=&quot;http://tools.jboss.org/downloads/jbosstools/neon/4.4.2.AM1.html&quot;&gt;JBoss Tools 4.4.2 AM1&lt;/a&gt;.&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;sect1&quot;&gt;
+      &lt;h2 id=&quot;what-is-new&quot;&gt;&lt;a class=&quot;anchor&quot; href=&quot;http://tools.jboss.org/blog/news.atom#what-is-new&quot;&gt;&lt;/a&gt;What is New?&lt;/h2&gt;
+      &lt;div class=&quot;sectionbody&quot;&gt;
+      &lt;div class=&quot;paragraph&quot;&gt;
+      &lt;p&gt;Full info is at &lt;a href=&quot;http://tools.jboss.org/documentation/whatsnew/jbosstools/4.4.2.AM1.html&quot;&gt;this page&lt;/a&gt;. Some highlights are below.&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;sect2&quot;&gt;
+      &lt;h3 id=&quot;openshift-3&quot;&gt;&lt;a class=&quot;anchor&quot; href=&quot;http://tools.jboss.org/blog/news.atom#openshift-3&quot;&gt;&lt;/a&gt;OpenShift 3&lt;/h3&gt;
+      &lt;div class=&quot;paragraph&quot;&gt;
+      &lt;p&gt;Although our main focus is bug fixes, we continue to work on providing better experience for container based development in JBoss Tools and Developer Studio. Let’s go through a few interesting updates here and you can find more details on &lt;a href=&quot;http://tools.jboss.org/documentation/whatsnew/jbosstools/4.4.2.AM1.html&quot;&gt;the What’s New page&lt;/a&gt;.&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;sect3&quot;&gt;
+      &lt;h4 id=&quot;cluster-common-namespace&quot;&gt;&lt;a class=&quot;anchor&quot; href=&quot;http://tools.jboss.org/blog/news.atom#cluster-common-namespace&quot;&gt;&lt;/a&gt;Cluster common namespace&lt;/h4&gt;
+      &lt;div class=&quot;paragraph&quot;&gt;
+      &lt;p&gt;When looking for Openshift resources (builder images, templates), a common namespace is browsed.
+      Earlier hardcoded &lt;code&gt;openshift&lt;/code&gt; namespace is now configurable with default value &lt;code&gt;openshift&lt;/code&gt;.&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;admonitionblock warning&quot;&gt;
+      &lt;table&gt;
+      &lt;tbody&gt;&lt;tr&gt;
+      &lt;td class=&quot;icon&quot;&gt;
+      &lt;i class=&quot;fa icon-warning&quot; title=&quot;Warning&quot;&gt;&lt;/i&gt;
+      &lt;/td&gt;
+      &lt;td class=&quot;content&quot;&gt;
+      Please note that templates are still loaded from the &lt;code&gt;òpenshift&lt;/code&gt; namespace and not the from configured common namespace, this will be fixed for the next release.
+      &lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;/tbody&gt;&lt;/table&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;paragraph&quot;&gt;
+      &lt;p&gt;It can be accessed and modified through the connection extended properties:&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;imageblock&quot;&gt;
+      &lt;div class=&quot;content&quot;&gt;
+      &lt;img alt=&quot;Connection extended properties&quot; src=&quot;http://tools.jboss.org/documentation/whatsnew/openshift/images/connection-extended-properties-namespace.png&quot; /&gt;
+      &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;sect2&quot;&gt;
+      &lt;h3 id=&quot;cdk-server-using-native-terminal-for-better-user-interactions&quot;&gt;&lt;a class=&quot;anchor&quot; href=&quot;http://tools.jboss.org/blog/news.atom#cdk-server-using-native-terminal-for-better-user-interactions&quot;&gt;&lt;/a&gt;CDK server using native terminal for better user interactions&lt;/h3&gt;
+      &lt;div class=&quot;paragraph&quot;&gt;
+      &lt;p&gt;The CDK server adapter now uses a native terminal that allows better interaction with the user.
+      In the case credentials are not passed in the Vagrant environment, the user will be asked just as with
+      the standard Vagrant CLI and in case of registration failures, retries will be performed.&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;paragraph&quot;&gt;
+      &lt;p&gt;First, make sure your CDK server adapter is configured not to pass credentials:&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;imageblock&quot;&gt;
+      &lt;div class=&quot;content&quot;&gt;
+      &lt;img alt=&quot;CDK editor&quot; src=&quot;http://tools.jboss.org/documentation/whatsnew/openshift/images/cdk-editor-no-credentials-pass.png&quot; /&gt;
+      &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;paragraph&quot;&gt;
+      &lt;p&gt;Then, start the CDK server adapter and a new terminal window will open, asking for registration:&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;imageblock&quot;&gt;
+      &lt;div class=&quot;content&quot;&gt;
+      &lt;img alt=&quot;Registration&quot; src=&quot;http://tools.jboss.org/documentation/whatsnew/openshift/images/cdk-terminal-asks-for-registration.png&quot; /&gt;
+      &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;paragraph&quot;&gt;
+      &lt;p&gt;If you answered &lt;code&gt;y&lt;/code&gt; to the previous questions, then the terminal window will ask for username:&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;imageblock&quot;&gt;
+      &lt;div class=&quot;content&quot;&gt;
+      &lt;img alt=&quot;Username&quot; src=&quot;http://tools.jboss.org/documentation/whatsnew/openshift/images/cdk-terminal-asks-for-username.png&quot; /&gt;
+      &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;paragraph&quot;&gt;
+      &lt;p&gt;Then the terminal window will ask for password:&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;imageblock&quot;&gt;
+      &lt;div class=&quot;content&quot;&gt;
+      &lt;img alt=&quot;Password&quot; src=&quot;http://tools.jboss.org/documentation/whatsnew/openshift/images/cdk-terminal-asks-for-password.png&quot; /&gt;
+      &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;paragraph&quot;&gt;
+      &lt;p&gt;If the registration fails, then the terminal window will perform retries and ask again for username and password:&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;imageblock&quot;&gt;
+      &lt;div class=&quot;content&quot;&gt;
+      &lt;img alt=&quot;Password&quot; src=&quot;http://tools.jboss.org/documentation/whatsnew/openshift/images/cdk-terminal-asks-for-password2.png&quot; /&gt;
+      &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;paragraph&quot;&gt;
+      &lt;p&gt;Enjoy!&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;paragraph&quot;&gt;
+      &lt;p&gt;Jeff Maury&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;/div&gt;&lt;/div&gt;</description>
+	<pubDate>Tue, 18 Oct 2016 23:25:39 +0000</pubDate>
+</item>
+<item>
+	<title>Ian Skerrett: Towards an open IoT cloud platform</title>
+	<guid isPermaLink="false">http://ianskerrett.wordpress.com/?p=3779</guid>
+	<link>http://feedproxy.google.com/~r/IanSkerrett/~3/VT0omuMVibI/</link>
+	<description>&lt;p&gt;Today we announced a collaboration between &lt;a href=&quot;https://www.eclipse.org/org/press-release/20161018_iotcloud.php&quot;&gt;Bosch, Red Hat and Eurotech&lt;/a&gt; to begin the work to create interoperable IoT components for an IoT cloud platform. This is the first step towards creating an open source IoT cloud platform that I hope one day will become the defacto implementation for IoT solutions, similar to Apache http for web applications.&lt;/p&gt;
+&lt;p&gt;An important part of this announcement is the availability of the &lt;a href=&quot;https://github.com/eclipse/kapua&quot;&gt;Eclipse Kapua code base&lt;/a&gt;. This initial contribution is based on code Eurotech has used to run their existing &lt;a href=&quot;http://www.eurotech.com/en/products/software+services/everyware+device+cloud&quot;&gt;Eurotech Everyware Device Cloud&lt;/a&gt; and involves significant involvement from Red Hat to create a  platform for a set of modular services. The next step will be to integrate other Eclipse projects, like &lt;a href=&quot;https://projects.eclipse.org/projects/iot.hono&quot;&gt;Hono &lt;/a&gt;or &lt;a href=&quot;https://projects.eclipse.org/projects/iot.hawkbit&quot;&gt;Hawkbit&lt;/a&gt;, with Kapua. Longer term I hope to see Eclipse Mosquitto, Eclipse Leshan, Eclipse ACS, etc. become services of an IoT cloud platform.&lt;/p&gt;
+&lt;p&gt;Ultimately, a successful open IoT cloud platform will have an large ecosystem of modular services provided by many different suppliers, not just Eclipse IoT projects. Each service will have a defined API to allow for easy integration with IoT solutions. The platform will run on different Cloud PaaS, like OpenShift, Cloud Foundry, and will be loosely coupled with the IoT gateways and constrained devices. We have defined the characteristics and featues of an IoT cloud platform in the recent &lt;a href=&quot;http://iot.eclipse.org/resources/white-papers/Eclipse%20IoT%20White%20Paper%20-%20The%20Three%20Software%20Stacks%20Required%20for%20IoT%20Architectures.pdf&quot;&gt;IoT Stacks white paper&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;img alt=&quot;iot-cloud-platform&quot; class=&quot;  wp-image-3858 aligncenter&quot; height=&quot;413&quot; src=&quot;https://ianskerrett.files.wordpress.com/2016/10/iot-cloud-platform.png?w=418&amp;amp;h=413&quot; width=&quot;418&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;This is the start of the work towards an open IoT cloud platform. Eurotech, Red Hat and Bosch have taken the first step but more companies and individuals will be needed to see this become a reality. To get involved, start participating in the &lt;a href=&quot;https://www.eclipse.org/kapua/index.php#community&quot;&gt;Eclipse Kapua&lt;/a&gt; and &lt;a href=&quot;https://projects.eclipse.org/projects/iot.hono&quot;&gt;Eclipse Hono&lt;/a&gt; projects. Next week at the &lt;a href=&quot;https://www.eclipsecon.org/europe2016/iot&quot;&gt;Eclipse IoT Day &lt;/a&gt;and &lt;a href=&quot;https://wiki.eclipse.org/Eclipse_Unconference_Europe_2016#IoT_Working_Group&quot;&gt;Eclipse IoT WG Meeting&lt;/a&gt; there will also be lots of discussion abut this future. Join us and help create the future.&lt;/p&gt;
+&lt;p&gt; &lt;/p&gt;
+&lt;p&gt;&lt;img alt=&quot;iot_day_logo_0&quot; class=&quot; size-full wp-image-3862 aligncenter&quot; src=&quot;https://ianskerrett.files.wordpress.com/2016/10/iot_day_logo_0.png?w=450&quot; /&gt;&lt;/p&gt;&lt;br /&gt;  &lt;a href=&quot;http://feeds.wordpress.com/1.0/gocomments/ianskerrett.wordpress.com/3779/&quot; rel=&quot;nofollow&quot;&gt;&lt;img alt=&quot;&quot; border=&quot;0&quot; src=&quot;http://feeds.wordpress.com/1.0/comments/ianskerrett.wordpress.com/3779/&quot; /&gt;&lt;/a&gt; &lt;img alt=&quot;&quot; border=&quot;0&quot; height=&quot;1&quot; src=&quot;https://pixel.wp.com/b.gif?host=ianskerrett.wordpress.com&amp;amp;blog=405862&amp;amp;post=3779&amp;amp;subd=ianskerrett&amp;amp;ref=&amp;amp;feed=1&quot; width=&quot;1&quot; /&gt;&lt;img alt=&quot;&quot; height=&quot;1&quot; src=&quot;http://feeds.feedburner.com/~r/IanSkerrett/~4/VT0omuMVibI&quot; width=&quot;1&quot; /&gt;</description>
+	<pubDate>Tue, 18 Oct 2016 14:15:13 +0000</pubDate>
+</item>
+
+</channel>
+</rss>

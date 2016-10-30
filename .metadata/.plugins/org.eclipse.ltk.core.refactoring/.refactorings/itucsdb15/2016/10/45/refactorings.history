@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename resource &apos;itucsdb15/vagrant/inir_database.py&apos; to &apos;init_database.py&apos;" description="Rename resource &apos;inir_database.py&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="vagrant/inir_database.py" name="init_database.py" stamp="1477833789086" updateReferences="true"/>
+</session>

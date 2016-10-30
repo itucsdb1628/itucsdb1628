@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?pydev-testrun version="1.0"?><pydev-testsuite>
+<summary errors="1" failures="0" finished="true" name="Test Run: 3" tests="0" total_time="Finished in: 0.00 secs."/>
+<test location="/home/kagan/git/itucsdb1628/server.py" status="error" test="server" time="0">
+<stdout/>
+<stderr><![CDATA[Traceback (most recent call last):
+  File "/home/kagan/.p2/pool/plugins/org.python.pydev_5.3.0.201610121612/pysrc/_pydev_runfiles/pydev_runfiles.py", line 468, in __get_module_from_str
+    mod = __import__(modname)
+  File "/home/kagan/git/itucsdb1628/server.py", line 71, in <module>
+    @app.route('/test')
+  File "/usr/local/lib/python3.5/dist-packages/flask/app.py", line 1097, in decorator
+    self.add_url_rule(rule, endpoint, f, **options)
+  File "/usr/local/lib/python3.5/dist-packages/flask/app.py", line 65, in wrapper_func
+    return f(self, *args, **kwargs)
+  File "/usr/local/lib/python3.5/dist-packages/flask/app.py", line 1068, in add_url_rule
+    'existing endpoint function: %s' % endpoint)
+AssertionError: View function mapping is overwriting an existing endpoint function: test_page
+ERROR: Module: server could not be imported (file: /home/kagan/git/itucsdb1628/server.py).
+]]></stderr>
+</test>
+<launch mode="run">
+<launch_memento><![CDATA[<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<launchConfiguration local="true" path="itucsdb15 server.py"/>
+]]></launch_memento>
+</launch>
+</pydev-testsuite>
