@@ -54,9 +54,13 @@ def initialize_database():
     create_post_table()
     firstPost = Post("perfect!",datetime.datetime.now(),1, 1)
     insert_post(firstPost)
+
+    create_user_table()
+    firstuser = User(1,"user1","password1")
+    insert_user(firstuser)
     return redirect(url_for('home_page'))
-    
-        
+
+
 if __name__ == '__main__':
     VCAP_APP_PORT = os.getenv('VCAP_APP_PORT')
     if VCAP_APP_PORT is not None:
@@ -68,5 +72,5 @@ if __name__ == '__main__':
         app.config['dsn'] = get_elephantsql_dsn(VCAP_SERVICES)
     else:
         app.config['dsn'] = """user='vagrant' password='vagrant'
-                               host='localhost' port=5432 dbname='itucsdb'""" 
+                               host='localhost' port=5432 dbname='itucsdb'"""
     app.run(host='0.0.0.0', port=port, debug=debug)
