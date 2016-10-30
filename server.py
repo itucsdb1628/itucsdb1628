@@ -12,7 +12,7 @@ from flask import render_template
 app = Flask(__name__)
 
 def get_elephantsql_dsn(vcap_services):
-    """Returns the data source name for ElephantSQL."""
+    """Returns the data source name  for ElephantSQL."""
     parsed = json.loads(vcap_services)
     uri = parsed["elephantsql"][0]["credentials"]["uri"]
     match = re.match('postgres://(.*?):(.*?)@(.*?)(:(\d+))?/(.*)', uri)
@@ -52,7 +52,7 @@ def activities_page():
 @app.route('/createtables')
 def initialize_database():
     create_post_table()
-    firstPost = Post("Ali",datetime.datetime.now(),1, 1)
+    firstPost = Post("perfect!",datetime.datetime.now(),1, 1)
     insert_post(firstPost)
     return redirect(url_for('home_page'))
     

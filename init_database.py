@@ -1,6 +1,6 @@
 import psycopg2 as dbapi2
 
-from dao import *
+from dao.post import *
 
 
 dsn = """user='vagrant' password='vagrant'
