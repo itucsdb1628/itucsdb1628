@@ -52,6 +52,8 @@ def activities_page():
 @app.route('/createtables')
 def initialize_database():
     create_post_table()
+    firstPost = Post("Ali",datetime.datetime.now(),1, 1)
+    insert_post(firstPost)
     return redirect(url_for('home_page'))
     
         

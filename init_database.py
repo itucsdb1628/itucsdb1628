@@ -1,5 +1,8 @@
 import psycopg2 as dbapi2
 
+from dao import *
+
+
 dsn = """user='vagrant' password='vagrant'
          host='localhost' port=5432 dbname='itucsdb'"""
          
@@ -11,7 +14,7 @@ def create_post_table():
             statement = """CREATE TABLE IF NOT EXISTS POST(
             ID SERIAL PRIMARY KEY,
             CONTENT VARCHAR(100) NOT NULL,
-            POSTDATE DATE NOT NULL,
+            POSTDATE TIMESTAMP,
             USERID INTEGER NOT NULL,
             SONGID INTEGER NOT NULL
             )"""
@@ -24,6 +27,15 @@ def create_post_table():
         connection.close()
     
      
-def insert_user(cursor):
-    statement= """INSERT INTO USERS(USERNAME,PASSWORD,NAME,SURNAME,EMAIL) VALUES(?,?,?,?,?)"""
-    cursor.execute(statement)
+def insert_post(post):
+    try:
+        with dbapi2.connect(dsn) as connection:
+            cursor = connection.cursor()
+            statement= """INSERT INTO POST(CONTENT,POSTDATE,USERID,SONGID) VALUES(%s,%s,%s,%s)"""
+        cursor.execute(statement,(post.content,post.postdate,post.userid,post.songid))
+        connection.commit() 
+        cursor.close()
+    except dbapi2.DatabaseError as e:
+        connection.rollback()
+    finally:
+        connection.close()
