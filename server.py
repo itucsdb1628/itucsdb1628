@@ -62,6 +62,11 @@ def initialize_database():
     create_comment_table()
     first_comment = Comment("first",1,1,datetime.datetime.now())
     insert_comment(first_comment)
+    
+    create_song_table()
+    sample_song = Song(1,"Scar Tissue","Californication","Red Hot Chili Peppers","Rock","imaginary_filepath.mp3")
+    insert_song(sample_song)
+    
     return redirect(url_for('home_page'))
 
 

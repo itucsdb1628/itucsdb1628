@@ -3,6 +3,7 @@ import psycopg2 as dbapi2
 from dao.post import *
 from dao.user import *
 from dao.comment import *
+from dao.song import *
 
 
 dsn = """user='vagrant' password='vagrant'
@@ -98,6 +99,40 @@ def insert_comment(comment):
             cursor = connection.cursor()
             statement = """INSERT INTO COMMENT(CONTENT,USERID,POSTID,CDATE) VALUES(%s,%s,%s,%s)"""
         cursor.execute(statement,(comment.content,comment.userid,comment.postid,comment.cdate))
+        connection.commit()
+        cursor.close()
+    except dbapi2.DatabaseError as e:
+        connection.rollback()
+    finally:
+        connection.close()
+        
+#song table     
+def create_song_table():
+    try:
+        with dbapi2.connect(dsn) as connection:
+            cursor = connection.cursor()
+            statement = """CREATE TABLE IF NOT EXISTS SONG(
+            ID SERIAL PRIMARY KEY,
+            NAME VARCHAR(50) NOT NULL,
+            ALBUM VARCHAR(30),
+            ARTIST VARCHAR(30) NOT NULL,
+            GENRE VARCHAR(20),
+            FILEPATH VARCHAR(64) UNIQUE NOT NULL
+            )"""
+        cursor.execute(statement)
+        connection.commit()
+        cursor.close()
+    except dbapi2.DatabaseError:
+        connection.rollback()
+    finally:
+        connection.close()
+
+def insert_song(song):
+    try:
+        with dbapi2.connect(dsn) as connection:
+            cursor = connection.cursor()
+            statement = """INSERT INTO SONG(ID,NAME,ALBUM,ARTIST,GENRE,FILEPATH) VALUES(%s,%s,%s,%s,%s,%s)"""
+        cursor.execute(statement,(song.id,song.name,song.album,song.artist,song.genre,song.filepath))
         connection.commit()
         cursor.close()
     except dbapi2.DatabaseError as e:
