@@ -66,7 +66,9 @@ def initialize_database():
     create_song_table()
     sample_song = Song(1,"Scar Tissue","Californication","Red Hot Chili Peppers","Rock","imaginary_filepath.mp3")
     insert_song(sample_song)
-    
+
+    create_messages_table()
+
     return redirect(url_for('home_page'))
 
 

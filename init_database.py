@@ -139,3 +139,38 @@ def insert_song(song):
         connection.rollback()
     finally:
         connection.close()
+
+
+def create_messages_table():
+    """ Drops(if exits) and Creates all tables for Messages """
+    with dbapi2.connect(dsn) as connection:
+        with connection.cursor() as cursor:
+            cursor.execute(""" DROP TABLE IF EXISTS MESSAGE_ROOM CASCADE; """)
+            cursor.execute(""" CREATE TABLE MESSAGE_ROOM (
+                                       ID SERIAL PRIMARY KEY,
+                                       NAME TEXT NULL
+                                  ); """)
+
+            cursor.execute(""" DROP TABLE IF EXISTS MESSAGE CASCADE; """)
+            cursor.execute(""" CREATE TABLE MESSAGE (
+                                       ID SERIAL PRIMARY KEY,
+                                       TEXT TEXT NOT NULL,
+                                       DATE TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+                                       RoomID INTEGER REFERENCES MESSAGE_ROOM (ID) ON DELETE CASCADE,
+                                       SenderID VARCHAR (40) --todo refer to userid ON DELETE SET NULL
+                                  ); """)
+
+            cursor.execute(""" DROP TABLE IF EXISTS MESSAGE_PARTICIPANT; """)
+            cursor.execute(""" CREATE TABLE MESSAGE_PARTICIPANT (
+                                       RoomID INTEGER REFERENCES MESSAGE_ROOM (ID) ON DELETE CASCADE,
+                                       UserID VARCHAR (40), --todo refer to userid, ON DELETE SET NULL
+                                       PRIMARY KEY (RoomID, UserID)
+                                   ); """)
+
+            cursor.execute(""" DROP TABLE IF EXISTS MESSAGE_STATUS; """)
+            cursor.execute(""" CREATE TABLE MESSAGE_STATUS (
+                                       MessageID INTEGER REFERENCES MESSAGE (ID) ON DELETE CASCADE,
+                                       ReceiverID VARCHAR (40), --todo refer to userid ON DELETE CASCADE
+                                       STATUS BOOLEAN DEFAULT TRUE,
+                                       PRIMARY KEY (MessageID, ReceiverID)
+                                   ); """)
