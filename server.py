@@ -8,6 +8,7 @@ from flask import redirect
 from flask.helpers import url_for
 from flask import Flask
 from flask import render_template
+from dao import messages
 
 app = Flask(__name__)
 
@@ -68,6 +69,7 @@ def initialize_database():
     insert_song(sample_song)
 
     create_messages_table()
+    messages.insert_bulk()
 
     return redirect(url_for('home_page'))
 
