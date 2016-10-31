@@ -69,7 +69,7 @@ def initialize_database():
     insert_song(sample_song)
 
     create_messages_table()
-    messages.insert_bulk()
+    insert_bulk_messages()
 
     return redirect(url_for('home_page'))
 
