@@ -15,59 +15,61 @@ dsn = """user='vagrant' password='vagrant'
          host='localhost' port=5432 dbname='itucsdb'"""
          
 def select_posts():
-    try:
-        with dbapi2.connect(dsn) as connection:
-            cursor = connection.cursor()
-            query = """SELECT POST.ID, POST.CONTENT, POST.SONGID, ALBUMCOVER.FILEPATH,USERDATA.USERNAME
+    with dbapi2.connect(dsn) as connection:
+        try:
+             cursor = connection.cursor()
+             query = """SELECT POST.ID, POST.CONTENT, POST.SONGID, ALBUMCOVER.FILEPATH,USERDATA.USERNAME
              FROM POST INNER JOIN ALBUMCOVER on ALBUMCOVER.ID = POST.ALBUMCOVERID
              INNER JOIN USERDATA on POST.USERID = USERDATA.ID"""
-            cursor.execute(query)
-            return cursor
-    except dbapi2.DatabaseError as e:
-        connection.rollback()
+             cursor.execute(query)
+             return cursor
+        except dbapi2.DatabaseError as e:
+             connection.rollback()
         
         
         
 
 def delete_post(DELETEID):
-    try:
-        with dbapi2.connect(dsn) as connection:
+    with dbapi2.connect(dsn) as connection:
+        try:
             cursor = connection.cursor()
             cursor.execute("""DELETE FROM POST WHERE ID = %s""", (int(DELETEID),))
             connection.commit()
-    except dbapi2.DatabaseError as e:
-        connection.rollback()
-        
+        except dbapi2.DatabaseError as e:
+            connection.rollback()
+
     
     
 
 def select_post(UPDATEID):
-    try:
-        with dbapi2.connect(dsn) as connection:
-            cursor = connection.cursor()
-            query = """SELECT POST.ID, POST.CONTENT, POST.SONGID, ALBUMCOVER.FILEPATH,USERDATA.USERNAME
+    with dbapi2.connect(dsn) as connection:
+        try:
+             cursor = connection.cursor()
+             query = """SELECT POST.ID, POST.CONTENT, POST.SONGID, ALBUMCOVER.FILEPATH,USERDATA.USERNAME
              FROM POST INNER JOIN ALBUMCOVER on ALBUMCOVER.ID = POST.ALBUMCOVERID
              INNER JOIN USERDATA on USERDATA.ID=POST.USERID WHERE POST.ID = %s  """ %UPDATEID
-            cursor.execute(query)
-            connection.commit()
-            return cursor
-    except dpapi2.DatabaseError as e:
-        connection.rollback()
+             cursor.execute(query)
+             connection.commit()
+             return cursor
+        except dpapi2.DatabaseError as e:
+             connection.rollback()
+
 
 def update_post(UPDATEID):
-    try:
-        with dbapi2.connect(dsn) as connection:
+    with dbapi2.connect(dsn) as connection:
+        try:
             cursor = connection.cursor()
             content = request.form['content']
             query = """UPDATE POST SET CONTENT = '%s' WHERE ID = %d""" % (content,int(UPDATEID))
             cursor.execute(query)
             connection.commit()
-    except dpapi2.DatabaseError as e:
-        connection.rollback()
+        except dpapi2.DatabaseError as e:
+            connection.rollback()
+
 
 def insert_post_page():
-    try:
-        with dbapi2.connect(dsn) as connection:
+    with dbapi2.connect(dsn) as connection:
+        try:
             cursor = connection.cursor()
             content = request.form['content']
             albumcover = request.form['albumcover']
@@ -76,5 +78,5 @@ def insert_post_page():
             query ="""INSERT INTO POST(CONTENT,USERID,SONGID,ALBUMCOVERID) VALUES(%s,%s,%s,%s)"""
             cursor.execute(query,(content,userid,songid,albumcover))
             connection.commit()
-    except dbapi2.DatabaseError as e:
-        connection.rollback()
+        except dbapi2.DatabaseError as e:
+            connection.rollback()
