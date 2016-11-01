@@ -18,9 +18,6 @@ from flask import request
 
 app = Flask(__name__)
 
-dsn = """user='vagrant' password='vagrant'
-         host='localhost' port=5432 dbname='itucsdb'"""
-
 def get_elephantsql_dsn(vcap_services):
     """Returns the data source name  for ElephantSQL."""
     parsed = json.loads(vcap_services)
@@ -30,6 +27,7 @@ def get_elephantsql_dsn(vcap_services):
     dsn = """user='{}' password='{}' host='{}' port={}
              dbname='{}'""".format(user, password, host, port, dbname)
     return dsn
+
 
 def get_dns():
     VCAP_SERVICES = os.getenv('VCAP_SERVICES')
@@ -117,18 +115,11 @@ def initialize_database():
 
 
 if __name__ == '__main__':
-    global dsn
     VCAP_APP_PORT = os.getenv('VCAP_APP_PORT')
     if VCAP_APP_PORT is not None:
         port, debug = int(VCAP_APP_PORT), False
     else:
         port, debug = 5000, True
-    # VCAP_SERVICES = os.getenv('VCAP_SERVICES')
-    # if VCAP_SERVICES is not None:
-    #     app.config['dsn'] = get_elephantsql_dsn(VCAP_SERVICES)
-    # else:
-    #     app.config['dsn'] = """user='vagrant' password='vagrant'
-    #                            host='localhost' port=5432 dbname='itucsdb'"""
 
     app.config['dsn'] = get_dns()
 
