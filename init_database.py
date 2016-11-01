@@ -7,9 +7,9 @@ from dao.song import *
 from dao import messages
 import datetime
 
-import server
+from dsn_conf import get_dsn
 
-dsn = server.get_dns()
+dsn = get_dsn()
 
 
 def create_post_table():
@@ -232,3 +232,25 @@ def insert_bulk_messages():
     # print([msg.text for msg in Message.get_messages(room1)])
     # print([msg.text for msg in Message.get_messages(room2)])
     # print([msg.text for msg in Message.get_messages(room3)])
+
+
+def initialize_database():
+    create_album_cover_table()
+    create_post_table()
+    firstPost = Post("perfect!", datetime.datetime.now(), 1, 1, 1)
+    insert_post(firstPost)
+
+    create_user_table()
+    firstuser = User(1, "user1", "password1")
+    insert_user(firstuser)
+
+    create_comment_table()
+    first_comment = Comment("first", 1, 1, datetime.datetime.now())
+    insert_comment(first_comment)
+
+    create_song_table()
+    sample_song = Song(1, "Scar Tissue", "Californication", "Red Hot Chili Peppers", "Rock", "imaginary_filepath.mp3")
+    insert_song(sample_song)
+
+    create_messages_table()
+    insert_bulk_messages()

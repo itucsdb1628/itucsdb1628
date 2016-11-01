@@ -1,19 +1,10 @@
-import datetime
-import os
-import json
-import re
 import psycopg2 as dbapi2
-
-
-from flask import redirect
-from flask.helpers import url_for
-from flask import Flask
-from flask import render_template
 from flask import request
 
-dsn = """user='vagrant' password='vagrant'
-         host='localhost' port=5432 dbname='itucsdb'"""
-         
+from dsn_conf import get_dsn
+
+dsn = get_dsn()
+
 def select_posts():
     with dbapi2.connect(dsn) as connection:
         try:
@@ -51,7 +42,7 @@ def select_post(UPDATEID):
              cursor.execute(query)
              connection.commit()
              return cursor
-        except dpapi2.DatabaseError as e:
+        except dbapi2.DatabaseError as e:
              connection.rollback()
 
 
@@ -63,7 +54,7 @@ def update_post(UPDATEID):
             query = """UPDATE POST SET CONTENT = '%s' WHERE ID = %d""" % (content,int(UPDATEID))
             cursor.execute(query)
             connection.commit()
-        except dpapi2.DatabaseError as e:
+        except dbapi2.DatabaseError as e:
             connection.rollback()
 
 
