@@ -3,14 +3,22 @@ import os
 import json
 import re
 import psycopg2 as dbapi2
+
+
 from init_database import *
+from post import *
+
+
 from flask import redirect
 from flask.helpers import url_for
 from flask import Flask
 from flask import render_template
-from dao import messages
+from flask import request
+
 
 app = Flask(__name__)
+
+
 
 def get_elephantsql_dsn(vcap_services):
     """Returns the data source name  for ElephantSQL."""
@@ -22,11 +30,37 @@ def get_elephantsql_dsn(vcap_services):
              dbname='{}'""".format(user, password, host, port, dbname)
     return dsn
 
+'''********************************TIMELINE ROUTES - ismail*********************************'''
+@app.route('/timeline')
+def timeline_page():
+    return render_template("timeline.html", posts = select_posts())
+
+@app.route('/timeline/delete/<int:DELETEID>', methods=['GET', 'POST'])
+def timeline_page_delete(DELETEID):
+     delete_post(DELETEID)
+     return redirect(url_for('timeline_page'))
+
+@app.route('/timeline/update/<int:UPDATEID>/', methods=['GET', 'POST'])
+def timeline_page_update(UPDATEID):
+    return render_template('timeline_edit.html', posts = select_post(UPDATEID))
+
+@app.route('/timeline/update/<int:UPDATEID>/APPLY', methods=['GET', 'POST'])
+def timeline_page_apply(UPDATEID):
+    update_post(UPDATEID)
+    return redirect(url_for('timeline_page'))
+
+@app.route('/timeline/insert', methods=['GET', 'POST'])
+def timeline_page_insert():
+    insert_post_page()
+    return redirect(url_for('timeline_page'))
+'''*********************************************************************************'''
 
 @app.route('/')
 def home_page():
     now = datetime.datetime.now()
     return render_template('home.html')
+
+
 
 
 @app.route('/messages')
@@ -42,9 +76,6 @@ def profile_page():
 def music_page():
     return render_template("music.html")
 
-@app.route('/timeline')
-def timeline_page():
-    return render_template("timeline.html")
 
 @app.route('/activities')
 def activities_page():
@@ -52,8 +83,9 @@ def activities_page():
 
 @app.route('/createtables')
 def initialize_database():
+    create_album_cover_table()
     create_post_table()
-    firstPost = Post("perfect!",datetime.datetime.now(),1, 1)
+    firstPost = Post("perfect!",datetime.datetime.now(),1, 1,1)
     insert_post(firstPost)
 
     create_user_table()
@@ -72,6 +104,7 @@ def initialize_database():
     insert_bulk_messages()
 
     return redirect(url_for('home_page'))
+
 
 
 if __name__ == '__main__':
