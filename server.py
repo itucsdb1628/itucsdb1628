@@ -5,7 +5,7 @@ from flask import redirect
 from flask import render_template
 from flask.helpers import url_for
 
-from init_database import initialize_database
+from init_database import reset_database
 from post import *
 from dsn_conf import get_dsn
 
@@ -48,7 +48,7 @@ def timeline_page_insert():
 
 @app.route('/')
 def home_page():
-    initialize_database()
+    reset_database()
     return render_template('home.html')
 
 
@@ -74,7 +74,7 @@ def activities_page():
 
 @app.route('/createtables')
 def initialize_database():
-    initialize_database()
+    reset_database()
     return redirect(url_for('home_page'))
 
 

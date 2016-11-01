@@ -234,7 +234,7 @@ def insert_bulk_messages():
     # print([msg.text for msg in Message.get_messages(room3)])
 
 
-def initialize_database():
+def reset_database():
     create_album_cover_table()
     create_post_table()
     firstPost = Post("perfect!", datetime.datetime.now(), 1, 1, 1)
