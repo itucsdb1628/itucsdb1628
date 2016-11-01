@@ -18,7 +18,8 @@ from flask import request
 
 app = Flask(__name__)
 
-
+dsn = """user='vagrant' password='vagrant'
+         host='localhost' port=5432 dbname='itucsdb'"""
 
 def get_elephantsql_dsn(vcap_services):
     """Returns the data source name  for ElephantSQL."""
@@ -95,7 +96,7 @@ def initialize_database():
     create_comment_table()
     first_comment = Comment("first",1,1,datetime.datetime.now())
     insert_comment(first_comment)
-    
+
     create_song_table()
     sample_song = Song(1,"Scar Tissue","Californication","Red Hot Chili Peppers","Rock","imaginary_filepath.mp3")
     insert_song(sample_song)
@@ -108,6 +109,7 @@ def initialize_database():
 
 
 if __name__ == '__main__':
+    global dsn
     VCAP_APP_PORT = os.getenv('VCAP_APP_PORT')
     if VCAP_APP_PORT is not None:
         port, debug = int(VCAP_APP_PORT), False
@@ -119,4 +121,5 @@ if __name__ == '__main__':
     else:
         app.config['dsn'] = """user='vagrant' password='vagrant'
                                host='localhost' port=5432 dbname='itucsdb'"""
+    dsn=app.config['dsn']
     app.run(host='0.0.0.0', port=port, debug=debug)

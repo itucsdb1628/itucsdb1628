@@ -7,9 +7,9 @@ from dao.song import *
 from dao import messages
 import datetime
 
+import server
 
-dsn = """user='vagrant' password='vagrant'
-         host='localhost' port=5432 dbname='itucsdb'"""
+dsn = server.dsn
 
 
 def create_post_table():
