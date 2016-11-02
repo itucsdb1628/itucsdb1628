@@ -7,6 +7,8 @@ from flask.helpers import url_for
 
 from init_database import reset_database
 from post import *
+from genre import *
+from dao.genre import *
 from dsn_conf import get_dsn
 
 app = Flask(__name__)
@@ -45,6 +47,33 @@ def timeline_page_insert():
 
 '''*********************************************************************************'''
 
+
+'''*********************************ADMIN PAGE**************************************'''
+@app.route('/adminpanel', methods=['GET', 'POST'])
+def adminpanel_page():
+    if request.method == 'GET':
+
+        return render_template('adminpanel.html',allgenre = select_all_genre(),allgenre2 = select_all_genre())
+    else:
+        actiontype = int(request.form['actiontype'])
+        if actiontype == 1: #addgenre
+            genrename = request.form['genrename']
+            newgenre = Genre(genrename)
+            insert_genre(newgenre)
+            return redirect(url_for('adminpanel_page'))
+        if actiontype == 2: #updategenre
+            genreid = request.form['genreid']
+            newname = request.form['newname']
+            update_genre(genreid,newname)
+            return redirect(url_for('adminpanel_page'))
+        if actiontype == 3: #deletegenre
+            genreid = request.form['genreid']
+            delete_genre(genreid)
+            return redirect(url_for('adminpanel_page'))
+
+
+
+'''*********************************************************************************'''
 
 @app.route('/')
 def home_page():

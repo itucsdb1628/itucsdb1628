@@ -1,0 +1,116 @@
+{% extends "base.html" %}
+{% block static_links %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/adminpanel.css') }}" />
+{% endblock %}
+
+{% block layout %}
+<div class="">
+	<div class="row">
+		<div class="col-xs-5 menuitem">
+			Genre
+			<button type="button" class="btn btn-default" data-toggle="modal" data-target="#genre_add">Add</button>
+			<button type="button" class="btn btn-default" data-toggle="modal" data-target="#genre_update">Update</button>
+			<button type="button" class="btn btn-default" data-toggle="modal" data-target="#genre_delete">Remove</button>
+		</div>
+		<div class="col-xs-1"></div>
+		<div class="col-xs-5 menuitem">
+			Song
+			<button type="button" class="btn btn-default">Add</button>
+			<button type="button" class="btn btn-default">Update</button>
+			<button type="button" class="btn btn-default">Remove</button>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-xs-5 menuitem">
+			Album
+			<button type="button" class="btn btn-default">Add</button>
+			<button type="button" class="btn btn-default">Update</button>
+			<button type="button" class="btn btn-default">Remove</button>
+		</div>
+		<div class="col-xs-1"></div>
+		<div class="col-xs-5 menuitem">
+			Artist
+			<button type="button" class="btn btn-default">Add</button>
+			<button type="button" class="btn btn-default">Update</button>
+			<button type="button" class="btn btn-default">Remove</button>
+		</div>
+	</div>
+
+</div>
+
+<!-- GENRE ADD -->
+			<div id="genre_add" class="modal fade" role="dialog">
+			  <div class="modal-dialog">
+
+			    <!-- Modal content-->
+			    <div class="modal-content">
+			      <div class="modal-body">
+			        <p>
+				  		<h4 align="center">Add a new genre</h4>
+						<form align= "center" role="form" action="" method = "post">
+							<input type="text" name="genrename" required="required">
+							<input type="hidden" name="actiontype" required="required" value ="1">
+							<button type="submit" name="addgenre" class="btn btn-default">Add</button>
+				        </form>
+					</p>
+			      </div>
+			    </div>
+			  </div>
+			</div>
+<!-- GENRE ADD -->
+
+<!-- GENRE UPDATE -->
+			<div id="genre_update" class="modal fade" role="dialog">
+			  <div class="modal-dialog">
+
+			    <!-- Modal content-->
+			    <div class="modal-content">
+			      <div class="modal-body">
+			        <p>
+				  		<h4 align="center">Update an existing genre</h4>
+						<form align= "center" role="form" action="" method= "post">
+							<input type="text" name="newname" required="required">
+							<input type="hidden" name="actiontype" required="required" value ="2">
+							<select name="genreid">
+								{% for ID, NAME in allgenre %}
+		                            <option value="{{ID}}">{{NAME}}</option>
+		                        {% endfor %}
+                            </select>
+							<button type="submit" name="updategenre" class="btn btn-default">Update</button>
+				        </form>
+					</p>
+			      </div>
+			    </div>
+			  </div>
+			</div>
+<!-- GENRE UPDATE -->
+
+<!-- GENRE DELETE -->
+			<div id="genre_delete" class="modal fade" role="dialog">
+			  <div class="modal-dialog">
+
+			    <!-- Modal content-->
+			    <div class="modal-content">
+			      <div class="modal-body">
+			        <p>
+				  		<h4 align="center">Delete a genre</h4>
+						<form align= "center" role="form" action="" method= "post">
+							<input type="hidden" name="actiontype" required="required" value ="3">
+							<select name="genreid">
+								{% for ID, NAME in allgenre2 %}
+		                            <option value="{{ID}}">{{NAME}}</option>
+		                        {% endfor %}
+                            </select>
+							<button type="submit" name="removegenre" class="btn btn-default">Delete</button>
+				        </form>
+					</p>
+			      </div>
+			    </div>
+			  </div>
+			</div>
+<!-- GENRE DELETE -->
+
+
+
+
+{% endblock %}

@@ -4,8 +4,10 @@ from dao.post import *
 from dao.user import *
 from dao.comment import *
 from dao.song import *
+from dao.genre import *
 from dao import messages
 import datetime
+from genre import insert_genre
 
 from dsn_conf import get_dsn
 
@@ -43,7 +45,7 @@ def create_post_table():
             cursor.close()
         except dbapi2.DatabaseError:
             connection.rollback()
-        
+
 def create_album_cover_table():
     with dbapi2.connect(dsn) as connection:
         try:
@@ -55,16 +57,16 @@ def create_album_cover_table():
                 FILEPATH VARCHAR(100) NOT NULL
                 )"""
             cursor.execute(statement)
-            statement = """INSERT INTO ALBUMCOVER (FILEPATH) 
+            statement = """INSERT INTO ALBUMCOVER (FILEPATH)
                              VALUES ('/static/images/beatles.jpg')"""
             cursor.execute(statement)
-            statement = """INSERT INTO ALBUMCOVER (FILEPATH) 
+            statement = """INSERT INTO ALBUMCOVER (FILEPATH)
                              VALUES ('/static/images/ledzeplin.jpg')"""
             cursor.execute(statement)
-            statement = """INSERT INTO ALBUMCOVER (FILEPATH) 
+            statement = """INSERT INTO ALBUMCOVER (FILEPATH)
                              VALUES ('/static/images/metallica.jpg')"""
             cursor.execute(statement)
-            statement = """INSERT INTO ALBUMCOVER (FILEPATH) 
+            statement = """INSERT INTO ALBUMCOVER (FILEPATH)
                              VALUES ('/static/images/pinkfloyd.jpg')"""
             cursor.execute(statement)
             connection.commit()
@@ -234,6 +236,34 @@ def insert_bulk_messages():
     # print([msg.text for msg in Message.get_messages(room3)])
 
 
+def create_genre_table():
+    with dbapi2.connect(dsn) as connection:
+        try:
+            cursor = connection.cursor()
+            statement = """DROP TABLE IF EXISTS GENRE"""
+            cursor.execute(statement);
+            statement = """CREATE TABLE IF NOT EXISTS GENRE(
+            ID SERIAL PRIMARY KEY,
+            NAME VARCHAR(20) UNIQUE NOT NULL
+            )"""
+            cursor.execute(statement)
+            connection.commit()
+            cursor.close()
+        except dbapi2.DatabaseError:
+            connection.rollback()
+
+
+
+def insert_default_genres():
+    insert_genre(Genre("Rock"))
+    insert_genre(Genre("Pop"))
+    insert_genre(Genre("Classic"))
+    insert_genre(Genre("Jazz"))
+    insert_genre(Genre("Hip-hop"))
+    insert_genre(Genre("Electronic"))
+
+
+
 def reset_database():
     create_album_cover_table()
     create_post_table()
@@ -254,3 +284,6 @@ def reset_database():
 
     create_messages_table()
     insert_bulk_messages()
+
+    create_genre_table()
+    insert_default_genres()

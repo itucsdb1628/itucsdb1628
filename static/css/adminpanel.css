@@ -1,0 +1,13 @@
+body{
+	padding-top: 0;
+	background-color: lightblue;
+}
+
+.menuitem{
+	border-style: solid;
+    border-width: 2px;
+    border-color: black;
+}
+.row{
+	margin-bottom: 5px;
+}
