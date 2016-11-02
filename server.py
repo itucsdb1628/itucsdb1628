@@ -8,6 +8,7 @@ from flask.helpers import url_for
 from init_database import reset_database
 from post import *
 from genre import *
+from userdata import *
 from dao.genre import *
 from dsn_conf import get_dsn
 
@@ -74,13 +75,46 @@ def adminpanel_page():
 
 
 '''*********************************************************************************'''
-
+'''****************************** USERDATA TABLE OPERATIONS *************************'''
 @app.route('/')
 def home_page():
     reset_database()
     return render_template('home.html')
 
+@app.route('/login', methods=['POST'])
+def login():
+    username = request.form['lg_username']
+    password = request.form['lg_password']
+    user_list = select_users_from_login()
+    for record in user_list:
+        if (record[1] == username and record[2] == password):
+            return render_template('profile.html')
 
+    return render_template('signinerror.html')
+
+@app.route('/signup', methods=['POST'])
+def signup():
+    username = request.form['reg_username']
+    password = request.form['reg_password']
+    insert_user_login(username,password)
+    return render_template('successful_signup.html')
+
+@app.route('/update-profile', methods=['POST'])
+def update_profile():
+    old_username = request.form['old_username']
+    username = request.form['new_username']
+    password = request.form['new_password']
+    update_user_login(username,password,old_username)
+    return render_template('home.html')
+
+@app.route('/delete-profile', methods=['POST'])
+def delete_profile():
+    username = request.form['username']
+    password = request.form['password']
+    delete_user_login(username,password)
+    return render_template('home.html')
+
+'''*********************************************** END OF USERDATA TABLE OPERATIONS ****************************'''
 @app.route('/messages')
 def messages_page():
     return render_template('messages.html')

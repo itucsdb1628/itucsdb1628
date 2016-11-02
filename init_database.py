@@ -12,8 +12,36 @@ from genre import insert_genre
 from dsn_conf import get_dsn
 
 dsn = get_dsn()
+''' ***************************************IMPORTANT CREATION OF USER MUST BE ON TOP ******************************'''
+def create_user_table():
+    with dbapi2.connect(dsn) as connection:
+        try:
+            cursor = connection.cursor()
+            statement = """CREATE TABLE IF NOT EXISTS USERDATA(
+            ID SERIAL PRIMARY KEY,
+            USERNAME  VARCHAR(50) UNIQUE NOT NULL,
+            PASSWORD VARCHAR(20) NOT NULL
+            )"""
+            cursor.execute(statement)
+            connection.commit()
+            cursor.close()
+        except dbapi2.DatabaseError:
+            connection.rollback()
 
 
+
+def insert_user(user):
+    with dbapi2.connect(dsn) as connection:
+        try:
+            cursor = connection.cursor()
+            statement= """INSERT INTO USERDATA(ID,USERNAME,PASSWORD) VALUES(%s,%s,%s)"""
+            cursor.execute(statement,(user.id,user.username,user.password))
+            connection.commit()
+            cursor.close()
+        except dbapi2.DatabaseError as e:
+            connection.rollback()
+
+'''******************************************************************************************************************'''
 def create_post_table():
     with dbapi2.connect(dsn) as connection:
         try:
@@ -24,9 +52,9 @@ def create_post_table():
             ID SERIAL PRIMARY KEY,
             CONTENT VARCHAR(100) NOT NULL,
             POSTDATE TIMESTAMP,
-            USERID INTEGER NOT NULL REFERENCES USERDATA(ID),
+            USERID INTEGER NOT NULL REFERENCES USERDATA(ID) ON DELETE CASCADE,
             SONGID INTEGER NOT NULL,
-            ALBUMCOVERID INTEGER NOT NULL REFERENCES ALBUMCOVER(ID)
+            ALBUMCOVERID INTEGER NOT NULL REFERENCES ALBUMCOVER(ID) ON DELETE CASCADE
             )"""
             cursor.execute(statement)
             statement = """INSERT INTO POST (CONTENT,POSTDATE,USERID,SONGID,ALBUMCOVERID)
@@ -87,33 +115,6 @@ def insert_post(post):
         except dbapi2.DatabaseError as e:
             connection.rollback()
 
-def create_user_table():
-    with dbapi2.connect(dsn) as connection:
-        try:
-            cursor = connection.cursor()
-            statement = """CREATE TABLE IF NOT EXISTS USERDATA(
-            ID SERIAL PRIMARY KEY,
-            USERNAME  VARCHAR(50) UNIQUE NOT NULL,
-            PASSWORD VARCHAR(20) NOT NULL
-            )"""
-            cursor.execute(statement)
-            connection.commit()
-            cursor.close()
-        except dbapi2.DatabaseError:
-            connection.rollback()
-
-
-
-def insert_user(user):
-    with dbapi2.connect(dsn) as connection:
-        try:
-            cursor = connection.cursor()
-            statement= """INSERT INTO USERDATA(ID,USERNAME,PASSWORD) VALUES(%s,%s,%s)"""
-            cursor.execute(statement,(user.id,user.username,user.password))
-            connection.commit()
-            cursor.close()
-        except dbapi2.DatabaseError as e:
-            connection.rollback()
 
 
 def create_comment_table():
