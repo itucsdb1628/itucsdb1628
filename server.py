@@ -88,7 +88,7 @@ def login():
     user_list = select_users_from_login()
     for record in user_list:
         if (record[1] == username and record[2] == password):
-            return render_template('profile.html')
+            return render_template('timeline.html')
 
     return render_template('signinerror.html')
 
