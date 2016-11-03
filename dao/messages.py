@@ -1,5 +1,7 @@
 import psycopg2 as dbapi2
-import init_database
+from dsn_conf import get_dsn
+
+dsn = get_dsn()
 
 
 class Message:
@@ -12,7 +14,7 @@ class Message:
     def save(self):
         if self.id is not None:  # if id is not none it has been in db already
             return
-        with dbapi2.connect(init_database.dsn) as connection:
+        with dbapi2.connect(dsn) as connection:
             with connection.cursor() as cursor:
                 cursor.execute(""" INSERT INTO MESSAGE (ID, TEXT, RoomID, SenderID)
                                              VALUES ( DEFAULT, %(text)s, %(RoomID)s, %(SenderID)s ) RETURNING ID""",
@@ -28,7 +30,7 @@ class Message:
     @staticmethod
     def get_messages(room):
         messages = []
-        with dbapi2.connect(init_database.dsn) as connection:
+        with dbapi2.connect(dsn) as connection:
             with connection.cursor() as cursor:
                 cursor.execute(""" SELECT * FROM MESSAGE WHERE MESSAGE.RoomID=%(RoomID)s""",
                                {'RoomID': room.id})
@@ -53,7 +55,7 @@ class Room:
         if self.id is not None:  # if id is not none it has been in db already
             return
 
-        with dbapi2.connect(init_database.dsn) as connection:
+        with dbapi2.connect(dsn) as connection:
             with connection.cursor() as cursor:
                 # first create room entry
                 cursor.execute(""" INSERT INTO MESSAGE_ROOM (ID, NAME)
@@ -70,7 +72,7 @@ class Room:
         return self.id
 
     def update(self):
-        with dbapi2.connect(init_database.dsn) as connection:
+        with dbapi2.connect(dsn) as connection:
             with connection.cursor() as cursor:
                 cursor.execute(""" UPDATE MESSAGE_ROOM SET NAME=%(name)s
                                       WHERE ID=%(id)s""",
@@ -80,7 +82,7 @@ class Room:
     def get_room_headers(userID):
         """ Load All Room Headers of User participated"""
         rooms = []
-        with dbapi2.connect(init_database.dsn) as connection:
+        with dbapi2.connect(dsn) as connection:
             with connection.cursor() as cursor:
                 cursor.execute(""" SELECT RoomID, NAME FROM MESSAGE_ROOM LEFT JOIN MESSAGE_PARTICIPANT
                                         ON MESSAGE_ROOM.ID=MESSAGE_PARTICIPANT.RoomID
@@ -107,7 +109,7 @@ class Room:
     @staticmethod
     def get_room_by_id(room_id):
         room = None
-        with dbapi2.connect(init_database.dsn) as connection:
+        with dbapi2.connect(dsn) as connection:
             with connection.cursor() as cursor:
                 cursor.execute(""" SELECT * FROM MESSAGE_ROOM WHERE MESSAGE_ROOM.ID=%(ID)s""",
                                {'ID': room_id})
@@ -120,7 +122,7 @@ class Room:
     @staticmethod
     def get_participants(room_id):
         participants = []
-        with dbapi2.connect(init_database.dsn) as connection:
+        with dbapi2.connect(dsn) as connection:
             with connection.cursor() as cursor:
                 cursor.execute(""" SELECT UserID FROM MESSAGE_PARTICIPANT
                                         WHERE RoomID=%(RoomID)s""", {'RoomID': room_id})
@@ -133,7 +135,7 @@ class Room:
 
     @staticmethod
     def delete_room(room_id):
-        with dbapi2.connect(init_database.dsn) as connection:
+        with dbapi2.connect(dsn) as connection:
             with connection.cursor() as cursor:
                 cursor.execute(""" DELETE FROM MESSAGE_ROOM
                                         WHERE ID=%(RoomID)s""", {'RoomID': room_id})
