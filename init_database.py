@@ -149,7 +149,7 @@ def create_post_table():
             cursor.execute(statement,('beatiful!','1.10.2016',1,4,4 ));
             connection.commit()
             cursor.close()
-        except dbapi2.DatabaseError:
+        except dbapi2.DatabaseError as e:
             connection.rollback()
 
 def create_album_cover_table():
@@ -226,7 +226,7 @@ def create_comment_table():
             ID SERIAL PRIMARY KEY,
             COMMENT VARCHAR(150) NOT NULL,
             USERID INTEGER NOT NULL REFERENCES USERDATA(ID) ON DELETE CASCADE,
-            POSTID INTEGER NOT NULL REFERENCES POST(ID) ON DELETE CASCADE,
+            POSTID INTEGER NOT NULL,
             AVATARID INTEGER NOT NULL REFERENCES AVATAR(ID) ON DELETE CASCADE,
             CDATE TIMESTAMP
             )"""
@@ -371,19 +371,25 @@ def insert_default_genres():
 
 
 def reset_database():
+    
+    
+    create_user_table()
+    firstuser = User(1, "user1", "password1")
+    insert_user(firstuser)
+    
+    create_avatar_table()
+    create_comment_table()
+    first_comment = Comment("first", 1, 1, datetime.datetime.now())
+    insert_comment(first_comment)
+    
     create_album_cover_table()
     create_post_table()
     firstPost = Post("perfect!", datetime.datetime.now(), 1, 1, 1)
     insert_post(firstPost)
 
-    create_user_table()
-    firstuser = User(1, "user1", "password1")
-    insert_user(firstuser)
+    
 
-    create_avatar_table()
-    create_comment_table()
-    first_comment = Comment("first", 1, 1, datetime.datetime.now())
-    insert_comment(first_comment)
+    
 
     create_song_table()
     sample_song = Song(1, "Scar Tissue", "Californication", "Red Hot Chili Peppers", "Rock", "imaginary_filepath.mp3")
