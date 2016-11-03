@@ -28,14 +28,14 @@
             <div class="list-group message_userlist">
                 {% for room in Rooms %}
                     <a href="{{ url_for('messages_page') }}/{{ room.id }}"
-                    {%- if room.id == SelectedRoom.id %} class="list-group-item list-group-item-info">
-                    {%- else %} class="list-group-item list-group-item">
-                    {% endif %}
-                        <img src="{{ url_for('static', filename='images/logo.jpg') }}" width="40px"/>
-{#                            <span class="badge">14</span> todo unread message count #}
-                        <h4 class="list-group-item-heading">{{ room.name|default('name is not defined') }}</h4>
-                        <p class="list-group-item-text">{{ room.id }}</p>
-                        <div class="clearfix"></div>
+                            {%- if room.id == SelectedRoom.id %} class="list-group-item list-group-item-info">
+                            {%- else %} class="list-group-item list-group-item">
+                            {% endif %}
+                    <img src="{{ url_for('static', filename='images/logo.jpg') }}" width="40px"/>
+                    {#                            <span class="badge">14</span> todo unread message count #}
+                    <h4 class="list-group-item-heading">{{ room.name|default('name is not defined') }}</h4>
+                    <p class="list-group-item-text">{{ room.id }}</p>
+                    <div class="clearfix"></div>
                     </a>
                 {% endfor %}
             </div>
@@ -53,7 +53,7 @@
                             <a href="{{ url_for('messages_page') }}" type="button" class="close">&times;</a>
                         </div>
 
-                        <div class="panel-body">
+                        <div id="message_area" class="panel-body">
                             {#                    <div class="media message_item"> todo incoming message styles#}
                             {#                        <div class="media-left">#}
                             {#                            <a href="#">#}
@@ -85,7 +85,7 @@
                                         <span data-toggle="tooltip" data-placement="top" title="{{ message.date.date().strftime("%d.%m.%y") }}">
                                             {{ message.date.time().strftime("%H:%M") }}
                                         </span>
-                                        <span class="glyphicon glyphicon-ok status read" data-toggle="tooltip" data-placement="top" title="Read">
+                                        <span class="glyphicon glyphicon-ok status" data-toggle="tooltip" data-placement="top" title="Delivered">
                                         </span>
                                     </div>
                                 </div>
@@ -97,9 +97,10 @@
 
                     <div class="panel panel-default message_action">
                         <div class="panel-body">
-                            <textarea class="form-control" placeholder="Write a message..." rows="4"></textarea>
+                            <textarea name="message" class="form-control" placeholder="Write a message..." rows="4"></textarea>
                         </div>
                         <div class="panel-footer">
+                            <input type="hidden" name="room_id" value="{{ SelectedRoom.id }}">
                             <button type="submit" class="btn btn-primary pull-right">
                                 Send
                                 <span class="glyphicon glyphicon-share-alt"></span>
@@ -186,17 +187,18 @@
                             <tbody>
 
                             {% for i in range(10) %} {# range(User.friends|count) #}
-                                {% if loop.index0 % 3 == 0 %} <tr> {% endif %}
+                                {% if loop.index0 % 3 == 0 %}
+                                    <tr> {% endif %}
 
-                                    <td>
-                                        <label>
-                                            <input name="participants" type="checkbox" value="pk{{ loop.index0 + 2 }}">
-                                            <img src="{{ url_for('static', filename='images/logo.jpg') }}" width="30px"/> {# todo user profile #}
-                                            pk{{ loop.index0 + 2 }} isim soyisim
-                                        </label>
-                                    </td>
+                            <td>
+                                <label>
+                                    <input name="participants" type="checkbox" value="pk{{ loop.index0 + 2 }}">
+                                    <img src="{{ url_for('static', filename='images/logo.jpg') }}" width="30px"/> {# todo user profile #}
+                                    pk{{ loop.index0 + 2 }} isim soyisim
+                                </label>
+                            </td>
 
-                                {% if loop.index0 % 3 == 2 %} </tr> {% endif %}
+                            {% if loop.index0 % 3 == 2 %} </tr> {% endif %}
                             {% endfor %}
 
                             </tbody>
@@ -240,18 +242,19 @@
                             <tbody>
 
                             {% for i in range(10) %}
-                                {% if loop.index0 % 3 == 0 %} <tr> {% endif %}
+                                {% if loop.index0 % 3 == 0 %}
+                                    <tr> {% endif %}
 
-                                    <td>
-                                        <label>
-                                            <input name="participants" type="checkbox" value="pk{{ loop.index0 + 2 }}" disabled
-                                                   {% if "pk"~(loop.index0 + 2) in SelectedRoom.participants %} checked {% endif %}>
-                                            <img src="{{ url_for('static', filename='images/logo.jpg') }}" width="30px"/> {# todo user profile #}
-                                            pk{{ loop.index0 + 2 }} isim soyisim
-                                        </label>
-                                    </td>
+                            <td>
+                                <label>
+                                    <input name="participants" type="checkbox" value="pk{{ loop.index0 + 2 }}" disabled
+                                            {% if "pk"~(loop.index0 + 2) in SelectedRoom.participants %} checked {% endif %}>
+                                    <img src="{{ url_for('static', filename='images/logo.jpg') }}" width="30px"/> {# todo user profile #}
+                                    pk{{ loop.index0 + 2 }} isim soyisim
+                                </label>
+                            </td>
 
-                                {% if loop.index0 % 3 == 2 %} </tr> {% endif %}
+                            {% if loop.index0 % 3 == 2 %} </tr> {% endif %}
                             {% endfor %}
 
                             </tbody>
@@ -280,6 +283,10 @@
     {# check friend list for at least 1 friend should be selected  #}
     <script type="text/javascript">
         $(document).ready(function () {
+
+            var objDiv = document.getElementById("message_area");
+            objDiv.scrollTop = objDiv.scrollHeight;
+
             $('#btnNewConversation').click(function () {
                 if ($("input[type=checkbox]:checked").length == 0) {
                     alert("You must select at least one friend.");

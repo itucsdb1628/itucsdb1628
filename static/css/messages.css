@@ -94,6 +94,7 @@
     right: 0;
     bottom: 0;
     overflow-y: auto;
+    margin-bottom: 10px;
 }
 
 .message_item {

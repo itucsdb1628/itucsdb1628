@@ -150,7 +150,6 @@ def messages_new_room():
 
 @app.route('/messages/update_room', methods=['POST'])
 def messages_update_room():
-    print("asdfasdf geldi")
     if request.method == 'POST':
         room_id = request.form['room_id']
         group_name = request.form['group_name']
@@ -173,7 +172,13 @@ def messages_delete_room():
 
 @app.route('/messages/new_message', methods=['POST'])
 def messages_new_message():
-    return redirect(url_for('messages_page'))
+    if request.method == 'POST':
+        room_id = request.form['room_id']
+        room = Room.get_room_by_id(room_id)
+        message_text = request.form['message']
+        message = Message("pk1", room, message_text)
+        message.save()
+    return redirect(url_for('messages_page')+"/"+room_id)
 
 
 @app.route('/profile')
