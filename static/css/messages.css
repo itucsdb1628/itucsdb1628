@@ -18,7 +18,7 @@
     width: 400px;
 
     left: 0;
-    top: 0;
+    top: 54px;
     bottom: 0;
 
     padding: 0 10px;
@@ -37,8 +37,20 @@
 }
 
 .message_filter {
-    margin: 10px 0;
+    position: absolute;
 
+    width: 380px;
+
+    left: 10px;
+    top: 10px;
+}
+
+.message_filter input {
+    text-align: center;
+}
+
+.message_userlist {
+    direction: ltr;
 }
 
 .message_userlist img {
@@ -59,8 +71,9 @@
     resize: none;
 }
 
-.message_action .panel-footer .btn {
-    float: right;
+.message_action .panel-footer .btn-primary {
+    /*float: right;*/
+    margin-left: 10px;
 }
 
 .message_history {
@@ -72,12 +85,6 @@
     left: 0;
     bottom: 200px;
 
-}
-
-.message_history .panel-heading .btn {
-    padding: 0;
-    float: right;
-    margin-left: 5px;
 }
 
 .message_history .panel-body {
@@ -92,6 +99,10 @@
 .message_item {
     float: left;
     max-width: 85%;
+}
+
+.message_item img {
+    width: 53px;
 }
 
 .message_item .media-body {
@@ -109,7 +120,7 @@
     color: #999;
 }
 
-.message_item .media-bottom .status{
+.message_item .media-bottom .status {
     margin-right: 3px;
 }
 
@@ -131,3 +142,20 @@
     float: left;
 }
 
+.modal-body {
+    margin: 0 10px;
+}
+
+.modal-body td {
+}
+
+.modal-body td label {
+    font-size: 0.9em;
+    font-weight: normal;
+}
+
+.modal-body td img {
+    margin: 0 10px;
+    border-radius: 20px;
+    display: inline;
+}
