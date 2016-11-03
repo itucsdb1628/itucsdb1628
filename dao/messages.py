@@ -69,6 +69,13 @@ class Room:
                                    {'RoomID': self.id, 'UserID': participant})
         return self.id
 
+    def update(self):
+        with dbapi2.connect(init_database.dsn) as connection:
+            with connection.cursor() as cursor:
+                cursor.execute(""" UPDATE MESSAGE_ROOM SET NAME=%(name)s
+                                      WHERE ID=%(id)s""",
+                               {'name': self.name, 'id': self.id})
+
     @staticmethod
     def get_room_headers(userID):
         """ Load All Room Headers of User participated"""
@@ -85,7 +92,7 @@ class Room:
                     room = Room(name=res[1])  # todo if name is null -> add first 3 participants name?
                     room.id = res[0]
                     room.participants = Room.get_participants(room.id)
-                    if len(room.name)==0:
+                    if len(room.name) == 0:
                         print("hadaf")
                         room.name = ""
                         l = 0

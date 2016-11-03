@@ -150,6 +150,16 @@ def messages_new_room():
 
 @app.route('/messages/update_room', methods=['POST'])
 def messages_update_room():
+    print("asdfasdf geldi")
+    if request.method == 'POST':
+        room_id = request.form['room_id']
+        group_name = request.form['group_name']
+        # participants = request.form.getlist('participants')
+
+        room = Room.get_room_by_id(room_id)
+        room.name = group_name
+        room.update()
+
     return redirect(url_for('messages_page'))
 
 

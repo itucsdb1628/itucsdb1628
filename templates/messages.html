@@ -244,7 +244,7 @@
 
                                     <td>
                                         <label>
-                                            <input name="participants" type="checkbox" value="pk{{ loop.index0 + 2 }}"
+                                            <input name="participants" type="checkbox" value="pk{{ loop.index0 + 2 }}" disabled
                                                    {% if "pk"~(loop.index0 + 2) in SelectedRoom.participants %} checked {% endif %}>
                                             <img src="{{ url_for('static', filename='images/logo.jpg') }}" width="30px"/> {# todo user profile #}
                                             pk{{ loop.index0 + 2 }} isim soyisim
@@ -266,6 +266,7 @@
                             <span class="input-group-addon">Group Name (Optional) :</span>
                             <input type="text" class="form-control" name="group_name" value="{{ SelectedRoom.name|default('name is not defined') }}">
                         </div>
+                        <input type="hidden" name="room_id" value="{{ SelectedRoom.id }}">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
                         <button id="btnNewConversation" type="submit" value="submit_new_group" class="btn btn-success">
                             <span class="glyphicon glyphicon-ok" aria-hidden="true"></span> &nbsp;Update Conversation
