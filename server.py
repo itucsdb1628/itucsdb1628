@@ -7,9 +7,13 @@ from flask.helpers import url_for
 
 from init_database import reset_database
 from post import *
+
+from comment import *
+
 from genre import *
 from userdata import *
 from dao.genre import *
+
 from dsn_conf import get_dsn
 
 app = Flask(__name__)
@@ -129,11 +133,37 @@ def profile_page():
 def music_page():
     return render_template("music.html")
 
-
+'''Activity Routes-Salih'''
 @app.route('/activities')
 def activities_page():
-    return render_template("activities.html")
+    return render_template("activities.html", comments = select_comments())
 
+@app.route('/activities/insert', methods=['GET', 'POST'])
+def activities_page_insert():
+    actiontype = int(request.form['actiontype'])
+    comment = request.form['comment']
+    avatar = request.form['avatar']
+    postid = request.form['postid']
+    userid = request.form['userid']
+    if actiontype == 1:
+        insert_comment(comment, avatar, postid, userid)
+    return redirect(url_for('activities_page'))
+
+@app.route('/activities/delete', methods=['GET', 'POST'])
+def activities_page_delete():
+    deleteid = int(request.form['commentid'])
+
+    delete_comment(deleteid)
+    return redirect(url_for('activities_page'))
+
+@app.route('/activities/update', methods = ['GET','POST'])
+def activities_page_update():
+    actiontype = int(request.form['actiontype'])
+    if actiontype == 2:
+        updateid = int(request.form['commentid'])
+        update_comment(updateid)
+    return redirect(url_for('activities_page'))
+'''Activity Routes-Salih'''
 
 @app.route('/createtables')
 def initialize_database():

@@ -16,7 +16,7 @@
 		<div class = "activities">
 			<div class="panel panel-danger panel1">
   				<div class="panel-heading">
-    				<h3 class="panel-title"> <span class="glyphicon glyphicon-heart" aria-hidden="true" style = "color:red;"></span> <a href="#" title="First Name Last Name">First Name Last Name</a> liked your post!</h3>
+    				<h3 class="panel-title"> <span class="glyphicon glyphicon-heart" aria-hidden="true" style = "color:red;"></span> <a href="#" title="First Name Last Name">{{USERNAME}}</a> liked your post!</h3>
   				</div>
   				<div class="panel-body">
   					<div class = row>
@@ -28,13 +28,13 @@
   					</div>
   				</div>
   				<div class = "panel-footer">
-  				<i class="glyphicon glyphicon-time"></i> 3 days ago <span class="twitter"> <i class="fa fa-twitter"></i> </span>
+  				<i class="glyphicon glyphicon-time"></i> {{CDATE}} <span class="twitter"> <i class="fa fa-twitter"></i> </span>
   				</div>
 			</div>
-
+			{% for ID, COMMENT, CDATE, POSTID, FILEPATH, USERNAME in comments %}
 			<div class="panel panel-primary panel2">
   				<div class="panel-heading">
-    				<h3 class="panel-title"> <span class="glyphicon glyphicon-comment" aria-hidden="true" style = "color:white;"></span> <a href="#" title="First Name Last Name">First Name Last Name</a> commented on your post!</h3>
+    				<h3 class="panel-title"> <span class="glyphicon glyphicon-comment" aria-hidden="true" style = "color:white;"></span> <a href="#" title="First Name Last Name">{{USERNAME}}</a> commented on your post!</h3>
   				</div>
   				<div class="panel-body">
   					<div class = row>
@@ -43,20 +43,48 @@
   						<h4 style = "padding-left: 50px; color: black;">Metallica</h4>
   						<p class = "list-group-item-text" style = "padding-left: 50px;"> content content content content content content content content content</p>
   						<blockquote>
-  						<p style="float:left; padding-top:10px;"><a href="#" title="First Name Last Name"><img src="{{ url_for('static', filename='images/avatar.jpg') }}" width="40px"/></a></p>
-  						<p style = "padding-top:10px;"><footer>Nice!</footer></p>
+  						<p style="float:left; padding-top:10px;"><a href="#" title="{{USERNAME}}"><img src="{{FILEPATH}}" width="40px"/></a></p>
+  						<p style = "padding-top:10px;"><footer>{{COMMENT}}</footer></p>
   						</blockquote>
   						</div>
   					</div>
   				</div>
   				<div class = "panel-footer">
-  				<i class="glyphicon glyphicon-time"></i> 2 weeks ago <span class="twitter"> <i class="fa fa-twitter"></i> </span>
+  				<i class="glyphicon glyphicon-time"></i> {{CDATE}} <span class="twitter"> <i class="fa fa-twitter"></i> </span>
+  				<!--
+  				<a href="{{ url_for('activities_page_delete', DELETEID=ID) }}"> <i class="glyphicon glyphicon-remove"></i>  Delete Comment <span class="twitter"> <i class="fa fa-twitter"></i> </span></a>
+ 				-->
+  				<form action = "activities/insert" method ="post">
+  					<input type = "hidden" name = "userid" required = "required" value = "{{USERNAME}}">
+  					<input type = "hidden" name = "actiontype" required = "required" value = "1">
+  					<input type = "text" name = "comment" required = "required" >
+  					<input type = "hidden" name = "avatar" value = "1">
+  					<input type = "hidden" name = "postid" value = "{{ID}}">
+  					<input type = "submit" name = "add" value="Add">
+
+  				</form>
+
+  				<form action = "activities/update" method = "post">
+  				<input type = "hidden" name = "userid" required = "required" value = "{{USERNAME}}">
+  				<input type = "hidden" name = "actiontype" required = "required" value = "2">
+  				<input type = "text" name="comment" required = "required">
+  				<input type = "hidden" name = "avatar" value = "1">
+  				<input type = "hidden" name = "commentid" value = "{{ID}}">
+  				<input type = "submit" name = "update" value="Update">
+  				</form>
+
+				<form action = "activities/delete" method = "post">
+				<input type = "hidden" name="commentid" value="{{ID}}">
+				<input type = "submit" name="delete" value = "Delete">
+				</form>
+
   				</div>
 			</div>
-
+			{% endfor %}
 			<div class="panel panel-warning panel3">
   				<div class="panel-heading">
-    				<h3 class="panel-title"> <span class="glyphicon glyphicon-share" aria-hidden="true"></span> <a href="#" title="First Name Last Name">First Name Last Name</a> shared your post!</h3>
+    				<h3 class="panel-title"> <span class="glyphicon glyphicon-share" aria-hidden="true"></span> <a href="#" title="First Name Last Name">{{USERNAME}}</a> shared your post!</h3>
+
   				</div>
   				<div class="panel-body">
   					<div class = row>
@@ -64,16 +92,13 @@
   						<p style="float:left; padding-top:10px;"><a href="#" title="Led Zeppelin"><img src="{{ url_for('static', filename='images/ledzeplin.jpg') }}" width="40px"/></a></p>
   						<h4 style = "padding-left: 50px; color: black;">Led Zeppelin</h4>
   						<p class = "list-group-item-text" style = "padding-left: 50px;"> content content content content content content content content content</p>
-
   						</div>
   					</div>
   				</div>
   				<div class = "panel-footer">
-  				<i class="glyphicon glyphicon-time"></i> a month ago <span class="twitter"> <i class="fa fa-twitter"></i> </span>
+  				<i class="glyphicon glyphicon-time"></i> {{CDATE}} <span class="twitter"> <i class="fa fa-twitter"></i> </span>
   				</div>
 			</div>
-
-
 		</div>
 	</div>
 {% endblock %}
