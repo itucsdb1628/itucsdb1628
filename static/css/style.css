@@ -4,6 +4,8 @@ body {
   font-family: 'Droid Sans', 'Helvetica', 'sans';
   font-size: 12pt;
   padding-top: 100px;
+  padding-bottom: 40px;
+  overflow-x: hidden;
 }
 
 h1, h2, h3, h4 {
