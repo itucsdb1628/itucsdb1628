@@ -123,3 +123,10 @@ class Room:
                 for res in result:
                     participants.append(res[0])
         return participants
+
+    @staticmethod
+    def delete_room(room_id):
+        with dbapi2.connect(init_database.dsn) as connection:
+            with connection.cursor() as cursor:
+                cursor.execute(""" DELETE FROM MESSAGE_ROOM
+                                        WHERE ID=%(RoomID)s""", {'RoomID': room_id})

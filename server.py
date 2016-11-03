@@ -155,6 +155,9 @@ def messages_update_room():
 
 @app.route('/messages/delete_room', methods=['POST'])
 def messages_delete_room():
+    if request.method == 'POST':
+        room_id = request.form['room_id']
+        Room.delete_room(room_id)
     return redirect(url_for('messages_page'))
 
 
