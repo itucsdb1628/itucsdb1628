@@ -67,6 +67,7 @@ class Room:
                     cursor.execute(""" INSERT INTO MESSAGE_PARTICIPANT (RoomID, UserID)
                                           VALUES ( %(RoomID)s, %(UserID)s )""",
                                    {'RoomID': self.id, 'UserID': participant})
+        return self.id
 
     @staticmethod
     def get_room_headers(userID):
@@ -83,6 +84,42 @@ class Room:
                 for res in result:
                     room = Room(name=res[1])  # todo if name is null -> add first 3 participants name?
                     room.id = res[0]
+                    room.participants = Room.get_participants(room.id)
+                    if len(room.name)==0:
+                        print("hadaf")
+                        room.name = ""
+                        l = 0
+                        for fr in room.participants:
+                            room.name += fr[:15 - l] + " "
+                            l = len(room.name)
+                        print(room.name)
                     rooms.append(room)
 
         return rooms
+
+    @staticmethod
+    def get_room_by_id(room_id):
+        room = None
+        with dbapi2.connect(init_database.dsn) as connection:
+            with connection.cursor() as cursor:
+                cursor.execute(""" SELECT * FROM MESSAGE_ROOM WHERE MESSAGE_ROOM.ID=%(ID)s""",
+                               {'ID': room_id})
+
+                result = cursor.fetchone()
+                room = Room(name=result[1])
+                room.id = result[0]
+        return room
+
+    @staticmethod
+    def get_participants(room_id):
+        participants = []
+        with dbapi2.connect(init_database.dsn) as connection:
+            with connection.cursor() as cursor:
+                cursor.execute(""" SELECT UserID FROM MESSAGE_PARTICIPANT
+                                        WHERE RoomID=%(RoomID)s""", {'RoomID': room_id})
+
+                result = cursor.fetchall()
+
+                for res in result:
+                    participants.append(res[0])
+        return participants

@@ -321,18 +321,18 @@ def create_messages_table():
 
 
 def insert_bulk_messages():
-    room1 = messages.Room(name="roomName1", participants=["p1", "p2", "p3", "p4", "p5"])  # todo userID
+    room1 = messages.Room(name="roomName1", participants=["pk1", "pk2", "pk3", "pk4", "pk5"])  # todo userID
     room1.save()
-    room2 = messages.Room(name="roomName2", participants=["p1", "p2", "p3"])  # todo userID
+    room2 = messages.Room(name="roomName2", participants=["pk1", "pk2", "pk3"])  # todo userID
     room2.save()
-    room3 = messages.Room(name="roomName3", participants=["p1", "p4", "p5"])  # todo userID
+    room3 = messages.Room(name="roomName3", participants=["pk1", "pk4", "pk5"])  # todo userID
     room3.save()
 
-    message1 = messages.Message("p1", room1, "Hello Room1!")
+    message1 = messages.Message("pk1", room1, "Hello Room1!")
     message1.save()
-    message2 = messages.Message("p1", room2, "Hello Room2!")
+    message2 = messages.Message("pk1", room2, "Hello Room2!")
     message2.save()
-    message3 = messages.Message("p1", room3, "Hello Room3!")
+    message3 = messages.Message("pk1", room3, "Hello Room3!")
     message3.save()
 
     # print([room.name for room in Room.get_room_headers("p1")])

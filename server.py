@@ -5,6 +5,7 @@ from flask import redirect
 from flask import render_template
 from flask.helpers import url_for
 
+from dao.messages import Room, Message
 from init_database import reset_database
 from post import *
 
@@ -119,9 +120,47 @@ def delete_profile():
     return render_template('home.html')
 
 '''*********************************************** END OF USERDATA TABLE OPERATIONS ****************************'''
+
+
 @app.route('/messages')
-def messages_page():
-    return render_template('messages.html')
+@app.route('/messages/<int:room_id>')
+def messages_page(room_id=None):
+    room = None
+    if room_id is not None:
+        room = Room.get_room_by_id(room_id)
+        room.participants = Room.get_participants(room_id)
+        room.messages = Message.get_messages(room)
+
+    # todo Rooms=Room.get_room_header(logged_in_userID)
+    return render_template('messages.html', Rooms=Room.get_room_headers("pk1"), SelectedRoom=room)
+
+
+@app.route('/messages/new_room', methods=['POST'])
+def messages_new_room():
+    room_id = None
+    if request.method == 'POST':
+        group_name = request.form['group_name']
+        participants = request.form.getlist('participants')
+
+        room = Room(name=group_name, participants=participants + ["pk1"])  # todo userID
+        room.save()
+
+    return redirect(url_for('messages_page'))
+
+
+@app.route('/messages/update_room', methods=['POST'])
+def messages_update_room():
+    return redirect(url_for('messages_page'))
+
+
+@app.route('/messages/delete_room', methods=['POST'])
+def messages_delete_room():
+    return redirect(url_for('messages_page'))
+
+
+@app.route('/messages/new_message', methods=['POST'])
+def messages_new_message():
+    return redirect(url_for('messages_page'))
 
 
 @app.route('/profile')
