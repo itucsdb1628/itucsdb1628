@@ -3,6 +3,8 @@ from dsn_conf import get_dsn
 
 dsn = get_dsn()
 
+tempLoggedUser = "pk1"  # temporary userID
+
 
 class Message:
     def __init__(self, senderID, room, text):
@@ -48,8 +50,9 @@ class Message:
 class Room:
     def __init__(self, name=None, participants=None):
         self.id = None
-        self.name = name
+        self.name = name if name is not None and len(name) > 0 else None
         self.participants = [] if participants is None else participants
+        self.messages = []
 
     def save(self):
         if self.id is not None:  # if id is not none it has been in db already
@@ -78,6 +81,45 @@ class Room:
                                       WHERE ID=%(id)s""",
                                {'name': self.name, 'id': self.id})
 
+    def delete(self):
+        with dbapi2.connect(dsn) as connection:
+            with connection.cursor() as cursor:
+                cursor.execute(""" DELETE FROM MESSAGE_ROOM
+                                        WHERE ID=%(RoomID)s""", {'RoomID': self.id})
+
+    def get_display_name(self):
+        """ Room name or First n char of participants name """
+        if self.name is not None:
+            return self.name
+
+        l = 0
+        nick = ""
+        for fr in self.participants:
+            nick = nick + fr[:15 - l] + " "
+            l = len(nick)
+            if l > 15:
+                break
+
+        return nick
+
+    def load_participants(self):
+        participants = []
+        with dbapi2.connect(dsn) as connection:
+            with connection.cursor() as cursor:
+                cursor.execute(""" SELECT UserID FROM MESSAGE_PARTICIPANT
+                                        WHERE RoomID=%(RoomID)s AND UserID!=%(SelfID)s """,
+                               {'RoomID': self.id, 'SelfID': tempLoggedUser})
+
+                result = cursor.fetchall()
+
+                for res in result:
+                    participants.append(res[0])
+
+        self.participants = participants
+
+    def load_messages(self):
+        self.messages = Message.get_messages(self)
+
     @staticmethod
     def get_room_headers(userID):
         """ Load All Room Headers of User participated"""
@@ -91,17 +133,12 @@ class Room:
                 result = cursor.fetchall()
 
                 for res in result:
-                    room = Room(name=res[1])  # todo if name is null -> add first 3 participants name?
+                    room = Room(name=res[1])
                     room.id = res[0]
-                    room.participants = Room.get_participants(room.id)
-                    if len(room.name) == 0:
-                        print("hadaf")
-                        room.name = ""
-                        l = 0
-                        for fr in room.participants:
-                            room.name += fr[:15 - l] + " "
-                            l = len(room.name)
-                        print(room.name)
+
+                    if room.name is None:
+                        room.load_participants()  # oda ismi yoksa participantslar gorunecek. so it is necessary to load participants
+
                     rooms.append(room)
 
         return rooms
@@ -115,27 +152,9 @@ class Room:
                                {'ID': room_id})
 
                 result = cursor.fetchone()
-                room = Room(name=result[1])
-                room.id = result[0]
+                if result:
+                    room = Room(name=result[1])
+                    room.id = result[0]
+                    room.load_participants()
+                    room.load_messages()
         return room
-
-    @staticmethod
-    def get_participants(room_id):
-        participants = []
-        with dbapi2.connect(dsn) as connection:
-            with connection.cursor() as cursor:
-                cursor.execute(""" SELECT UserID FROM MESSAGE_PARTICIPANT
-                                        WHERE RoomID=%(RoomID)s""", {'RoomID': room_id})
-
-                result = cursor.fetchall()
-
-                for res in result:
-                    participants.append(res[0])
-        return participants
-
-    @staticmethod
-    def delete_room(room_id):
-        with dbapi2.connect(dsn) as connection:
-            with connection.cursor() as cursor:
-                cursor.execute(""" DELETE FROM MESSAGE_ROOM
-                                        WHERE ID=%(RoomID)s""", {'RoomID': room_id})

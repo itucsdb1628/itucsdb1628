@@ -33,7 +33,7 @@
                             {% endif %}
                     <img src="{{ url_for('static', filename='images/logo.jpg') }}" width="40px"/>
                     {#                            <span class="badge">14</span> todo unread message count #}
-                    <h4 class="list-group-item-heading">{{ room.name|default('name is not defined') }}</h4>
+                    <h4 class="list-group-item-heading">{{ room.get_display_name() }}</h4>
                     <p class="list-group-item-text">{{ room.id }}</p>
                     <div class="clearfix"></div>
                     </a>
@@ -49,7 +49,16 @@
                     <div class="panel panel-default message_history">
 
                         <div class="panel-heading">
-                            {{ SelectedRoom.name|default('name is not defined') }}
+                        {% if SelectedRoom.name %}
+                            <span class="glyphicon glyphicon-comment" aria-hidden="true">
+                             {{ SelectedRoom.name }}
+                            </span>
+                        {% endif %}
+                        <span class="glyphicon glyphicon-user" aria-hidden="true">
+                            {%- for p in SelectedRoom.participants %}
+                                {{ p -}}
+                            {% endfor %}
+                        </span>
                             <a href="{{ url_for('messages_page') }}" type="button" class="close">&times;</a>
                         </div>
 
@@ -183,7 +192,7 @@
                     </div>
                     <div class="modal-body">
 
-                        <table class="table table-bordered">
+                        <table id="newRoomFrList" class="table table-bordered">
                             <tbody>
 
                             {% for i in range(10) %} {# range(User.friends|count) #}
@@ -213,11 +222,9 @@
                             <input type="text" class="form-control" name="group_name">
                         </div>
                         <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                        <button id="btnNewConversation" type="submit" value="submit_new_group"
-                                class="btn btn-success"><span
-                                class="glyphicon glyphicon-ok"
-                                aria-hidden="true"></span>
-                            &nbsp;Start New Conversation
+                        <button id="btnNewConversation" type="submit" value="submit_new_group" class="btn btn-success">
+                            <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                            &nbsp;&nbsp;Start New Conversation
                         </button>
                     </div>
                 </form>
@@ -267,7 +274,7 @@
                     <div class="modal-footer">
                         <div class="col-sm-6 input-group" style="float: left;">
                             <span class="input-group-addon">Group Name (Optional) :</span>
-                            <input type="text" class="form-control" name="group_name" value="{{ SelectedRoom.name|default('name is not defined') }}">
+                            <input type="text" class="form-control" name="group_name" value="{{ SelectedRoom.name|default("", True) }}">
                         </div>
                         <input type="hidden" name="room_id" value="{{ SelectedRoom.id }}">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
@@ -282,18 +289,24 @@
 
     {# check friend list for at least 1 friend should be selected  #}
     <script type="text/javascript">
+
+        var checkFriendList = function (area) {
+            if (area.find(":input[type=checkbox]:checked").length == 0) {
+                alert("You must select at least one friend.");
+                return false;
+            }
+        };
+
         $(document).ready(function () {
 
             var objDiv = document.getElementById("message_area");
-            objDiv.scrollTop = objDiv.scrollHeight;
+            if (objDiv != null)
+                objDiv.scrollTop = objDiv.scrollHeight;
 
             $('#btnNewConversation').click(function () {
-                if ($("input[type=checkbox]:checked").length == 0) {
-                    alert("You must select at least one friend.");
-                    return false;
-                }
+                return checkFriendList($("#newRoomFrList"));
             });
-        });
+        })
 
     </script>
 

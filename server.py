@@ -5,7 +5,7 @@ from flask import redirect
 from flask import render_template
 from flask.helpers import url_for
 
-from dao.messages import Room, Message
+from dao.messages import Room, Message, tempLoggedUser
 from init_database import reset_database
 from post import *
 
@@ -122,30 +122,39 @@ def delete_profile():
 '''*********************************************** END OF USERDATA TABLE OPERATIONS ****************************'''
 
 
+# ################################################ Messages #################################################
+
 @app.route('/messages')
 @app.route('/messages/<int:room_id>')
 def messages_page(room_id=None):
+    """ Get All Message Rooms """
     room = None
-    if room_id is not None:
+
+    if room_id is not None:  # room secili
+
         room = Room.get_room_by_id(room_id)
-        room.participants = Room.get_participants(room_id)
-        room.messages = Message.get_messages(room)
+        if room is None:  # Verilen id'ye sahip bir room yok.
+            return redirect(url_for("messages_page"))
 
     # todo Rooms=Room.get_room_header(logged_in_userID)
-    return render_template('messages.html', Rooms=Room.get_room_headers("pk1"), SelectedRoom=room)
+    return render_template('messages.html', Rooms=Room.get_room_headers(tempLoggedUser), SelectedRoom=room)
 
 
 @app.route('/messages/new_room', methods=['POST'])
 def messages_new_room():
+    """ Create new room """
     room_id = None
     if request.method == 'POST':
+
+        # get form values
         group_name = request.form['group_name']
         participants = request.form.getlist('participants')
 
-        room = Room(name=group_name, participants=participants + ["pk1"])  # todo userID
-        room.save()
+        # create room and save to database
+        room = Room(name=group_name, participants=participants + [tempLoggedUser])  # todo userID
+        room_id = room.save()
 
-    return redirect(url_for('messages_page'))
+    return redirect(url_for('messages_page')+"/"+str(room_id))
 
 
 @app.route('/messages/update_room', methods=['POST'])
@@ -156,17 +165,20 @@ def messages_update_room():
         # participants = request.form.getlist('participants')
 
         room = Room.get_room_by_id(room_id)
-        room.name = group_name
-        room.update()
+        if room is not None:
+            room.name = group_name
+            room.update()
 
-    return redirect(url_for('messages_page'))
+    return redirect(url_for('messages_page')+"/"+room_id)
 
 
 @app.route('/messages/delete_room', methods=['POST'])
 def messages_delete_room():
     if request.method == 'POST':
         room_id = request.form['room_id']
-        Room.delete_room(room_id)
+        room = Room.get_room_by_id(room_id)
+        if room is not None:
+            room.delete()
     return redirect(url_for('messages_page'))
 
 
@@ -176,10 +188,12 @@ def messages_new_message():
         room_id = request.form['room_id']
         room = Room.get_room_by_id(room_id)
         message_text = request.form['message']
-        message = Message("pk1", room, message_text)
+        message = Message(tempLoggedUser, room, message_text)
         message.save()
     return redirect(url_for('messages_page')+"/"+room_id)
 
+
+# ################################################ End Of Messages ##########################################
 
 @app.route('/profile')
 def profile_page():

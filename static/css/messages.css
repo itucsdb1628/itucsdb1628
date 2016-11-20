@@ -87,6 +87,10 @@
 
 }
 
+.message_history .panel-heading span{
+    margin-right: 20px;
+}
+
 .message_history .panel-body {
     position: absolute;
     top: 43px;
