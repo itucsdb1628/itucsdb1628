@@ -48,14 +48,15 @@ class Message:
 
 
 class Room:
-    def __init__(self, name=None, participants=None):
+    def __init__(self, name=None, admin=None, participants=None):
         self.id = None
         self.name = name if name is not None and len(name) > 0 else None
+        self.admin = admin
         self.participants = [] if participants is None else participants
         self.messages = []
 
     def save(self):
-        if self.id is not None:  # if id is not none it has been in db already
+        if self.id is not None or self.admin is None:  # if id is not none it has been in db already
             return
 
         with dbapi2.connect(dsn) as connection:
@@ -72,6 +73,11 @@ class Room:
                     cursor.execute(""" INSERT INTO MESSAGE_PARTICIPANT (RoomID, UserID)
                                           VALUES ( %(RoomID)s, %(UserID)s )""",
                                    {'RoomID': self.id, 'UserID': participant})
+
+                # and create admin of this room
+                cursor.execute(""" INSERT INTO MESSAGE_ROOM_ADMINS (RoomID, UserID)
+                                          VALUES ( %(RoomID)s, %(UserID)s)""",
+                                   {'RoomID': self.id, 'UserID': self.admin})
         return self.id
 
     def update(self):
@@ -80,6 +86,44 @@ class Room:
                 cursor.execute(""" UPDATE MESSAGE_ROOM SET NAME=%(name)s
                                       WHERE ID=%(id)s""",
                                {'name': self.name, 'id': self.id})
+
+    def update_participants(self, new_participants):
+        if self.admin != tempLoggedUser:
+            return
+
+        old_p = set(self.participants)
+        new_p = set(new_participants)
+
+        with dbapi2.connect(dsn) as connection:
+            with connection.cursor() as cursor:
+                for deleted in [p for p in old_p if p not in new_p]:
+                    cursor.execute(""" DELETE FROM MESSAGE_PARTICIPANT
+                                          WHERE RoomID=%(RoomID)s AND UserID=%(UserID)s""",
+                                   {'RoomID': self.id, 'UserID': deleted})
+                for added in [p for p in new_p if p not in old_p]:
+                    cursor.execute(""" INSERT INTO MESSAGE_PARTICIPANT (RoomID, UserID)
+                                          VALUES ( %(RoomID)s, %(UserID)s )""",
+                                   {'RoomID': self.id, 'UserID': added})
+                self.participants = new_participants
+
+    def leave(self):
+        if len(self.participants) < 2:
+            return
+        with dbapi2.connect(dsn) as connection:
+            with connection.cursor() as cursor:
+
+                if self.admin == tempLoggedUser:
+                    cursor.execute(""" DELETE FROM MESSAGE_ROOM_ADMINS
+                                        WHERE RoomID=%(RoomID)s AND UserID=%(UserID)s""",
+                                   {'RoomID': self.id, 'UserID':tempLoggedUser})
+                    # add new Admin
+                    cursor.execute(""" INSERT INTO MESSAGE_ROOM_ADMINS (RoomID, UserID)
+                                           VALUES ( %(RoomID)s, %(UserID)s)""",
+                                   {'RoomID': self.id, 'UserID': self.participants[0]})
+
+                cursor.execute(""" DELETE FROM MESSAGE_PARTICIPANT
+                                        WHERE RoomID=%(RoomID)s AND UserID=%(UserID)s""",
+                               {'RoomID': self.id, 'UserID': tempLoggedUser})
 
     def delete(self):
         with dbapi2.connect(dsn) as connection:
@@ -120,6 +164,16 @@ class Room:
     def load_messages(self):
         self.messages = Message.get_messages(self)
 
+    def load_admin(self):
+        with dbapi2.connect(dsn) as connection:
+            with connection.cursor() as cursor:
+                cursor.execute(""" SELECT UserID FROM MESSAGE_ROOM_ADMINS
+                                                WHERE RoomID=%(RoomID)s """,
+                               {'RoomID': self.id})
+
+                result = cursor.fetchone()
+                self.admin = result[0]
+
     @staticmethod
     def get_room_headers(userID):
         """ Load All Room Headers of User participated"""
@@ -157,4 +211,5 @@ class Room:
                     room.id = result[0]
                     room.load_participants()
                     room.load_messages()
+                    room.load_admin()
         return room

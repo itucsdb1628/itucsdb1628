@@ -15,8 +15,19 @@
                     <span class="glyphicon glyphicon-plus"></span>&nbsp; New Conversation
                 </a>
             </span>
-            <input type="text" class="form-control" placeholder="Search Friend" disabled>
-
+{#            <input type="text" class="form-control" placeholder="Search Friend" disabled>#}
+        &nbsp;&nbsp;&nbsp;View as:
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+                                    aria-expanded="false">
+                                {{ User }} <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu">
+                                {% for i in range(11) %}
+                                <li><a href="{{ url_for('messages_change_user',user_id="pk"+(i + 1)|string)-}}">pk{{- i + 1 -}}</a></li>
+                                {% endfor %}
+                            </ul>
+                        </div>
             <span class="input-group-btn">
                 <button class="btn btn-default disabled" type="button"> <span class="glyphicon glyphicon-search"></span></button>
             </span>
@@ -49,16 +60,19 @@
                     <div class="panel panel-default message_history">
 
                         <div class="panel-heading">
-                        {% if SelectedRoom.name %}
-                            <span class="glyphicon glyphicon-comment" aria-hidden="true">
-                             {{ SelectedRoom.name }}
+                            {% if SelectedRoom.name %}
+                                <span class="glyphicon glyphicon-comment" aria-hidden="true">
+                                 {{ SelectedRoom.name }}
+                                </span>
+                            {% endif %}
+                            <span class="glyphicon glyphicon-user" aria-hidden="true">
+                                {%- for p in SelectedRoom.participants %}
+                                    {{ p -}}
+                                {% endfor %}
                             </span>
-                        {% endif %}
-                        <span class="glyphicon glyphicon-user" aria-hidden="true">
-                            {%- for p in SelectedRoom.participants %}
-                                {{ p -}}
-                            {% endfor %}
-                        </span>
+                            <span class="glyphicon glyphicon-sunglasses" aria-hidden="true">
+                                {{ SelectedRoom.admin }}
+                            </span>
                             <a href="{{ url_for('messages_page') }}" type="button" class="close">&times;</a>
                         </div>
 
@@ -118,25 +132,43 @@
                                 <span class="glyphicon glyphicon-remove"></span>
                                 Cancel
                             </a>
-                            <div class="btn-group dropup">
-                                <a type="button" class="btn btn-default pull-left" data-toggle="modal" data-target="#editConversationModal">
-                                    <span class="glyphicon glyphicon-pencil"></span>
-                                    Edit Conversation
-                                </a>
-                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"
-                                        aria-haspopup="true" aria-expanded="false">
-                                    <span class="caret"></span>
-                                    <span class="sr-only">Toggle Dropdown</span>
-                                </button>
-                                <ul class="dropdown-menu">
-                                    <li>
-                                        <a href="" data-toggle="modal" data-target="#deleteConfirmationModal">
-                                            <span class="glyphicon glyphicon-trash"></span>
-                                            Delete Conversation
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
+
+                            {% if SelectedRoom.admin == User %}
+                                <div class="btn-group dropup">
+                                    <a type="button" class="btn btn-default pull-left" data-toggle="modal" data-target="#editConversationModal">
+                                        <span class="glyphicon glyphicon-pencil"></span>
+                                        Edit Conversation
+                                    </a>
+                                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"
+                                            aria-haspopup="true" aria-expanded="false">
+                                        <span class="caret"></span>
+                                        <span class="sr-only">Toggle Dropdown</span>
+                                    </button>
+                                    <ul class="dropdown-menu">
+                                        <li>
+                                            <a href="" data-toggle="modal" data-target="#deleteConfirmationModal">
+                                                <span class="glyphicon glyphicon-trash"></span>
+                                                Delete Conversation
+                                            </a>
+                                        </li>
+                                        {% if SelectedRoom.participants|count > 1 %}
+                                        <li role="separator" class="divider"></li>
+                                            <li>
+                                                <a href="" data-toggle="modal" data-target="#leaveConfirmationModal">
+                                                    <span class="glyphicon glyphicon-log-out"></span>
+                                                    Leave Conversation
+                                                </a>
+                                            </li>
+                                        {% endif %}
+                                    </ul>
+                                </div>
+                            {% elif SelectedRoom.participants|count > 1 %}
+                                <btn href="" class="btn btn-default" data-toggle="modal" data-target="#leaveConfirmationModal">
+                                    <span class="glyphicon glyphicon-log-out"></span>
+                                    Leave Conversation
+                                </btn>
+                            {% endif %}
+                            <div class="clearfix"></div>
                         </div>
                     </div>
 
@@ -173,6 +205,32 @@
                         <button type="submit" class="btn btn-danger">
                             <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
                             &nbsp;Delete Conversation
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Leave Conversation Approval Modal -->
+    <div class="modal fade" id="leaveConfirmationModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Leave Conversation?</h4>
+                </div>
+                <div class="modal-body">
+                    Are you sure to leave conversation?
+                    <p>You will stop receiving messages from this conversation.</p>
+                </div>
+                <div class="modal-footer">
+                    <form method="post" action="{{ url_for('messages_leave_room') }}">
+                        <input type="hidden" name="room_id" value="{{ SelectedRoom.id }}">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-danger">
+                            <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                            &nbsp;Leave Conversation
                         </button>
                     </form>
                 </div>
@@ -245,7 +303,7 @@
                     </div>
                     <div class="modal-body">
 
-                        <table class="table table-bordered">
+                        <table id="updateRoomFrList" class="table table-bordered">
                             <tbody>
 
                             {% for i in range(10) %}
@@ -254,7 +312,7 @@
 
                             <td>
                                 <label>
-                                    <input name="participants" type="checkbox" value="pk{{ loop.index0 + 2 }}" disabled
+                                    <input name="participants" type="checkbox" value="pk{{ loop.index0 + 2 }}"
                                             {% if "pk"~(loop.index0 + 2) in SelectedRoom.participants %} checked {% endif %}>
                                     <img src="{{ url_for('static', filename='images/logo.jpg') }}" width="30px"/> {# todo user profile #}
                                     pk{{ loop.index0 + 2 }} isim soyisim
@@ -278,7 +336,7 @@
                         </div>
                         <input type="hidden" name="room_id" value="{{ SelectedRoom.id }}">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                        <button id="btnNewConversation" type="submit" value="submit_new_group" class="btn btn-success">
+                        <button id="btnUpdateConversation" type="submit" value="submit_new_group" class="btn btn-success">
                             <span class="glyphicon glyphicon-ok" aria-hidden="true"></span> &nbsp;Update Conversation
                         </button>
                     </div>
@@ -305,6 +363,9 @@
 
             $('#btnNewConversation').click(function () {
                 return checkFriendList($("#newRoomFrList"));
+            });
+            $('#btnUpdateConversation').click(function () {
+                return checkFriendList($("#updateRoomFrList"));
             });
         })
 

@@ -5,7 +5,8 @@ from flask import redirect
 from flask import render_template
 from flask.helpers import url_for
 
-from dao.messages import Room, Message, tempLoggedUser
+# from dao.messages import Room, Message, tempLoggedUser
+import dao.messages as Messages
 from init_database import reset_database
 from post import *
 
@@ -18,7 +19,6 @@ from dao.genre import *
 from dsn_conf import get_dsn
 
 app = Flask(__name__)
-
 
 '''********************************TIMELINE ROUTES - ismail*********************************'''
 
@@ -53,38 +53,41 @@ def timeline_page_insert():
 
 '''*********************************************************************************'''
 
-
 '''*********************************ADMIN PAGE**************************************'''
+
+
 @app.route('/adminpanel', methods=['GET', 'POST'])
 def adminpanel_page():
     if request.method == 'GET':
 
-        return render_template('adminpanel.html',allgenre = select_all_genre(),allgenre2 = select_all_genre())
+        return render_template('adminpanel.html', allgenre=select_all_genre(), allgenre2=select_all_genre())
     else:
         actiontype = int(request.form['actiontype'])
-        if actiontype == 1: #addgenre
+        if actiontype == 1:  # addgenre
             genrename = request.form['genrename']
             newgenre = Genre(genrename)
             insert_genre(newgenre)
             return redirect(url_for('adminpanel_page'))
-        if actiontype == 2: #updategenre
+        if actiontype == 2:  # updategenre
             genreid = request.form['genreid']
             newname = request.form['newname']
-            update_genre(genreid,newname)
+            update_genre(genreid, newname)
             return redirect(url_for('adminpanel_page'))
-        if actiontype == 3: #deletegenre
+        if actiontype == 3:  # deletegenre
             genreid = request.form['genreid']
             delete_genre(genreid)
             return redirect(url_for('adminpanel_page'))
 
 
-
 '''*********************************************************************************'''
 '''****************************** USERDATA TABLE OPERATIONS *************************'''
+
+
 @app.route('/')
 def home_page():
     reset_database()
     return render_template('home.html')
+
 
 @app.route('/login', methods=['POST'])
 def login():
@@ -97,27 +100,31 @@ def login():
 
     return render_template('signinerror.html')
 
+
 @app.route('/signup', methods=['POST'])
 def signup():
     username = request.form['reg_username']
     password = request.form['reg_password']
-    insert_user_login(username,password)
+    insert_user_login(username, password)
     return render_template('successful_signup.html')
+
 
 @app.route('/update-profile', methods=['POST'])
 def update_profile():
     old_username = request.form['old_username']
     username = request.form['new_username']
     password = request.form['new_password']
-    update_user_login(username,password,old_username)
+    update_user_login(username, password, old_username)
     return render_template('home.html')
+
 
 @app.route('/delete-profile', methods=['POST'])
 def delete_profile():
     username = request.form['username']
     password = request.form['password']
-    delete_user_login(username,password)
+    delete_user_login(username, password)
     return render_template('home.html')
+
 
 '''*********************************************** END OF USERDATA TABLE OPERATIONS ****************************'''
 
@@ -132,12 +139,13 @@ def messages_page(room_id=None):
 
     if room_id is not None:  # room secili
 
-        room = Room.get_room_by_id(room_id)
+        room = Messages.Room.get_room_by_id(room_id)
         if room is None:  # Verilen id'ye sahip bir room yok.
             return redirect(url_for("messages_page"))
 
     # todo Rooms=Room.get_room_header(logged_in_userID)
-    return render_template('messages.html', Rooms=Room.get_room_headers(tempLoggedUser), SelectedRoom=room)
+    return render_template('messages.html', Rooms=Messages.Room.get_room_headers(Messages.tempLoggedUser), SelectedRoom=room,
+                           User=Messages.tempLoggedUser)
 
 
 @app.route('/messages/new_room', methods=['POST'])
@@ -145,16 +153,15 @@ def messages_new_room():
     """ Create new room """
     room_id = None
     if request.method == 'POST':
-
         # get form values
         group_name = request.form['group_name']
         participants = request.form.getlist('participants')
 
         # create room and save to database
-        room = Room(name=group_name, participants=participants + [tempLoggedUser])  # todo userID
+        room = Messages.Room(name=group_name, admin=Messages.tempLoggedUser, participants=participants + [Messages.tempLoggedUser])  # todo userID
         room_id = room.save()
 
-    return redirect(url_for('messages_page')+"/"+str(room_id))
+    return redirect(url_for('messages_page') + "/" + str(room_id))
 
 
 @app.route('/messages/update_room', methods=['POST'])
@@ -162,21 +169,32 @@ def messages_update_room():
     if request.method == 'POST':
         room_id = request.form['room_id']
         group_name = request.form['group_name']
-        # participants = request.form.getlist('participants')
+        participants = request.form.getlist('participants')
 
-        room = Room.get_room_by_id(room_id)
-        if room is not None:
+        room = Messages.Room.get_room_by_id(room_id)
+        if room is not None and room.admin == Messages.tempLoggedUser:  # todo userID
             room.name = group_name
             room.update()
+            room.update_participants(participants)
 
-    return redirect(url_for('messages_page')+"/"+room_id)
+    return redirect(url_for('messages_page') + "/" + room_id)
+
+
+@app.route('/messages/leave_room', methods=['POST'])
+def messages_leave_room():
+    if request.method == 'POST':
+        room_id = request.form['room_id']
+        room = Messages.Room.get_room_by_id(room_id)
+        if room is not None and len(room.participants) > 1:
+            room.leave()
+    return redirect(url_for('messages_page'))
 
 
 @app.route('/messages/delete_room', methods=['POST'])
 def messages_delete_room():
     if request.method == 'POST':
         room_id = request.form['room_id']
-        room = Room.get_room_by_id(room_id)
+        room = Messages.Room.get_room_by_id(room_id)
         if room is not None:
             room.delete()
     return redirect(url_for('messages_page'))
@@ -186,11 +204,17 @@ def messages_delete_room():
 def messages_new_message():
     if request.method == 'POST':
         room_id = request.form['room_id']
-        room = Room.get_room_by_id(room_id)
+        room = Messages.Room.get_room_by_id(room_id)
         message_text = request.form['message']
-        message = Message(tempLoggedUser, room, message_text)
+        message = Messages.Message(Messages.tempLoggedUser, room, message_text)
         message.save()
-    return redirect(url_for('messages_page')+"/"+room_id)
+    return redirect(url_for('messages_page') + "/" + room_id)
+
+
+@app.route('/messages/change_user/<user_id>')
+def messages_change_user(user_id=""):
+    Messages.tempLoggedUser = user_id
+    return redirect(url_for('messages_page'))
 
 
 # ################################################ End Of Messages ##########################################
@@ -204,10 +228,14 @@ def profile_page():
 def music_page():
     return render_template("music.html")
 
+
 '''Activity Routes-Salih'''
+
+
 @app.route('/activities')
 def activities_page():
-    return render_template("activities.html", comments = select_comments())
+    return render_template("activities.html", comments=select_comments())
+
 
 @app.route('/activities/insert', methods=['GET', 'POST'])
 def activities_page_insert():
@@ -220,6 +248,7 @@ def activities_page_insert():
         insert_comment(comment, avatar, postid, userid)
     return redirect(url_for('activities_page'))
 
+
 @app.route('/activities/delete', methods=['GET', 'POST'])
 def activities_page_delete():
     deleteid = int(request.form['commentid'])
@@ -227,14 +256,18 @@ def activities_page_delete():
     delete_comment(deleteid)
     return redirect(url_for('activities_page'))
 
-@app.route('/activities/update', methods = ['GET','POST'])
+
+@app.route('/activities/update', methods=['GET', 'POST'])
 def activities_page_update():
     actiontype = int(request.form['actiontype'])
     if actiontype == 2:
         updateid = int(request.form['commentid'])
         update_comment(updateid)
     return redirect(url_for('activities_page'))
+
+
 '''Activity Routes-Salih'''
+
 
 @app.route('/createtables')
 def initialize_database():

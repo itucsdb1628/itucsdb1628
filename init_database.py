@@ -308,6 +308,7 @@ def create_messages_table():
             cursor.execute(""" CREATE TABLE MESSAGE_PARTICIPANT (
                                        RoomID INTEGER REFERENCES MESSAGE_ROOM (ID) ON DELETE CASCADE,
                                        UserID VARCHAR (40), --todo refer to userid, ON DELETE SET NULL
+                                       JoinDate TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
                                        PRIMARY KEY (RoomID, UserID)
                                    ); """)
 
@@ -319,13 +320,20 @@ def create_messages_table():
                                        PRIMARY KEY (MessageID, ReceiverID)
                                    ); """)
 
+            cursor.execute(""" DROP TABLE IF EXISTS MESSAGE_ROOM_ADMINS; """)
+            cursor.execute(""" CREATE TABLE MESSAGE_ROOM_ADMINS (
+                                       RoomID INTEGER REFERENCES MESSAGE_ROOM (ID) ON DELETE CASCADE,
+                                       UserID VARCHAR (40), ---todo refer to userid on delete cascade
+                                       PRIMARY KEY(RoomID, UserID)
+                                   ); """)
+
 
 def insert_bulk_messages():
-    room1 = messages.Room(name="roomName1", participants=["pk1", "pk2", "pk3", "pk4", "pk5"])  # todo userID
+    room1 = messages.Room(name="roomName1", admin="pk1", participants=["pk1", "pk2", "pk3", "pk4", "pk5"])  # todo userID
     room1.save()
-    room2 = messages.Room(name="roomName2", participants=["pk1", "pk2", "pk3"])  # todo userID
+    room2 = messages.Room(name="roomName2", admin="pk2", participants=["pk1", "pk2", "pk3"])  # todo userID
     room2.save()
-    room3 = messages.Room(name="roomName3", participants=["pk1", "pk4", "pk5"])  # todo userID
+    room3 = messages.Room(name="roomName3", admin="pk1", participants=["pk1", "pk4", "pk5"])  # todo userID
     room3.save()
 
     message1 = messages.Message("pk1", room1, "Hello Room1!")
