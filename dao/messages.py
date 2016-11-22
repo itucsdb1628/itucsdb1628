@@ -12,6 +12,7 @@ class Message:
         self.senderID = senderID
         self.room = room
         self.text = text
+        self.date = None
 
     def save(self):
         if self.id is not None:  # if id is not none it has been in db already
@@ -24,18 +25,25 @@ class Message:
 
                 self.id = cursor.fetchone()[0]
 
+                # okunacak listesine ekle
                 for participant in self.room.participants:
                     cursor.execute(""" INSERT INTO MESSAGE_STATUS (MessageID, ReceiverID)
                                           VALUES ( %(MessageID)s, %(ReceiverID)s )""",
                                    {'MessageID': self.id, 'ReceiverID': participant})
 
     @staticmethod
-    def get_messages(room):
+    def get_messages(room, receiverID):
         messages = []
         with dbapi2.connect(dsn) as connection:
             with connection.cursor() as cursor:
-                cursor.execute(""" SELECT * FROM MESSAGE WHERE MESSAGE.RoomID=%(RoomID)s""",
-                               {'RoomID': room.id})
+                cursor.execute(""" SELECT * FROM MESSAGE
+                                    WHERE MESSAGE.RoomID=%(RoomID)s AND
+                                          MESSAGE.DATE >= (
+                                            SELECT JoinDate FROM MESSAGE_PARTICIPANT
+                                              WHERE UserID=%(ReceiverID)s AND
+                                                    RoomID=%(RoomID)s
+                                          )""",
+                               {'RoomID': room.id, 'ReceiverID': receiverID})
                 result = cursor.fetchall()
 
                 for res in result:
@@ -111,11 +119,10 @@ class Room:
             return
         with dbapi2.connect(dsn) as connection:
             with connection.cursor() as cursor:
-
                 if self.admin == tempLoggedUser:
                     cursor.execute(""" DELETE FROM MESSAGE_ROOM_ADMINS
                                         WHERE RoomID=%(RoomID)s AND UserID=%(UserID)s""",
-                                   {'RoomID': self.id, 'UserID':tempLoggedUser})
+                                   {'RoomID': self.id, 'UserID': tempLoggedUser})
                     # add new Admin
                     cursor.execute(""" INSERT INTO MESSAGE_ROOM_ADMINS (RoomID, UserID)
                                            VALUES ( %(RoomID)s, %(UserID)s)""",
@@ -162,7 +169,7 @@ class Room:
         self.participants = participants
 
     def load_messages(self):
-        self.messages = Message.get_messages(self)
+        self.messages = Message.get_messages(self, tempLoggedUser)  # todo userID
 
     def load_admin(self):
         with dbapi2.connect(dsn) as connection:

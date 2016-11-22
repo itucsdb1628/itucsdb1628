@@ -94,21 +94,33 @@
                             {#                    <div class="clearfix"></div>#}
 
                             {% for message in SelectedRoom.messages %}
+                                {% if message.senderID != User %}
+                                <div class="media message_item">
+                                    <div class="media-left">
+                                {% else %}
                                 <div class="media message_item message_outgoing">
                                     <div class="media-right">
+                                {% endif %}
                                         <a href="#">
                                             {# todo message sender profile info #}
                                             <img class="media-object" src="{{ url_for('static', filename='images/logo.jpg') }}">
                                         </a>
                                     </div>
+                                {% if message.senderID != User %}
+                                    <div class="media-body alert alert-success">
+                                {% else %}
                                     <div class="media-body alert alert-info">
+                                {% endif %}
                                         {{ message.text }}
                                     </div>
+
                                     <div class="media-bottom">
                                         <span data-toggle="tooltip" data-placement="top" title="{{ message.date.date().strftime("%d.%m.%y") }}">
                                             {{ message.date.time().strftime("%H:%M") }}
                                         </span>
+                                        {% if message.senderID == User %}
                                         <span class="glyphicon glyphicon-ok status" data-toggle="tooltip" data-placement="top" title="Delivered">
+                                        {% endif %}
                                         </span>
                                     </div>
                                 </div>
