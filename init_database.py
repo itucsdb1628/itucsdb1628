@@ -316,7 +316,6 @@ def create_messages_table():
             cursor.execute(""" CREATE TABLE MESSAGE_STATUS (
                                        MessageID INTEGER REFERENCES MESSAGE (ID) ON DELETE CASCADE,
                                        ReceiverID VARCHAR (40), --todo refer to userid ON DELETE CASCADE
-                                       STATUS BOOLEAN DEFAULT TRUE,
                                        PRIMARY KEY (MessageID, ReceiverID)
                                    ); """)
 

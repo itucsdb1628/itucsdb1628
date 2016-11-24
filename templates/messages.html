@@ -119,9 +119,13 @@
                                             {{ message.date.time().strftime("%H:%M") }}
                                         </span>
                                         {% if message.senderID == User %}
-                                        <span class="glyphicon glyphicon-ok status" data-toggle="tooltip" data-placement="top" title="Delivered">
+                                            {% if message.isRead %}
+                                            <span class="glyphicon glyphicon-ok status read" data-toggle="tooltip" data-placement="top"
+                                                  title="Read by All"></span>
+                                            {% else %}
+                                            <span class="glyphicon glyphicon-ok status" data-toggle="tooltip" data-placement="top" title="Delivered to All"></span>
+                                            {% endif %}
                                         {% endif %}
-                                        </span>
                                     </div>
                                 </div>
                                 <div class="clearfix"></div>

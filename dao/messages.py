@@ -13,6 +13,7 @@ class Message:
         self.room = room
         self.text = text
         self.date = None
+        self.isRead = None
 
     def save(self):
         if self.id is not None:  # if id is not none it has been in db already
@@ -30,6 +31,23 @@ class Message:
                     cursor.execute(""" INSERT INTO MESSAGE_STATUS (MessageID, ReceiverID)
                                           VALUES ( %(MessageID)s, %(ReceiverID)s )""",
                                    {'MessageID': self.id, 'ReceiverID': participant})
+
+    def load_status(self):
+        with dbapi2.connect(dsn) as connection:
+            with connection.cursor() as cursor:
+                cursor.execute(""" SELECT COUNT(*) FROM MESSAGE_STATUS
+                                    WHERE MessageID=%(MessageID)s""",
+                               {'MessageID': self.id})
+                res = cursor.fetchone()
+                self.isRead = (res[0] == 0)
+
+    def read(self, userID):
+        with dbapi2.connect(dsn) as connection:
+            with connection.cursor() as cursor:
+                cursor.execute(""" DELETE FROM MESSAGE_STATUS
+                                    WHERE MessageID=%(MessageID)s AND
+                                          ReceiverID=%(UserID)s """,
+                               {'MessageID': self.id, 'UserID': userID})
 
     @staticmethod
     def get_messages(room, receiverID):
@@ -50,6 +68,8 @@ class Message:
                     msg = Message(res[4], room, res[1])
                     msg.id = res[0]
                     msg.date = res[2]
+                    msg.read(tempLoggedUser)  # todo userID
+                    msg.load_status()
                     messages.append(msg)
 
         return messages
