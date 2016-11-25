@@ -9,9 +9,13 @@ def select_posts():
     with dbapi2.connect(dsn) as connection:
         try:
              cursor = connection.cursor()
-             query = """SELECT POST.ID, POST.CONTENT, POST.SONGID, ALBUMCOVER.FILEPATH,USERDATA.USERNAME
-             FROM POST INNER JOIN ALBUMCOVER on ALBUMCOVER.ID = POST.ALBUMCOVERID
-             INNER JOIN USERDATA on POST.USERID = USERDATA.ID"""
+             query = """SELECT POST.ID, POST.CONTENT, POST.SONGID, ALBUMCOVER.FILEPATH,USERDATA.USERNAME,
+             POST.LIKECOUNTER AS NUMBER
+             FROM POST,ALBUMCOVER,USERDATA 
+             WHERE(
+             ALBUMCOVER.ID = POST.ALBUMCOVERID
+             AND POST.USERID = USERDATA.ID) 
+             ORDER BY POST.ID"""
              cursor.execute(query)
              return cursor
         except dbapi2.DatabaseError as e:
@@ -56,8 +60,7 @@ def update_post(UPDATEID):
             connection.commit()
         except dbapi2.DatabaseError as e:
             connection.rollback()
-
-
+            
 def insert_post_page():
     with dbapi2.connect(dsn) as connection:
         try:

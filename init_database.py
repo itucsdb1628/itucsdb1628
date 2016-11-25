@@ -13,26 +13,64 @@ from dsn_conf import get_dsn
 
 dsn = get_dsn()
 
+def drop_like_table():
+    with dbapi2.connect(dsn) as connection:
+        try:
+            cursor = connection.cursor()
+            statement = """DROP TABLE IF EXISTS LIKES"""
+            cursor.execute(statement)
+            connection.commit()
+            cursor.close()
+        except dbapi2.DatabaseError as e:
+            connection.rollback()
 
+def create_like_table():
+    with dbapi2.connect(dsn) as connection:
+        try:
+            cursor = connection.cursor() 
+            statement =     """CREATE TABLE IF NOT EXISTS LIKES(
+            ID SERIAL PRIMARY KEY,
+            POSTID INTEGER NOT NULL REFERENCES POST(ID) ON DELETE CASCADE,
+            USERID INTEGER NOT NULL REFERENCES USERDATA(ID) ON DELETE CASCADE,
+            LIKEDATE TIMESTAMP
+            )"""
+            cursor.execute(statement)
+            statement = """INSERT INTO LIKES(POSTID,USERID,LIKEDATE)
+                            VALUES(%s,%s,%s)"""
+            cursor.execute(statement,(1,1,'1.10.2016'));
+            connection.commit()
+            cursor.close()
+        except dbapi2.DatabaseError as e:
+            connection.rollback()
+
+def drop_post_table():
+     with dbapi2.connect(dsn) as connection:
+        try:
+            cursor = connection.cursor()
+            statement = """DROP TABLE IF EXISTS POST"""
+            cursor.execute(statement)
+            connection.commit()
+            cursor.close()
+        except dbapi2.DatabaseError:
+            connection.rollback()
 
 def create_post_table():
     with dbapi2.connect(dsn) as connection:
         try:
             cursor = connection.cursor()
-            statement = """DROP TABLE IF EXISTS POST"""
-            cursor.execute(statement);
             statement = """CREATE TABLE IF NOT EXISTS POST(
             ID SERIAL PRIMARY KEY,
             CONTENT VARCHAR(100) NOT NULL,
             POSTDATE TIMESTAMP,
             USERID INTEGER NOT NULL REFERENCES USERDATA(ID),
             SONGID INTEGER NOT NULL,
-            ALBUMCOVERID INTEGER NOT NULL REFERENCES ALBUMCOVER(ID)
+            ALBUMCOVERID INTEGER NOT NULL REFERENCES ALBUMCOVER(ID),
+            LIKECOUNTER INT DEFAULT 0
             )"""
             cursor.execute(statement)
-            statement = """INSERT INTO POST (CONTENT,POSTDATE,USERID,SONGID,ALBUMCOVERID)
-                            VALUES(%s,%s,%s,%s,%s)"""
-            cursor.execute(statement,('perfect!','1.10.2016',1,1,1));
+            statement = """INSERT INTO POST (CONTENT,POSTDATE,USERID,SONGID,ALBUMCOVERID,LIKECOUNTER)
+                            VALUES(%s,%s,%s,%s,%s,%s)"""
+            cursor.execute(statement,('perfect!','1.10.2016',1,1,1,1));
             statement = """INSERT INTO POST (CONTENT,POSTDATE,USERID,SONGID,ALBUMCOVERID)
                             VALUES(%s,%s,%s,%s,%s)"""
             cursor.execute(statement,('great!','1.10.2016',1,2,2));
@@ -41,7 +79,7 @@ def create_post_table():
             cursor.execute(statement,('excellent!','1.10.2016',1,3,3));
             statement = """INSERT INTO POST (CONTENT,POSTDATE,USERID,SONGID,ALBUMCOVERID)
                             VALUES(%s,%s,%s,%s,%s)"""
-            cursor.execute(statement,('beatiful!','1.10.2016',1,4,4 ));
+            cursor.execute(statement,('beatiful!','1.10.2016',1,4,4));
             connection.commit()
             cursor.close()
         except dbapi2.DatabaseError:
@@ -120,78 +158,7 @@ def insert_user(user):
             connection.rollback()
 
 '''******************************************************************************************************************'''
-def create_post_table():
-    with dbapi2.connect(dsn) as connection:
-        try:
-            cursor = connection.cursor()
-            statement = """DROP TABLE IF EXISTS POST"""
-            cursor.execute(statement);
-            statement = """CREATE TABLE IF NOT EXISTS POST(
-            ID SERIAL PRIMARY KEY,
-            CONTENT VARCHAR(100) NOT NULL,
-            POSTDATE TIMESTAMP,
-            USERID INTEGER NOT NULL REFERENCES USERDATA(ID) ON DELETE CASCADE,
-            SONGID INTEGER NOT NULL,
-            ALBUMCOVERID INTEGER NOT NULL REFERENCES ALBUMCOVER(ID) ON DELETE CASCADE
-            )"""
-            cursor.execute(statement)
-            statement = """INSERT INTO POST (CONTENT,POSTDATE,USERID,SONGID,ALBUMCOVERID)
-                            VALUES(%s,%s,%s,%s,%s)"""
-            cursor.execute(statement,('perfect!','1.10.2016',1,1,1));
-            statement = """INSERT INTO POST (CONTENT,POSTDATE,USERID,SONGID,ALBUMCOVERID)
-                            VALUES(%s,%s,%s,%s,%s)"""
-            cursor.execute(statement,('great!','1.10.2016',1,2,2));
-            statement = """INSERT INTO POST (CONTENT,POSTDATE,USERID,SONGID,ALBUMCOVERID)
-                            VALUES(%s,%s,%s,%s,%s)"""
-            cursor.execute(statement,('excellent!','1.10.2016',1,3,3));
-            statement = """INSERT INTO POST (CONTENT,POSTDATE,USERID,SONGID,ALBUMCOVERID)
-                            VALUES(%s,%s,%s,%s,%s)"""
-            cursor.execute(statement,('beatiful!','1.10.2016',1,4,4 ));
-            connection.commit()
-            cursor.close()
-        except dbapi2.DatabaseError as e:
-            connection.rollback()
 
-def create_album_cover_table():
-    with dbapi2.connect(dsn) as connection:
-        try:
-            cursor = connection.cursor()
-            statement = """DROP TABLE IF EXISTS ALBUMCOVER"""
-            cursor.execute(statement);
-            statement = """CREATE TABLE IF NOT EXISTS ALBUMCOVER(
-                ID SERIAL PRIMARY KEY,
-                FILEPATH VARCHAR(100) NOT NULL
-                )"""
-            cursor.execute(statement)
-            statement = """INSERT INTO ALBUMCOVER (FILEPATH)
-                             VALUES ('/static/images/beatles.jpg')"""
-            cursor.execute(statement)
-            statement = """INSERT INTO ALBUMCOVER (FILEPATH)
-                             VALUES ('/static/images/ledzeplin.jpg')"""
-            cursor.execute(statement)
-            statement = """INSERT INTO ALBUMCOVER (FILEPATH)
-                             VALUES ('/static/images/metallica.jpg')"""
-            cursor.execute(statement)
-            statement = """INSERT INTO ALBUMCOVER (FILEPATH)
-                             VALUES ('/static/images/pinkfloyd.jpg')"""
-            cursor.execute(statement)
-            connection.commit()
-            cursor.close()
-        except dbapi2.DatabaseError as e:
-            connection.rollback()
-
-
-
-def insert_post(post):
-    with dbapi2.connect(dsn) as connection:
-        try:
-            cursor = connection.cursor()
-            statement= """INSERT INTO POST(CONTENT,POSTDATE,USERID,SONGID,ALBUMCOVERID) VALUES(%s,%s,%s,%s,%s)"""
-            cursor.execute(statement,(post.content,post.postdate,post.userid,post.songid,post.albumcoverid))
-            connection.commit()
-            cursor.close()
-        except dbapi2.DatabaseError as e:
-            connection.rollback()
 
 
 def create_avatar_table():
@@ -250,6 +217,7 @@ def insert_comment(comment):
             cursor.close()
         except dbapi2.DatabaseError as e:
             connection.rollback()
+
 
 
 #song table
@@ -389,10 +357,13 @@ def reset_database():
     first_comment = Comment("first", 1, 1, datetime.datetime.now())
     insert_comment(first_comment)
     
+    drop_like_table()
     create_album_cover_table()
+    drop_post_table()
     create_post_table()
     firstPost = Post("perfect!", datetime.datetime.now(), 1, 1, 1)
     insert_post(firstPost)
+    create_like_table()
 
     
 
