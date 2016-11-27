@@ -28,9 +28,10 @@ class Message:
 
                 # okunacak listesine ekle
                 for participant in self.room.participants:
-                    cursor.execute(""" INSERT INTO MESSAGE_STATUS (MessageID, ReceiverID)
-                                          VALUES ( %(MessageID)s, %(ReceiverID)s )""",
-                                   {'MessageID': self.id, 'ReceiverID': participant})
+                    if participant != tempLoggedUser:  # todo userID
+                        cursor.execute(""" INSERT INTO MESSAGE_STATUS (MessageID, ReceiverID)
+                                              VALUES ( %(MessageID)s, %(ReceiverID)s )""",
+                                       {'MessageID': self.id, 'ReceiverID': participant})
 
     def load_status(self):
         with dbapi2.connect(dsn) as connection:
