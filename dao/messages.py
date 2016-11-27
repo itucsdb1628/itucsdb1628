@@ -226,15 +226,23 @@ class Room:
         rooms = []
         with dbapi2.connect(dsn) as connection:
             with connection.cursor() as cursor:
-                cursor.execute(""" SELECT RoomID, NAME FROM MESSAGE_ROOM LEFT JOIN MESSAGE_PARTICIPANT
-                                        ON MESSAGE_ROOM.ID=MESSAGE_PARTICIPANT.RoomID
-                                        WHERE MESSAGE_PARTICIPANT.UserID=%(UserID)s""",
+                cursor.execute(""" SELECT ID, NAME, LASTMSGDATE
+                                     FROM MESSAGE_ROOM
+                                       JOIN MESSAGE_PARTICIPANT
+                                         ON MESSAGE_ROOM.ID=MESSAGE_PARTICIPANT.RoomID
+                                       LEFT JOIN (  SELECT RoomID, MAX(DATE) AS LASTMSGDATE
+                                                      FROM MESSAGE
+                                                      GROUP BY RoomID
+                                                 ) AS MSG
+                                         ON MESSAGE_ROOM.ID=MSG.RoomID
+                                     WHERE MESSAGE_PARTICIPANT.UserID=%(UserID)s """,
                                {'UserID': userID})
                 result = cursor.fetchall()
 
                 for res in result:
                     room = Room(name=res[1])
                     room.id = res[0]
+                    room.last_message_date = res[2]
 
                     room.load_unread_message_count(userID)
 

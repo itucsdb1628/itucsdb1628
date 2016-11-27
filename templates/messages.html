@@ -37,7 +37,7 @@
 
         <div class="left_col">
             <div class="list-group message_userlist">
-                {% for room in Rooms %}
+                {% for room in Rooms |sort(attribute='last_message_date', reverse=True) %}
                     <a href="{{ url_for('messages_page') }}/{{ room.id }}"
                             {%- if room.id == SelectedRoom.id %} class="list-group-item list-group-item-info">
                             {%- else %} class="list-group-item list-group-item">
@@ -79,7 +79,7 @@
                         </div>
 
                         <div id="message_area" class="panel-body">
-                            {% for message in SelectedRoom.messages %}
+                            {% for message in SelectedRoom.messages |sort(attribute='date')%}
                                 {% if message.senderID != User %}
                                 <div class="media message_item">
                                     <div class="media-left">
