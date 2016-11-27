@@ -43,7 +43,9 @@
                             {%- else %} class="list-group-item list-group-item">
                             {% endif %}
                     <img src="{{ url_for('static', filename='images/logo.jpg') }}" width="40px"/>
-                    {#                            <span class="badge">14</span> todo unread message count #}
+                    {% if room.unread_count != 0 %}
+                    <span class="badge">{{ room.unread_count }}</span>
+                    {% endif %}
                     <h4 class="list-group-item-heading">{{ room.get_display_name() }}</h4>
                     <p class="list-group-item-text">{{ room.id }}</p>
                     <div class="clearfix"></div>
@@ -77,22 +79,6 @@
                         </div>
 
                         <div id="message_area" class="panel-body">
-                            {#                    <div class="media message_item"> todo incoming message styles#}
-                            {#                        <div class="media-left">#}
-                            {#                            <a href="#">#}
-                            {#                                <img class="media-object" src="{{ url_for('static', filename='images/logo.jpg') }}"#}
-                            {#                                     width="53px">#}
-                            {#                            </a>#}
-                            {#                        </div>#}
-                            {#                        <div class="media-body alert alert-success">#}
-                            {#                            Gelen Mesaj#}
-                            {#                        </div>#}
-                            {#                        <div class="media-bottom">#}
-                            {#                            <span data-toggle="tooltip" data-placement="top" title="dd.mm.yyyy">hh:mm</span>#}
-                            {#                        </div>#}
-                            {#                    </div>#}
-                            {#                    <div class="clearfix"></div>#}
-
                             {% for message in SelectedRoom.messages %}
                                 {% if message.senderID != User %}
                                 <div class="media message_item">

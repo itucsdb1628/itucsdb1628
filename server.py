@@ -284,4 +284,8 @@ if __name__ == '__main__':
 
     app.config['dsn'] = get_dsn()
 
+    # add get total unread message count function to jinja2 global variables
+    # because almost every template must reach it
+    app.jinja_env.globals.update(get_unread_message_count=Messages.get_unread_count)
+
     app.run(host='0.0.0.0', port=port, debug=debug)

@@ -82,6 +82,7 @@ class Room:
         self.admin = admin
         self.participants = [] if participants is None else participants
         self.messages = []
+        self.unread_count = 0
 
     def save(self):
         if self.id is not None or self.admin is None:  # if id is not none it has been in db already
@@ -105,7 +106,7 @@ class Room:
                 # and create admin of this room
                 cursor.execute(""" INSERT INTO MESSAGE_ROOM_ADMINS (RoomID, UserID)
                                           VALUES ( %(RoomID)s, %(UserID)s)""",
-                                   {'RoomID': self.id, 'UserID': self.admin})
+                               {'RoomID': self.id, 'UserID': self.admin})
         return self.id
 
     def update(self):
@@ -173,6 +174,23 @@ class Room:
 
         return nick
 
+    def load_unread_message_count(self, userID):
+        with dbapi2.connect(dsn) as connection:
+            with connection.cursor() as cursor:
+                cursor.execute(""" SELECT COUNT(*)
+                                     FROM MESSAGE_STATUS
+                                       JOIN MESSAGE
+                                         ON MESSAGE_STATUS.MessageID=MESSAGE.ID
+                                       JOIN MESSAGE_ROOM
+                                         ON MESSAGE.RoomID=MESSAGE_ROOM.ID
+                                     WHERE
+                                       MESSAGE_STATUS.ReceiverID=%(UserID)s AND
+                                       MESSAGE_ROOM.ID=%(RoomID)s """,
+                               {'RoomID': self.id, 'UserID': userID})
+
+                result = cursor.fetchone()
+                self.unread_count = result[0]
+
     def load_participants(self):
         participants = []
         with dbapi2.connect(dsn) as connection:
@@ -217,6 +235,8 @@ class Room:
                     room = Room(name=res[1])
                     room.id = res[0]
 
+                    room.load_unread_message_count(userID)
+
                     if room.name is None:
                         room.load_participants()  # oda ismi yoksa participantslar gorunecek. so it is necessary to load participants
 
@@ -240,3 +260,16 @@ class Room:
                     room.load_messages()
                     room.load_admin()
         return room
+
+
+def get_unread_count():
+    with dbapi2.connect(dsn) as connection:
+        with connection.cursor() as cursor:
+            cursor.execute(""" SELECT COUNT(*)
+                                 FROM MESSAGE_STATUS
+                                 WHERE
+                                   MESSAGE_STATUS.ReceiverID=%(UserID)s """,
+                           {'UserID': tempLoggedUser})  # todo userID
+
+            result = cursor.fetchone()
+            return result[0]
