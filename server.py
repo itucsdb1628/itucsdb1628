@@ -9,7 +9,7 @@ from flask.helpers import url_for
 import dao.messages as Messages
 from init_database import reset_database
 from post import *
-
+from like import *
 from comment import *
 
 from genre import *
@@ -22,10 +22,17 @@ app = Flask(__name__)
 
 '''********************************TIMELINE ROUTES - ismail*********************************'''
 
+@app.route('/timeline/like/<int:LIKEID>', methods=['GET', 'POST'])
+def like_post(LIKEID):
+    if(control_like(1,LIKEID)):  
+        insert_like(1,LIKEID)
+    else:
+        delete_like(1,LIKEID)
+    return redirect(url_for('timeline_page'))
 
 @app.route('/timeline')
 def timeline_page():
-    return render_template("timeline.html", posts=select_posts())
+    return render_template("timeline.html", posts=select_posts(), likes = list(select_user_likes(1)))
 
 
 @app.route('/timeline/delete/<int:DELETEID>', methods=['GET', 'POST'])

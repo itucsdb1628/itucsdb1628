@@ -33,8 +33,9 @@
            
 	</div>
   </div>
-	<div class="row">
-        		{% for ID, CONTENT, SONGID, FILEPATH,USERNAME in posts %}
+	<div class="row">  
+        
+        		{% for ID, CONTENT, SONGID, FILEPATH,USERNAME,NUMBER in posts%}
 		<div class="row">
                     <div class="col-xs-12 col-sm-3 col-md-3">
                         <a href="#">
@@ -67,8 +68,18 @@
                         <p>{{CONTENT}}</p>
                     </div>
                     <p align = "center">
-                  	<a href="#"> <i class="glyphicon glyphicon-heart-empty"></i> Likes (100) <span class="twitter"> <i class="fa fa-twitter"></i> </span>
-                	</a>
+                        {% set vars = {'a': True} %}
+                   {% for POSTID,LIKEDATE in likes%}
+                        {%if POSTID == ID %}
+                          {% if vars.update({'a': False}) %} {% endif %}
+                  	         <a href="{{ url_for('like_post', LIKEID=ID) }}" > <i class="glyphicon glyphicon-heart" style="color:red"></i> Likes ({{NUMBER}}) <span class="twitter"> <i class="fa fa-twitter"></i> </span> 
+                            </a>
+                        {%endif%}
+                    {% endfor %}
+                        {%if vars.a %}
+                            <a href="{{ url_for('like_post', LIKEID=ID) }}"> <i class="glyphicon glyphicon-heart" style="color:grey"></i> Likes ({{NUMBER}}) <span class="twitter"> <i class="fa fa-twitter"></i> </span>
+                        {%endif%}
+                 
                   	&nbsp&nbsp&nbsp <a href="#"> <i class="glyphicon glyphicon-play-circle"></i> Play <span class="twitter"> <i class="fa fa-twitter"></i> </span>
                 	</a>
 

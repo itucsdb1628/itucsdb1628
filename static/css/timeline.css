@@ -36,3 +36,10 @@
 .row_short{width: 850px;
 			float: right;
 			}
+a{
+    text-decoration: none;
+}
+A:hover {
+text-decoration: none;
+color: red}
+
