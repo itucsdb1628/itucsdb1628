@@ -1,0 +1,44 @@
+.container{
+    margin-top: 10px;
+}
+
+.media-body > p{
+    margin-left: inherit;
+    color:black;
+}
+
+img{
+    width: 40px;
+}
+
+#like{
+    background-color: #ffb3b3;
+}
+
+#heart-icon{
+    color: #cc0000;
+}
+
+#like-heading{
+    margin-bottom: 0px;
+}
+
+#comment{
+    background-color: #b1cdcd;
+}
+
+#comment-heading{
+    margin-bottom: 0px;
+}
+
+#comment-icon{
+    color: #507c7c;
+}
+
+#share{
+    background-color: #fff0b3;
+}
+
+#share-icon{
+    color: #665200;
+}

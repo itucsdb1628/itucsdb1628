@@ -13,93 +13,66 @@
 
 {% block content  %}
 	<div class = "container">
-		<div class = "activities">
-			<div class="panel panel-danger panel1">
-  				<div class="panel-heading">
-    				<h3 class="panel-title"> <span class="glyphicon glyphicon-heart" aria-hidden="true" style = "color:red;"></span> <a href="#" title="First Name Last Name">{{USERNAME}}</a> liked your post!</h3>
-  				</div>
-  				<div class="panel-body">
-  					<div class = row>
-  						<div class = "col-xs-3">
-  						<p style="float:left; padding-top:10px;"><a href="#" title="Pink Floyd"><img src="{{ url_for('static', filename='images/pinkfloyd.jpg') }}" width="40px"/></a></p>
-  						<h4 style = "padding-left: 50px; color: black;"> Pink Floyd</h4>
-  						<p class = "list-group-item-text" style = "padding-left: 50px;"> content content content content content content content content content</p>
-  						</div>
-  					</div>
-  				</div>
-  				<div class = "panel-footer">
-  				<i class="glyphicon glyphicon-time"></i> {{CDATE}} <span class="twitter"> <i class="fa fa-twitter"></i> </span>
-  				</div>
-			</div>
-			{% for ID, COMMENT, CDATE, POSTID, FILEPATH, USERNAME in comments %}
-			<div class="panel panel-primary panel2">
-  				<div class="panel-heading">
-    				<h3 class="panel-title"> <span class="glyphicon glyphicon-comment" aria-hidden="true" style = "color:white;"></span> <a href="#" title="First Name Last Name">{{USERNAME}}</a> commented on your post!</h3>
-  				</div>
-  				<div class="panel-body">
-  					<div class = row>
-  						<div class = "col-xs-3">
-  						<p style="float:left; padding-top:10px;"><a href="#" title="Metallica"><img src="{{ url_for('static', filename='images/metallica.jpg') }}" width="40px"/></a></p>
-  						<h4 style = "padding-left: 50px; color: black;">Metallica</h4>
-  						<p class = "list-group-item-text" style = "padding-left: 50px;"> content content content content content content content content content</p>
-  						<blockquote>
-  						<p style="float:left; padding-top:10px;"><a href="#" title="{{USERNAME}}"><img src="{{FILEPATH}}" width="40px"/></a></p>
-  						<p style = "padding-top:10px;"><footer>{{COMMENT}}</footer></p>
-  						</blockquote>
-  						</div>
-  					</div>
-  				</div>
-  				<div class = "panel-footer">
-  				<i class="glyphicon glyphicon-time"></i> {{CDATE}} <span class="twitter"> <i class="fa fa-twitter"></i> </span>
-  				<!--
-  				<a href="{{ url_for('activities_page_delete', DELETEID=ID) }}"> <i class="glyphicon glyphicon-remove"></i>  Delete Comment <span class="twitter"> <i class="fa fa-twitter"></i> </span></a>
- 				-->
-  				<form action = "activities/insert" method ="post">
-  					<input type = "hidden" name = "userid" required = "required" value = "{{USERNAME}}">
-  					<input type = "hidden" name = "actiontype" required = "required" value = "1">
-  					<input type = "text" name = "comment" required = "required" >
-  					<input type = "hidden" name = "avatar" value = "1">
-  					<input type = "hidden" name = "postid" value = "{{ID}}">
-  					<input type = "submit" name = "add" value="Add">
-
-  				</form>
-
-  				<form action = "activities/update" method = "post">
-  				<input type = "hidden" name = "userid" required = "required" value = "{{USERNAME}}">
-  				<input type = "hidden" name = "actiontype" required = "required" value = "2">
-  				<input type = "text" name="comment" required = "required">
-  				<input type = "hidden" name = "avatar" value = "1">
-  				<input type = "hidden" name = "commentid" value = "{{ID}}">
-  				<input type = "submit" name = "update" value="Update">
-  				</form>
-
-				<form action = "activities/delete" method = "post">
-				<input type = "hidden" name="commentid" value="{{ID}}">
-				<input type = "submit" name="delete" value = "Delete">
-				</form>
-
-  				</div>
-			</div>
-			{% endfor %}
-			<div class="panel panel-warning panel3">
-  				<div class="panel-heading">
-    				<h3 class="panel-title"> <span class="glyphicon glyphicon-share" aria-hidden="true"></span> <a href="#" title="First Name Last Name">{{USERNAME}}</a> shared your post!</h3>
-
-  				</div>
-  				<div class="panel-body">
-  					<div class = row>
-  						<div class = "col-xs-3">
-  						<p style="float:left; padding-top:10px;"><a href="#" title="Led Zeppelin"><img src="{{ url_for('static', filename='images/ledzeplin.jpg') }}" width="40px"/></a></p>
-  						<h4 style = "padding-left: 50px; color: black;">Led Zeppelin</h4>
-  						<p class = "list-group-item-text" style = "padding-left: 50px;"> content content content content content content content content content</p>
-  						</div>
-  					</div>
-  				</div>
-  				<div class = "panel-footer">
-  				<i class="glyphicon glyphicon-time"></i> {{CDATE}} <span class="twitter"> <i class="fa fa-twitter"></i> </span>
-  				</div>
-			</div>
-		</div>
-	</div>
+        <div class  = "well" id = "like">
+        <div class="media">
+            <div class="media-body">
+                <h4 class="media-heading"><span class="glyphicon glyphicon-heart" id = "heart-icon"></span> Salih liked your post!</h4>
+                <div class="media mt-2">
+                    <a class="media-left" href="#">
+                    <img class="media-object" src="static/images/metallica.jpg" alt="Metallica">
+                    </a>
+                    <div class="media-body">
+                        <h4 class="media-heading" id = "like-heading">Metallica</h4>
+                        Harvester of Sorrow
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    	{% for activities in activity %}
+        <div class  = "well" id = "comment">
+        <div class="media">
+            <div class="media-body">
+                <h4 class="media-heading"><span class="glyphicon glyphicon-comment" id = "comment-icon"></span> {{activities.username}} commented your post! </h4>
+                <div class="media mt-2">
+                    <a class="media-left" href="/timeline">
+                    <img class="media-object" src="{{activities.albumcover}}" alt="Metallica">
+                    </a>
+                    <div class="media-body">
+                        <h4 class="media-heading" id = "comment-heading">Metallica</h4>
+                        {{activities.content}}
+                    <div class = "media mt-2">
+                        <a class="media-left" href="#">
+                    <img class="media-object" src="{{activities.avatarpath}}" alt="Avatar">
+                    </a>
+                    <div class="media-body">
+                        <h4 class="media-heading" id = "comment-heading">{{activities.username}}</h4>
+                        <p>{{activities.comment}}</p>
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+    </div>
+    {% endfor %}
+        <div class  = "well" id = "share">
+        <div class="media">
+            <div class="media-body">
+                <h4 class="media-heading"><span class="glyphicon glyphicon-share" id = "share-icon"></span> Salih shared your post!</h4>
+                <div class="media mt-2">
+                    <a class="media-left" href="#">
+                    <img class="media-object" src="static/images/metallica.jpg" alt="Generic placeholder image">
+                    </a>
+                    <div class="media-body">
+                        <h4 class="media-heading" id = "like-heading">Metallica</h4>
+                        Harvester of Sorrow
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}
+
 

@@ -1,6 +1,6 @@
 import os
 
-from flask import Flask
+from flask import Flask, app
 from flask import redirect
 from flask import render_template
 from flask.helpers import url_for
@@ -17,6 +17,7 @@ from userdata import *
 from dao.genre import *
 
 from dsn_conf import get_dsn
+from flask.globals import request
 
 app = Flask(__name__)
 
@@ -24,7 +25,7 @@ app = Flask(__name__)
 
 @app.route('/timeline/like/<int:LIKEID>', methods=['GET', 'POST'])
 def like_post(LIKEID):
-    if(control_like(1,LIKEID)):  
+    if(control_like(1,LIKEID)):
         insert_like(1,LIKEID)
     else:
         delete_like(1,LIKEID)
@@ -237,11 +238,37 @@ def music_page():
 
 
 '''Activity Routes-Salih'''
-
+@app.route('/comment/<int:COMMENTID>', methods=['GET','POST'])
+def comment_page(COMMENTID):
+    if request.method == 'GET':
+        comments = []
+        return render_template("comments.html", posts=list(select_post(COMMENTID)), comments=select_comments(COMMENTID))
+    else:
+        actiontype=int(request.form['actiontype'])
+        if actiontype == 1:
+            commentid=int(request.form['id'])
+            delete_comment(commentid)
+            postid=int(request.form['postid'])
+            return redirect("/comment/" + str(postid))
+        if actiontype == 2:
+            comment=request.form['comment']
+            postid=int(request.form['postid'])
+            userid=int(request.form['userid'])
+            avatarid=int(request.form['avatarid'])
+            albumcoverid=int(request.form['albumcover'])
+            insert_comment(comment,userid,postid,avatarid,albumcoverid)
+            return redirect("/comment/" + str(postid))
+        if actiontype == 3:
+            commentid=int(request.form['id'])
+            postid=int(request.form['postid'])
+            new_comment=request.form['new_comment']
+            update_comment(new_comment,commentid)
+            return redirect("/comment/" + str(postid))
 
 @app.route('/activities')
 def activities_page():
-    return render_template("activities.html", comments=select_comments())
+    activity = []
+    return render_template("activities.html", activity=select_comments2())
 
 
 @app.route('/activities/insert', methods=['GET', 'POST'])

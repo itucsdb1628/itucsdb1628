@@ -1,30 +1,70 @@
 import psycopg2 as dbapi2
 from flask import request
+from dao.comment import *
 
 from dsn_conf import get_dsn
 
 dsn = get_dsn()
 
-def select_comments():
-     with dbapi2.connect(dsn) as connection:
+def select_comments(id):
+    content = []
+    with dbapi2.connect(dsn) as connection:
         try:
             cursor = connection.cursor()
-            query = """SELECT COMMENT.ID, COMMENT.COMMENT, COMMENT.CDATE, AVATAR.FILEPATH, USERDATA.USERNAME, POST.ID
-            FROM COMMENT INNER JOIN AVATAR ON AVATAR.ID = COMMENT.AVATARID
-            INNER JOIN USERDATA ON COMMENT.USERID = USERDATA.ID
-            INNER JOIN POST ON POST.ID = COMMENT.POSTID """
+            query = """SELECT COMMENT.COMMENT, USERDATA.USERNAME, AVATAR.FILEPATH, POST.CONTENT, ALBUMCOVER.FILEPATH, POST.ID,
+            COMMENT.ID FROM COMMENT INNER JOIN AVATAR on AVATAR.ID = COMMENT.AVATARID
+            INNER JOIN USERDATA on COMMENT.USERID = USERDATA.ID
+            INNER JOIN POST ON COMMENT.POSTID = POST.ID
+            INNER JOIN ALBUMCOVER ON COMMENT.ALBUMCOVERID = ALBUMCOVER.ID where (POST.ID = %s)
+            ORDER BY COMMENT.ID"""
+
+            cursor.execute(query,(id,))
+            value = cursor.fetchall()
+            for val in value:
+                comment = Comment(val[0],val[1],val[2],val[3],val[4],val[5],val[6])
+                content.append(comment)
+            return content
+        except dbapi2.DatabaseError as e:
+             connection.rollback()
+
+def select_comments2():
+    content = []
+    with dbapi2.connect(dsn) as connection:
+        try:
+            cursor = connection.cursor()
+            query = """SELECT COMMENT.COMMENT, USERDATA.USERNAME, AVATAR.FILEPATH, POST.CONTENT, ALBUMCOVER.FILEPATH, POST.ID,
+            COMMENT.ID FROM COMMENT INNER JOIN AVATAR on AVATAR.ID = COMMENT.AVATARID
+            INNER JOIN USERDATA on COMMENT.USERID = USERDATA.ID
+            INNER JOIN POST ON COMMENT.POSTID = POST.ID
+            INNER JOIN ALBUMCOVER ON COMMENT.ALBUMCOVERID = ALBUMCOVER.ID
+            ORDER BY COMMENT.ID"""
+            cursor.execute(query)
+            value = cursor.fetchall()
+            for val in value:
+                comment = Comment(val[0],val[1],val[2],val[3],val[4],val[5],val[6])
+                content.append(comment)
+            return content
+        except dbapi2.DatabaseError as e:
+             connection.rollback()
+
+
+def select_comment_number(postid):
+    with dbapi2.connect(dsn) as connection:
+        try:
+            cursor = connection.cursor()
+            query = """SELECT COUNT(*) FROM COMMENT WHERE POSTID = %s """ % postid
             cursor.execute(query)
             return cursor
         except dbapi2.DatabaseError as e:
              connection.rollback()
 
 
-def insert_comment(comment, avatar, postid, userid):
+def insert_comment(comment,userid,postid,avatarid,albumcoverid):
     with dbapi2.connect(dsn) as connection:
         try:
            cursor = connection.cursor()
-           query = """INSERT INTO COMMENT(COMMENT,USERID,POSTID,AVATARID) VALUES(%s,%s,%s,%s)"""
-           cursor.execute(query,(comment, userid, postid, avatar))
+           query = """INSERT INTO COMMENT(COMMENT,USERID,POSTID,AVATARID,ALBUMCOVERID) VALUES(%s,%s,%s,%s,%s)"""
+           cursor.execute(query,(comment,userid,postid,avatarid,albumcoverid))
            connection.commit()
         except dbapi2.DatabaseError as e:
             connection.rollback()
@@ -38,15 +78,15 @@ def delete_comment(DELETEID):
         except dbapi2.DatabaseError as e:
             connection.rollback()
 
-def update_comment(UPDATEID):
+def update_comment(comment,UPDATEID):
     with dbapi2.connect(dsn) as connection:
         try:
             cursor = connection.cursor()
-            comment = request.form['comment']
             query = """UPDATE COMMENT SET COMMENT = '%s' WHERE ID = %d""" % (comment,int(UPDATEID))
             cursor.execute(query)
             connection.commit()
         except dbapi2.DatabaseError as e:
             connection.rollback()
+
 
 

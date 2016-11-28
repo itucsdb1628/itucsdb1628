@@ -1,0 +1,106 @@
+{% extends "layout.html" %}
+{% block title %}
+
+      Profile
+
+{% endblock %}
+
+{% block static_links %}
+ 	<link rel="stylesheet" href="{{ url_for('static', filename='css/timeline.css') }}" />
+ 	<link rel="stylesheet" href="{{ url_for('static', filename='css/comment.css') }}" />
+{% endblock %}
+
+{% block content %}
+
+ <div class = "container">
+  <div class = "row_short">
+	<div class="row">
+        		{% for ID, CONTENT, SONGID, FILEPATH,USERNAME in posts %}
+				<div class="row">
+                    <div class="col-xs-12 col-sm-3 col-md-3">
+                        <a href="/timeline">
+                            <img src="{{FILEPATH}}" class="img-responsive img-box img-thumbnail">
+                        </a>
+                    </div>
+                    <div class="col-xs-12 col-sm-9 col-md-9">
+                 	       <div class="list-group">
+                            <div class="list-group-item">
+                                <div class="row-picture">
+                                    <a href="#" title="First Second">
+                                        <img class="circle img-thumbnail img-box" src="{{ url_for('static', filename='images/logo.jpg') }}" alt="logo">
+                                    </a>
+                                </div>
+                                <div class="row-content">
+                                    <div class="list-group-item-heading">
+                                        <a href="#" title="First Second">
+                                            <small>{{USERNAME}}</small>
+                                        </a>
+                                    </div>
+                                    <small>
+                                        <i class="glyphicon glyphicon-time"></i> 3 days ago <span class="twitter"> <i class="fa fa-twitter"></i> </span>
+                                        <br>
+
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+                        <h4><a href="#">{{SONGID}}</a></h4>
+                        <p>{{CONTENT}}</p>
+                    </div>
+        	{% endfor %}
+			<br/>
+        	{% for content in comments %}
+       		   <div class="container">
+					<div class="row">
+					</div><!-- /row -->
+					<div class="row">
+						<div class="col-sm-1">
+							<div class="thumbnail">
+								<img class="img-responsive user-photo" src="{{content.avatarpath}}">
+							</div><!-- /thumbnail -->
+						</div><!-- /col-sm-1 -->
+
+						<div class="col-sm-5">
+							<div class="panel panel-default">
+								<div class="panel-heading">
+									<strong>{{content.username}}</strong> <span class="text-muted">commented 5 days ago</span>
+									<form role="form" action="" method="post" name="comment_delete">
+            						<input type="hidden" name="id" value="{{content.commentid}}">
+            						<input type="hidden" name="postid" value="{{content.postid}}">
+            						<input type="hidden" name="actiontype" value="1">
+            						<button type="submit" name="delete_comment" class="btn btn-default">Delete comment</button>
+            						</form>
+            						<form role="form" action="" method="post" name="comment_update">
+            						<input type="text" name="new_comment">
+            						<input type="hidden" name="id" value="{{content.commentid}}">
+            						<input type="hidden" name="postid" value="{{content.postid}}">
+            						<input type="hidden" name="actiontype" value="3">
+            						<button type="submit" name="delete_comment" class="btn btn-default">Update comment</button>
+            						</form>
+								</div>
+								<div class="panel-body">
+									{{content.comment}}
+								</div><!-- /panel-body -->
+							</div><!-- /panel panel-default -->
+						</div><!-- /col-sm-5 -->
+						</div>
+						</div>
+    				{% endfor %}
+    		{% for ID, CONTENT, SONGID, FILEPATH,USERNAME in posts %}
+			<form role="form" action="" method="post" name="comment_add"
+            class="form-horizontal">
+            <input type="text" name="comment" required="required">
+            <input type="hidden" name="postid" required="required" value="{{ID}}">
+            <input type="hidden" name="actiontype" value="2">
+            <input type="hidden" name="userid" required="required" value="1">
+            <input type="hidden" name="avatarid" required="required" value="1">
+            <input type="hidden" name="albumcover" required="required" value="1">
+            <button type="submit" name="add_comment" class="btn btn-default">Add comment</button>
+			</form>
+			{% endfor %}
+	</div>
+  </div>
+ </div>
+
+
+{% endblock %}

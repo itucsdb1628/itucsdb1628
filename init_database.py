@@ -27,7 +27,7 @@ def drop_like_table():
 def create_like_table():
     with dbapi2.connect(dsn) as connection:
         try:
-            cursor = connection.cursor() 
+            cursor = connection.cursor()
             statement =     """CREATE TABLE IF NOT EXISTS LIKES(
             ID SERIAL PRIMARY KEY,
             POSTID INTEGER NOT NULL REFERENCES POST(ID) ON DELETE CASCADE,
@@ -180,27 +180,38 @@ def create_avatar_table():
         except dbapi2.DatabaseError as e:
             connection.rollback()
 
-
-
-def create_comment_table():
+def drop_comment_table():
     with dbapi2.connect(dsn) as connection:
         try:
             cursor = connection.cursor()
             statement = """DROP TABLE IF EXISTS COMMENT"""
             cursor.execute(statement);
+            connection.commit()
+            cursor.close()
+        except dbapi2.DatabaseError as e:
+            connection.rollback()
+
+def create_comment_table():
+    with dbapi2.connect(dsn) as connection:
+        try:
             cursor = connection.cursor()
             statement = """CREATE TABLE IF NOT EXISTS COMMENT(
             ID SERIAL PRIMARY KEY,
             COMMENT VARCHAR(150) NOT NULL,
             USERID INTEGER NOT NULL REFERENCES USERDATA(ID) ON DELETE CASCADE,
-            POSTID INTEGER NOT NULL,
+            POSTID INTEGER NOT NULL REFERENCES POST(ID) ON DELETE CASCADE,
             AVATARID INTEGER NOT NULL REFERENCES AVATAR(ID) ON DELETE CASCADE,
+            ALBUMCOVERID INTEGER NOT NULL REFERENCES ALBUMCOVER(ID) ON DELETE CASCADE,
             CDATE TIMESTAMP
             )"""
             cursor.execute(statement)
-            statement = """INSERT INTO COMMENT (COMMENT,USERID,POSTID,AVATARID,CDATE)
-                            VALUES(%s,%s,%s,%s,%s)"""
-            cursor.execute(statement,('Nice Song!',1,1,1,'1.11.2016'));
+            statement = """INSERT INTO COMMENT (COMMENT,USERID,POSTID,AVATARID,ALBUMCOVERID,CDATE)
+                            VALUES(%s,%s,%s,%s,%s,%s)"""
+            cursor.execute(statement,('Nice Song!',1,1,1,1,'1.11.2016'));
+            statement = """INSERT INTO COMMENT(COMMENT,USERID,POSTID,AVATARID,ALBUMCOVERID,CDATE)
+                            VALUES(%s,%s,%s,%s,%s,%s)"""
+            cursor.execute(statement,('Liked it!',1,3,1,3,'1.11.2016'));
+
             connection.commit()
             cursor.close()
         except dbapi2.DatabaseError:
@@ -211,13 +222,12 @@ def insert_comment(comment):
     with dbapi2.connect(dsn) as connection:
         try:
             cursor = connection.cursor()
-            statement = """INSERT INTO COMMENT(COMMENT,USERID,POSTID,CDATE) VALUES(%s,%s,%s,%s)"""
+            statement = """INSERT INTO COMMENT(COMMENT,USERID,POSTID,AVATARID,ALBUMCOVERID,CDATE) VALUES(%s,%s,%s,%s,%s,%s)"""
             cursor.execute(statement,(comment.content,comment.userid,comment.postid,comment.cdate))
             connection.commit()
             cursor.close()
         except dbapi2.DatabaseError as e:
             connection.rollback()
-
 
 
 #song table
@@ -355,28 +365,27 @@ def insert_default_genres():
 
 
 def reset_database():
-    
-    
+
+
     create_user_table()
     firstuser = User(1, "user1", "password1")
     insert_user(firstuser)
-    
-    create_avatar_table()
-    create_comment_table()
-    first_comment = Comment("first", 1, 1, datetime.datetime.now())
-    insert_comment(first_comment)
-    
+
     drop_like_table()
     create_album_cover_table()
+
+    drop_comment_table()
+
     drop_post_table()
     create_post_table()
     firstPost = Post("perfect!", datetime.datetime.now(), 1, 1, 1)
     insert_post(firstPost)
     create_like_table()
 
-    
+    create_avatar_table()
+    create_comment_table()
 
-    
+
 
     create_song_table()
     sample_song = Song(1, "Scar Tissue", "Californication", "Red Hot Chili Peppers", "Rock", "imaginary_filepath.mp3")
