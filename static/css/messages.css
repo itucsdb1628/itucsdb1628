@@ -101,6 +101,10 @@
     margin-bottom: 10px;
 }
 
+.message_history .panel-body .date{
+    font-size: 0.7em;
+}
+
 .message_item {
     float: left;
     max-width: 85%;

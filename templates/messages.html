@@ -79,7 +79,10 @@
                         </div>
 
                         <div id="message_area" class="panel-body">
-                            {% for message in SelectedRoom.messages |sort(attribute='date')%}
+                            {% for message in SelectedRoom.m |sort(attribute='date')%}
+
+                                {% if message.senderID != null %}
+
                                 {% if message.senderID != User %}
                                 <div class="media message_item">
                                     <div class="media-left">
@@ -115,6 +118,14 @@
                                     </div>
                                 </div>
                                 <div class="clearfix"></div>
+                                {% else %}
+                                <div align="center" class="event">
+                                    <span class="label label-default">{{ message.text }}</span>
+                                    <span class="date" data-toggle="tooltip" data-placement="top" title="{{ message.date.date().strftime("%d.%m.%y") }}">
+                                        {{ message.date.time().strftime("%H:%M") }}
+                                    </span>
+                                </div>
+                                {% endif %}
                             {% endfor %}
                         </div>
 

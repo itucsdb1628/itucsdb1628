@@ -1,3 +1,4 @@
+import datetime
 import psycopg2 as dbapi2
 from dsn_conf import get_dsn
 
@@ -83,6 +84,7 @@ class Room:
         self.admin = admin
         self.participants = [] if participants is None else participants
         self.messages = []
+        self.events = []
         self.unread_count = 0
 
     def save(self):
@@ -108,6 +110,12 @@ class Room:
                 cursor.execute(""" INSERT INTO MESSAGE_ROOM_ADMINS (RoomID, UserID)
                                           VALUES ( %(RoomID)s, %(UserID)s)""",
                                {'RoomID': self.id, 'UserID': self.admin})
+
+        for participant in self.participants:
+            self.insert_event(participant, 0)  # 0: join, 1: left, 2: admin
+
+        self.insert_event(self.admin, 2)  # 0: join, 1: left, 2: admin
+
         return self.id
 
     def update(self):
@@ -130,10 +138,12 @@ class Room:
                     cursor.execute(""" DELETE FROM MESSAGE_PARTICIPANT
                                           WHERE RoomID=%(RoomID)s AND UserID=%(UserID)s""",
                                    {'RoomID': self.id, 'UserID': deleted})
+                    self.insert_event(deleted, 1)
                 for added in [p for p in new_p if p not in old_p]:
                     cursor.execute(""" INSERT INTO MESSAGE_PARTICIPANT (RoomID, UserID)
                                           VALUES ( %(RoomID)s, %(UserID)s )""",
                                    {'RoomID': self.id, 'UserID': added})
+                    self.insert_event(added, 0)
                 self.participants = new_participants
 
     def leave(self):
@@ -141,6 +151,11 @@ class Room:
             return
         with dbapi2.connect(dsn) as connection:
             with connection.cursor() as cursor:
+                cursor.execute(""" DELETE FROM MESSAGE_PARTICIPANT
+                                        WHERE RoomID=%(RoomID)s AND UserID=%(UserID)s""",
+                               {'RoomID': self.id, 'UserID': tempLoggedUser})
+                self.insert_event(tempLoggedUser, 1)
+
                 if self.admin == tempLoggedUser:
                     cursor.execute(""" DELETE FROM MESSAGE_ROOM_ADMINS
                                         WHERE RoomID=%(RoomID)s AND UserID=%(UserID)s""",
@@ -149,10 +164,7 @@ class Room:
                     cursor.execute(""" INSERT INTO MESSAGE_ROOM_ADMINS (RoomID, UserID)
                                            VALUES ( %(RoomID)s, %(UserID)s)""",
                                    {'RoomID': self.id, 'UserID': self.participants[0]})
-
-                cursor.execute(""" DELETE FROM MESSAGE_PARTICIPANT
-                                        WHERE RoomID=%(RoomID)s AND UserID=%(UserID)s""",
-                               {'RoomID': self.id, 'UserID': tempLoggedUser})
+                    self.insert_event(self.participants[0], 2)
 
     def delete(self):
         with dbapi2.connect(dsn) as connection:
@@ -220,6 +232,44 @@ class Room:
                 result = cursor.fetchone()
                 self.admin = result[0]
 
+    def load_events(self):
+        events = []
+        with dbapi2.connect(dsn) as connection:
+            with connection.cursor() as cursor:
+                cursor.execute(""" SELECT UserID, ACTION, DATE FROM MESSAGE_ROOM_EVENT
+                                                WHERE RoomID=%(RoomID)s AND
+                                          DATE >= (
+                                            SELECT JoinDate FROM MESSAGE_PARTICIPANT
+                                              WHERE UserID=%(UserID)s AND
+                                                    RoomID=%(RoomID)s )""",
+                               {'RoomID': self.id, 'UserID': tempLoggedUser})
+
+                result = cursor.fetchall()
+
+                for res in result:
+                    e = {
+                        'date': res[2]
+                    }
+                    if res[1] == 0:
+                        e['text'] = res[0] + " joined conversation"
+                    elif res[1] == 1:
+                        e['text'] = res[0] + " left conversation"
+                    else:
+                        e['text'] = res[0] + " is Admin"
+
+                    events.append(e)
+
+        self.events = events
+
+    def insert_event(self, userID, action):
+        # action 0: join, 1: left, 2: admin
+        with dbapi2.connect(dsn) as connection:
+            with connection.cursor() as cursor:
+                cursor.execute(""" INSERT
+                                     INTO MESSAGE_ROOM_EVENT (RoomID, UserID, ACTION)
+                                     VALUES ( %(RoomID)s, %(UserID)s, %(Action)s ) """,
+                               {'RoomID': self.id, 'UserID': userID, 'Action': action})
+
     @staticmethod
     def get_room_headers(userID):
         """ Load All Room Headers of User participated"""
@@ -242,8 +292,7 @@ class Room:
                 for res in result:
                     room = Room(name=res[1])
                     room.id = res[0]
-                    room.last_message_date = res[2]
-
+                    room.last_message_date = res[2] if res[2] is not None else datetime.datetime.now()
                     room.load_unread_message_count(userID)
 
                     if room.name is None:
@@ -267,7 +316,9 @@ class Room:
                     room.id = result[0]
                     room.load_participants()
                     room.load_messages()
+                    room.load_events()
                     room.load_admin()
+                    room.m = room.events + room.messages
         return room
 
 

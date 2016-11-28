@@ -294,6 +294,15 @@ def create_messages_table():
                                        PRIMARY KEY(RoomID, UserID)
                                    ); """)
 
+            cursor.execute(""" DROP TABLE IF EXISTS MESSAGE_ROOM_EVENT; """)
+            cursor.execute(""" CREATE TABLE MESSAGE_ROOM_EVENT (
+                                       ID SERIAL PRIMARY KEY,
+                                       RoomID INTEGER REFERENCES MESSAGE_ROOM (ID) ON DELETE CASCADE,
+                                       UserID VARCHAR (40), ---todo refer to userid on delete cascade
+                                       DATE TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+                                       ACTION INTEGER NOT NULL
+                                   ); """)
+
 
 def insert_bulk_messages():
     room1 = messages.Room(name="roomName1", admin="pk1", participants=["pk1", "pk2", "pk3", "pk4", "pk5"])  # todo userID
