@@ -35,11 +35,13 @@ def update_genre(UPDATEID,newname):
             connection.rollback()
 
 def select_all_genre():
+    content = []
     with dbapi2.connect(dsn) as connection:
         try:
             cursor = connection.cursor()
             cursor.execute("""SELECT * FROM GENRE""")
             connection.commit()
-            return cursor
+            content = list(cursor)
+            return content
         except dbapi2.DatabaseError as e:
             connection.rollback()

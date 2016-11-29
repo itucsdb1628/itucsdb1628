@@ -97,7 +97,7 @@
 						<form align= "center" role="form" action="" method= "post">
 							<input type="hidden" name="actiontype" required="required" value ="3">
 							<select name="genreid">
-								{% for ID, NAME in allgenre2 %}
+								{% for ID, NAME in allgenre %}
 		                            <option value="{{ID}}">{{NAME}}</option>
 		                        {% endfor %}
                             </select>
@@ -269,7 +269,7 @@
 						<form align= "center" role="form" action="" method= "post">
 							<input type="hidden" name="actiontype" required="required" value ="9">
 							<select name="artistid">
-								{% for ID, NAME in allartist2 %}
+								{% for ID, NAME in allartist %}
 		                            <option value="{{ID}}">{{NAME}}</option>
 		                        {% endfor %}
                             </select>
@@ -301,14 +301,14 @@
 							<br>
 								<p>Select an artist
 								<select name="artistid">
-									{% for ID, NAME in allartist3 %}
+									{% for ID, NAME in allartist %}
 			                            <option value="{{ID}}">{{NAME}}</option>
 			                        {% endfor %}
 	                            </select></p>
                             <br>
                             	<p>Select a genre:
 	                            <select name="genreid">
-									{% for ID, NAME in allgenre3 %}
+									{% for ID, NAME in allgenre %}
 			                            <option value="{{ID}}">{{NAME}}</option>
 			                        {% endfor %}
 	                            </select></p>
@@ -349,13 +349,13 @@
 								<input type="text" name="albumname" required="required"></p>
 								<p>New artist
 								<select name="artistid">
-									{% for ID, NAME in allartist4 %}
+									{% for ID, NAME in allartist %}
 			                            <option value="{{ID}}">{{NAME}}</option>
 			                        {% endfor %}
 	                            </select></p>
                             	<p>New genre:
 	                            <select name="genreid">
-									{% for ID, NAME in allgenre4 %}
+									{% for ID, NAME in allgenre %}
 			                            <option value="{{ID}}">{{NAME}}</option>
 			                        {% endfor %}
 	                            </select></p>
@@ -383,7 +383,7 @@
 				  		<h4 align="center">Delete a song</h4>
 						<form align= "center" role="form" action="" method= "post">
 								<select name="songid">
-									{% for ID, SONG, ARTIST in song_album2 %}
+									{% for ID, SONG, ARTIST in song_album %}
 			                            <option value="{{ID}}">{{ARTIST}} - {{SONG}}</option>
 			                        {% endfor %}
 	                            </select>

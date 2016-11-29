@@ -35,11 +35,13 @@ def update_artist(UPDATEID,newname):
             connection.rollback()
 
 def select_all_artist():
+    content =[]
     with dbapi2.connect(dsn) as connection:
         try:
             cursor = connection.cursor()
             cursor.execute("""SELECT * FROM ARTIST""")
             connection.commit()
-            return cursor
+            content = list(cursor)
+            return content
         except dbapi2.DatabaseError as e:
             connection.rollback()

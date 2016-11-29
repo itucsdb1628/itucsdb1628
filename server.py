@@ -73,7 +73,10 @@ def timeline_page_insert():
 def adminpanel_page():
     if request.method == 'GET':
         albums=[]
-        return render_template('adminpanel.html', albums=select_albums(), allgenre=select_all_genre(), allgenre2=select_all_genre(), allgenre3=select_all_genre(), allgenre4=select_all_genre(), allartist=select_all_artist(), allartist2=select_all_artist(), allartist3=select_all_artist(), allartist4=select_all_artist(), song_album=select_song_album(), song_album2=select_song_album())
+        allgenre=[]
+        allartist=[]
+        song_album=[]
+        return render_template('adminpanel.html', albums=select_albums(), allgenre=select_all_genre(), allartist=select_all_artist(), song_album=select_song_album())
     else:
         actiontype = int(request.form['actiontype'])
         if actiontype == 1:  # addgenre

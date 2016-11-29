@@ -50,6 +50,7 @@ def select_all_song():
             connection.rollback()
 
 def select_song_album():
+    content = []
     with dbapi2.connect(dsn) as connection:
         try:
             cursor = connection.cursor()
@@ -60,7 +61,8 @@ def select_song_album():
                                 ON ARTIST = ARTIST.ID
                                 ORDER BY ARTIST""")
             connection.commit()
-            return cursor
+            content = list(cursor)
+            return content
         except dbapi2.DatabaseError as e:
             connection.rollback()
 
