@@ -5,7 +5,7 @@ from dao.user import *
 from dao.comment import *
 from dao.song import *
 from dao.genre import *
-from dao import messages
+from dao import messages as Messages
 import datetime
 from genre import insert_genre
 
@@ -267,67 +267,75 @@ def create_messages_table():
     """ Drops(if exits) and Creates all tables for Messages """
     with dbapi2.connect(dsn) as connection:
         with connection.cursor() as cursor:
-            cursor.execute(""" DROP TABLE IF EXISTS MESSAGE_ROOM CASCADE; """)
-            cursor.execute(""" CREATE TABLE MESSAGE_ROOM (
-                                       ID SERIAL PRIMARY KEY,
-                                       NAME TEXT NULL
-                                  ); """)
+            cursor.execute(
+                """ DROP TABLE IF EXISTS message_room CASCADE;
+                    DROP TABLE IF EXISTS message CASCADE;
+                    DROP TABLE IF EXISTS message_participant;
+                    DROP TABLE IF EXISTS message_status;
+                    DROP TABLE IF EXISTS message_room_admins;
+                    DROP TABLE IF EXISTS message_room_event;
 
-            cursor.execute(""" DROP TABLE IF EXISTS MESSAGE CASCADE; """)
-            cursor.execute(""" CREATE TABLE MESSAGE (
-                                       ID SERIAL PRIMARY KEY,
-                                       TEXT TEXT NOT NULL,
-                                       DATE TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-                                       RoomID INTEGER REFERENCES MESSAGE_ROOM (ID) ON DELETE CASCADE,
-                                       SenderID VARCHAR (40) --todo refer to userid ON DELETE SET NULL
-                                  ); """)
+                    CREATE TABLE
+                      message_room (
+                       id             SERIAL    PRIMARY KEY,
+                       room_name      TEXT      NULL,
+                       activity_date  TIMESTAMP NOT NULL  DEFAULT CURRENT_TIMESTAMP
+                      );
 
-            cursor.execute(""" DROP TABLE IF EXISTS MESSAGE_PARTICIPANT; """)
-            cursor.execute(""" CREATE TABLE MESSAGE_PARTICIPANT (
-                                       RoomID INTEGER REFERENCES MESSAGE_ROOM (ID) ON DELETE CASCADE,
-                                       UserID VARCHAR (40), --todo refer to userid, ON DELETE SET NULL
-                                       JoinDate TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-                                       PRIMARY KEY (RoomID, UserID)
-                                   ); """)
+                    CREATE TABLE
+                      message (
+                        id            SERIAL    PRIMARY KEY,
+                        note          TEXT      NOT NULL,
+                        message_date  TIMESTAMP NOT NULL   DEFAULT CURRENT_TIMESTAMP,
+                        room_id       INTEGER   REFERENCES message_room(id) ON DELETE CASCADE,
+                        sender_id     VARCHAR(40) --todo refer to userid ON DELETE SET NULL
+                      );
 
-            cursor.execute(""" DROP TABLE IF EXISTS MESSAGE_STATUS; """)
-            cursor.execute(""" CREATE TABLE MESSAGE_STATUS (
-                                       MessageID INTEGER REFERENCES MESSAGE (ID) ON DELETE CASCADE,
-                                       ReceiverID VARCHAR (40), --todo refer to userid ON DELETE CASCADE
-                                       PRIMARY KEY (MessageID, ReceiverID)
-                                   ); """)
+                    CREATE TABLE
+                      message_participant (
+                        room_id       INTEGER   REFERENCES message_room(id) ON DELETE CASCADE,
+                        user_id       VARCHAR(40), --todo refer to userid, ON DELETE SET NULL
+                        join_date     TIMESTAMP NOT NULL  DEFAULT CURRENT_TIMESTAMP,
+                        PRIMARY KEY (room_id, user_id)
+                      );
 
-            cursor.execute(""" DROP TABLE IF EXISTS MESSAGE_ROOM_ADMINS; """)
-            cursor.execute(""" CREATE TABLE MESSAGE_ROOM_ADMINS (
-                                       RoomID INTEGER REFERENCES MESSAGE_ROOM (ID) ON DELETE CASCADE,
-                                       UserID VARCHAR (40), ---todo refer to userid on delete cascade
-                                       PRIMARY KEY(RoomID, UserID)
-                                   ); """)
+                    CREATE TABLE
+                      message_status (
+                        message_id    INTEGER   REFERENCES message(id) ON DELETE CASCADE,
+                        receiver_id   VARCHAR(40), --todo refer to userid ON DELETE CASCADE
+                        PRIMARY KEY (message_id, receiver_id)
+                      );
 
-            cursor.execute(""" DROP TABLE IF EXISTS MESSAGE_ROOM_EVENT; """)
-            cursor.execute(""" CREATE TABLE MESSAGE_ROOM_EVENT (
-                                       ID SERIAL PRIMARY KEY,
-                                       RoomID INTEGER REFERENCES MESSAGE_ROOM (ID) ON DELETE CASCADE,
-                                       UserID VARCHAR (40), ---todo refer to userid on delete cascade
-                                       DATE TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-                                       ACTION INTEGER NOT NULL
-                                   ); """)
+                    CREATE TABLE
+                      message_room_admins (
+                        room_id       INTEGER   REFERENCES message_room(id) ON DELETE CASCADE,
+                        user_id       VARCHAR(40), ---todo refer to userid on delete cascade
+                        PRIMARY KEY(room_id, user_id)
+                      );
+
+                    CREATE TABLE
+                      message_room_event (
+                        id            SERIAL    PRIMARY KEY,
+                        room_id       INTEGER   REFERENCES message_room(id) ON DELETE CASCADE,
+                        user_id       VARCHAR(40), ---todo refer to userid on delete cascade
+                        event_date    TIMESTAMP NOT NULL   DEFAULT CURRENT_TIMESTAMP,
+                        action_id     INTEGER   NOT NULL
+                      ); """
+            )
 
 
 def insert_bulk_messages():
-    room1 = messages.Room(name="roomName1", admin="pk1", participants=["pk1", "pk2", "pk3", "pk4", "pk5"])  # todo userID
-    room1.save()
-    room2 = messages.Room(name="roomName2", admin="pk2", participants=["pk1", "pk2", "pk3"])  # todo userID
-    room2.save()
-    room3 = messages.Room(name="roomName3", admin="pk1", participants=["pk1", "pk4", "pk5"])  # todo userID
-    room3.save()
+    room1 = Messages.Room(name="roomName1", admin="pk1", participants=["pk1", "pk2", "pk3", "pk4", "pk5"])  # todo userID
+    room1.create()
+    room2 = Messages.Room(name="roomName2", admin="pk2", participants=["pk1", "pk2", "pk3"])  # todo userID
+    room2.create()
+    room3 = Messages.Room(name="roomName3", admin="pk1", participants=["pk1", "pk4", "pk5"])  # todo userID
+    room3.create()
 
-    message1 = messages.Message("pk1", room1, "Hello Room1!")
-    message1.save()
-    message2 = messages.Message("pk1", room2, "Hello Room2!")
-    message2.save()
-    message3 = messages.Message("pk1", room3, "Hello Room3!")
-    message3.save()
+    room1.send_message("Hello Room1!")
+    room2.send_message("Hello Room2!")
+    room2.send_message("Hello Room2 2!")
+    room3.send_message("Hello Room3!")
 
     # print([room.name for room in Room.get_room_headers("p1")])
     #

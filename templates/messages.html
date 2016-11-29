@@ -43,7 +43,7 @@
                             {%- else %} class="list-group-item list-group-item">
                             {% endif %}
                     <img src="{{ url_for('static', filename='images/logo.jpg') }}" width="40px"/>
-                    {% if room.unread_count != 0 %}
+                    {% if room.unread_count != None %}
                     <span class="badge">{{ room.unread_count }}</span>
                     {% endif %}
                     <h4 class="list-group-item-heading">{{ room.get_display_name() }}</h4>
@@ -79,7 +79,7 @@
                         </div>
 
                         <div id="message_area" class="panel-body">
-                            {% for message in SelectedRoom.m |sort(attribute='date')%}
+                            {% for message in SelectedRoom.items |sort(attribute='date')%}
 
                                 {% if message.senderID != null %}
 
