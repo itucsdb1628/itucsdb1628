@@ -319,6 +319,8 @@ def create_song_table():
     with dbapi2.connect(dsn) as connection:
         try:
             cursor = connection.cursor()
+            statement = """DROP TABLE IF EXISTS SONG"""
+            cursor.execute(statement);
             statement = """CREATE TABLE IF NOT EXISTS SONG(
             ID SERIAL PRIMARY KEY,
             NAME VARCHAR(50) NOT NULL,
@@ -331,6 +333,17 @@ def create_song_table():
             connection.commit()
             cursor.close()
         except dbapi2.DatabaseError:
+            connection.rollback()
+
+def drop_song_table():
+    with dbapi2.connect(dsn) as connection:
+        try:
+            cursor = connection.cursor()
+            statement = """DROP TABLE IF EXISTS SONG"""
+            cursor.execute(statement);
+            connection.commit()
+            cursor.close()
+        except dbapi2.DatabaseError as e:
             connection.rollback()
 
 def create_genre_table():
@@ -349,6 +362,17 @@ def create_genre_table():
         except dbapi2.DatabaseError:
             connection.rollback()
 
+def drop_genre_table():
+    with dbapi2.connect(dsn) as connection:
+        try:
+            cursor = connection.cursor()
+            statement = """DROP TABLE IF EXISTS GENRE"""
+            cursor.execute(statement);
+            connection.commit()
+            cursor.close()
+        except dbapi2.DatabaseError as e:
+            connection.rollback()
+
 def create_artist_table():
     with dbapi2.connect(dsn) as connection:
         try:
@@ -359,6 +383,17 @@ def create_artist_table():
             ID SERIAL PRIMARY KEY,
             NAME VARCHAR(64) UNIQUE NOT NULL
             )"""
+            cursor.execute(statement)
+            connection.commit()
+            cursor.close()
+        except dbapi2.DatabaseError:
+            connection.rollback()
+
+def drop_artist_table():
+    with dbapi2.connect(dsn) as connection:
+        try:
+            cursor = connection.cursor()
+            statement = """DROP TABLE IF EXISTS ARTIST"""
             cursor.execute(statement)
             connection.commit()
             cursor.close()
@@ -443,15 +478,20 @@ def reset_database():
     drop_album_table()
     create_album_table()
 
+    drop_song_table()
+    drop_artist_table()
+    drop_genre_table()
 
+    create_genre_table()
+    create_artist_table()
     create_song_table()
+
     sample_song = Song("Scar Tissue", "Californication", 3, 1, "imaginary_filepath.mp3")
     insert_song(sample_song)
 
     create_messages_table()
     insert_bulk_messages()
 
-    create_artist_table()
+
     insert_sample_artists()
-    create_genre_table()
     insert_default_genres()
