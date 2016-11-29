@@ -23,9 +23,9 @@
 	<div class="row">
 		<div class="col-xs-5 menuitem">
 			Album
-			<button type="button" class="btn btn-default">Add</button>
-			<button type="button" class="btn btn-default">Update</button>
-			<button type="button" class="btn btn-default">Remove</button>
+			<button type="button" class="btn btn-default" data-toggle="modal" data-target="#album-add">Add</button>
+			<button type="button" class="btn btn-default" data-toggle="modal" data-target="#album-update">Update</button>
+			<button type="button" class="btn btn-default" data-toggle="modal" data-target="#album-delete">Remove</button>
 		</div>
 		<div class="col-xs-1"></div>
 		<div class="col-xs-5 menuitem">
@@ -110,6 +110,105 @@
 			</div>
 <!-- GENRE DELETE -->
 
+<!-- ALBUM ADD -->
+			<div id="album-add" class="modal fade" role="dialog">
+			  <div class="modal-dialog">
+
+			    <!-- Modal content-->
+			    <div class="modal-content">
+			      <div class="modal-body">
+			        <p>
+				  		<h4 align="center">Add a new album</h4>
+						<form align= "center" role="form" action="" method = "post">
+							<input type="text" name="albumname" required="required" placeholder="Album Name">
+							<input type="text" name="albumdate" required="required" placeholder="Release Year(i.e. 1999)">
+							<select name="albumcover" id="albumcover">
+	                            <option value="1">Beatles</option>
+	                            <option value="2">Led Zeppelin</option>
+	                            <option value="3">Metallica</option>
+                                <option value="4">Pink Floyd</option>
+                            </select>
+							<input type="hidden" name="actiontype" required="required" value ="4">
+							<button type="submit" name="add_album" class="btn btn-default">Add</button>
+				        </form>
+					</p>
+			      </div>
+			    </div>
+			  </div>
+			</div>
+<!-- ALBUM ADD -->
+
+<!-- ALBUM DELETE -->
+			<div id="album-delete" class="modal fade" role="dialog">
+			  <div class="modal-dialog">
+
+			    <!-- Modal content-->
+			    <div class="modal-content">
+			      <div class="modal-body">
+			        <p>
+				  		<h4 align="center">Delete an album</h4>
+				  		{% for album in albums %}
+						<div class="card">
+  							<img src="{{album.cover_filepath}}" width="200" height="200">
+  							<div class="card-block">
+    							<p class="card-text">{{album.name}}({{album.albumdate}})</p>
+
+  							<form align= "center" role="form" action="" method = "post">
+  								<input type="hidden" name="albumid" value="{{album.albumid}}">
+  								<input type="hidden" name="actiontype" value="5">
+  								<button type="submit" name="delete_album" class="btn btn-default">Delete</button>
+  							</form>
+  							</div>
+  						</div>
+						{% endfor %}
+					</p>
+			      </div>
+			    </div>
+			  </div>
+			</div>
+<!-- ALBUM DELETE -->
+
+<!-- ALBUM UPDATE -->
+
+			<div id="album-update" class="modal fade" role="dialog">
+			  <div class="modal-dialog">
+
+			    <!-- Modal content-->
+			    <div class="modal-content">
+			      <div class="modal-body">
+			        <p>
+				  		<h4 align="center">Update an album</h4>
+				  		{% for album in albums %}
+						<div class="card">
+  							<img src="{{album.cover_filepath}}" width="200" height="200">
+  							<div class="card-block">
+    							<p class="card-text">{{album.name}}({{album.albumdate}})</p>
+
+  							<form align= "center" role="form" action="" method = "post">
+  								<input type="text" name="albumname" required="required" placeholder="New Name">
+  								<input type="text" name="albumdate" required="required" placeholder="New Year(i.e. 1999)">
+
+  								<select name="albumcover" id="albumcover">
+	                            <option value="1">Beatles</option>
+	                            <option value="2">Led Zeppelin</option>
+	                            <option value="3">Metallica</option>
+                                <option value="4">Pink Floyd</option>
+                            	</select>
+
+  								<input type="hidden" name="albumid" value="{{album.albumid}}">
+  								<input type="hidden" name="actiontype" value="6">
+  								<button type="submit" name="update_album" class="btn btn-default">Update</button>
+  							</form>
+  							</div>
+						</div>
+						{% endfor %}
+					</p>
+			      </div>
+			    </div>
+			  </div>
+			</div>
+
+<!-- ALBUM UPDATE -->
 
 
 

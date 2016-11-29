@@ -5,6 +5,7 @@ from dao.user import *
 from dao.comment import *
 from dao.song import *
 from dao.genre import *
+from dao.album import *
 from dao import messages as Messages
 import datetime
 from genre import insert_genre
@@ -371,6 +372,42 @@ def insert_default_genres():
     insert_genre(Genre("Electronic"))
 
 
+## create album-table ##
+def create_album_table():
+    with dbapi2.connect(dsn) as connection:
+        try:
+            cursor = connection.cursor()
+            statement = """CREATE TABLE IF NOT EXISTS ALBUM(
+            ID SERIAL PRIMARY KEY,
+            NAME VARCHAR(40) NOT NULL,
+            ALBUMDATE INTEGER,
+            ALBUMCOVERID INTEGER NOT NULL REFERENCES ALBUMCOVER(ID)
+            ) """
+            cursor.execute(statement)
+            connection.commit()
+            cursor.close()
+        except dbapi2.DatabaseError:
+            connection.rollback()
+## create album table ##
+
+## drop album-table ##
+
+def drop_album_table():
+    with dbapi2.connect(dsn) as connection:
+        try:
+            cursor = connection.cursor()
+            statement = """DROP TABLE IF EXISTS ALBUM"""
+            cursor.execute(statement);
+            connection.commit()
+            cursor.close()
+        except dbapi2.DatabaseError as e:
+            connection.rollback()
+
+
+## drop album-table ##
+
+## album-table ##
+
 
 def reset_database():
 
@@ -393,6 +430,8 @@ def reset_database():
     create_avatar_table()
     create_comment_table()
 
+    drop_album_table()
+    create_album_table()
 
 
     create_song_table()
