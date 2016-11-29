@@ -12,6 +12,7 @@ import datetime
 from song import insert_song
 from genre import insert_genre
 from artist import insert_artist
+from dao.userdetails import *
 
 from dsn_conf import get_dsn
 
@@ -132,6 +133,16 @@ def insert_post(post):
 
 
 ''' ***************************************IMPORTANT CREATION OF USER MUST BE ON TOP ******************************'''
+def drop_user_table():
+     with dbapi2.connect(dsn) as connection:
+        try:
+            cursor = connection.cursor()
+            statement = """DROP TABLE IF EXISTS USERDATA"""
+            cursor.execute(statement)
+            connection.commit()
+            cursor.close()
+        except dbapi2.DatabaseError:
+            connection.rollback()
 
 def create_user_table():
     with dbapi2.connect(dsn) as connection:
@@ -416,7 +427,53 @@ def insert_default_genres():
     insert_genre(Genre("Hip-hop"))
     insert_genre(Genre("Electronic"))
 #####################################BERKAY#####################################
+'''****************************************userdetails ******************************************************************'''
+def drop_userdetails_table():
+    with dbapi2.connect(dsn) as connection:
+        try:
+            cursor = connection.cursor()
+            statement = """DROP TABLE IF EXISTS USERDETAILS"""
+            cursor.execute(statement)
+            connection.commit()
+            cursor.close()
+        except dbapi2.DatabaseError as e:
+            connection.rollback()
 
+
+
+
+def create_userdetails_table():
+    with dbapi2.connect(dsn) as connection:
+        try:
+            cursor = connection.cursor()
+            statement = """CREATE TABLE IF NOT EXISTS USERDETAILS(
+            ID SERIAL PRIMARY KEY,
+            USERID INTEGER NOT NULL REFERENCES USERDATA(ID) ON DELETE CASCADE,
+            NAME  VARCHAR(50),
+            SURNAME VARCHAR(50),
+            EMAIL VARCHAR(50),
+            PHONENUMBER VARCHAR(15)
+            )"""
+            cursor.execute(statement)
+            connection.commit()
+            cursor.close()
+        except dbapi2.DatabaseError:
+            connection.rollback()
+
+
+
+def insert_userdetails(userdetails):
+    with dbapi2.connect(dsn) as connection:
+        try:
+            cursor = connection.cursor()
+            statement= """INSERT INTO USERDETAILS(USERID,NAME,SURNAME,EMAIL,PHONENUMBER) VALUES(%s,%s,%s,%s,%s)"""
+            cursor.execute(statement,(userdetails.userid,userdetails.name,userdetails.surname,userdetails.email,userdetails.phonenumber))
+            connection.commit()
+            cursor.close()
+        except dbapi2.DatabaseError as e:
+            connection.rollback()
+
+'''*************************************************************************************************************************'''
 ## create album-table ##
 def create_album_table():
     with dbapi2.connect(dsn) as connection:
@@ -457,9 +514,21 @@ def drop_album_table():
 def reset_database():
 
 
+    drop_user_table()
     create_user_table()
     firstuser = User(1, "user1", "password1")
     insert_user(firstuser)
+    seconduser = User(2, "kagan95", "123")
+    insert_user(seconduser)
+    thirduser = User(3, "listnto", "9999")
+    insert_user(thirduser)
+
+    drop_userdetails_table()
+    create_userdetails_table()
+    userdetails = Userdetails(1,"berkay","g","berkay@listnto.com","+90212xxxxxx")
+    insert_userdetails(userdetails)
+    user2details = Userdetails(2,"kagan","ozgun","kagan@listnto.com","+90212xxxxxx")
+    insert_userdetails(user2details)
 
     drop_like_table()
     create_album_cover_table()

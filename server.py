@@ -20,6 +20,8 @@ from dao.genre import *
 from dao.artist import *
 from dao.song import *
 from album import *
+from dao.userdetails import *
+from userdetails import *
 
 from dsn_conf import get_dsn
 from flask.globals import request
@@ -283,7 +285,49 @@ def messages_change_user(user_id=""):
 
 
 # ################################################ End Of Messages ##########################################
+''' Userdetail Routes- Kağan'''
 
+
+@app.route('/profiledetails')
+def profiledetails():
+        return render_template("profiledetails.html", userdetails = select_userdetails(), users = select_users_from_login())
+
+@app.route('/delete',methods=['GET','POST'])
+def showdetails():
+    name = request.form['name']
+    surname = request.form['surname']
+    delete_userdetails(name,surname)
+    return redirect(url_for('profiledetails'))
+
+@app.route('/update',methods=['GET','POST'])
+def update():
+    username = request.form['older_name']
+    name = request.form['name']
+    surname = request.form['surname']
+    email = request.form['email']
+    phonenum = request.form['phonenum']
+    userid = request.form['userid']
+    update_userdetails(username,name,userid,surname,email,phonenum)
+    return redirect(url_for('profiledetails'))
+
+
+@app.route('/insert_details',methods=['GET','POST'])
+def insert_details():
+    name = request.form['name']
+    surname = request.form['surname']
+    email = request.form['email']
+    phonenum = request.form['phonenum']
+    userid = request.form['userid']
+    userx = Userdetails(userid,name,surname,email,phonenum)
+    insert_userdetails(userx)
+    return redirect(url_for('profiledetails'))
+
+@app.route('/gototimeline',methods=['GET','POST'])
+def gototimeline():
+    return redirect(url_for('timeline_page'))
+
+
+''' end of userdetails routes -kağan'''
 @app.route('/profile')
 def profile_page():
     return render_template("profile.html")
