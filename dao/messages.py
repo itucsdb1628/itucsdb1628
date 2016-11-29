@@ -109,7 +109,9 @@ class Message:
                                 'receiver_id': participant
                             })
 
-    def read(self):
+    def read(self, receiver_id=None):
+        if receiver_id is None:
+            receiver_id = get_user_id()
         with dbapi2.connect(dsn) as connection:
             with connection.cursor() as cursor:
                 cursor.execute(
@@ -118,7 +120,7 @@ class Message:
                           WHERE message_id = %(message_id)s
                             AND receiver_id = %(receiver_id)s """, {
                         'message_id': self.id,
-                        'receiver_id': get_user_id()
+                        'receiver_id': receiver_id
                     })
 
     def load_status(self):
@@ -133,8 +135,9 @@ class Message:
                 self.isRead = (cursor.fetchone()[0] == 0)
 
     @staticmethod
-    def get(room):
-        receiver_id = get_user_id()
+    def get(room, receiver_id=None):
+        if receiver_id is None:
+            receiver_id = get_user_id()
         messages = []
         with dbapi2.connect(dsn) as connection:
             with connection.cursor() as cursor:
@@ -157,7 +160,7 @@ class Message:
                     msg = Message(res[3], room, res[1])
                     msg.id = res[0]
                     msg.date = res[2]
-                    msg.read()
+                    msg.read(receiver_id)
                     msg.load_status()
                     messages.append(msg)
 
@@ -249,6 +252,7 @@ class Room:
                 self.create_event(participant, Events.JOIN)
 
     def remove_participant(self, participant):
+        Message.get(self, participant)  # read all message to remove from status table. it is easiest way
         with dbapi2.connect(dsn) as connection:
             with connection.cursor() as cursor:
                 cursor.execute(
@@ -262,7 +266,7 @@ class Room:
 
                 self.participants.remove(participant)
                 self.create_event(participant, Events.LEFT)
-                print(self.admin, participant)
+
                 # check admin
                 if self.admin == participant:
                     self.update_admin(self.participants[0])
