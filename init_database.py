@@ -5,10 +5,13 @@ from dao.user import *
 from dao.comment import *
 from dao.song import *
 from dao.genre import *
+from dao.artist import *
 from dao.album import *
 from dao import messages as Messages
 import datetime
+from song import insert_song
 from genre import insert_genre
+from artist import insert_artist
 
 from dsn_conf import get_dsn
 
@@ -230,40 +233,6 @@ def insert_comment(comment):
         except dbapi2.DatabaseError as e:
             connection.rollback()
 
-
-#song table
-def create_song_table():
-    with dbapi2.connect(dsn) as connection:
-        try:
-            cursor = connection.cursor()
-            statement = """CREATE TABLE IF NOT EXISTS SONG(
-            ID SERIAL PRIMARY KEY,
-            NAME VARCHAR(50) NOT NULL,
-            ALBUM VARCHAR(30),
-            ARTIST VARCHAR(30) NOT NULL,
-            GENRE VARCHAR(20),
-            FILEPATH VARCHAR(64) UNIQUE NOT NULL
-            )"""
-            cursor.execute(statement)
-            connection.commit()
-            cursor.close()
-        except dbapi2.DatabaseError:
-            connection.rollback()
-
-
-def insert_song(song):
-    with dbapi2.connect(dsn) as connection:
-        try:
-            cursor = connection.cursor()
-            statement = """INSERT INTO SONG(ID,NAME,ALBUM,ARTIST,GENRE,FILEPATH) VALUES(%s,%s,%s,%s,%s,%s)"""
-            cursor.execute(statement,(song.id,song.name,song.album,song.artist,song.genre,song.filepath))
-            connection.commit()
-            cursor.close()
-        except dbapi2.DatabaseError as e:
-            connection.rollback()
-
-
-
 def create_messages_table():
     """ Drops(if exits) and Creates all tables for Messages """
     with dbapi2.connect(dsn) as connection:
@@ -344,6 +313,25 @@ def insert_bulk_messages():
     # print([msg.text for msg in Message.get_messages(room2)])
     # print([msg.text for msg in Message.get_messages(room3)])
 
+#####################################BERKAY#####################################
+#song table
+def create_song_table():
+    with dbapi2.connect(dsn) as connection:
+        try:
+            cursor = connection.cursor()
+            statement = """CREATE TABLE IF NOT EXISTS SONG(
+            ID SERIAL PRIMARY KEY,
+            NAME VARCHAR(50) NOT NULL,
+            ARTIST INTEGER REFERENCES ARTIST(ID) ON DELETE CASCADE,
+            ALBUM VARCHAR(30) NOT NULL,
+            GENRE INTEGER REFERENCES GENRE(ID) ON DELETE SET NULL,
+            FILEPATH VARCHAR(64) UNIQUE NOT NULL
+            )"""
+            cursor.execute(statement)
+            connection.commit()
+            cursor.close()
+        except dbapi2.DatabaseError:
+            connection.rollback()
 
 def create_genre_table():
     with dbapi2.connect(dsn) as connection:
@@ -361,7 +349,29 @@ def create_genre_table():
         except dbapi2.DatabaseError:
             connection.rollback()
 
+def create_artist_table():
+    with dbapi2.connect(dsn) as connection:
+        try:
+            cursor = connection.cursor()
+            statement = """DROP TABLE IF EXISTS ARTIST"""
+            cursor.execute(statement);
+            statement = """CREATE TABLE IF NOT EXISTS ARTIST(
+            ID SERIAL PRIMARY KEY,
+            NAME VARCHAR(64) UNIQUE NOT NULL
+            )"""
+            cursor.execute(statement)
+            connection.commit()
+            cursor.close()
+        except dbapi2.DatabaseError:
+            connection.rollback()
 
+def insert_sample_artists():
+    insert_artist(Artist("Metallica"))
+    insert_artist(Artist("Shakira"))
+    insert_artist(Artist("Red Hot Chili Peppers"))
+    insert_artist(Artist("Coldplay"))
+    insert_artist(Artist("Shakira"))
+    insert_artist(Artist("Pink Floyd"))
 
 def insert_default_genres():
     insert_genre(Genre("Rock"))
@@ -370,7 +380,7 @@ def insert_default_genres():
     insert_genre(Genre("Jazz"))
     insert_genre(Genre("Hip-hop"))
     insert_genre(Genre("Electronic"))
-
+#####################################BERKAY#####################################
 
 ## create album-table ##
 def create_album_table():
@@ -435,11 +445,13 @@ def reset_database():
 
 
     create_song_table()
-    sample_song = Song(1, "Scar Tissue", "Californication", "Red Hot Chili Peppers", "Rock", "imaginary_filepath.mp3")
+    sample_song = Song("Scar Tissue", "Californication", 3, 1, "imaginary_filepath.mp3")
     insert_song(sample_song)
 
     create_messages_table()
     insert_bulk_messages()
 
+    create_artist_table()
+    insert_sample_artists()
     create_genre_table()
     insert_default_genres()

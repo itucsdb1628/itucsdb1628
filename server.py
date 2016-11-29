@@ -12,10 +12,14 @@ from post import *
 from like import *
 from comment import *
 
+from song import *
+from artist import *
 from genre import *
 from userdata import *
-from album import *
 from dao.genre import *
+from dao.artist import *
+from dao.song import *
+from album import *
 
 from dsn_conf import get_dsn
 from flask.globals import request
@@ -69,7 +73,7 @@ def timeline_page_insert():
 def adminpanel_page():
     if request.method == 'GET':
         albums=[]
-        return render_template('adminpanel.html', allgenre=select_all_genre(), allgenre2=select_all_genre(), albums=select_albums())
+        return render_template('adminpanel.html', albums=select_albums(), allgenre=select_all_genre(), allgenre2=select_all_genre(), allgenre3=select_all_genre(), allgenre4=select_all_genre(), allartist=select_all_artist(), allartist2=select_all_artist(), allartist3=select_all_artist(), allartist4=select_all_artist(), song_album=select_song_album(), song_album2=select_song_album())
     else:
         actiontype = int(request.form['actiontype'])
         if actiontype == 1:  # addgenre
@@ -99,6 +103,43 @@ def adminpanel_page():
             albumcoverid = int(request.form['albumcover'])
             albumid = int(request.form['albumid'])
             update_album(albumid,albumname,albumcoverid,albumdate)
+            return redirect(url_for('adminpanel_page'))
+        if actiontype == 7:  # addartist
+            artistname = request.form['artistname']
+            newartist = Artist(artistname)
+            insert_artist(newartist)
+            return redirect(url_for('adminpanel_page'))
+        if actiontype == 8:  # updateartist
+            artistid = request.form['artistid']
+            newname = request.form['newname']
+            update_artist(artistid, newname)
+            return redirect(url_for('adminpanel_page'))
+        if actiontype == 9:  # deleteartist
+            artistid = request.form['artistid']
+            delete_artist(artistid)
+            return redirect(url_for('adminpanel_page'))
+        if actiontype == 10:  # addsong
+            songname = request.form['songname']
+            albumid = request.form['albumname']
+            artistid = int(request.form['artistid'])
+            filepath = request.form['filepath']
+            genreid = int(request.form['genreid'])
+            newsong = Song(songname,albumid,artistid,genreid,filepath)
+            insert_song(newsong)
+            return redirect(url_for('adminpanel_page'))
+        if actiontype == 11:  # updatesong
+            UPDATEID = request.form['songid']
+            songname = request.form['songname']
+            albumid = request.form['albumname']
+            artistid = int(request.form['artistid'])
+            filepath = request.form['filepath']
+            genreid = int(request.form['genreid'])
+
+            update_song(UPDATEID,songname,artistid,albumid,genreid,filepath)
+            return redirect(url_for('adminpanel_page'))
+        if actiontype == 12:  # deletesong
+            songid = request.form['songid']
+            delete_song(songid)
             return redirect(url_for('adminpanel_page'))
 
 
