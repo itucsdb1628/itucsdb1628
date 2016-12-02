@@ -332,13 +332,13 @@ class Room:
                         for m in result[4]:
                             msg = Message(m['f4'], room, m['f2'])
                             msg.id = m['f1']
-                            msg.date = datetime.datetime.strptime(m['f3'], "%Y-%m-%dT%H:%M:%S.%f")
+                            msg.date = datetime.datetime.strptime(m['f3'], "%Y-%m-%d %H:%M:%S.%f")
                             msg.isRead = (m['f5'] is None)  # == 0 ?
                             room.items.append(msg)
                     if result[5] is not None:
                         for e in result[5]:
                             event = Event(room.id, e['f1'], Events(e['f2']))
-                            event.date = datetime.datetime.strptime(e['f3'], "%Y-%m-%dT%H:%M:%S.%f")
+                            event.date = datetime.datetime.strptime(e['f3'], "%Y-%m-%d %H:%M:%S.%f")
                             room.items.append(event)
                     room.admin = result[2]
         room.read_all()
