@@ -46,12 +46,39 @@ class Event:
                         'action_id': self.action.value
                     })
 
+    @staticmethod
+    def get(room_id):
+        events = []
+        with dbapi2.connect(dsn) as connection:
+            with connection.cursor() as cursor:
+                cursor.execute(
+                    """ SELECT user_id, action_id, event_date
+                          FROM message_room_event
+                          WHERE room_id = %(room_id)s
+                            AND event_date >= ( SELECT join_date
+                                                  FROM message_participant
+                                                  WHERE user_id = %(user_id)s
+                                                    AND room_id = %(room_id)s
+                                              ) """, {
+                        'room_id': room_id,
+                        'user_id': get_user_id()
+                    })
+
+                result = cursor.fetchall()
+
+                for res in result:
+                    event = Event(room_id, res[0], Events(res[1]))
+                    event.date = res[2]
+                    events.append(event)
+
+        return events
+
 
 class Message:
-    def __init__(self, sender_id, room_id, text):
+    def __init__(self, senderID, room, text):
         self.id = None
-        self.sender_id = sender_id
-        self.room_id = room_id
+        self.senderID = senderID
+        self.room = room
         self.text = text
         self.date = None
         self.isRead = None
@@ -64,25 +91,80 @@ class Message:
                           INTO message ( id, note, room_id, sender_id )
                           VALUES ( DEFAULT, %(text)s, %(room_id)s, %(sender_id)s )
                           RETURNING ID """, {
-                        'room_id': self.room_id,
-                        'sender_id': self.sender_id,
+                        'room_id': self.room.id,
+                        'sender_id': self.senderID,
                         'text': self.text
                     })
 
                 self.id = cursor.fetchone()[0]
 
                 # okunacak listesine ekle
+                for participant in self.room.participants:
+                    if participant != get_user_id():
+                        cursor.execute(
+                            """ INSERT
+                                  INTO message_status ( message_id, receiver_id )
+                                  VALUES ( %(message_id)s, %(receiver_id)s )""", {
+                                'message_id': self.id,
+                                'receiver_id': participant
+                            })
+
+    def read(self, receiver_id=None):
+        if receiver_id is None:
+            receiver_id = get_user_id()
+        with dbapi2.connect(dsn) as connection:
+            with connection.cursor() as cursor:
                 cursor.execute(
-                    """ INSERT
-                          INTO message_status ( message_id, receiver_id )
-                          ( SELECT %(message_id)s AS message_id, user_id AS receiver_id
-                              FROM message_participant
-                                WHERE room_id = %(room_id)s
-                                  AND user_id != %(user_id)s )""", {
+                    """ DELETE
+                          FROM message_status
+                          WHERE message_id = %(message_id)s
+                            AND receiver_id = %(receiver_id)s """, {
                         'message_id': self.id,
-                        'room_id': self.room_id,
-                        'user_id': self.sender_id
+                        'receiver_id': receiver_id
                     })
+
+    def load_status(self):
+        with dbapi2.connect(dsn) as connection:
+            with connection.cursor() as cursor:
+                cursor.execute(
+                    """ SELECT COUNT(*)
+                          FROM message_status
+                            WHERE message_id = %(message_id)s """, {
+                        'message_id': self.id
+                    })
+                self.isRead = (cursor.fetchone()[0] == 0)
+
+    @staticmethod
+    def get(room, receiver_id=None):
+        if receiver_id is None:
+            receiver_id = get_user_id()
+        messages = []
+        with dbapi2.connect(dsn) as connection:
+            with connection.cursor() as cursor:
+                cursor.execute(
+                    """ SELECT id, note, message_date, sender_id
+                          FROM message
+                            WHERE room_id = %(room_id)s
+                              AND message_date >= ( SELECT join_date
+                                                      FROM message_participant
+                                                      WHERE user_id = %(receiver_id)s
+                                                        AND room_id = %(room_id)s
+                                                  ) """, {
+                        'room_id': room.id,
+                        'receiver_id': receiver_id
+                    })
+
+                result = cursor.fetchall()
+
+                for res in result:
+                    msg = Message(res[3], room, res[1])
+                    msg.id = res[0]
+                    msg.date = res[2]
+                    msg.read(receiver_id)
+                    msg.load_status()
+                    messages.append(msg)
+
+        return messages
 
 
 class Room:
@@ -127,7 +209,9 @@ class Room:
                     })
 
     def update_name(self, name):
-        self.name = name.strip() if name is not None and len(name.strip()) > 0 else None
+        name = name.strip()
+        self.name = name if name is not None and len(name) > 0 else None
+
         with dbapi2.connect(dsn) as connection:
             with connection.cursor() as cursor:
                 cursor.execute(
@@ -140,7 +224,18 @@ class Room:
 
     def get_display_name(self):
         """ Room name or First n char of participants name """
-        return self.name if self.name is not None else " ".join(self.participants)[:15]
+        if self.name is not None:
+            return self.name
+
+        l = 0
+        nick = ""
+        for fr in self.participants:
+            nick = nick + fr[:15 - l] + " "
+            l = len(nick)
+            if l > 15:
+                break
+
+        return nick
 
     def add_participant(self, participant):
         with dbapi2.connect(dsn) as connection:
@@ -154,10 +249,10 @@ class Room:
                     })
 
                 self.participants.append(participant)
-                Event(self.id, participant, Events.JOIN).create()
+                self.create_event(participant, Events.JOIN)
 
     def remove_participant(self, participant):
-        self.read_all(participant)
+        Message.get(self, participant)  # read all message to remove from status table. it is easiest way
         with dbapi2.connect(dsn) as connection:
             with connection.cursor() as cursor:
                 cursor.execute(
@@ -170,7 +265,7 @@ class Room:
                     })
 
                 self.participants.remove(participant)
-                Event(self.id, participant, Events.LEFT).create()
+                self.create_event(participant, Events.LEFT)
 
                 # check admin
                 if self.admin == participant:
@@ -190,22 +285,6 @@ class Room:
         for added in [p for p in new_p if p not in old_p]:  # eski listede olmayip yeni listede olan
             self.add_participant(added)
 
-    def read_all(self, user=None):
-        if user is None:
-            user = get_user_id()
-        with dbapi2.connect(dsn) as connection:
-            with connection.cursor() as cursor:
-                cursor.execute(
-                    """ DELETE
-                          FROM message_status
-                          WHERE receiver_id = %(user_id)s
-                            AND message_id = ANY( SELECT id
-                                                    FROM message
-                                                    WHERE room_id = %(room_id)s ) """, {
-                        'user_id': user,
-                        'room_id': self.id
-                    })
-
     def update_admin(self, user_id=None):
         with dbapi2.connect(dsn) as connection:
             with connection.cursor() as cursor:
@@ -214,7 +293,7 @@ class Room:
                         """ DELETE
                               FROM message_room_admins
                               WHERE room_id = %(room_id)s
-                                AND user_id = %(user_id)s """, {
+                                AND user_id = %(user_id)s""", {
                             'room_id': self.id,
                             'user_id': self.admin
                         })
@@ -229,12 +308,16 @@ class Room:
                         'user_id': user_id
                     })
                 self.admin = user_id
-                Event(self.id, user_id, Events.ADMIN).create()
+                self.create_event(user_id, Events.ADMIN)
+
+    def create_event(self, user_id, event):
+        event = Event(self.id, user_id, event)
+        event.create()
 
     def send_message(self, content):
-        if content is not None and len(content.strip()) > 0:
-            Message(get_user_id(), self.id, content.strip()).create()
-            self.activate()
+        msg = Message(get_user_id(), self, content)
+        msg.create()
+        self.activate()
 
     def activate(self):
         with dbapi2.connect(dsn) as connection:
@@ -247,6 +330,39 @@ class Room:
                         'activity_date': datetime.datetime.now()
                     })
 
+    def load_participants(self):
+        participants = []
+        with dbapi2.connect(dsn) as connection:
+            with connection.cursor() as cursor:
+                cursor.execute(
+                    """ SELECT user_id
+                          FROM message_participant
+                            WHERE room_id = %(room_id)s """, {
+                        'room_id': self.id
+                    })
+
+                result = cursor.fetchall()
+
+                for res in result:
+                    participants.append(res[0])
+
+        self.participants = participants
+
+    def load_admin(self):
+        with dbapi2.connect(dsn) as connection:
+            with connection.cursor() as cursor:
+                cursor.execute(
+                    """ SELECT user_id
+                          FROM message_room_admins
+                          WHERE room_id = %(room_id)s """, {
+                        'room_id': self.id
+                    })
+
+                self.admin = cursor.fetchone()[0]
+
+    def load_items(self):
+        self.items = Message.get(self) + Event.get(self.id)
+
     @staticmethod
     def get_headers():
         """ Load All Room Headers of User participated"""
@@ -254,23 +370,19 @@ class Room:
         with dbapi2.connect(dsn) as connection:
             with connection.cursor() as cursor:
                 cursor.execute(
-                    """ SELECT id, room_name, activity_date, msg.unread_cnt, participant.participants
+                    """ SELECT id, room_name, activity_date, msg.unread_cnt
                           FROM message_room
-                            RIGHT JOIN ( SELECT room_id
-                                           FROM message_participant
-                                           WHERE user_id = %(user_id)s ) AS rooms
-                              ON message_room.id = rooms.room_id
+                            JOIN message_participant
+                              ON message_room.id = message_participant.room_id
                             LEFT JOIN ( SELECT COUNT(*) AS unread_cnt, message.room_id AS mid
                                           FROM message_status
                                             JOIN message
                                               ON message_status.message_id = message.id
                                               AND message_status.receiver_id = %(user_id)s
-                                          GROUP BY message.room_id ) AS msg
+                                          GROUP BY (message.room_id)
+                                      ) AS msg
                               ON msg.mid = message_room.id
-                            LEFT JOIN ( SELECT ARRAY_AGG(user_id) AS participants, room_id
-                                          FROM message_participant
-                                          GROUP BY room_id ) AS participant
-                              ON participant.room_id = message_room.id """, {
+                          WHERE message_participant.user_id = %(user_id)s """, {
                         'user_id': get_user_id()
                     })
 
@@ -281,7 +393,10 @@ class Room:
                     room.id = res[0]
                     room.last_message_date = res[2]
                     room.unread_count = res[3]
-                    room.participants = res[4]
+
+                    if room.name is None:
+                        room.load_participants()  # oda ismi yoksa participantslar gorunecek. so it is necessary to load participants
+
                     rooms.append(room)
 
         return rooms
@@ -292,62 +407,19 @@ class Room:
         with dbapi2.connect(dsn) as connection:
             with connection.cursor() as cursor:
                 cursor.execute(
-                    """ SELECT id, room_name, user_id, participant.participants, msg.content, evt.content
+                    """ SELECT *
                           FROM message_room
-                            JOIN message_room_admins
-                              ON message_room_admins.room_id = message_room.id
-                            LEFT JOIN ( SELECT ARRAY_AGG(user_id) AS participants, room_id
-                                          FROM message_participant
-                                          GROUP BY room_id ) AS participant
-                              ON participant.room_id = message_room.id
-                            LEFT JOIN ( SELECT (join_date - interval '00:00:00.500') AS join_date, room_id
-                                          FROM message_participant
-                                          WHERE user_id = %(user_id)s ) AS j_date
-                              ON j_date.room_id = message_room.id
-                            LEFT JOIN LATERAL ( SELECT JSON_AGG(JSON_BUILD_OBJECT('id', id,
-                                                                                  'note', note,
-                                                                                  'date', message_date,
-                                                                                  'sender',sender_id,
-                                                                                  'wait',status.wait_cnt)) AS content, room_id
-                                                  FROM message
-                                                    LEFT JOIN ( SELECT COUNT(*) AS wait_cnt, message_id
-                                                                  FROM message_status
-                                                                  GROUP BY message_id ) AS status
-                                                      ON status.message_id = message.id
-                                                  WHERE message_date >= j_date.join_date
-                                                  GROUP BY room_id ) AS msg
-                              ON msg.room_id = message_room.id
-                            LEFT JOIN LATERAL ( SELECT JSON_AGG(JSON_BUILD_OBJECT('user_id', user_id,
-                                                                                  'action', action_id,
-                                                                                  'date', event_date)) AS content, room_id
-                                                  FROM message_room_event
-                                                  WHERE event_date >= j_date.join_date
-                                                  GROUP BY room_id ) AS evt
-                              ON evt.room_id = message_room.id
-                          WHERE message_room.id = %(room_id)s """, {
-                        'room_id': room_id,
-                        'user_id': get_user_id()
+                          WHERE message_room.id = %(id)s""", {
+                        'id': room_id
                     })
 
                 result = cursor.fetchone()
                 if result:
                     room = Room(name=result[1])
                     room.id = result[0]
-                    room.participants = result[3]
-                    if result[4] is not None:
-                        for m in result[4]:
-                            msg = Message(m['sender'], room, m['note'])
-                            msg.id = m['id']
-                            msg.date = datetime.datetime.strptime(m['date'], "%Y-%m-%dT%H:%M:%S.%f")
-                            msg.isRead = (m['wait'] is None)  # == 0 ?
-                            room.items.append(msg)
-                    if result[5] is not None:
-                        for e in result[5]:
-                            event = Event(room.id, e['user_id'], Events(e['action']))
-                            event.date = datetime.datetime.strptime(e['date'], "%Y-%m-%dT%H:%M:%S.%f")
-                            room.items.append(event)
-                    room.admin = result[2]
-        room.read_all()
+                    room.load_participants()
+                    room.load_items()
+                    room.load_admin()
         return room
 
 

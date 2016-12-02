@@ -213,6 +213,7 @@ def messages_page(room_id=None):
         if room is None:  # Verilen id'ye sahip bir room yok.
             return redirect(url_for("messages_page"))
 
+    # todo Rooms=Room.get_room_header(logged_in_userID)
     return render_template('messages.html', Rooms=Messages.Room.get_headers(), SelectedRoom=room, User=Messages.get_user_id())
 
 
@@ -260,19 +261,21 @@ def messages_leave_room():
 @app.route('/messages/delete_room', methods=['POST'])
 def messages_delete_room():
     if request.method == 'POST':
-        room = Messages.Room()
-        room.id = request.form['room_id']
-        room.delete()
+        room_id = request.form['room_id']
+        room = Messages.Room.get_details(room_id)
+        if room is not None:
+            room.delete()
     return redirect(url_for('messages_page'))
 
 
 @app.route('/messages/new_message', methods=['POST'])
 def messages_new_message():
     if request.method == 'POST':
-        room = Messages.Room()
-        room.id = request.form['room_id']
-        room.send_message(request.form['message'])
-    return redirect(url_for('messages_page', room_id=room.id))
+        room_id = request.form['room_id']
+        message_text = request.form['message']
+        room = Messages.Room.get_details(room_id)
+        room.send_message(message_text)
+    return redirect(url_for('messages_page', room_id=room_id))
 
 
 @app.route('/messages/change_user/<user_id>')

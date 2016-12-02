@@ -117,7 +117,6 @@
 .message_item .media-body {
     max-width: 85%;
     width: auto;
-    white-space: pre-line;
 }
 
 .message_item .media-object {
