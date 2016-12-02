@@ -46,7 +46,7 @@
                     {% if room.unread_count != None %}
                     <span class="badge">{{ room.unread_count }}</span>
                     {% endif %}
-                    <h4 class="list-group-item-heading">{{ room.get_display_name() }}</h4>
+                    <h4 class="list-group-item-heading">{{ room.get_display_name()|e }}</h4>
                     <p class="list-group-item-text">{{ room.id }}</p>
                     <div class="clearfix"></div>
                     </a>
@@ -64,12 +64,12 @@
                         <div class="panel-heading">
                             {% if SelectedRoom.name %}
                                 <span class="glyphicon glyphicon-comment" aria-hidden="true">
-                                 {{ SelectedRoom.name }}
+                                 {{ SelectedRoom.name|e }}
                                 </span>
                             {% endif %}
                             <span class="glyphicon glyphicon-user" aria-hidden="true">
                                 {%- for p in SelectedRoom.participants %}
-                                    {{ p -}}
+                                    {{ p|e -}}
                                 {% endfor %}
                             </span>
                             <span class="glyphicon glyphicon-sunglasses" aria-hidden="true">
@@ -81,9 +81,9 @@
                         <div id="message_area" class="panel-body">
                             {% for message in SelectedRoom.items |sort(attribute='date')%}
 
-                                {% if message.senderID != null %}
+                                {% if message.sender_id != null %}
 
-                                {% if message.senderID != User %}
+                                {% if message.sender_id != User %}
                                 <div class="media message_item">
                                     <div class="media-left">
                                 {% else %}
@@ -95,19 +95,17 @@
                                             <img class="media-object" src="{{ url_for('static', filename='images/logo.jpg') }}">
                                         </a>
                                     </div>
-                                {% if message.senderID != User %}
-                                    <div class="media-body alert alert-success">
-                                {% else %}
+                                {% if message.sender_id != User -%}<div class="media-body alert alert-success">
+                                {%- else -%}
                                     <div class="media-body alert alert-info">
-                                {% endif %}
-                                        {{ message.text }}
-                                    </div>
+                                {%- endif -%}
+                                        {{- message.text|e-}}</div>
 
-                                    <div class="media-bottom">
+                                <div class="media-bottom">
                                         <span data-toggle="tooltip" data-placement="top" title="{{ message.date.date().strftime("%d.%m.%y") }}">
                                             {{ message.date.time().strftime("%H:%M") }}
                                         </span>
-                                        {% if message.senderID == User %}
+                                        {% if message.sender_id == User %}
                                             {% if message.isRead %}
                                             <span class="glyphicon glyphicon-ok status read" data-toggle="tooltip" data-placement="top"
                                                   title="Read by All"></span>
@@ -266,19 +264,21 @@
                         <table id="newRoomFrList" class="table table-bordered">
                             <tbody>
 
-                            {% for i in range(10) %} {# range(User.friends|count) #}
+                            {% for i in range(11) %} {# range(User.friends|count) #}
                                 {% if loop.index0 % 3 == 0 %}
                                     <tr> {% endif %}
 
                             <td>
                                 <label>
-                                    <input name="participants" type="checkbox" value="pk{{ loop.index0 + 2 }}">
+                                    <input name="participants" type="checkbox" value="pk{{ loop.index }}"
+                                           {% if User == "pk"+loop.index|string %} checked disabled{% endif %}
+                                    >
                                     <img src="{{ url_for('static', filename='images/logo.jpg') }}" width="30px"/> {# todo user profile #}
-                                    pk{{ loop.index0 + 2 }} isim soyisim
+                                    pk{{ loop.index }} isim soyisim
                                 </label>
                             </td>
 
-                            {% if loop.index0 % 3 == 2 %} </tr> {% endif %}
+                            {% if loop.index % 3 == 0 %} </tr> {% endif %}
                             {% endfor %}
 
                             </tbody>
@@ -319,20 +319,21 @@
                         <table id="updateRoomFrList" class="table table-bordered">
                             <tbody>
 
-                            {% for i in range(10) %}
+                            {% for i in range(11) %}
                                 {% if loop.index0 % 3 == 0 %}
                                     <tr> {% endif %}
 
                             <td>
                                 <label>
-                                    <input name="participants" type="checkbox" value="pk{{ loop.index0 + 2 }}"
-                                            {% if "pk"~(loop.index0 + 2) in SelectedRoom.participants %} checked {% endif %}>
+                                    <input name="participants" type="checkbox" value="pk{{ loop.index }}"
+                                            {% if User == "pk"+loop.index|string %} checked disabled
+                                            {% elif "pk"~(loop.index) in SelectedRoom.participants %} checked {% endif %}>
                                     <img src="{{ url_for('static', filename='images/logo.jpg') }}" width="30px"/> {# todo user profile #}
-                                    pk{{ loop.index0 + 2 }} isim soyisim
+                                    pk{{ loop.index }} isim soyisim
                                 </label>
                             </td>
 
-                            {% if loop.index0 % 3 == 2 %} </tr> {% endif %}
+                            {% if loop.index % 3 == 0 %} </tr> {% endif %}
                             {% endfor %}
 
                             </tbody>
