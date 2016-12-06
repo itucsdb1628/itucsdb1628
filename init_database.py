@@ -12,6 +12,7 @@ import datetime
 from song import insert_song
 from genre import insert_genre
 from artist import insert_artist
+from album import insert_album
 from dao.userdetails import *
 
 from dsn_conf import get_dsn
@@ -336,7 +337,7 @@ def create_song_table():
             ID SERIAL PRIMARY KEY,
             NAME VARCHAR(50) NOT NULL,
             ARTIST INTEGER REFERENCES ARTIST(ID) ON DELETE CASCADE,
-            ALBUM VARCHAR(30) NOT NULL,
+            ALBUM INTEGER REFERENCES ALBUM(ID) ON DELETE CASCADE,
             GENRE INTEGER REFERENCES GENRE(ID) ON DELETE SET NULL,
             FILEPATH VARCHAR(64) UNIQUE NOT NULL
             )"""
@@ -544,23 +545,20 @@ def reset_database():
     create_avatar_table()
     create_comment_table()
 
-    drop_album_table()
-    create_album_table()
-
-    drop_song_table()
+    drop_song_table()   # CHECK DROP ORDER
     drop_artist_table()
     drop_genre_table()
+    drop_album_table() #####
 
+    create_album_table()
     create_genre_table()
     create_artist_table()
-    create_song_table()
+    insert_sample_artists()
+    insert_default_genres()
 
-    sample_song = Song("Scar Tissue", "Californication", 3, 1, "imaginary_filepath.mp3")
-    insert_song(sample_song)
+    create_song_table()
+    #insert_song(Song("ScarTissue",1,3,1,"filepath.mp3"))
+
 
     create_messages_table()
     insert_bulk_messages()
-
-
-    insert_sample_artists()
-    insert_default_genres()

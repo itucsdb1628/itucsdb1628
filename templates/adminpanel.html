@@ -296,8 +296,12 @@
 								<p>Song name:
 								<input type="text" name="songname" required="required"></p>
 							<br>
-								<p>Album name:
-								<input type="text" name="albumname" required="required"></p>
+								<p>New album
+								<select name="albumid">
+									{% for album in albums %}
+			                            <option value="{{album.albumid}}">{{album.name}}</option>
+			                        {% endfor %}
+	                            </select></p>
 							<br>
 								<p>Select an artist
 								<select name="artistid">
@@ -345,8 +349,12 @@
 	                            <br><br>
 							<p>New song name:
 								<input type="text" name="songname" required="required"></p>
-								<p>New album name:
-								<input type="text" name="albumname" required="required"></p>
+								<p>New album
+								<select name="albumid">
+									{% for album in albums %}
+			                            <option value="{{album.albumid}}">{{album.name}}</option>
+			                        {% endfor %}
+	                            </select></p>
 								<p>New artist
 								<select name="artistid">
 									{% for ID, NAME in allartist %}

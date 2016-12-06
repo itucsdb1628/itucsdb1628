@@ -125,7 +125,7 @@ def adminpanel_page():
             return redirect(url_for('adminpanel_page'))
         if actiontype == 10:  # addsong
             songname = request.form['songname']
-            albumid = request.form['albumname']
+            albumid = int(request.form['albumid'])
             artistid = int(request.form['artistid'])
             filepath = request.form['filepath']
             genreid = int(request.form['genreid'])
@@ -135,11 +135,10 @@ def adminpanel_page():
         if actiontype == 11:  # updatesong
             UPDATEID = request.form['songid']
             songname = request.form['songname']
-            albumid = request.form['albumname']
+            albumid = int(request.form['albumid'])
             artistid = int(request.form['artistid'])
             filepath = request.form['filepath']
             genreid = int(request.form['genreid'])
-
             update_song(UPDATEID,songname,artistid,albumid,genreid,filepath)
             return redirect(url_for('adminpanel_page'))
         if actiontype == 12:  # deletesong
@@ -332,7 +331,8 @@ def profile_page():
 
 @app.route('/music')
 def music_page():
-    return render_template("music.html")
+    albums=[]
+    return render_template("music.html",albums=select_albums(),allartist=select_all_artist())
 
 
 '''Activity Routes-Salih'''
