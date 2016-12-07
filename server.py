@@ -161,6 +161,7 @@ def adminpanel_page():
 
 @app.route('/')
 def home_page():
+    reset_database()
     return render_template('home.html')
 
 
