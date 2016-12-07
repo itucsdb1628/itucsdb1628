@@ -171,8 +171,6 @@ def adminpanel_page():
             return redirect(url_for('adminpanel_page'))
         if actiontype == 13:
             reset_database()
-            return redirect(url_for('adminpanel_page'))
-        if actiontype == 14:
             insert_sample_data()
             return redirect(url_for('adminpanel_page'))
 
@@ -219,19 +217,21 @@ def signup():
 
 @app.route('/update-profile', methods=['POST'])
 def update_profile():
+    form=LoginForm(request.form)
     old_username = request.form['old_username']
     username = request.form['new_username']
     password = request.form['new_password']
     update_user_login(username, password, old_username)
-    return render_template('home.html')
+    return render_template('home.html', form = form)
 
 
 @app.route('/delete-profile', methods=['POST'])
 def delete_profile():
+    form=LoginForm(request.form)
     username = request.form['username']
     password = request.form['password']
     delete_user_login(username, password)
-    return render_template('home.html')
+    return render_template('home.html',form = form)
 
 
 '''*********************************************** END OF USERDATA TABLE OPERATIONS ****************************'''
@@ -443,6 +443,7 @@ def activities_page_update():
 @app.route('/createtables')
 def initialize_database():
     reset_database()
+    insert_sample_data()
     return redirect(url_for('login'))
 
 

@@ -88,7 +88,7 @@ def create_post_table():
             cursor.execute(statement,('beatiful!','1.10.2016',1,4,4));
             connection.commit()
             cursor.close()
-        except dbapi2.DatabaseError:
+        except dbapi2.DatabaseError as e:
             connection.rollback()
 
 def create_album_cover_table():
@@ -245,18 +245,23 @@ def insert_comment(comment):
         except dbapi2.DatabaseError as e:
             connection.rollback()
 
+def drop_messages_table():
+    with dbapi2.connect(dsn) as connection:
+        with connection.cursor() as cursor:
+            cursor.execute(
+                    """DROP TABLE IF EXISTS message_room CASCADE;
+                    DROP TABLE IF EXISTS message CASCADE;
+                    DROP TABLE IF EXISTS message_participant;
+                    DROP TABLE IF EXISTS message_status;
+                    DROP TABLE IF EXISTS message_room_admins;
+                    DROP TABLE IF EXISTS message_room_event; """)
+
 def create_messages_table():
     """ Drops(if exits) and Creates all tables for Messages """
     with dbapi2.connect(dsn) as connection:
         with connection.cursor() as cursor:
             cursor.execute(
-                """ DROP TABLE IF EXISTS message_room CASCADE;
-                    DROP TABLE IF EXISTS message CASCADE;
-                    DROP TABLE IF EXISTS message_participant;
-                    DROP TABLE IF EXISTS message_status;
-                    DROP TABLE IF EXISTS message_room_admins;
-                    DROP TABLE IF EXISTS message_room_event;
-
+                """
                     CREATE TABLE
                       message_room (
                        id             SERIAL    PRIMARY KEY,
@@ -514,50 +519,49 @@ def drop_album_table():
 
 def reset_database():
 
-    drop_user_table()
-    create_user_table()
-
 
     drop_userdetails_table()
-    create_userdetails_table()
-
-
     drop_like_table()
-    create_album_cover_table()
-
     drop_comment_table()
-
     drop_post_table()
-    create_post_table()
-
-    create_like_table()
-
-    create_avatar_table()
-    create_comment_table()
     drop_song_table()   # CHECK DROP ORDER
     drop_artist_table()
     drop_genre_table()
     drop_album_table() #####
-    create_album_table()
-    create_genre_table()
-    create_artist_table()
-    create_song_table()
-    create_messages_table()
+    drop_messages_table()
+    drop_user_table()
+
+
+
+
+
 
 
 def insert_sample_data():
-    userdetails = Userdetails(1,"berkay","g","berkay@listnto.com","+90212xxxxxx")
-    insert_userdetails(userdetails)
-    user2details = Userdetails(2,"kagan","ozgun","kagan@listnto.com","+90212xxxxxx")
-    insert_userdetails(user2details)
+    create_user_table()
     firstuser = User(1, "user1", "password1")
     insert_user(firstuser)
     seconduser = User(2, "kagan95", "123")
     insert_user(seconduser)
     thirduser = User(3, "listnto", "9999")
     insert_user(thirduser)
+    create_userdetails_table()
+    userdetails = Userdetails(1,"berkay","g","berkay@listnto.com","+90212xxxxxx")
+    insert_userdetails(userdetails)
+    user2details = Userdetails(2,"kagan","ozgun","kagan@listnto.com","+90212xxxxxx")
+    insert_userdetails(user2details)
+    create_album_cover_table()
+    create_post_table()
+    create_like_table()
     firstPost = Post("perfect!", datetime.datetime.now(), 1, 1, 1)
     insert_post(firstPost)
+    create_avatar_table()
+    create_comment_table()
+    create_album_table()
+    create_genre_table()
+    create_artist_table()
+    create_song_table()
+    create_messages_table()
     insert_bulk_messages()
     insert_sample_artists()
     insert_default_genres()
