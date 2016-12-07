@@ -145,6 +145,9 @@ def adminpanel_page():
             songid = request.form['songid']
             delete_song(songid)
             return redirect(url_for('adminpanel_page'))
+        if actiontype == 13:
+            reset_database()
+            return redirect(url_for('adminpanel_page'))
 
 
 
@@ -154,7 +157,6 @@ def adminpanel_page():
 
 @app.route('/')
 def home_page():
-    reset_database()
     return render_template('home.html')
 
 
