@@ -8,6 +8,7 @@ from flask.helpers import url_for
 # from dao.messages import Room, Message, tempLoggedUser
 import dao.messages as Messages
 from init_database import reset_database
+from init_database import insert_sample_data
 from post import *
 from like import *
 from comment import *
@@ -147,6 +148,9 @@ def adminpanel_page():
             return redirect(url_for('adminpanel_page'))
         if actiontype == 13:
             reset_database()
+            return redirect(url_for('adminpanel_page'))
+        if actiontype == 14:
+            insert_sample_data()
             return redirect(url_for('adminpanel_page'))
 
 

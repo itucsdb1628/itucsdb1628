@@ -514,22 +514,13 @@ def drop_album_table():
 
 def reset_database():
 
-
     drop_user_table()
     create_user_table()
-    firstuser = User(1, "user1", "password1")
-    insert_user(firstuser)
-    seconduser = User(2, "kagan95", "123")
-    insert_user(seconduser)
-    thirduser = User(3, "listnto", "9999")
-    insert_user(thirduser)
+
 
     drop_userdetails_table()
     create_userdetails_table()
-    userdetails = Userdetails(1,"berkay","g","berkay@listnto.com","+90212xxxxxx")
-    insert_userdetails(userdetails)
-    user2details = Userdetails(2,"kagan","ozgun","kagan@listnto.com","+90212xxxxxx")
-    insert_userdetails(user2details)
+
 
     drop_like_table()
     create_album_cover_table()
@@ -538,27 +529,35 @@ def reset_database():
 
     drop_post_table()
     create_post_table()
-    firstPost = Post("perfect!", datetime.datetime.now(), 1, 1, 1)
-    insert_post(firstPost)
+
     create_like_table()
 
     create_avatar_table()
     create_comment_table()
-
     drop_song_table()   # CHECK DROP ORDER
     drop_artist_table()
     drop_genre_table()
     drop_album_table() #####
-
     create_album_table()
     create_genre_table()
     create_artist_table()
+    create_song_table()
+    create_messages_table()
+
+
+def insert_sample_data():
+    userdetails = Userdetails(1,"berkay","g","berkay@listnto.com","+90212xxxxxx")
+    insert_userdetails(userdetails)
+    user2details = Userdetails(2,"kagan","ozgun","kagan@listnto.com","+90212xxxxxx")
+    insert_userdetails(user2details)
+    firstuser = User(1, "user1", "password1")
+    insert_user(firstuser)
+    seconduser = User(2, "kagan95", "123")
+    insert_user(seconduser)
+    thirduser = User(3, "listnto", "9999")
+    insert_user(thirduser)
+    firstPost = Post("perfect!", datetime.datetime.now(), 1, 1, 1)
+    insert_post(firstPost)
+    insert_bulk_messages()
     insert_sample_artists()
     insert_default_genres()
-
-    create_song_table()
-    #insert_song(Song("ScarTissue",1,3,1,"filepath.mp3"))
-
-
-    create_messages_table()
-    insert_bulk_messages()
