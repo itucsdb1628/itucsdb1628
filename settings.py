@@ -1,0 +1,6 @@
+DEBUG = True
+PORT = 5000
+SECRET_KEY = 'secret'
+WTF_CSRF_ENABLED = True
+
+ADMINPASS = '$6$rounds=603422$ZgQRx3Mm/YuUaION$b/Vwzuno1Q7e1KPWehLbRdmvdf/Bjj5.4a.fvcz3TNCl.Rn2CLbQPCsGSIBarDYHMzq3jjN8KDLkBtKJzBclf0'

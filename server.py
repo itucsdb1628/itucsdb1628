@@ -4,6 +4,7 @@ from flask import Flask, app
 from flask import redirect
 from flask import render_template
 from flask.helpers import url_for
+from flask import current_app, request
 
 # from dao.messages import Room, Message, tempLoggedUser
 import dao.messages as Messages
@@ -12,7 +13,7 @@ from init_database import insert_sample_data
 from post import *
 from like import *
 from comment import *
-
+from forms import *
 from song import *
 from artist import *
 from genre import *
@@ -23,12 +24,32 @@ from dao.song import *
 from album import *
 from dao.userdetails import *
 from userdetails import *
+from settings import *
+from flask_login import LoginManager
+from flask_login import current_user, login_required, login_user, logout_user
 
 from dsn_conf import get_dsn
 from flask.globals import request
 
+
+lm = LoginManager()
 app = Flask(__name__)
 
+
+
+@lm.user_loader
+def load_user(user_id):
+    return get_user(user_id)
+
+
+
+def create_app():
+    app.config.from_object('settings')
+
+    lm.init_app(app)
+    lm.login_view='login    '
+
+    return app
 '''********************************TIMELINE ROUTES - ismail*********************************'''
 
 @app.route('/timeline/like/<int:LIKEID>', methods=['GET', 'POST'])
@@ -40,6 +61,7 @@ def like_post(LIKEID):
     return redirect(url_for('timeline_page'))
 
 @app.route('/timeline')
+@login_required
 def timeline_page():
     return render_template("timeline.html", posts=select_posts(), likes = list(select_user_likes(1)))
 
@@ -159,21 +181,31 @@ def adminpanel_page():
 '''****************************** USERDATA TABLE OPERATIONS *************************'''
 
 
-@app.route('/')
+'''@app.route('/')
 def home_page():
-    return render_template('home.html')
+    return render_template('home.html')'''
 
 
-@app.route('/login', methods=['POST'])
+@app.route('/', methods=['GET','POST'])
 def login():
-    username = request.form['lg_username']
-    password = request.form['lg_password']
-    user_list = select_users_from_login()
-    for record in user_list:
-        if (record[1] == username and record[2] == password):
-            return redirect('/timeline')
+    form=LoginForm(request.form)
+    if request.method == 'POST' and form.validate():
+        username = form.username.data
+        user = get_user(username)
+        #user_list = select_users_from_login()
+        if user is not None:
+            password = form.password.data
+            if(password == user.password):
+                login_user(user)
+                return redirect(url_for('timeline_page'))
+    
+    return render_template('home.html',form=form)
 
-    return render_template('signinerror.html')
+
+@app.route('/logout')
+def logout_page():
+    logout_user()
+    return redirect(url_for('login'))
 
 
 @app.route('/signup', methods=['POST'])
@@ -181,7 +213,7 @@ def signup():
     username = request.form['reg_username']
     password = request.form['reg_password']
     insert_user_login(username, password)
-    return render_template('successful_signup.html')
+    return redirect(url_for('login'))
 
 
 @app.route('/update-profile', methods=['POST'])
@@ -410,10 +442,11 @@ def activities_page_update():
 @app.route('/createtables')
 def initialize_database():
     reset_database()
-    return redirect(url_for('home_page'))
+    return redirect(url_for('login'))
 
 
 if __name__ == '__main__':
+    app  = create_app()
     VCAP_APP_PORT = os.getenv('VCAP_APP_PORT')
     if VCAP_APP_PORT is not None:
         port, debug = int(VCAP_APP_PORT), False
@@ -424,6 +457,6 @@ if __name__ == '__main__':
 
     # add get total unread message count function to jinja2 global variables
     # because almost every template must reach it
-    app.jinja_env.globals.update(get_unread_message_count=Messages.get_unread_count)
+    #app.jinja_env.globals.update(get_unread_message_count=Messages.get_unread_count)
 
     app.run(host='0.0.0.0', port=port, debug=debug)

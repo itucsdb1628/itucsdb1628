@@ -18,7 +18,7 @@
 	<a href="{{ url_for('timeline_page') }}"><button type="submit" class="btn-danger btn-lg">Go to Timeline</button></span></a>
 </div></center>
 -->
-<! --------------------------buttons -------------------------------------->
+<!--------------------------buttons -------------------------------------->
 
 <center><div class="row">
 	</br></br>
@@ -38,17 +38,23 @@
       </div>
       <div class="modal-body">
         <div class="login-form-1">
-		<form id="login-form" class="text-left" method="post" action="/login">
+		<form id="login-form" class="text-left" method="post" action="/">
+            {{ form.csrf_token }}
 			<div class="login-form-main-message"></div>
 			<div class="main-login-form">
 				<div class="login-group">
 					<div class="form-group">
 						<label for="lg_username" class="sr-only">Username</label>
-						<input type="text" class="form-control" id="lg_username" name="lg_username" placeholder="username">
+                            {{ form.username(autofocus=True,
+                           id='lg-username',
+                           placeholder='Username') }}
+						
 					</div>
 					<div class="form-group">
 						<label for="lg_password" class="sr-only">Password</label>
-						<input type="password" class="form-control" id="lg_password" name="lg_password" placeholder="password">
+                        {{ form.password(id='lg-password', class='form-control',
+                           placeholder='Password') }}
+						
 					</div>
 					<div class="form-group login-group-checkbox">
 						<input type="checkbox" id="lg_remember" name="lg_remember">

@@ -42,7 +42,7 @@
 					            <li>  <button type="button" class="btn-lg btn-info " data-toggle="modal" data-target="#update_profile_modal">Update Profile </button>  </li>
 					            <li>  <button type="button" class="btn-lg btn-danger " data-toggle="modal" data-target="#delete_profile_modal">Delete Profile </button>  </li>
 					            <li><a href="{{url_for('profiledetails')}}"><button type="button" class="btn-lg btn-success ">Profile Details</button></a></li>
-					            <li><a href="#">Something else here</a></li>
+					            <li><a href="{{url_for('logout_page')}}">Logout</a></li>
 					            <li role="separator" class="divider"></li>
 					            <li><a href="#">Separated link</a></li>
 					          </ul>
@@ -54,7 +54,7 @@
 	      	<ul class="nav navbar-nav header-menu navbar-right">
 				<li><a href="{{ url_for('timeline_page') }}"><span class="glyphicon glyphicon-home" aria-hidden="true"></span></a></li>
 				<li><a href="{{ url_for('music_page') }}"><span class="glyphicon glyphicon-music" aria-hidden="true"></span></a></li>
-				<li><a href="{{ url_for('messages_page') }}"><span class="glyphicon glyphicon-envelope" aria-hidden="true"><span class="badge">{{ get_unread_message_count()}}</span></span></a></li>
+				<li><a href="{{ url_for('messages_page') }}"><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span></a></li>  
                 <li><a href="{{ url_for('activities_page') }}"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span></a></li>
       		</ul>
       		<!------------ Menu buttons ------------>

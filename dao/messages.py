@@ -354,5 +354,4 @@ def get_unread_count():
                       WHERE message_status.receiver_id = %(user_id)s """, {
                     'user_id': get_user_id()
                 })
-
             return cursor.fetchone()[0]
