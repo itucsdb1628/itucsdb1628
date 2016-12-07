@@ -7,46 +7,40 @@ from dao.user import *
 
 dsn = get_dsn()
 class UserData(UserMixin):
-    def __init__(self,username,password):
+    def __init__(self,id,username,password):
+        self.id = id
         self.username = username
         self.password = password
         self.active = True
-    
+
     def get_id(self):
         return self.username
-    
-    
+
+
     @property
     def is_active(self):
         return self.active
-        
+
 def get_user(username):
     with dbapi2.connect(dsn) as connection:
         try:
             connection = dbapi2.connect(current_app.config['dsn'])
             cursor = connection.cursor()
-            cursor.execute("""SELECT PASSWORD FROM USERDATA WHERE USERNAME = %s""", (username,))
+            cursor.execute("""SELECT * FROM USERDATA WHERE USERNAME = %s""", (username,))
             values=cursor.fetchone()
-            password=values[0]
+            password=values[2]
+            id = values[0]
             connection.commit()
             cursor.close()
             connection.close()
-            user = UserData(username, password) if password else None
+            user = UserData(id,username, password) if password else None
             return user
         except:
             pass
-                  
-    
-def get_idofuser(username):
-    with dbapi2.connect(dsn) as connection:
-        with connection.cursor() as cursor:
-            cursor.execute("""SELECT ID FROM USERDATA WHERE USERNAME = %s""", (username,))
-            values=cursor.fetchone()
-            print(values)
-            userid=values[0]
-            print(userid)
-            return userid
-                  
+
+
+
+
 def select_a_user_from_login(userid):
     with dbapi2.connect(dsn) as connection:
         try:
@@ -58,7 +52,7 @@ def select_a_user_from_login(userid):
         except dbapi2.DatabaseError as e:
             connection.rollback()
 
-    def select_users_from_login():
+def select_users_from_login():
         with dbapi2.connect(dsn) as connection:
             try:
                 cursor = connection.cursor()
@@ -77,7 +71,7 @@ def delete_user_login(username,password):
             connection.commit()
         except dbapi2.DatabaseError as e:
             connection.rollback()
-    
+
 def update_user_login(new_username,new_password,username):
     with dbapi2.connect(dsn) as connection:
         try:
@@ -87,7 +81,7 @@ def update_user_login(new_username,new_password,username):
             connection.commit()
         except dbapi2.DatabaseError as e:
             connection.rollback()
-    
+
 def insert_user_login(username,password):
     with dbapi2.connect(dsn) as connection:
         try:

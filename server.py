@@ -63,6 +63,7 @@ def like_post(LIKEID):
 @app.route('/timeline')
 @login_required
 def timeline_page():
+    id = current_user.id
     return render_template("timeline.html", posts=select_posts(), likes = list(select_user_likes(1)))
 
 
@@ -198,7 +199,7 @@ def login():
             if(password == user.password):
                 login_user(user)
                 return redirect(url_for('timeline_page'))
-    
+
     return render_template('home.html',form=form)
 
 
