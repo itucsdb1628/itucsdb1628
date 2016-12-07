@@ -1,2 +1,7 @@
 Flask
 psycopg2
+Sphinx
+flask-login
+passlib
+flask-wtf
+wtforms-components
