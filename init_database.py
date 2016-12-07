@@ -417,7 +417,7 @@ def insert_sample_artists():
     insert_artist(Artist("Shakira"))
     insert_artist(Artist("Red Hot Chili Peppers"))
     insert_artist(Artist("Coldplay"))
-    insert_artist(Artist("Shakira"))
+    insert_artist(Artist("Beyonce"))
     insert_artist(Artist("Pink Floyd"))
 
 def insert_default_genres():
