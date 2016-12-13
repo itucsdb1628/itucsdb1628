@@ -1,5 +1,6 @@
 import psycopg2 as dbapi2
 from flask import request
+from flask_login import current_user, login_required, login_user, logout_user
 
 from dsn_conf import get_dsn
 
@@ -14,8 +15,9 @@ def select_posts():
              FROM POST,ALBUMCOVER,USERDATA 
              WHERE(
              ALBUMCOVER.ID = POST.ALBUMCOVERID
-             AND POST.USERID = USERDATA.ID) 
-             ORDER BY POST.ID"""
+             AND POST.USERID = USERDATA.ID
+             AND POST.USERID = %s) 
+             ORDER BY POST.ID""" % current_user.id
              cursor.execute(query)
              return cursor
         except dbapi2.DatabaseError as e:
@@ -67,7 +69,7 @@ def insert_post_page():
             cursor = connection.cursor()
             content = request.form['content']
             albumcover = request.form['albumcover']
-            userid = request.form['userid']
+            userid = current_user.id
             songid = request.form['songid']
             query ="""INSERT INTO POST(CONTENT,USERID,SONGID,ALBUMCOVERID) VALUES(%s,%s,%s,%s)"""
             cursor.execute(query,(content,userid,songid,albumcover))

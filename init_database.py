@@ -19,6 +19,42 @@ from dsn_conf import get_dsn
 
 dsn = get_dsn()
 
+def drop_suggestion_table():
+    with dbapi2.connect(dsn) as connection:
+        try:
+            cursor = connection.cursor()
+            statement = """DROP TABLE IF EXISTS SUGGESTION"""
+            cursor.execute(statement)
+            connection.commit()
+            cursor.close()
+        except dbapi2.DatabaseError as e:
+            connection.rollback()
+
+
+def create_suggestion_table():
+    with dbapi2.connect(dsn) as connection:
+        try:
+            cursor = connection.cursor()
+            statement =     """CREATE TABLE IF NOT EXISTS SUGGESTION(
+            ID SERIAL PRIMARY KEY,
+            USERID INTEGER NOT NULL REFERENCES USERDATA(ID) ON DELETE CASCADE,
+            ARTIST VARCHAR(50) NOT NULL,
+            SONGNAME VARCHAR(50) NOT NULL,
+            SUGGESTIONDATE DATE,
+            RELEASEDATE DATE,
+            STATU INT
+            CHECK (STATU > -1 AND STATU < 3)
+            )"""
+            cursor.execute(statement)
+            statement = """INSERT INTO SUGGESTION(USERID,ARTIST,SONGNAME,SUGGESTIONDATE,RELEASEDATE,STATU)
+                            VALUES(%s,%s,%s,%s,%s,%s)"""
+            cursor.execute(statement,(1,"Metallica","Nothing else matters",'1.10.2016','1.10.2016',2));
+            connection.commit()
+            cursor.close()
+        except dbapi2.DatabaseError as e:
+            connection.rollback()
+            
+            
 def drop_like_table():
     with dbapi2.connect(dsn) as connection:
         try:
@@ -166,8 +202,8 @@ def insert_user(user):
     with dbapi2.connect(dsn) as connection:
         try:
             cursor = connection.cursor()
-            statement= """INSERT INTO USERDATA(ID,USERNAME,PASSWORD) VALUES(%s,%s,%s)"""
-            cursor.execute(statement,(user.id,user.username,user.password))
+            statement= """INSERT INTO USERDATA(USERNAME,PASSWORD) VALUES(%s,%s)"""
+            cursor.execute(statement,(user.username,user.password))
             connection.commit()
             cursor.close()
         except dbapi2.DatabaseError as e:
@@ -519,7 +555,7 @@ def drop_album_table():
 
 def reset_database():
 
-
+    drop_suggestion_table()
     drop_userdetails_table()
     drop_like_table()
     drop_comment_table()
@@ -539,17 +575,18 @@ def reset_database():
 
 def insert_sample_data():
     create_user_table()
-    firstuser = User(1, "user1", "password1")
+    firstuser = User(1,"user1", "password1")
     insert_user(firstuser)
-    seconduser = User(2, "kagan95", "123")
+    seconduser = User(2,"kagan95", "123")
     insert_user(seconduser)
-    thirduser = User(3, "listnto", "9999")
+    thirduser = User(3,"listnto", "9999")
     insert_user(thirduser)
     create_userdetails_table()
     userdetails = Userdetails(1,"berkay","g","berkay@listnto.com","+90212xxxxxx")
     insert_userdetails(userdetails)
     user2details = Userdetails(2,"kagan","ozgun","kagan@listnto.com","+90212xxxxxx")
     insert_userdetails(user2details)
+    create_suggestion_table()
     create_album_cover_table()
     create_post_table()
     create_like_table()

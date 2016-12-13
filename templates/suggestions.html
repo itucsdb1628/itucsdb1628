@@ -1,0 +1,82 @@
+{% extends "layout.html" %}
+{% block title %}Suggestions{% endblock %}
+{% block static_links %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/suggestions.css') }}"/>
+{% endblock %}
+
+{% block content %}
+
+
+
+<div class = "suggestions">
+<div id="background-carousel" align = left>
+    <div id="myCarousel" class="carousel slide" data-ride="carousel">
+      <div class="carousel-inner">
+        <div class="item active" style="background-image:url(/static/images/colorfest.jpg)"></div>
+        <div class="item" style="background-image:url(/static/images/concert.jpg)"></div>
+        <div class="item" style="background-image:url(/static/images/concert2.jpg)"></div>  
+      </div>
+    </div>
+</div>
+<div id="content-wrapper">
+<!-- PAGE CONTENT -->
+    <div class="container">
+        <div class="page-header"><p class="title">
+            Suggest song!</p></div>
+        <div class="well">
+            <form  action="suggestions/insert" method = "post">
+  <div class="form-group">
+    <label for="song">Song</label>
+    <input type="text" class="form-control" name="song" required="required" placeholder="Name of Song">
+    <small id="label" class="form-text text-muted">  We care about your ideas!</small>
+  </div>
+  <div class="form-group">
+    <label for="artist">Artist</label>
+    <input type="text" class="form-control" name="artist" required="required" placeholder="Artist or Band">
+  </div>
+  <div class="form-group">
+    <label for="release_year">Release Year</label>
+    <input type="text" class="form-control" name="release_year"  required="required" placeholder="DD/MM/YYYY">
+  </div>
+  
+  <button type="submit" class="btn btn-primary">Suggest!</button> <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#suggestions">See your suggestions</button>
+</form>
+   
+        </div><!-- End Well -->
+    </div><!-- End Container -->
+<!-- PAGE CONTENT -->
+</div>
+
+
+</div>
+            <div id="suggestions" class="modal fade" role="dialog">
+			  <div class="modal-dialog">
+
+			   
+			    <div class="modal-content">
+			      <div class="modal-body">
+			        <p>  
+				  		{% for ID,ARTIST,SONGNAME,RELEASEDATE,SUGGESTIONDATE,STATU in suggestions%}
+                             <div class="card card-block text-xs-center">
+                             <h4 class="card-title">{{SONGNAME}} -  {{ARTIST}}
+                             {%if STATU == 2%}
+                               &emsp; <i class="glyphicon glyphicon-tag" style="color:grey" align = "right"> Waiting</i>
+                            {%elif STATU == 1%}
+                             &emsp; <i class="glyphicon glyphicon-ok" style="color:green"> Approved </i>
+                            {%else%}
+                              &emsp;<i class="glyphicon glyphicon-remove" style="color:red"> Denied </i>
+                           {%endif%} 
+                                                                        </h4>
+                             <p class="card-text"> {{RELEASEDATE}} </p>
+                            <a href="{{ url_for('suggestion_delete_page', DELETEID=ID) }}"> <i class="glyphicon glyphicon-remove">Remove </i></a> 
+                            </div>
+                     
+                      <hr width="100%" color="#0000F8" size="4">
+                        {%endfor%}
+
+					</p>
+			      </div>
+			    </div>
+			  </div>
+            </div>
+{% endblock %}

@@ -23,6 +23,7 @@ from dao.artist import *
 from dao.song import *
 from album import *
 from dao.userdetails import *
+from suggestion import *
 from userdetails import *
 from settings import *
 from flask_login import LoginManager
@@ -54,17 +55,17 @@ def create_app():
 
 @app.route('/timeline/like/<int:LIKEID>', methods=['GET', 'POST'])
 def like_post(LIKEID):
-    if(control_like(1,LIKEID)):
-        insert_like(1,LIKEID)
+    if(control_like(current_user.id,LIKEID)):
+        insert_like(current_user.id,LIKEID)
     else:
-        delete_like(1,LIKEID)
+        delete_like(current_user.id,LIKEID)
     return redirect(url_for('timeline_page'))
 
 @app.route('/timeline')
 @login_required
 def timeline_page():
     id = current_user.id
-    return render_template("timeline.html", posts=select_posts(), likes = list(select_user_likes(1)))
+    return render_template("timeline.html", posts=select_posts(), likes = list(select_user_likes(current_user.id)))
 
 
 @app.route('/timeline/delete/<int:DELETEID>', methods=['GET', 'POST'])
@@ -89,7 +90,25 @@ def timeline_page_insert():
     insert_post_page()
     return redirect(url_for('timeline_page'))
 
+@app.route('/suggestions')
+@login_required
+def suggestion_page():
+    return render_template("suggestions.html",suggestions=list(select_suggestions_user()))
 
+@app.route('/suggestions/insert', methods=['GET', 'POST'])
+def suggestion_insert_page():
+    artist = request.form['artist']
+    songname = request.form['song']
+    suggestionDate = request.form['release_year']
+    insert_suggestion(current_user.id,artist,songname,suggestionDate)
+    return redirect(url_for('suggestion_page'))
+
+
+
+@app.route('/suggestions/delete/<int:DELETEID>', methods=['GET', 'POST'])
+def suggestion_delete_page(DELETEID):
+    delete_suggestion(DELETEID)
+    return redirect(url_for('suggestion_page'))
 '''*********************************************************************************'''
 
 '''*********************************ADMIN PAGE**************************************'''
@@ -102,7 +121,7 @@ def adminpanel_page():
         allgenre=[]
         allartist=[]
         song_album=[]
-        return render_template('adminpanel.html', albums=select_albums(), allgenre=select_all_genre(), allartist=select_all_artist(), song_album=select_song_album())
+        return render_template('adminpanel.html', albums=select_albums(), allgenre=select_all_genre(), allartist=select_all_artist(), song_album=select_song_album(),suggestions =  select_suggestions())
     else:
         actiontype = int(request.form['actiontype'])
         if actiontype == 1:  # addgenre
@@ -173,7 +192,14 @@ def adminpanel_page():
             reset_database()
             insert_sample_data()
             return redirect(url_for('adminpanel_page'))
-
+        if actiontype == 14:
+            suggestionId = request.form['id']
+            approve_suggestion(suggestionId)
+            return redirect(url_for('adminpanel_page'))
+        if actiontype == 15:
+            suggestionId = request.form['id']
+            reject_suggestion(suggestionId)
+            return redirect(url_for('adminpanel_page'))
 
 
 '''*********************************************************************************'''
