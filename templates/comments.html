@@ -15,7 +15,7 @@
  <div class = "container">
   <div class = "row_short">
 	<div class="row">
-        		{% for ID, CONTENT, SONGID, FILEPATH,USERNAME in posts %}
+        		{% for ID, CONTENT, SONGID, FILEPATH,USERNAME,ALBUMCOVERID in posts %}
 				<div class="row">
                     <div class="col-xs-12 col-sm-3 col-md-3">
                         <a href="/timeline">
@@ -49,6 +49,9 @@
                     </div>
         	{% endfor %}
 			<br/>
+			{% if error %}
+    		<p class=error><strong>Error:</strong> {{ error }}
+  			{% endif %}
         	{% for content in comments %}
        		   <div class="container">
 					<div class="row">
@@ -64,6 +67,7 @@
 							<div class="panel panel-default">
 								<div class="panel-heading">
 									<strong>{{content.username}}</strong> <span class="text-muted">commented 5 days ago</span>
+									{%if current_user.username == content.username %}
 									<form role="form" action="" method="post" name="comment_delete">
             						<input type="hidden" name="id" value="{{content.commentid}}">
             						<input type="hidden" name="postid" value="{{content.postid}}">
@@ -77,6 +81,7 @@
             						<input type="hidden" name="actiontype" value="3">
             						<button type="submit" name="delete_comment" class="btn btn-default">Update comment</button>
             						</form>
+            						{%endif%}
 								</div>
 								<div class="panel-body">
 									{{content.comment}}
@@ -86,15 +91,15 @@
 						</div>
 						</div>
     				{% endfor %}
-    		{% for ID, CONTENT, SONGID, FILEPATH,USERNAME in posts %}
+    		{% for ID, CONTENT, SONGID, FILEPATH,USERNAME,ALBUMCOVERID in posts %}
 			<form role="form" action="" method="post" name="comment_add"
             class="form-horizontal">
-            <input type="text" name="comment" required="required">
+            <input type="text" name="comment" required = "">
             <input type="hidden" name="postid" required="required" value="{{ID}}">
             <input type="hidden" name="actiontype" value="2">
-            <input type="hidden" name="userid" required="required" value="1">
+            <input type="hidden" name="userid" required="required" value="{{current_user.id}}">
             <input type="hidden" name="avatarid" required="required" value="1">
-            <input type="hidden" name="albumcover" required="required" value="1">
+            <input type="hidden" name="albumcover" required="required" value="{{ALBUMCOVERID}}">
             <button type="submit" name="add_comment" class="btn btn-default">Add comment</button>
 			</form>
 			{% endfor %}

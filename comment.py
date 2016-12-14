@@ -3,6 +3,7 @@ from flask import request
 from dao.comment import *
 
 from dsn_conf import get_dsn
+from flask_login.utils import current_user
 
 dsn = get_dsn()
 
@@ -11,17 +12,16 @@ def select_comments(id):
     with dbapi2.connect(dsn) as connection:
         try:
             cursor = connection.cursor()
-            query = """SELECT COMMENT.COMMENT, USERDATA.USERNAME, AVATAR.FILEPATH, POST.CONTENT, ALBUMCOVER.FILEPATH, POST.ID,
+            query = """SELECT COMMENT.COMMENT, USERDATA.USERNAME, AVATAR.FILEPATH, POST.CONTENT, POST.ID,
             COMMENT.ID FROM COMMENT INNER JOIN AVATAR on AVATAR.ID = COMMENT.AVATARID
             INNER JOIN USERDATA on COMMENT.USERID = USERDATA.ID
-            INNER JOIN POST ON COMMENT.POSTID = POST.ID
-            INNER JOIN ALBUMCOVER ON COMMENT.ALBUMCOVERID = ALBUMCOVER.ID where (POST.ID = %s)
+            INNER JOIN POST ON COMMENT.POSTID = POST.ID where (POST.ID = %s)
             ORDER BY COMMENT.ID"""
 
             cursor.execute(query,(id,))
             value = cursor.fetchall()
             for val in value:
-                comment = Comment(val[0],val[1],val[2],val[3],val[4],val[5],val[6])
+                comment = Comment(val[0],val[1],val[2],val[3],val[4],val[5])
                 content.append(comment)
             return content
         except dbapi2.DatabaseError as e:
@@ -32,12 +32,13 @@ def select_comments2():
     with dbapi2.connect(dsn) as connection:
         try:
             cursor = connection.cursor()
-            query = """SELECT COMMENT.COMMENT, USERDATA.USERNAME, AVATAR.FILEPATH, POST.CONTENT, ALBUMCOVER.FILEPATH, POST.ID,
-            COMMENT.ID FROM COMMENT INNER JOIN AVATAR on AVATAR.ID = COMMENT.AVATARID
+            query = """SELECT COMMENT.COMMENT, USERDATA.USERNAME, AVATAR.FILEPATH, POST.CONTENT, POST.ID, COMMENT.ID, ALBUMCOVER.FILEPATH,
+            POST.USERID FROM COMMENT INNER JOIN AVATAR on AVATAR.ID = COMMENT.AVATARID
             INNER JOIN USERDATA on COMMENT.USERID = USERDATA.ID
             INNER JOIN POST ON COMMENT.POSTID = POST.ID
             INNER JOIN ALBUMCOVER ON COMMENT.ALBUMCOVERID = ALBUMCOVER.ID
-            ORDER BY COMMENT.ID"""
+            WHERE(POST.USERID = %s)
+            ORDER BY COMMENT.ID""" %current_user.id
             cursor.execute(query)
             value = cursor.fetchall()
             for val in value:

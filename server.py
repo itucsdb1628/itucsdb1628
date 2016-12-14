@@ -402,10 +402,12 @@ def music_page():
 
 '''Activity Routes-Salih'''
 @app.route('/comment/<int:COMMENTID>', methods=['GET','POST'])
+@login_required
 def comment_page(COMMENTID):
     if request.method == 'GET':
         comments = []
         return render_template("comments.html", posts=list(select_post(COMMENTID)), comments=select_comments(COMMENTID))
+
     else:
         actiontype=int(request.form['actiontype'])
         if actiontype == 1:
@@ -414,13 +416,18 @@ def comment_page(COMMENTID):
             postid=int(request.form['postid'])
             return redirect("/comment/" + str(postid))
         if actiontype == 2:
-            comment=request.form['comment']
-            postid=int(request.form['postid'])
-            userid=int(request.form['userid'])
-            avatarid=int(request.form['avatarid'])
-            albumcoverid=int(request.form['albumcover'])
-            insert_comment(comment,userid,postid,avatarid,albumcoverid)
-            return redirect("/comment/" + str(postid))
+            if request.form['comment']:
+                comment=request.form['comment']
+                postid=int(request.form['postid'])
+                userid=int(request.form['userid'])
+                avatarid=int(request.form['avatarid'])
+                albumcoverid=int(request.form['albumcover'])
+                insert_comment(comment,userid,postid,avatarid,albumcoverid)
+                return redirect("/comment/" + str(postid))
+            else:
+                error = 'Please enter a comment'
+                postid=int(request.form['postid'])
+                return render_template("comments.html", posts=list(select_post(COMMENTID)), comments=select_comments(COMMENTID), error=error)
         if actiontype == 3:
             commentid=int(request.form['id'])
             postid=int(request.form['postid'])

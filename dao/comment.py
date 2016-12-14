@@ -1,5 +1,5 @@
 class Comment:
-    def __init__(self, comment, username, avatarpath, content=None, albumcover=None , postid = None ,commentid=None, cdate=None):
+    def __init__(self, comment, username, avatarpath, content=None, postid = None ,commentid=None, albumcover=None, cdate=None):
         self.comment = comment
         self.username = username
         self.avatarpath = avatarpath

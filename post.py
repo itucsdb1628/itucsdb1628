@@ -12,19 +12,19 @@ def select_posts():
              cursor = connection.cursor()
              query = """SELECT POST.ID, POST.CONTENT, POST.SONGID, ALBUMCOVER.FILEPATH,USERDATA.USERNAME,
              POST.LIKECOUNTER AS NUMBER
-             FROM POST,ALBUMCOVER,USERDATA 
+             FROM POST,ALBUMCOVER,USERDATA
              WHERE(
              ALBUMCOVER.ID = POST.ALBUMCOVERID
              AND POST.USERID = USERDATA.ID
-             AND POST.USERID = %s) 
+             AND POST.USERID = %s)
              ORDER BY POST.ID""" % current_user.id
              cursor.execute(query)
              return cursor
         except dbapi2.DatabaseError as e:
              connection.rollback()
-        
-        
-        
+
+
+
 
 def delete_post(DELETEID):
     with dbapi2.connect(dsn) as connection:
@@ -35,14 +35,14 @@ def delete_post(DELETEID):
         except dbapi2.DatabaseError as e:
             connection.rollback()
 
-    
-    
+
+
 
 def select_post(UPDATEID):
     with dbapi2.connect(dsn) as connection:
         try:
              cursor = connection.cursor()
-             query = """SELECT POST.ID, POST.CONTENT, POST.SONGID, ALBUMCOVER.FILEPATH,USERDATA.USERNAME
+             query = """SELECT POST.ID, POST.CONTENT, POST.SONGID, ALBUMCOVER.FILEPATH,USERDATA.USERNAME, POST.ALBUMCOVERID
              FROM POST INNER JOIN ALBUMCOVER on ALBUMCOVER.ID = POST.ALBUMCOVERID
              INNER JOIN USERDATA on USERDATA.ID=POST.USERID WHERE POST.ID = %s  """ %UPDATEID
              cursor.execute(query)
@@ -62,7 +62,7 @@ def update_post(UPDATEID):
             connection.commit()
         except dbapi2.DatabaseError as e:
             connection.rollback()
-            
+
 def insert_post_page():
     with dbapi2.connect(dsn) as connection:
         try:
