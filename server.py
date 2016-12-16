@@ -59,10 +59,10 @@ def like_post(LIKEID,USERNAME):
         insert_like(current_user.id,LIKEID)
     else:
         delete_like(current_user.id,LIKEID)
-        
+
     if(USERNAME == current_user.username):
           return redirect(url_for('timeline_page'))
-    else: 
+    else:
           user = get_user(USERNAME)
           return render_template("timeline_search.html", posts=list(select_posts(user.id)), likes = list(select_user_likes(current_user.id)),owner_user = user)
 
@@ -428,11 +428,11 @@ def comment_page(COMMENTID):
 
     else:
         actiontype=int(request.form['actiontype'])
-        if actiontype == 1:
-            commentid=int(request.form['id'])
-            delete_comment(commentid)
-            postid=int(request.form['postid'])
-            return redirect("/comment/" + str(postid))
+        #if actiontype == 1:
+            #commentid=int(request.form['id'])
+            #delete_comment(commentid)
+            #postid=int(request.form['postid'])
+            #return redirect("/comment/" + str(postid))
         if actiontype == 2:
             if request.form['comment']:
                 comment=request.form['comment']
@@ -452,6 +452,11 @@ def comment_page(COMMENTID):
             new_comment=request.form['new_comment']
             update_comment(new_comment,commentid)
             return redirect("/comment/" + str(postid))
+
+@app.route('/comment/<int:COMMENTID>/<int:C_DELETEID>', methods=['GET', 'POST'])
+def comment_page_delete(COMMENTID,C_DELETEID):
+    delete_comment(C_DELETEID)
+    return redirect("/comment/" + str(COMMENTID))
 
 @app.route('/activities')
 def activities_page():

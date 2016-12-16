@@ -30,6 +30,7 @@
         </div>
     </div>
     	{% for activities in activity %}
+    	{%if current_user.username != activities.username %}
         <div class  = "well" id = "comment">
         <div class="media">
             <div class="media-body">
@@ -55,6 +56,7 @@
         </div>
         </div>
     </div>
+    {%endif%}
     {% endfor %}
         <div class  = "well" id = "share">
         <div class="media">
