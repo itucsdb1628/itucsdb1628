@@ -6,7 +6,7 @@ from dsn_conf import get_dsn
 
 dsn = get_dsn()
 
-def select_posts():
+def select_posts(userid):
     with dbapi2.connect(dsn) as connection:
         try:
              cursor = connection.cursor()
@@ -17,7 +17,7 @@ def select_posts():
              ALBUMCOVER.ID = POST.ALBUMCOVERID
              AND POST.USERID = USERDATA.ID
              AND POST.USERID = %s)
-             ORDER BY POST.ID""" % current_user.id
+             ORDER BY POST.ID""" % userid
              cursor.execute(query)
              return cursor
         except dbapi2.DatabaseError as e:

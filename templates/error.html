@@ -9,10 +9,16 @@
 
 {% block c2 %}
 
-
 <div class = "timeline">
  <div class = "container">
   <div class = "row_short">
+	<div class="row">
+        {%set error_message = error_messages%}
+        <div class="alert alert-danger page-alert" id="alert-4">
+            <button type="button" class="close"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+            <strong>Oh snap! </strong>{{error_message}}
+           
+        </div>
 
 	<div class="row">
 		<div class="row">
@@ -97,6 +103,9 @@
   </div>
  </div>
 </div>
+
+
+
 
 
 

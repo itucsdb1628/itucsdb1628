@@ -53,19 +53,37 @@ def create_app():
     return app
 '''********************************TIMELINE ROUTES - ismail*********************************'''
 
-@app.route('/timeline/like/<int:LIKEID>', methods=['GET', 'POST'])
-def like_post(LIKEID):
+@app.route('/timeline/like/<int:LIKEID>/<string:USERNAME>', methods=['GET', 'POST'])
+def like_post(LIKEID,USERNAME):
     if(control_like(current_user.id,LIKEID)):
         insert_like(current_user.id,LIKEID)
     else:
         delete_like(current_user.id,LIKEID)
-    return redirect(url_for('timeline_page'))
+        
+    if(USERNAME == current_user.username):
+          return redirect(url_for('timeline_page'))
+    else: 
+          user = get_user(USERNAME)
+          return render_template("timeline_search.html", posts=list(select_posts(user.id)), likes = list(select_user_likes(current_user.id)),owner_user = user)
+
+
+@app.route('/timeline/search' ,methods=['GET', 'POST'])
+def search_user():
+    content = request.form['content']
+    user = get_user(content)
+    if(user == None):
+         return render_template("error.html" ,posts=list(select_posts(current_user.id)), likes = list(select_user_likes(current_user.id)),error_messages = 'User could not be found.',owner_user = current_user)
+    if(current_user.id == user.id):
+         return render_template("timeline.html", posts=list(select_posts(current_user.id)), likes = list(select_user_likes(current_user.id)),owner_user = current_user)
+    else:
+         return render_template("timeline_search.html", posts=list(select_posts(user.id)), likes = list(select_user_likes(current_user.id)), owner_user = user)
+
 
 @app.route('/timeline')
 @login_required
 def timeline_page():
     id = current_user.id
-    return render_template("timeline.html", posts=select_posts(), likes = list(select_user_likes(current_user.id)))
+    return render_template("timeline.html", posts=list(select_posts(id)), likes = list(select_user_likes(current_user.id)),owner_user = current_user)
 
 
 @app.route('/timeline/delete/<int:DELETEID>', methods=['GET', 'POST'])
@@ -76,7 +94,7 @@ def timeline_page_delete(DELETEID):
 
 @app.route('/timeline/update/<int:UPDATEID>/', methods=['GET', 'POST'])
 def timeline_page_update(UPDATEID):
-    return render_template('timeline_edit.html', posts=select_post(UPDATEID))
+    return render_template('timeline_edit.html', posts=select_post(UPDATEID),owner_user = current_user)
 
 
 @app.route('/timeline/update/<int:UPDATEID>/APPLY', methods=['GET', 'POST'])

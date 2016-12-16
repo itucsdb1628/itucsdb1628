@@ -7,7 +7,7 @@
 
 
 {% block content %}
-
+    
 <div class="container">
 	<div class="row">
 		<div class="col-lg-3 col-sm-6 col-md-3">
@@ -21,7 +21,8 @@
                 </div>
                 <div class="info">
                     <div class="title">
-                        <a>First Second</a>
+                        {%set user = owner_user%}
+                        <a>{{user.username}}</a>
                     </div>
                     <p>biography biography biography biography biography</p>
                     	<a href="#">

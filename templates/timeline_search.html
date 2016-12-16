@@ -8,11 +8,14 @@
 
 
 {% block c2 %}
+
+
+
 <div class = "timeline">
  <div class = "container">
   <div class = "row_short">
 	<div class="row">
-        		{% for ID, CONTENT, SONGID, FILEPATH,USERNAME,ALBUMCOVER in posts %}
+        		{% for ID, CONTENT, SONGID, FILEPATH,USERNAME,NUMBER in posts%}
 		<div class="row">
                     <div class="col-xs-12 col-sm-3 col-md-3">
                         <a href="#">
@@ -42,16 +45,32 @@
                             </div>
                         </div>
                         <h4><a href="#">{{SONGID}}</a></h4>
-                        <form action="APPLY" method = "post">
-                            <input type="text" name="content" required="required" value="{{CONTENT}}">
-                            <input type="submit" value="Update Post" name="add">
-                        </form>
+                        <p>{{CONTENT}}</p>
                     </div>
+                    <p align = "center">
+                        {% set vars = {'a': True} %}
+                   {% for POSTID,LIKEDATE in likes%}
+                        {%if POSTID == ID %}
+                          {% if vars.update({'a': False}) %} {% endif %}
+                  	         <a href="{{ url_for('like_post', LIKEID=ID,  USERNAME = USERNAME) }}" > <i class="glyphicon glyphicon-heart" style="color:red"></i> Likes ({{NUMBER}}) <span class="twitter"> <i class="fa fa-twitter"></i> </span>
+                            </a>
+                        {%endif%}
+                    {% endfor %}
+                        {%if vars.a %}
+                            <a href="{{ url_for('like_post', LIKEID=ID, USERNAME = USERNAME ) }}"> <i class="glyphicon glyphicon-heart" style="color:grey"></i> Likes ({{NUMBER}}) <span class="twitter"> <i class="fa fa-twitter"></i> </span>
+                        {%endif%}
 
+                  	&nbsp;&nbsp;&nbsp; <a href="#"> <i class="glyphicon glyphicon-play-circle"></i> Play <span class="twitter"> <i class="fa fa-twitter"></i> </span>
+                	</a>
+
+                	&nbsp;&nbsp;&nbsp;<a href="{{ url_for('comment_page', COMMENTID=ID) }}"> <i class="glyphicon glyphicon-pencil"></i>  Comments(10) <span class="twitter"> <i class="fa fa-twitter"></i> </span>
+                	</a>
+                	&nbsp;&nbsp;&nbsp;<a href="#"> <i class="glyphicon glyphicon-share-alt"></i>  Share <span class="twitter"> <i class="fa fa-twitter"></i> </span>
+                	</a>
+                	</p>
                 </div>
                 <hr>
         	{% endfor %}
-                        
 	</div>
   </div>
  </div>
