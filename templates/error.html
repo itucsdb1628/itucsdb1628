@@ -4,11 +4,12 @@
 {% block static_links %}
     <link rel="stylesheet" href="{{ url_for('static', filename='css/profile.css') }}" />
  	<link rel="stylesheet" href="{{ url_for('static', filename='css/timeline.css') }}" />
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.7.5/css/bootstrap-select.min.css">
 {% endblock %}
 
 
 {% block c2 %}
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.7.5/js/bootstrap-select.min.js"></script>
 <div class = "timeline">
  <div class = "container">
   <div class = "row_short">
@@ -20,24 +21,36 @@
            
         </div>
 
-	<div class="row">
-		<div class="row">
 
-                    <form align = "center" action="timeline/insert" method = "post">
-                            <input type="hidden" name="userid" required="required" value = '1'>
-			                <input type="text" name="content" required="required">
-                            <select name="albumcover" id="albumcover">
-	                            <option value="1">Beatles</option>
+		<div class="row">
+                     <form align = "right" action="../../timeline/insert" method = "post">
+			                 <div class="panel-body">
+                            <textarea name="content" class="form-control" placeholder="What's going on..." rows="4" maxlength='100' required = "required"></textarea>
+                            </div>
+                            <select class="selectpicker" data-style="btn-info" name = "albumcover" data-live-search="true" >
+                                <option value="1">Beatles</option>
 	                            <option value="2">Led Zeppelin</option>
 	                            <option value="3">Metallica</option>
                                 <option value="4">Pink Floyd</option>
                             </select>
                             <input type = "hidden" name= "songid" value = '1'>
-                           <input type="submit" value="Share" name="share">
+                           <button type="submit" class="btn btn-primary pull-right">
+                                Share
+                                <span class="glyphicon glyphicon-share-alt"></span>
+                            </button>
                     </form>
-
-	</div>
   </div>
+        <hr>
+         {%if posts%}
+      
+      {%else%}
+      <div class="alert alert-info page-alert" id="alert-4">
+            <button type="button" class="close"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+            <strong>What a active user!</strong> There is no post belong to you!
+           
+        </div>
+      {%endif%}
+        
 	<div class="row">
         		{% for ID, CONTENT, SONGID, FILEPATH,USERNAME,NUMBER in posts%}
 		<div class="row">
