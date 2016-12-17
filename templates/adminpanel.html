@@ -264,13 +264,15 @@
 			        <p>
 				  		<h4 align="center">Update an existing artist</h4>
 						<form align= "center" role="form" action="" method= "post">
-							<input type="text" name="newname" required="required">
-							<input type="hidden" name="actiontype" required="required" value ="8">
 							<select name="artistid">
 								{% for ID, NAME, PICTUREID in allartist %}
 		                            <option value="{{ID}}">{{NAME}}</option>
 		                        {% endfor %}
                             </select>
+							<p>New artist name:<input type="text" name="newname" required="required">
+							<p>New artist picture URL:<input type="text" name="newname" required="required">
+							<input type="hidden" name="actiontype" required="required" value ="8">
+
 							<button type="submit" name="updateartist" class="btn btn-default">Update</button>
 				        </form>
 					</p>

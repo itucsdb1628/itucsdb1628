@@ -471,7 +471,7 @@ def create_pic_table():
             statement = """CREATE TABLE IF NOT EXISTS PICTURE(
                 ID SERIAL PRIMARY KEY,
                 TYPE INTEGER NOT NULL,
-                FILEPATH VARCHAR(100) NOT NULL
+                FILEPATH VARCHAR(200) NOT NULL
                 )"""
             cursor.execute(statement)
             statement = """INSERT INTO PICTURE (FILEPATH,TYPE)
