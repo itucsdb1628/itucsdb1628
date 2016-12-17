@@ -1,6 +1,7 @@
 applications:
 - services:
   - ElephantSQL-sk
+  - Object Storage-8c
   disk_quota: 1024M
   host: itucsdb1628
   name: itucsdb1628 
