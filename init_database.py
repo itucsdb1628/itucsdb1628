@@ -53,8 +53,8 @@ def create_suggestion_table():
             cursor.close()
         except dbapi2.DatabaseError as e:
             connection.rollback()
-            
-            
+
+
 def drop_like_table():
     with dbapi2.connect(dsn) as connection:
         try:

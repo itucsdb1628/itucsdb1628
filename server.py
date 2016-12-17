@@ -461,7 +461,8 @@ def comment_page_delete(COMMENTID,C_DELETEID):
 @app.route('/activities')
 def activities_page():
     activity = []
-    return render_template("activities.html", activity=select_comments2())
+    likes_activity=list(select_likeFor_activities(current_user.id))
+    return render_template("activities.html", activity=select_comments2(), likes_activity=likes_activity)
 
 
 @app.route('/activities/insert', methods=['GET', 'POST'])

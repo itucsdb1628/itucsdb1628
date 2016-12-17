@@ -40,7 +40,7 @@ def insert_like(userId,postId):
             connection.commit()
         except dbapi2.DatabaseError as e:
             connection.rollback()
-        
+
 def select_like(userId,postId):
     with dbapi2.connect(dsn) as connection:
         try:
@@ -52,40 +52,57 @@ def select_like(userId,postId):
              return cursor
         except dbapi2.DatabaseError as e:
              connection.rollback()
-             
+
 def select_user_likes(userId):
        with dbapi2.connect(dsn) as connection:
         try:
              cursor = connection.cursor()
-             query = """SELECT POSTID,LIKEDATE FROM LIKES 
-             WHERE USERID = %s 
+             query = """SELECT POSTID,LIKEDATE FROM LIKES
+             WHERE USERID = %s
              ORDER BY POSTID"""
              cursor.execute(query,(userId,))
              connection.commit()
              return cursor
         except dbapi2.DatabaseError as e:
              connection.rollback()
-             
+
 def select_like_number(userId):
      with dbapi2.connect(dsn) as connection:
         try:
              cursor = connection.cursor()
              query = """SELECT COUNT(*) FROM LIKES WHERE
-             AND USERID = %s 
+             AND USERID = %s
              GROUP BY POSTID,USERID ORDER BY POSTID"""
              cursor.execute(query,(userId,))
              connection.commit()
              return cursor
         except dbapi2.DatabaseError as e:
              connection.rollback()
-             
+
 def control_like(userId,postId):
     with dbapi2.connect(dsn) as connection:
         cursor = connection.cursor()
         cursor = select_like(userId,postId)
         control = cursor.fetchone()
-    
+
         if control is None:
             return True
-        else: 
+        else:
             return False
+
+def select_likeFor_activities(userId):
+    with dbapi2.connect(dsn) as connection:
+        try:
+             cursor = connection.cursor()
+             query = """SELECT POST.ID, POST.USERID, POST.CONTENT, USERDATA.USERNAME,LIKES.POSTID, ALBUMCOVER.FILEPATH
+             FROM LIKES,USERDATA,POST,ALBUMCOVER
+             WHERE (LIKES.USERID = USERDATA.ID
+             AND LIKES.POSTID = POST.ID
+             AND POST.ALBUMCOVERID = ALBUMCOVER.ID
+             AND POST.USERID = %s)
+             ORDER BY POSTID"""%userId
+             cursor.execute(query,(userId,))
+             connection.commit()
+             return cursor
+        except dbapi2.DatabaseError as e:
+             connection.rollback()

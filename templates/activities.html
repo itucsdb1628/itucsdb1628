@@ -13,22 +13,26 @@
 
 {% block content  %}
 	<div class = "container">
+		{% for ID,USERID,CONTENT,USERNAME,POSTID,FILEPATH in likes_activity %}
+		{%if current_user.username != USERNAME%}
         <div class  = "well" id = "like">
         <div class="media">
             <div class="media-body">
-                <h4 class="media-heading"><span class="glyphicon glyphicon-heart" id = "heart-icon"></span> Salih liked your post!</h4>
+                <h4 class="media-heading"><span class="glyphicon glyphicon-heart" id = "heart-icon"></span> {{USERNAME}} liked your post!</h4>
                 <div class="media mt-2">
                     <a class="media-left" href="#">
-                    <img class="media-object" src="static/images/metallica.jpg" alt="Metallica">
+                    <img class="media-object" src="{{FILEPATH}}" alt="Metallica">
                     </a>
                     <div class="media-body">
                         <h4 class="media-heading" id = "like-heading">Metallica</h4>
-                        Harvester of Sorrow
+                        {{CONTENT}}
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    {% endif %}
+    {% endfor %}
     	{% for activities in activity %}
     	{%if current_user.username != activities.username %}
         <div class  = "well" id = "comment">
