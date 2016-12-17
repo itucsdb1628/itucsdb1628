@@ -79,7 +79,7 @@ def search_user():
     content = request.form['content']
     user = get_user(content)
     if(user == None):
-         return render_template("error.html" ,posts=list(select_posts(current_user.id)), likes = list(select_user_likes(current_user.id)),error_messages = 'User could not be found.',owner_user = current_user)
+         return render_template("error.html" ,posts=list(select_posts(current_user.id)), likes = list(select_user_likes(current_user.id)),error_messages = 'User could not be found.',owner_user = current_user,reposts = list(select_sharedPost(current_user.id)))
     if(current_user.id == user.id):
          return render_template("timeline.html", posts=list(select_posts(current_user.id)), likes = list(select_user_likes(current_user.id)),owner_user = current_user,reposts = list(select_sharedPost(current_user.id)))
     else:

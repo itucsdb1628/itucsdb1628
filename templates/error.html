@@ -18,7 +18,7 @@
         <div class="alert alert-danger page-alert" id="alert-4">
             <button type="button" class="close"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
             <strong>Oh snap! </strong>{{error_message}}
-           
+
         </div>
 
 
@@ -38,19 +38,22 @@
                                 Share
                                 <span class="glyphicon glyphicon-share-alt"></span>
                             </button>
+                            <button type="button" class="btn btn-default pull-right" data-toggle="modal" data-target="#reposts">
+                            See reposts!
+                            </button>
                     </form>
   </div>
         <hr>
          {%if posts%}
-      
+
       {%else%}
       <div class="alert alert-info page-alert" id="alert-4">
             <button type="button" class="close"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
             <strong>What a active user!</strong> There is no post belong to you!
-           
+
         </div>
       {%endif%}
-        
+
 	<div class="row">
         		{% for ID, CONTENT, SONGID, FILEPATH,USERNAME,NUMBER,POSTDATE in posts%}
 		<div class="row">
@@ -116,6 +119,65 @@
   </div>
  </div>
 </div>
+<!-- REPOSTS -->
+<div id="reposts" class="modal fade" role="dialog">
+	<div class="modal-dialog">
+		<!-- Modal content-->
+		<div class="modal-content">
+			<div class="modal-body">
+			 <p>
+				<h4 align="center">Reposts of {{current_user.username}}</h4>
+				<hr>
+				<div class="row">
+        			{% for ID, CONTENT, SONGID, FILEPATH,USERNAME,POSTDATE,SHAREDATE in reposts%}
+				<div class="row">
+                    <div class="col-xs-12 col-sm-3 col-md-3">
+                        <a href="#">
+                            <img src="{{FILEPATH}}" class="img-responsive img-box img-thumbnail">
+                        </a>
+                    </div>
+                    <div class="col-xs-12 col-sm-9 col-md-9">
+                 	       <div class="list-group">
+                            <div class="list-group-item">
+                                <div class="row-picture">
+                                    <a href="#" title="First Second">
+                                        <img class="circle img-thumbnail img-box" src="{{ url_for('static', filename='images/logo.jpg') }}" alt="logo">
+                                    </a>
+                                </div>
+                                <div class="row-content">
+                                    <div class="list-group-item-heading">
+                                        <a href="#" title="First Second">
+                                            <small>{{USERNAME}}</small>
+                                        </a>
+                                        <small style="float:right" title="Sharing time">
+                                            <i class="glyphicon glyphicon-time"></i><small>{{SHAREDATE}}</small><span class="twitter"> <i class="fa fa-twitter"></i> </span>
+                                        </small>
+                                    </div>
+                                    <small>
+                                        <i class="glyphicon glyphicon-time"></i> {{POSTDATE}} <span class="twitter"> <i class="fa fa-twitter"></i> </span>
+                                        <br>
+
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+                        <h4><a href="#">{{SONGID}}</a></h4>
+                        <p>{{CONTENT}}</p>
+                        <a href="{{ url_for('repost_delete_page', repost_deleteID=ID) }}" title="Delete"> <i class="glyphicon glyphicon-remove" style="float:right; margin-right:10px; padding-top:0px" ></i><span class="twitter"> <i class="fa fa-twitter"></i> </span>
+                	</a>
+                    </div>
+                </div>
+                <hr>
+        	{% endfor %}
+				</div>
+				</p>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<!-- REPOSTS -->
 
 
 
