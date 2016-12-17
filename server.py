@@ -37,37 +37,10 @@ from flask.globals import request
 
 lm = LoginManager()
 
-UPLOAD_FOLDER = 'static/images/uploaded/'
-ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg', 'gif'])
 
 app = Flask(__name__)
-app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 
-
-'''********************************UPLOADING FILES*********************************'''
-def allowed_file(filename):
-    return '.' in filename and \
-           filename.rsplit('.', 1)[1] in ALLOWED_EXTENSIONS
-
-def upload_file(route):
-    if request.method == 'POST':
-        # check if the post request has the file part
-        if 'file' not in request.files:
-            flash('No file part')
-            return redirect(request.url)
-        file = request.files['file']
-        # if user does not select file, browser also
-        # submit a empty part without filename
-        if file.filename == '':
-            flash('No selected file')
-            return redirect(route)
-        if file and allowed_file(file.filename):
-            filename = secure_filename(file.filename)
-            file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-            return filename
-
-'''********************************UPLOADING FILES*********************************'''
 
 @lm.user_loader
 def load_user(user_id):
@@ -211,8 +184,7 @@ def adminpanel_page():
             update_album(albumid,albumname,albumcoverid,albumdate)
             return redirect(url_for('adminpanel_page'))
         if actiontype == 7:  # addartist
-            filename = upload_file('adminpanel_page')
-            filename = UPLOAD_FOLDER + filename
+            filename = request.form['filepath']
             insert_picture(Picture(filename,1))
             artistname = request.form['artistname']
             pictureid = select_picture_id(filename)

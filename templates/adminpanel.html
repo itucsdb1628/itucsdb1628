@@ -240,9 +240,11 @@
 			        <p>
 				  		<h4 align="center">Add a new artist</h4>
 				  		<form align="center" action="" method=post enctype=multipart/form-data>
-					      <input type="text" name="artistname" required="required">
+				  			<p>Name:
+					      	<input type="text" name="artistname" required="required">
 							<input type="hidden" name="actiontype" required="required" value ="7">
-					      <div align="center"><input type=file name=file></div>
+							<p>URL for the artists picture:
+					      	<input type="text" name="filepath" required="required">
 					      	<button type="submit" name="addartist" class="btn btn-default">Add</button>
 					    </form>
 					</p>
@@ -472,8 +474,6 @@
                                 <button type="submit" name="reject" class="btn btn-default">Reject</button></form></td>
                                     </tr>
                                  </div>
-
-
 			               {% endfor %}
 			         </table>
 					</p>
@@ -495,8 +495,6 @@
 						{% for artist_pic in artist_pics[0::3] %}
 							<div class="col-xs-12">
 								      <img src="{{artist_pic[1]}}" alt="cover" width="128" height="128">
-								      <p class="name">aaa</p>
-								      <p class="song_count">bbb</p>
 								  </div>
 						{% endfor %}
 						</div>
@@ -504,8 +502,6 @@
 						{% for artist_pic in artist_pics[1::3] %}
 							<div class="col-xs-12">
 								      <img src="{{artist_pic[1]}}" alt="cover" width="128" height="128">
-								      <p class="name">aaa</p>
-								      <p class="song_count">bbb</p>
 								  </div>
 
 						{% endfor %}
@@ -514,19 +510,11 @@
 						{% for artist_pic in artist_pics[2::3] %}
 							<div class="col-xs-12">
 								      <img src="{{artist_pic[1]}}" alt="cover" width="128" height="128">
-								      <p class="name">aaa</p>
-								      <p class="song_count">bbb</p>
 								  </div>
 						{% endfor %}
 						</div>
 						</div>
 						<div class="row">
-				  		<h4 align="center">Add a new artist picture</h4>
-				        <form align="center" action="" method=post enctype=multipart/form-data>
-					      <p><input type="hidden" name="actiontype" required="required" value ="16"></p>
-					      <div align="center"><input type=file name=file></div>
-					      	<button type="submit" name="uploadalbumpic" class="btn btn-default">Upload</button>
-					    </form>
 					    </div>
 			      </div>
 			    </div>
