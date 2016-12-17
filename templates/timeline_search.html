@@ -14,19 +14,29 @@
 <div class = "timeline">
  <div class = "container">
   <div class = "row_short">
+  	<div class="row">
+		<div class="row">
+
+                    <form align = "right" action="../../timeline/insert" method = "post">
+                            <button type="button" class="btn btn-default pull-right" data-toggle="modal" data-target="#reposts">
+                            See reposts!
+                            </button>
+                    </form>
+	</div>
+  </div>
 	<div class="row">
         <hr>
         {%if posts%}
-      
+
       {%else%}
       <div class="alert alert-info page-alert" id="alert-4">
             <button type="button" class="close"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
             <strong>What a active user!</strong> There is no post belong to this user!
-           
+
         </div>
       {%endif%}
-        
-        
+
+
         		{% for ID, CONTENT, SONGID, FILEPATH,USERNAME,NUMBER,POSTDATE in posts%}
 		<div class="row">
                     <div class="col-xs-12 col-sm-3 col-md-3">
@@ -77,7 +87,7 @@
 
                 	&nbsp;&nbsp;&nbsp;<a href="{{ url_for('comment_page', COMMENTID=ID) }}"> <i class="glyphicon glyphicon-pencil"></i>  Comments(10) <span class="twitter"> <i class="fa fa-twitter"></i> </span>
                 	</a>
-                	&nbsp;&nbsp;&nbsp;<a href="#"> <i class="glyphicon glyphicon-share-alt"></i>  Share <span class="twitter"> <i class="fa fa-twitter"></i> </span>
+                	&nbsp;&nbsp;&nbsp;<a href="{{ url_for('post_share_page', shareID=ID) }}"> <i class="glyphicon glyphicon-share-alt"></i>  Share <span class="twitter"> <i class="fa fa-twitter"></i> </span>
                 	</a>
                 	</p>
                 </div>
@@ -88,6 +98,63 @@
  </div>
 </div>
 
+<!-- REPOSTS -->
+<div id="reposts" class="modal fade" role="dialog">
+	<div class="modal-dialog">
+		<!-- Modal content-->
+		<div class="modal-content">
+			<div class="modal-body">
+			 <p>
+				<h4 align="center">Reposts of {{owner_user.username}}</h4>
+				<hr>
+				<div class="row">
+        			{% for ID, CONTENT, SONGID, FILEPATH,USERNAME,POSTDATE,SHAREDATE in reposts%}
+				<div class="row">
+                    <div class="col-xs-12 col-sm-3 col-md-3">
+                        <a href="#">
+                            <img src="{{FILEPATH}}" class="img-responsive img-box img-thumbnail">
+                        </a>
+                    </div>
+                    <div class="col-xs-12 col-sm-9 col-md-9">
+                 	       <div class="list-group">
+                            <div class="list-group-item">
+                                <div class="row-picture">
+                                    <a href="#" title="First Second">
+                                        <img class="circle img-thumbnail img-box" src="{{ url_for('static', filename='images/logo.jpg') }}" alt="logo">
+                                    </a>
+                                </div>
+                                <div class="row-content">
+                                    <div class="list-group-item-heading">
+                                        <a href="#" title="First Second">
+                                            <small>{{USERNAME}}</small>
+                                        </a>
+                                        <small style="float:right" title="Sharing time">
+                                            <i class="glyphicon glyphicon-time"></i><small>{{SHAREDATE}}</small><span class="twitter"> <i class="fa fa-twitter"></i> </span>
+                                        </small>
+                                    </div>
+                                    <small>
+                                        <i class="glyphicon glyphicon-time"></i> {{POSTDATE}} <span class="twitter"> <i class="fa fa-twitter"></i> </span>
+                                        <br>
+
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+                        <h4><a href="#">{{SONGID}}</a></h4>
+                        <p>{{CONTENT}}</p>
+                    </div>
+                </div>
+                <hr>
+        	{% endfor %}
+				</div>
+				</p>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<!-- REPOSTS -->
 
 
 

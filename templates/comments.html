@@ -92,7 +92,7 @@
             						{%endif%}
 								</div>
 								<div class="panel-body">
-									{{content.comment}}
+									<p>{{content.comment}}</p>
 								</div><!-- /panel-body -->
 							</div><!-- /panel panel-default -->
 						</div><!-- /col-sm-5 -->
@@ -126,7 +126,7 @@
     		{% for ID, CONTENT, SONGID, FILEPATH,USERNAME,ALBUMCOVERID in posts %}
 			<form align="center" role="form" action="" method="post" name="comment_add"
             class="form-horizontal">
-            <textarea style="margin-bottom:0px; margin-left:60px" rows="4" cols="20" name="comment" required = ""></textarea>
+            <textarea style="margin-bottom:0px; margin-left:60px" rows="4" cols="20" maxlength='150' name="comment" required = ""></textarea>
             <input type="hidden" name="postid" required="required" value="{{ID}}">
             <input type="hidden" name="actiontype" value="2">
             <input type="hidden" name="userid" required="required" value="{{current_user.id}}">

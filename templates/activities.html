@@ -62,22 +62,26 @@
     </div>
     {%endif%}
     {% endfor %}
+    	{% for CONTENT,FILEPATH,USERNAME in reposts%}
+    	{%if current_user.username != USERNAME%}
         <div class  = "well" id = "share">
         <div class="media">
             <div class="media-body">
-                <h4 class="media-heading"><span class="glyphicon glyphicon-share" id = "share-icon"></span> Salih shared your post!</h4>
+                <h4 class="media-heading"><span class="glyphicon glyphicon-share" id = "share-icon"></span> {{USERNAME}} shared your post!</h4>
                 <div class="media mt-2">
                     <a class="media-left" href="#">
-                    <img class="media-object" src="static/images/metallica.jpg" alt="Generic placeholder image">
+                    <img class="media-object" src="{{FILEPATH}}" alt="Generic placeholder image">
                     </a>
                     <div class="media-body">
                         <h4 class="media-heading" id = "like-heading">Metallica</h4>
-                        Harvester of Sorrow
+                        {{CONTENT}}
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    {% endif %}
+    {% endfor %}
 </div>
 {% endblock %}
 

@@ -14,6 +14,7 @@ from init_database import insert_sample_data
 from post import *
 from like import *
 from comment import *
+from shared_post import *
 from forms import *
 from song import *
 from artist import *
@@ -80,16 +81,16 @@ def search_user():
     if(user == None):
          return render_template("error.html" ,posts=list(select_posts(current_user.id)), likes = list(select_user_likes(current_user.id)),error_messages = 'User could not be found.',owner_user = current_user)
     if(current_user.id == user.id):
-         return render_template("timeline.html", posts=list(select_posts(current_user.id)), likes = list(select_user_likes(current_user.id)),owner_user = current_user)
+         return render_template("timeline.html", posts=list(select_posts(current_user.id)), likes = list(select_user_likes(current_user.id)),owner_user = current_user,reposts = list(select_sharedPost(current_user.id)))
     else:
-         return render_template("timeline_search.html", posts=list(select_posts(user.id)), likes = list(select_user_likes(current_user.id)), owner_user = user)
+         return render_template("timeline_search.html", posts=list(select_posts(user.id)), likes = list(select_user_likes(current_user.id)), owner_user = user,reposts = list(select_sharedPost(user.id)))
 
 
 @app.route('/timeline')
 @login_required
 def timeline_page():
     id = current_user.id
-    return render_template("timeline.html", posts=list(select_posts(id)), likes = list(select_user_likes(current_user.id)),owner_user = current_user)
+    return render_template("timeline.html", posts=list(select_posts(id)), likes = list(select_user_likes(current_user.id)),owner_user = current_user,reposts = list(select_sharedPost(id)))
 
 
 @app.route('/timeline/delete/<int:DELETEID>', methods=['GET', 'POST'])
@@ -501,12 +502,24 @@ def comment_page_delete(COMMENTID,C_DELETEID):
     delete_comment(C_DELETEID)
     return redirect("/comment/" + str(COMMENTID))
 
+@app.route('/timeline/search/<int:shareID>',methods=['GET','POST'])
+@login_required
+def post_share_page(shareID):
+    insert_sharedPost(shareID)
+    return redirect(url_for('timeline_page'))
+
+@app.route('/timeline/delete_r/<int:repost_deleteID>',methods=['GET','POST'])
+@login_required
+def repost_delete_page(repost_deleteID):
+    delete_sharedPost(repost_deleteID)
+    return redirect(url_for('timeline_page'))
+
 @app.route('/activities')
 @login_required
 def activities_page():
     activity = []
     likes_activity=list(select_likeFor_activities(current_user.id))
-    return render_template("activities.html", activity=select_comments2(), likes_activity=likes_activity)
+    return render_template("activities.html", activity=select_comments2(), likes_activity=likes_activity,reposts = list(select_sharedFor_activities(current_user.id)))
 
 
 @app.route('/activities/insert', methods=['GET', 'POST'])

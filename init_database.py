@@ -256,13 +256,6 @@ def create_comment_table():
             CDATE TIMESTAMP
             )"""
             cursor.execute(statement)
-            statement = """INSERT INTO COMMENT (COMMENT,USERID,POSTID,AVATARID,ALBUMCOVERID,CDATE)
-                            VALUES(%s,%s,%s,%s,%s,%s)"""
-            cursor.execute(statement,('Nice Song!',1,1,1,1,'1.11.2016'));
-            statement = """INSERT INTO COMMENT(COMMENT,USERID,POSTID,AVATARID,ALBUMCOVERID,CDATE)
-                            VALUES(%s,%s,%s,%s,%s,%s)"""
-            cursor.execute(statement,('Liked it!',1,3,1,3,'1.11.2016'));
-
             connection.commit()
             cursor.close()
         except dbapi2.DatabaseError:
@@ -280,6 +273,33 @@ def insert_comment(comment):
         except dbapi2.DatabaseError as e:
             connection.rollback()
 
+def create_share_table():
+    with dbapi2.connect(dsn) as connection:
+        try:
+            cursor = connection.cursor()
+            statement =     """CREATE TABLE IF NOT EXISTS SHARE(
+            ID SERIAL PRIMARY KEY,
+            POSTID INTEGER NOT NULL REFERENCES POST(ID) ON DELETE CASCADE,
+            REPOSTERID INTEGER NOT NULL REFERENCES USERDATA(ID) ON DELETE CASCADE,
+            SHAREDATE TIMESTAMP
+            )"""
+            cursor.execute(statement)
+            connection.commit()
+            cursor.close()
+        except dbapi2.DatabaseError as e:
+            connection.rollback()
+
+def drop_share_table():
+    with dbapi2.connect(dsn) as connection:
+        try:
+            cursor = connection.cursor()
+            statement = """DROP TABLE IF EXISTS SHARE"""
+            cursor.execute(statement)
+            connection.commit()
+            cursor.close()
+        except dbapi2.DatabaseError as e:
+            connection.rollback()
+'''****************************************************************************************************************************************************'''
 def drop_messages_table():
     with dbapi2.connect(dsn) as connection:
         with connection.cursor() as cursor:
@@ -571,6 +591,7 @@ def reset_database():
 
     drop_suggestion_table()
     drop_userdetails_table()
+    drop_share_table()
     drop_like_table()
     drop_comment_table()
     drop_post_table()
@@ -604,6 +625,7 @@ def insert_sample_data():
     create_album_cover_table()
     create_post_table()
     create_like_table()
+    create_share_table()
     firstPost = Post("perfect!", datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"), 1, 1, 1)
     insert_post(firstPost)
     create_avatar_table()
