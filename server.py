@@ -5,6 +5,7 @@ from flask import redirect
 from flask import render_template
 from flask.helpers import url_for
 from flask import current_app, request
+from werkzeug.utils import secure_filename ####
 
 # from dao.messages import Room, Message, tempLoggedUser
 import dao.messages as Messages
@@ -21,6 +22,7 @@ from userdata import *
 from dao.genre import *
 from dao.artist import *
 from dao.song import *
+from picture import *
 from album import *
 from dao.userdetails import *
 from suggestion import *
@@ -34,9 +36,38 @@ from flask.globals import request
 
 
 lm = LoginManager()
+
+UPLOAD_FOLDER = 'static/images/uploaded/'
+ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg', 'gif'])
+
 app = Flask(__name__)
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 
+
+'''********************************UPLOADING FILES*********************************'''
+def allowed_file(filename):
+    return '.' in filename and \
+           filename.rsplit('.', 1)[1] in ALLOWED_EXTENSIONS
+
+def upload_file(route):
+    if request.method == 'POST':
+        # check if the post request has the file part
+        if 'file' not in request.files:
+            flash('No file part')
+            return redirect(request.url)
+        file = request.files['file']
+        # if user does not select file, browser also
+        # submit a empty part without filename
+        if file.filename == '':
+            flash('No selected file')
+            return redirect(route)
+        if file and allowed_file(file.filename):
+            filename = secure_filename(file.filename)
+            file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+            return filename
+
+'''********************************UPLOADING FILES*********************************'''
 
 @lm.user_loader
 def load_user(user_id):
@@ -111,7 +142,7 @@ def timeline_page_apply(UPDATEID):
 @app.route('/timeline/insert', methods=['GET', 'POST'])
 @login_required
 def timeline_page_insert():
-    insert_post_page()  
+    insert_post_page()
     return redirect(url_for('timeline_page'))
 
 @app.route('/suggestions')
@@ -148,7 +179,7 @@ def adminpanel_page():
         allgenre=[]
         allartist=[]
         song_album=[]
-        return render_template('adminpanel.html', albums=select_albums(), allgenre=select_all_genre(), allartist=select_all_artist(), song_album=select_song_album(),suggestions =  select_suggestions())
+        return render_template('adminpanel.html', albums=select_albums(), allgenre=select_all_genre(), allartist=select_all_artist(), song_album=select_song_album(),suggestions =  select_suggestions(), artist_pics= select_artist_pics())
     else:
         actiontype = int(request.form['actiontype'])
         if actiontype == 1:  # addgenre
@@ -180,8 +211,12 @@ def adminpanel_page():
             update_album(albumid,albumname,albumcoverid,albumdate)
             return redirect(url_for('adminpanel_page'))
         if actiontype == 7:  # addartist
+            filename = upload_file('adminpanel_page')
+            filename = UPLOAD_FOLDER + filename
+            insert_picture(Picture(filename,1))
             artistname = request.form['artistname']
-            newartist = Artist(artistname)
+            pictureid = select_picture_id(filename)
+            newartist = Artist(artistname,pictureid[0])
             insert_artist(newartist)
             return redirect(url_for('adminpanel_page'))
         if actiontype == 8:  # updateartist
@@ -226,6 +261,15 @@ def adminpanel_page():
         if actiontype == 15:
             suggestionId = request.form['id']
             reject_suggestion(suggestionId)
+            return redirect(url_for('adminpanel_page'))
+        if actiontype == 16: #add artist pic
+            filename = upload_file('adminpanel_page')
+            filename = UPLOAD_FOLDER + filename
+            insert_picture(Picture(filename,1))
+            return redirect(url_for('adminpanel_page'))
+        if actiontype == 17: #add album pic
+            filename = upload_file('adminpanel_page')
+            filename = UPLOAD_FOLDER + filename
             return redirect(url_for('adminpanel_page'))
 
 

@@ -41,9 +41,14 @@
 			<button type="button" class="btn btn-default" data-toggle="modal" data-target="#suggestions">List</button>
 		</div>
         <div class="col-xs-1"></div>
+        <div class="col-xs-5 menuitem">
+			Pictures
+			<button type="button" class="btn btn-default" data-toggle="modal" data-target="#artist_pictures">Artist Pictures</button>
+			<button type="button" class="btn btn-default" data-toggle="modal" data-target="#album_pic_add">Album Pictures</button>
+		</div>
 	</div>
-    
-    
+
+
 	<div class="row">
 		<form class="col-xs-2" align= "center" role="form" action="" method= "post">
 			<input type="hidden" name="actiontype" required="required" value ="13">
@@ -234,11 +239,12 @@
 			      <div class="modal-body">
 			        <p>
 				  		<h4 align="center">Add a new artist</h4>
-						<form align= "center" role="form" action="" method = "post">
-							<input type="text" name="artistname" required="required">
+				  		<form align="center" action="" method=post enctype=multipart/form-data>
+					      <input type="text" name="artistname" required="required">
 							<input type="hidden" name="actiontype" required="required" value ="7">
-							<button type="submit" name="addartist" class="btn btn-default">Add</button>
-				        </form>
+					      <div align="center"><input type=file name=file></div>
+					      	<button type="submit" name="addartist" class="btn btn-default">Add</button>
+					    </form>
 					</p>
 			      </div>
 			    </div>
@@ -259,7 +265,7 @@
 							<input type="text" name="newname" required="required">
 							<input type="hidden" name="actiontype" required="required" value ="8">
 							<select name="artistid">
-								{% for ID, NAME in allartist %}
+								{% for ID, NAME, PICTUREID in allartist %}
 		                            <option value="{{ID}}">{{NAME}}</option>
 		                        {% endfor %}
                             </select>
@@ -284,7 +290,7 @@
 						<form align= "center" role="form" action="" method= "post">
 							<input type="hidden" name="actiontype" required="required" value ="9">
 							<select name="artistid">
-								{% for ID, NAME in allartist %}
+								{% for ID, NAME, PICTUREID in allartist %}
 		                            <option value="{{ID}}">{{NAME}}</option>
 		                        {% endfor %}
                             </select>
@@ -320,7 +326,7 @@
 							<br>
 								<p>Select an artist
 								<select name="artistid">
-									{% for ID, NAME in allartist %}
+									{% for ID, NAME, PICTUREID in allartist %}
 			                            <option value="{{ID}}">{{NAME}}</option>
 			                        {% endfor %}
 	                            </select></p>
@@ -372,7 +378,7 @@
 	                            </select></p>
 								<p>New artist
 								<select name="artistid">
-									{% for ID, NAME in allartist %}
+									{% for ID, NAME, PICTUREID in allartist %}
 			                            <option value="{{ID}}">{{NAME}}</option>
 			                        {% endfor %}
 	                            </select></p>
@@ -423,7 +429,6 @@
 <!-- SUGGESTION -->
 			<div id="suggestions" class="modal fade" role="dialog">
 			  <div class="modal-dialog">
-
 			    <!-- Modal content-->
 			    <div class="modal-content">
 			      <div class="modal-body">
@@ -444,12 +449,12 @@
                                  {% for ID,USERNAME,ARTIST,SONGNAME,RELEASEDATE,SUGGESTIONDATE,STATU in suggestions%}
                                     <div class="card card-block text-xs-center">
                                  <tr>
-                             
+
                                     <td>{{USERNAME}} </td>
                                     <td> {{SONGNAME}}</td>
                                     <td>{{ARTIST}}</td>
                                     <td> {{RELEASEDATE}} </td>
-                                    <td>  
+                                    <td>
                                 {%if STATU == 2%}
                                     <i class="glyphicon glyphicon-tag" style="color:grey" align = "right"> Waiting</i>
                                 {%elif STATU == 1%}
@@ -466,16 +471,68 @@
                             <input type="hidden" name = "id" value = "{{ID}}">
                                 <button type="submit" name="reject" class="btn btn-default">Reject</button></form></td>
                                     </tr>
-                                 </div>        
-                               
-                        
+                                 </div>
+
+
 			               {% endfor %}
+			         </table>
 					</p>
+			       </div>
+			     </div>
+			  </div>
+			</div>
+<!-- SUGGESTION -->
+
+<!-- ARTIST PICTURES -->
+			<div id="artist_pictures" class="modal fade" role="dialog">
+			  <div class="modal-dialog">
+
+			    <!-- Modal content-->
+			    <div class="modal-content">
+			      <div class="modal-body">
+			      		<div class="row">
+			     		<div class="row col-xs-4">
+						{% for artist_pic in artist_pics[0::3] %}
+							<div class="col-xs-12">
+								      <img src="{{artist_pic[1]}}" alt="cover" width="128" height="128">
+								      <p class="name">aaa</p>
+								      <p class="song_count">bbb</p>
+								  </div>
+						{% endfor %}
+						</div>
+						<div class="row col-xs-4">
+						{% for artist_pic in artist_pics[1::3] %}
+							<div class="col-xs-12">
+								      <img src="{{artist_pic[1]}}" alt="cover" width="128" height="128">
+								      <p class="name">aaa</p>
+								      <p class="song_count">bbb</p>
+								  </div>
+
+						{% endfor %}
+						</div>
+						<div class="row col-xs-4">
+						{% for artist_pic in artist_pics[2::3] %}
+							<div class="col-xs-12">
+								      <img src="{{artist_pic[1]}}" alt="cover" width="128" height="128">
+								      <p class="name">aaa</p>
+								      <p class="song_count">bbb</p>
+								  </div>
+						{% endfor %}
+						</div>
+						</div>
+						<div class="row">
+				  		<h4 align="center">Add a new artist picture</h4>
+				        <form align="center" action="" method=post enctype=multipart/form-data>
+					      <p><input type="hidden" name="actiontype" required="required" value ="16"></p>
+					      <div align="center"><input type=file name=file></div>
+					      	<button type="submit" name="uploadalbumpic" class="btn btn-default">Upload</button>
+					    </form>
+					    </div>
 			      </div>
 			    </div>
 			  </div>
 			</div>
-<!-- SUGGESTION -->
+<!-- ARTIST PICTURES -->
 
 
 

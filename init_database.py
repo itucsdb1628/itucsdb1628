@@ -433,6 +433,7 @@ def create_artist_table():
             cursor.execute(statement);
             statement = """CREATE TABLE IF NOT EXISTS ARTIST(
             ID SERIAL PRIMARY KEY,
+            PICTUREID INTEGER REFERENCES PICTURE(ID) ON DELETE SET NULL,
             NAME VARCHAR(64) UNIQUE NOT NULL
             )"""
             cursor.execute(statement)
@@ -452,13 +453,6 @@ def drop_artist_table():
         except dbapi2.DatabaseError:
             connection.rollback()
 
-def insert_sample_artists():
-    insert_artist(Artist("Metallica"))
-    insert_artist(Artist("Shakira"))
-    insert_artist(Artist("Red Hot Chili Peppers"))
-    insert_artist(Artist("Coldplay"))
-    insert_artist(Artist("Beyonce"))
-    insert_artist(Artist("Pink Floyd"))
 
 def insert_default_genres():
     insert_genre(Genre("Rock"))
@@ -467,6 +461,27 @@ def insert_default_genres():
     insert_genre(Genre("Jazz"))
     insert_genre(Genre("Hip-hop"))
     insert_genre(Genre("Electronic"))
+
+def create_pic_table():
+    with dbapi2.connect(dsn) as connection:
+        try:
+            cursor = connection.cursor()
+            statement = """DROP TABLE IF EXISTS PICTURE"""
+            cursor.execute(statement);
+            statement = """CREATE TABLE IF NOT EXISTS PICTURE(
+                ID SERIAL PRIMARY KEY,
+                TYPE INTEGER NOT NULL,
+                FILEPATH VARCHAR(100) NOT NULL
+                )"""
+            cursor.execute(statement)
+            statement = """INSERT INTO PICTURE (FILEPATH,TYPE)
+                             VALUES ('/static/images/avatar.jpg',1)"""
+            cursor.execute(statement)
+            connection.commit()
+            cursor.close()
+        except dbapi2.DatabaseError as e:
+            connection.rollback()
+
 #####################################BERKAY#####################################
 '''****************************************userdetails ******************************************************************'''
 def drop_userdetails_table():
@@ -592,6 +607,7 @@ def insert_sample_data():
     firstPost = Post("perfect!", datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"), 1, 1, 1)
     insert_post(firstPost)
     create_avatar_table()
+    create_pic_table()
     create_comment_table()
     create_album_table()
     create_genre_table()
@@ -599,5 +615,4 @@ def insert_sample_data():
     create_song_table()
     create_messages_table()
     insert_bulk_messages()
-    insert_sample_artists()
     insert_default_genres()

@@ -9,8 +9,8 @@ def insert_artist(artist):
     with dbapi2.connect(dsn) as connection:
         try:
             cursor = connection.cursor()
-            statement= """INSERT INTO ARTIST(NAME) VALUES(%s)"""
-            cursor.execute(statement,(artist.name,))
+            statement= """INSERT INTO ARTIST(NAME,PICTUREID) VALUES(%s,%s)"""
+            cursor.execute(statement,(artist.name,artist.pictureid))
             connection.commit()
             cursor.close()
         except dbapi2.DatabaseError as e:
@@ -39,7 +39,9 @@ def select_all_artist():
     with dbapi2.connect(dsn) as connection:
         try:
             cursor = connection.cursor()
-            cursor.execute("""SELECT * FROM ARTIST""")
+            cursor.execute("""SELECT ARTIST.ID, ARTIST.NAME, PICTURE.FILEPATH
+                       FROM ARTIST INNER JOIN PICTURE ON ARTIST.PICTUREID = PICTURE.ID
+                       ORDER BY ARTIST.NAME""")
             connection.commit()
             content = list(cursor)
             return content
