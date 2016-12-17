@@ -48,12 +48,13 @@ def create_app():
     app.config.from_object('settings')
 
     lm.init_app(app)
-    lm.login_view='login    '
+    lm.login_view='login'
 
     return app
 '''********************************TIMELINE ROUTES - ismail*********************************'''
 
 @app.route('/timeline/like/<int:LIKEID>/<string:USERNAME>', methods=['GET', 'POST'])
+@login_required
 def like_post(LIKEID,USERNAME):
     if(control_like(current_user.id,LIKEID)):
         insert_like(current_user.id,LIKEID)
@@ -68,6 +69,7 @@ def like_post(LIKEID,USERNAME):
 
 
 @app.route('/timeline/search' ,methods=['GET', 'POST'])
+@login_required
 def search_user():
     content = request.form['content']
     user = get_user(content)
@@ -87,23 +89,27 @@ def timeline_page():
 
 
 @app.route('/timeline/delete/<int:DELETEID>', methods=['GET', 'POST'])
+@login_required
 def timeline_page_delete(DELETEID):
     delete_post(DELETEID)
     return redirect(url_for('timeline_page'))
 
 
 @app.route('/timeline/update/<int:UPDATEID>/', methods=['GET', 'POST'])
+@login_required
 def timeline_page_update(UPDATEID):
     return render_template('timeline_edit.html', posts=select_post(UPDATEID),owner_user = current_user)
 
 
 @app.route('/timeline/update/<int:UPDATEID>/APPLY', methods=['GET', 'POST'])
+@login_required
 def timeline_page_apply(UPDATEID):
     update_post(UPDATEID)
     return redirect(url_for('timeline_page'))
 
 
 @app.route('/timeline/insert', methods=['GET', 'POST'])
+@login_required
 def timeline_page_insert():
     insert_post_page()  
     return redirect(url_for('timeline_page'))
@@ -114,6 +120,7 @@ def suggestion_page():
     return render_template("suggestions.html",suggestions=list(select_suggestions_user()))
 
 @app.route('/suggestions/insert', methods=['GET', 'POST'])
+@login_required
 def suggestion_insert_page():
     artist = request.form['artist']
     songname = request.form['song']
@@ -124,6 +131,7 @@ def suggestion_insert_page():
 
 
 @app.route('/suggestions/delete/<int:DELETEID>', methods=['GET', 'POST'])
+@login_required
 def suggestion_delete_page(DELETEID):
     delete_suggestion(DELETEID)
     return redirect(url_for('suggestion_page'))
@@ -133,6 +141,7 @@ def suggestion_delete_page(DELETEID):
 
 
 @app.route('/adminpanel', methods=['GET', 'POST'])
+@login_required
 def adminpanel_page():
     if request.method == 'GET':
         albums=[]
@@ -246,6 +255,7 @@ def login():
 
 
 @app.route('/logout')
+@login_required
 def logout_page():
     logout_user()
     return redirect(url_for('login'))
@@ -260,6 +270,7 @@ def signup():
 
 
 @app.route('/update-profile', methods=['POST'])
+@login_required
 def update_profile():
     form=LoginForm(request.form)
     old_username = request.form['old_username']
@@ -270,6 +281,7 @@ def update_profile():
 
 
 @app.route('/delete-profile', methods=['POST'])
+@login_required
 def delete_profile():
     form=LoginForm(request.form)
     username = request.form['username']
@@ -285,6 +297,7 @@ def delete_profile():
 
 @app.route('/messages')
 @app.route('/messages/<int:room_id>')
+@login_required
 def messages_page(room_id=None):
     """ Get All Message Rooms """
     room = None
@@ -299,6 +312,7 @@ def messages_page(room_id=None):
 
 
 @app.route('/messages/new_room', methods=['POST'])
+@login_required
 def messages_new_room():
     """ Create new room """
     room_id = None
@@ -315,6 +329,7 @@ def messages_new_room():
 
 
 @app.route('/messages/update_room', methods=['POST'])
+@login_required
 def messages_update_room():
     if request.method == 'POST':
         room_id = request.form['room_id']
@@ -330,6 +345,7 @@ def messages_update_room():
 
 
 @app.route('/messages/leave_room', methods=['POST'])
+@login_required
 def messages_leave_room():
     if request.method == 'POST':
         room_id = request.form['room_id']
@@ -340,6 +356,7 @@ def messages_leave_room():
 
 
 @app.route('/messages/delete_room', methods=['POST'])
+@login_required
 def messages_delete_room():
     if request.method == 'POST':
         room = Messages.Room()
@@ -349,6 +366,7 @@ def messages_delete_room():
 
 
 @app.route('/messages/new_message', methods=['POST'])
+@login_required
 def messages_new_message():
     if request.method == 'POST':
         room = Messages.Room()
@@ -358,6 +376,7 @@ def messages_new_message():
 
 
 @app.route('/messages/change_user/<user_id>')
+@login_required
 def messages_change_user(user_id=""):
     Messages.tempLoggedUser = user_id
     return redirect(url_for('messages_page'))
@@ -368,10 +387,12 @@ def messages_change_user(user_id=""):
 
 
 @app.route('/profiledetails')
+@login_required
 def profiledetails():
         return render_template("profiledetails.html", userdetails = select_userdetails(), users = select_users_from_login())
 
 @app.route('/delete',methods=['GET','POST'])
+@login_required
 def showdetails():
     name = request.form['name']
     surname = request.form['surname']
@@ -379,6 +400,7 @@ def showdetails():
     return redirect(url_for('profiledetails'))
 
 @app.route('/update',methods=['GET','POST'])
+@login_required
 def update():
     username = request.form['older_name']
     name = request.form['name']
@@ -391,6 +413,7 @@ def update():
 
 
 @app.route('/insert_details',methods=['GET','POST'])
+@login_required
 def insert_details():
     name = request.form['name']
     surname = request.form['surname']
@@ -402,17 +425,20 @@ def insert_details():
     return redirect(url_for('profiledetails'))
 
 @app.route('/gototimeline',methods=['GET','POST'])
+@login_required
 def gototimeline():
     return redirect(url_for('timeline_page'))
 
 
 ''' end of userdetails routes -kağan'''
 @app.route('/profile')
+@login_required
 def profile_page():
     return render_template("profile.html")
 
 
 @app.route('/music')
+@login_required
 def music_page():
     albums=[]
     return render_template("music.html",albums=select_albums(),allartist=select_all_artist())
@@ -454,11 +480,13 @@ def comment_page(COMMENTID):
             return redirect("/comment/" + str(postid))
 
 @app.route('/comment/<int:COMMENTID>/<int:C_DELETEID>', methods=['GET', 'POST'])
+@login_required
 def comment_page_delete(COMMENTID,C_DELETEID):
     delete_comment(C_DELETEID)
     return redirect("/comment/" + str(COMMENTID))
 
 @app.route('/activities')
+@login_required
 def activities_page():
     activity = []
     likes_activity=list(select_likeFor_activities(current_user.id))
@@ -466,6 +494,7 @@ def activities_page():
 
 
 @app.route('/activities/insert', methods=['GET', 'POST'])
+@login_required
 def activities_page_insert():
     actiontype = int(request.form['actiontype'])
     comment = request.form['comment']
@@ -478,6 +507,7 @@ def activities_page_insert():
 
 
 @app.route('/activities/delete', methods=['GET', 'POST'])
+@login_required
 def activities_page_delete():
     deleteid = int(request.form['commentid'])
 
@@ -486,6 +516,7 @@ def activities_page_delete():
 
 
 @app.route('/activities/update', methods=['GET', 'POST'])
+@login_required
 def activities_page_update():
     actiontype = int(request.form['actiontype'])
     if actiontype == 2:
