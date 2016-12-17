@@ -1,7 +1,7 @@
 import psycopg2 as dbapi2
 from flask import request
 from flask_login import current_user, login_required, login_user, logout_user
-
+from datetime import date
 from dsn_conf import get_dsn
 
 dsn = get_dsn()
@@ -43,7 +43,8 @@ def insert_suggestion(userid,artist,songname,releasedate):
             cursor = connection.cursor()
             query = """INSERT INTO SUGGESTION(USERID,ARTIST,SONGNAME,SUGGESTIONDATE,RELEASEDATE,STATU)
                             VALUES(%s,%s,%s,%s,%s,%s)"""
-            cursor.execute(query,(userid,artist,songname,'1.10.2016','1.10.2016',2))
+            myTime = date.today()
+            cursor.execute(query,(userid,artist,songname,date.today(),releasedate,2))
             connection.commit()
         except dbapi2.DatabaseError as e:
             connection.rollback()

@@ -449,12 +449,13 @@
                                     <td> {{SONGNAME}}</td>
                                     <td>{{ARTIST}}</td>
                                     <td> {{RELEASEDATE}} </td>
-                                    <td>  {%if STATU == 2%}
-                               <i class="glyphicon glyphicon-tag" style="color:grey" align = "right"> Waiting</i>
-                            {%elif STATU == 1%}
-                              <i class="glyphicon glyphicon-ok" style="color:green"> Approved </i>
-                            {%else%}
-                              <i class="glyphicon glyphicon-remove" style="color:red"> Rejected </i>
+                                    <td>  
+                                {%if STATU == 2%}
+                                    <i class="glyphicon glyphicon-tag" style="color:grey" align = "right"> Waiting</i>
+                                {%elif STATU == 1%}
+                                    <i class="glyphicon glyphicon-ok" style="color:green"> Approved </i>
+                                {%else%}
+                                    <i class="glyphicon glyphicon-remove" style="color:red"> Rejected </i>
                                 {%endif%}  </td>
                                 <td><form align= "center" role="form" action="" method = "post">
 							<input type="hidden" name="actiontype" required="required" value ="14">

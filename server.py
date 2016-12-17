@@ -105,7 +105,7 @@ def timeline_page_apply(UPDATEID):
 
 @app.route('/timeline/insert', methods=['GET', 'POST'])
 def timeline_page_insert():
-    insert_post_page()
+    insert_post_page()  
     return redirect(url_for('timeline_page'))
 
 @app.route('/suggestions')
@@ -117,8 +117,8 @@ def suggestion_page():
 def suggestion_insert_page():
     artist = request.form['artist']
     songname = request.form['song']
-    suggestionDate = request.form['release_year']
-    insert_suggestion(current_user.id,artist,songname,suggestionDate)
+    releaseDate = request.form['release_year']
+    insert_suggestion(current_user.id,artist,songname,releaseDate)
     return redirect(url_for('suggestion_page'))
 
 

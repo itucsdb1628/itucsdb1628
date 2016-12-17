@@ -47,7 +47,7 @@
         </div>
       {%endif%}
 	<div class="row">
-        		{% for ID, CONTENT, SONGID, FILEPATH,USERNAME,NUMBER in posts%}
+        		{% for ID, CONTENT, SONGID, FILEPATH,USERNAME,NUMBER,POSTDATE in posts%}
 		<div class="row">
                     <div class="col-xs-12 col-sm-3 col-md-3">
                         <a href="#">
@@ -69,7 +69,7 @@
                                         </a>
                                     </div>
                                     <small>
-                                        <i class="glyphicon glyphicon-time"></i> 3 days ago <span class="twitter"> <i class="fa fa-twitter"></i> </span>
+                                        <i class="glyphicon glyphicon-time"></i> {{POSTDATE}} <span class="twitter"> <i class="fa fa-twitter"></i> </span>
                                         <br>
 
                                     </small>

@@ -1,6 +1,7 @@
 import psycopg2 as dbapi2
 from flask import request
 from post import *
+import datetime
 from dsn_conf import get_dsn
 
 dsn = get_dsn()
@@ -29,7 +30,7 @@ def insert_like(userId,postId):
         try:
             cursor = connection.cursor()
             query ="""INSERT INTO LIKES(POSTID,USERID,LIKEDATE) VALUES(%s,%s,%s)"""
-            cursor.execute(query,(postId,userId,'10.11.2014'))
+            cursor.execute(query,(postId,userId,datetime.datetime.now()))
             connection.commit()
         except dbapi2.DatabaseError as e:
             connection.rollback()

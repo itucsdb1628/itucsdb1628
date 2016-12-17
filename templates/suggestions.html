@@ -56,6 +56,16 @@
 			    <div class="modal-content">
 			      <div class="modal-body">
 			        <p>  
+                        
+                         {%if suggestions%}
+                            
+                        {%else%}
+                    <div class="alert alert-warning page-alert" id="alert-4">
+                        <button type="button" class="close"><span aria-hidden="true">x</span><span class="sr-only">Close</span></button>
+                        <strong>Let's share your idea with us!</strong> There is no suggestion belong to you!
+           
+                    </div>
+                        {%endif%}
 				  		{% for ID,ARTIST,SONGNAME,RELEASEDATE,SUGGESTIONDATE,STATU in suggestions%}
                              <div class="card card-block text-xs-center">
                              <h4 class="card-title">{{SONGNAME}} -  {{ARTIST}}

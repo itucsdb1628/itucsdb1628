@@ -1,7 +1,7 @@
 import psycopg2 as dbapi2
 from flask import request
 from flask_login import current_user, login_required, login_user, logout_user
-
+import datetime
 from dsn_conf import get_dsn
 
 dsn = get_dsn()
@@ -11,13 +11,13 @@ def select_posts(userid):
         try:
              cursor = connection.cursor()
              query = """SELECT POST.ID, POST.CONTENT, POST.SONGID, ALBUMCOVER.FILEPATH,USERDATA.USERNAME,
-             POST.LIKECOUNTER AS NUMBER
+             POST.LIKECOUNTER AS NUMBER, POST.POSTDATE
              FROM POST,ALBUMCOVER,USERDATA
              WHERE(
              ALBUMCOVER.ID = POST.ALBUMCOVERID
              AND POST.USERID = USERDATA.ID
              AND POST.USERID = %s)
-             ORDER BY POST.ID""" % userid
+             ORDER BY POST.POSTDATE DESC""" % userid
              cursor.execute(query)
              return cursor
         except dbapi2.DatabaseError as e:
@@ -71,8 +71,9 @@ def insert_post_page():
             albumcover = request.form['albumcover']
             userid = current_user.id
             songid = request.form['songid']
-            query ="""INSERT INTO POST(CONTENT,USERID,SONGID,ALBUMCOVERID) VALUES(%s,%s,%s,%s)"""
-            cursor.execute(query,(content,userid,songid,albumcover))
+            postdate = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+            query ="""INSERT INTO POST(CONTENT,USERID,SONGID,ALBUMCOVERID,POSTDATE) VALUES(%s,%s,%s,%s,%s)"""
+            cursor.execute(query,(content,userid,songid,albumcover,postdate))
             connection.commit()
         except dbapi2.DatabaseError as e:
             connection.rollback()
