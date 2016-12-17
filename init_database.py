@@ -1,5 +1,4 @@
 import psycopg2 as dbapi2
-
 from dao.post import *
 from dao.user import *
 from dao.comment import *
@@ -112,16 +111,16 @@ def create_post_table():
             cursor.execute(statement)
             statement = """INSERT INTO POST (CONTENT,POSTDATE,USERID,SONGID,ALBUMCOVERID,LIKECOUNTER)
                             VALUES(%s,%s,%s,%s,%s,%s)"""
-            cursor.execute(statement,('perfect!','1.10.2016',1,1,1,1));
+            cursor.execute(statement,('perfect!',datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),1,1,1,1));
             statement = """INSERT INTO POST (CONTENT,POSTDATE,USERID,SONGID,ALBUMCOVERID)
                             VALUES(%s,%s,%s,%s,%s)"""
-            cursor.execute(statement,('great!','1.10.2016',1,2,2));
+            cursor.execute(statement,('great!',datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),1,2,2));
             statement = """INSERT INTO POST (CONTENT,POSTDATE,USERID,SONGID,ALBUMCOVERID)
                             VALUES(%s,%s,%s,%s,%s)"""
-            cursor.execute(statement,('excellent!','1.10.2016',1,3,3));
+            cursor.execute(statement,('excellent!',datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),1,3,3));
             statement = """INSERT INTO POST (CONTENT,POSTDATE,USERID,SONGID,ALBUMCOVERID)
                             VALUES(%s,%s,%s,%s,%s)"""
-            cursor.execute(statement,('beatiful!','1.10.2016',1,4,4));
+            cursor.execute(statement,('beatiful!',datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),1,4,4));
             connection.commit()
             cursor.close()
         except dbapi2.DatabaseError as e:
@@ -590,7 +589,7 @@ def insert_sample_data():
     create_album_cover_table()
     create_post_table()
     create_like_table()
-    firstPost = Post("perfect!", datetime.datetime.now(), 1, 1, 1)
+    firstPost = Post("perfect!", datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"), 1, 1, 1)
     insert_post(firstPost)
     create_avatar_table()
     create_comment_table()
