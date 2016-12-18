@@ -87,7 +87,7 @@ def update_album(UPDATEID,newname,newcover,newyear):
 
 def insert_albumandpic(albm,pic,date):
     filename = pic
-    insert_picture(Picture(filename,1))
+    insert_picture(Picture(filename,2))
     albumname = albm
     pictureid = select_picture_id(filename)
     newalbum = Album(albumname,pictureid[0],date)

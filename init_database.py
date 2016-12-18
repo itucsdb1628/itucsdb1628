@@ -466,9 +466,6 @@ def create_pic_table():
                 FILEPATH VARCHAR(200) NOT NULL
                 )"""
             cursor.execute(statement)
-            statement = """INSERT INTO PICTURE (FILEPATH,TYPE)
-                             VALUES ('/static/images/avatar.jpg',1)"""
-            cursor.execute(statement)
             connection.commit()
             cursor.close()
         except dbapi2.DatabaseError as e:

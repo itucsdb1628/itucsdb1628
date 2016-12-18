@@ -155,7 +155,7 @@ def adminpanel_page():
             allartist=[]
             song_album=[]
             form = request.form
-            return render_template('adminpanel.html', albums=select_albums(), allgenre=select_all_genre(), allartist=select_all_artist(), song_album=select_song_album(),suggestions =  select_suggestions(), artist_pics= select_artist_pics(),form=form)
+            return render_template('adminpanel.html', albums=select_albums(), allgenre=select_all_genre(), allartist=select_all_artist(), song_album=select_song_album(),suggestions =  select_suggestions(), artist_pics = select_artist_pics(),album_pics = select_album_pics(),form=form)
         else:
             return render_template('adminrestriction.html')
     else:
@@ -186,7 +186,7 @@ def adminpanel_page():
                 return redirect(url_for('adminpanel_page'))
             else:
                 form = request.form
-                return render_template('adminpanel.html', albums=select_albums(), allgenre=select_all_genre(), allartist=select_all_artist(), song_album=select_song_album(),suggestions =  select_suggestions(), artist_pics= select_artist_pics(),form=form)
+                return render_template('adminpanel.html', albums=select_albums(), allgenre=select_all_genre(), allartist=select_all_artist(), song_album=select_song_album(),suggestions =  select_suggestions(), artist_pics= select_artist_pics(),album_pics = select_album_pics(),form=form)
 
         if actiontype == 5: #delete_album
             albumid = int(request.form['albumid'])
@@ -205,7 +205,7 @@ def adminpanel_page():
                 return redirect(url_for('adminpanel_page'))
             else:
                 form = request.form
-                return render_template('adminpanel.html', albums=select_albums(), allgenre=select_all_genre(), allartist=select_all_artist(), song_album=select_song_album(),suggestions =  select_suggestions(), artist_pics= select_artist_pics(),form=form)
+                return render_template('adminpanel.html', albums=select_albums(), allgenre=select_all_genre(), allartist=select_all_artist(), song_album=select_song_album(),suggestions =  select_suggestions(), artist_pics= select_artist_pics(),album_pics = select_album_pics(),form=form)
 
         if actiontype == 7:  # addartist
             filename = request.form['filepath']

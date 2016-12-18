@@ -28,12 +28,30 @@ def select_artist_pics():
             cursor.execute(query)
             value = cursor.fetchall()
             for val in value:
-                picture = [val[0],val[1],val[2]]
-                content.append(picture)
+                if val[2] == 1:
+                    picture = [val[0],val[1],val[2]]
+                    content.append(picture)
             return content
         except dbapi2.DatabaseError as e:
              connection.rollback()
 
+def select_album_pics():
+    content = []
+    with dbapi2.connect(dsn) as connection:
+        try:
+            cursor = connection.cursor()
+            query = """SELECT PICTURE.ID, PICTURE.FILEPATH, PICTURE.TYPE
+                       FROM PICTURE
+                       ORDER BY ID"""
+            cursor.execute(query)
+            value = cursor.fetchall()
+            for val in value:
+                if val[2] == 2:
+                    picture = [val[0],val[1],val[2]]
+                    content.append(picture)
+            return content
+        except dbapi2.DatabaseError as e:
+             connection.rollback()
 def select_picture_id(filepath):
     content =[]
     with dbapi2.connect(dsn) as connection:
