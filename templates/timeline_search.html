@@ -37,7 +37,7 @@
       {%endif%}
 
 
-        		{% for ID, CONTENT, POSTDATE,SONGNAME,ARTISTNAME,FILEPATH,NUMBER,USERNAME in posts%}
+        		{% for SONGPATH,ID, CONTENT, POSTDATE,SONGNAME,ARTISTNAME,FILEPATH,NUMBER,USERNAME in posts%}
 		<div class="row">
                     <div class="col-xs-12 col-sm-3 col-md-3">
                         <a href="#">
@@ -89,6 +89,7 @@
                 	</a>
                 	&nbsp;&nbsp;&nbsp;<a href="{{ url_for('post_share_page', shareID=ID) }}"> <i class="glyphicon glyphicon-share-alt"></i>  Share <span class="twitter"> <i class="fa fa-twitter"></i> </span>
                 	</a>
+                    <audio controls style="width: 100%;" src="{{SONGPATH}}" preload="auto" />
                 	</p>
                 </div>
                 <hr>
@@ -156,6 +157,16 @@
 
 <!-- REPOSTS -->
 
+
+<script>
+$("audio").on("play", function(){
+    var _this = $(this);
+    $("audio").each(function(i,el){
+        if(!$(el).is(_this))
+            $(el).get(0).pause();
+    });
+});
+</script>
 
 
 

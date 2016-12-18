@@ -53,7 +53,7 @@
       {%endif%}
 
 	<div class="row">
-        		{% for ID, CONTENT, POSTDATE, SONGNAME,ARTISTNAME,FILEPATH,NUMBER,USERNAME in posts%}
+        		{% for SONGPATH,ID, CONTENT, POSTDATE, SONGNAME,ARTISTNAME,FILEPATH,NUMBER,USERNAME in posts%}
 		<div class="row">
                     <div class="col-xs-12 col-sm-3 col-md-3">
                         <a href="#">
@@ -98,17 +98,16 @@
                             <a href="{{ url_for('like_post', LIKEID=ID,  USERNAME = USERNAME) }}"> <i class="glyphicon glyphicon-heart" style="color:grey"></i> Likes ({{NUMBER}}) <span class="twitter"> <i class="fa fa-twitter"></i> </span>
                         {%endif%}
 
-                  	&nbsp;&nbsp;&nbsp; <a href="#"> <i class="glyphicon glyphicon-play-circle"></i> Play <span class="twitter"> <i class="fa fa-twitter"></i> </span>
-                	</a>
 
-                	&nbsp;&nbsp;&nbsp;<a href="{{ url_for('comment_page', COMMENTID=ID) }}"> <i class="glyphicon glyphicon-pencil"></i>  Comments(10) <span class="twitter"> <i class="fa fa-twitter"></i> </span>
+                	&nbsp;&nbsp;&nbsp;&nbsp;<a href="{{ url_for('comment_page', COMMENTID=ID) }}"> <i class="glyphicon glyphicon-pencil"></i>  Comments(10) <span class="twitter"> <i class="fa fa-twitter"></i> </span>
                 	</a>
-                	&nbsp;&nbsp;&nbsp;<a href="#"> <i class="glyphicon glyphicon-share-alt"></i>  Share <span class="twitter"> <i class="fa fa-twitter"></i> </span>
+                	&nbsp;&nbsp;&nbsp;&nbsp;<a href="#"> <i class="glyphicon glyphicon-share-alt"></i>  Share <span class="twitter"> <i class="fa fa-twitter"></i> </span>
                 	</a>
-                    &nbsp;&nbsp;&nbsp;<a href="{{ url_for('timeline_page_delete', DELETEID=ID) }}"> <i class="glyphicon glyphicon-remove"></i>  Remove <span class="twitter"> <i class="fa fa-twitter"></i> </span>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<a href="{{ url_for('timeline_page_delete', DELETEID=ID) }}"> <i class="glyphicon glyphicon-remove"></i>  Remove <span class="twitter"> <i class="fa fa-twitter"></i> </span>
                 	</a>
-                    &nbsp;&nbsp;&nbsp;<a href="{{ url_for('timeline_page_update', UPDATEID=ID) }}"> <i class="glyphicon glyphicon-check"></i>  Update <span class="twitter"> <i class="fa fa-twitter"></i> </span>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<a href="{{ url_for('timeline_page_update', UPDATEID=ID) }}"> <i class="glyphicon glyphicon-check"></i>  Update <span class="twitter"> <i class="fa fa-twitter"></i> </span>
                 	</a>
+                    <audio controls style="width: 100%;" src="{{SONGPATH}}" preload="auto" />
                 	</p>
                 </div>
                 <hr>
@@ -177,6 +176,14 @@
 
 <!-- REPOSTS -->
 
+<script>
+$("audio").on("play", function(){
+    var _this = $(this);
+    $("audio").each(function(i,el){
+        if(!$(el).is(_this))
+            $(el).get(0).pause();
+    });
+});</script>
 
 
 

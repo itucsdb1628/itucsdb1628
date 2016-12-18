@@ -10,7 +10,7 @@ def select_posts(userid):
     with dbapi2.connect(dsn) as connection:
         try:
              cursor = connection.cursor()
-             query = """SELECT POST.ID, POST.CONTENT, POST.POSTDATE ,SONG.NAME, ARTIST.NAME, PICTURE.FILEPATH,
+             query = """SELECT SONG.FILEPATH AS SONGFILEPATH, POST.ID, POST.CONTENT, POST.POSTDATE ,SONG.NAME,ARTIST.NAME, PICTURE.FILEPATH,
              POST.LIKECOUNTER AS NUMBER,USERDATA.USERNAME
              FROM POST,SONG,ARTIST,USERDATA,PICTURE
              WHERE(
