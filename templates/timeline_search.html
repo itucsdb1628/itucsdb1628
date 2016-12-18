@@ -82,12 +82,10 @@
                             <a href="{{ url_for('like_post', LIKEID=ID, USERNAME = USERNAME ) }}"> <i class="glyphicon glyphicon-heart" style="color:grey"></i> Likes ({{NUMBER}}) <span class="twitter"> <i class="fa fa-twitter"></i> </span>
                         {%endif%}
 
-                  	&nbsp;&nbsp;&nbsp; <a href="#"> <i class="glyphicon glyphicon-play-circle"></i> Play <span class="twitter"> <i class="fa fa-twitter"></i> </span>
-                	</a>
 
-                	&nbsp;&nbsp;&nbsp;<a href="{{ url_for('comment_page', COMMENTID=ID) }}"> <i class="glyphicon glyphicon-pencil"></i>  Comments(10) <span class="twitter"> <i class="fa fa-twitter"></i> </span>
+                	&nbsp;&nbsp;&nbsp;&nbsp;<a href="{{ url_for('comment_page', COMMENTID=ID) }}"> <i class="glyphicon glyphicon-pencil"></i>  Comments(10) <span class="twitter"> <i class="fa fa-twitter"></i> </span>
                 	</a>
-                	&nbsp;&nbsp;&nbsp;<a href="{{ url_for('post_share_page', shareID=ID) }}"> <i class="glyphicon glyphicon-share-alt"></i>  Share <span class="twitter"> <i class="fa fa-twitter"></i> </span>
+                	&nbsp;&nbsp;&nbsp;&nbsp;<a href="{{ url_for('post_share_page', shareID=ID) }}"> <i class="glyphicon glyphicon-share-alt"></i>  Share <span class="twitter"> <i class="fa fa-twitter"></i> </span>
                 	</a>
                     <audio controls style="width: 100%;" src="{{SONGPATH}}" preload="auto" />
                 	</p>
