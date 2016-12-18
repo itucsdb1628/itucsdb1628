@@ -171,7 +171,12 @@ def adminpanel_page():
             delete_genre(genreid)
             return redirect(url_for('adminpanel_page'))
         if actiontype == 4: #add_album
-            insert_album()
+            filename = request.form['filepath']
+            insert_picture(Picture(filename,2))
+            pictureid = select_picture_id(filename)
+            albumname = request.form['albumname']
+            albumdate = int(request.form['albumdate'])
+            insert_album2(Album(albumname,pictureid[0],albumdate))
             return redirect(url_for('adminpanel_page'))
         if actiontype == 5: #delete_album
             albumid = int(request.form['albumid'])
@@ -180,9 +185,11 @@ def adminpanel_page():
         if actiontype == 6: #update_album
             albumname = request.form['albumname']
             albumdate = int(request.form['albumdate'])
-            albumcoverid = int(request.form['albumcover'])
+            filename = request.form['filepath']
+            insert_picture(Picture(filename,1))
+            albumcoverid = select_picture_id(filename)
             albumid = int(request.form['albumid'])
-            update_album(albumid,albumname,albumcoverid,albumdate)
+            update_album(albumid,albumname,albumcoverid[0],albumdate)
             return redirect(url_for('adminpanel_page'))
         if actiontype == 7:  # addartist
             filename = request.form['filepath']
@@ -234,15 +241,6 @@ def adminpanel_page():
         if actiontype == 15:
             suggestionId = request.form['id']
             reject_suggestion(suggestionId)
-            return redirect(url_for('adminpanel_page'))
-        if actiontype == 16: #add artist pic
-            filename = upload_file('adminpanel_page')
-            filename = UPLOAD_FOLDER + filename
-            insert_picture(Picture(filename,1))
-            return redirect(url_for('adminpanel_page'))
-        if actiontype == 17: #add album pic
-            filename = upload_file('adminpanel_page')
-            filename = UPLOAD_FOLDER + filename
             return redirect(url_for('adminpanel_page'))
 
 

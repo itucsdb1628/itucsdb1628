@@ -1,8 +1,8 @@
 import psycopg2 as dbapi2
 from flask import request
-
+from picture import *
 from dsn_conf import get_dsn
-
+from dao.artist import *
 dsn = get_dsn()
 
 def insert_artist(artist):
@@ -47,3 +47,30 @@ def select_all_artist():
             return content
         except dbapi2.DatabaseError as e:
             connection.rollback()
+
+def insert_artistandpic(artst,pic):
+    filename = pic
+    insert_picture(Picture(filename,1))
+    artistname = artst
+    pictureid = select_picture_id(filename)
+    newartist = Artist(artistname,pictureid[0])
+    insert_artist(newartist)
+
+def insert_sample_artists():
+    insert_artistandpic('Coldplay', 'http://berkaygiris.com/itucsdb1628/artists/coldplay.jpg')
+    insert_artistandpic('Daft Punk', 'http://berkaygiris.com/itucsdb1628/artists/daftpunk.jpg')
+    insert_artistandpic('Drake', 'http://berkaygiris.com/itucsdb1628/artists/drake.jpg')
+    insert_artistandpic('Eminem', 'http://berkaygiris.com/itucsdb1628/artists/eminem.jpg')
+    insert_artistandpic('Linkin Park', 'http://berkaygiris.com/itucsdb1628/artists/linkinpark.jpg')
+    insert_artistandpic('Louis Armstrong', 'http://berkaygiris.com/itucsdb1628/artists/louisarmstrong.jpg')
+    insert_artistandpic('Marcus Miller', 'http://berkaygiris.com/itucsdb1628/artists/marcusmiller.jpg')
+    insert_artistandpic('Metallica','http://berkaygiris.com/itucsdb1628/artists/metallica.jpg')
+    insert_artistandpic('Nirvana', 'http://berkaygiris.com/itucsdb1628/artists/nirvana.jpg')
+    insert_artistandpic('Pink Floyd', 'http://berkaygiris.com/itucsdb1628/artists/pink_floyd.jpg')
+    insert_artistandpic('Red Hot Chili Peppers', 'http://berkaygiris.com/itucsdb1628/artists/red_hot_chili_peppers.jpg')
+    insert_artistandpic('Shakira', 'http://berkaygiris.com/itucsdb1628/artists/shakira.jpg')
+    insert_artistandpic('Skrillex', 'http://berkaygiris.com/itucsdb1628/artists/skrillex.jpg')
+    insert_artistandpic('Vivaldi', 'http://berkaygiris.com/itucsdb1628/artists/vivaldi.jpg')
+
+
+

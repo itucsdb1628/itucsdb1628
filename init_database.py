@@ -10,8 +10,8 @@ from dao import messages as Messages
 import datetime
 from song import insert_song
 from genre import insert_genre
-from artist import insert_artist
-from album import insert_album
+from artist import *
+from album import *
 from dao.userdetails import *
 
 from dsn_conf import get_dsn
@@ -531,7 +531,7 @@ def create_album_table():
             ID SERIAL PRIMARY KEY,
             NAME VARCHAR(40) NOT NULL,
             ALBUMDATE INTEGER,
-            ALBUMCOVERID INTEGER NOT NULL REFERENCES ALBUMCOVER(ID)
+            ALBUMCOVERID INTEGER NOT NULL REFERENCES PICTURE(ID)
             ) """
             cursor.execute(statement)
             connection.commit()
@@ -610,3 +610,5 @@ def insert_sample_data():
     create_messages_table()
     # insert_bulk_messages()
     insert_default_genres()
+    insert_sample_artists()
+    insert_sample_albums()

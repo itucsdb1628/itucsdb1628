@@ -59,7 +59,7 @@
 								    <a href="#" class="thumbnail">
 								      <img src="{{album.cover_filepath}}" alt="cover" width="128" height="128">
 								      <p class="name">{{album.name}}</p>
-								      <p class="song_count">("song count here")</p>
+								      <p class="song_count">({{album.albumdate}})</p>
 								    </a>
 								  </div>
 						{% endfor %}
@@ -70,7 +70,7 @@
 								    <a href="#" class="thumbnail">
 								      <img src="{{album.cover_filepath}}" alt="cover" width="128" height="128">
 								      <p class="name">{{album.name}}</p>
-								      <p class="song_count">("song count here")</p>
+								      <p class="song_count">({{album.albumdate}})</p>
 								    </a>
 								  </div>
 
@@ -88,6 +88,8 @@
 								</div>
 								<div class="col-xs-11 right_holder"> <!-- Right holder -->
 									<div class="tab-content"><!-- ALL SONGS ARE HERE -->
+
+
 										<div id="rhcp_songs" class="tab-pane fade">
 											<div class="panel-group">
 											  <div class="panel panel-default">

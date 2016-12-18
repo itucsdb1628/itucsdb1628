@@ -139,17 +139,15 @@
 			      <div class="modal-body">
 			        <p>
 				  		<h4 align="center">Add a new album</h4>
+				  		<form align="center" action="" method=post enctype=multipart/form-data>
+
+					    </form>
 						<form align= "center" role="form" action="" method = "post">
-							<input type="text" name="albumname" required="required" placeholder="Album Name">
-							<input type="text" name="albumdate" required="required" placeholder="Release Year(i.e. 1999)">
-							<select name="albumcover" id="albumcover">
-	                            <option value="1">Beatles</option>
-	                            <option value="2">Led Zeppelin</option>
-	                            <option value="3">Metallica</option>
-                                <option value="4">Pink Floyd</option>
-                            </select>
+							<p><input type="text" name="albumname" required="required" placeholder="Album Name">
+							<p><input type="text" name="albumdate" required="required" placeholder="Release Year(i.e. 1999)">
+							<p><input type="text" name="filepath" required="required" placeholder="URL for albumcover">
 							<input type="hidden" name="actiontype" required="required" value ="4">
-							<button type="submit" name="add_album" class="btn btn-default">Add</button>
+							<p><button type="submit" name="add_album" class="btn btn-default">Add</button>
 				        </form>
 					</p>
 			      </div>
@@ -207,14 +205,7 @@
   							<form align= "center" role="form" action="" method = "post">
   								<input type="text" name="albumname" required="required" placeholder="New Name">
   								<input type="text" name="albumdate" required="required" placeholder="New Year(i.e. 1999)">
-
-  								<select name="albumcover" id="albumcover">
-	                            <option value="1">Beatles</option>
-	                            <option value="2">Led Zeppelin</option>
-	                            <option value="3">Metallica</option>
-                                <option value="4">Pink Floyd</option>
-                            	</select>
-
+  								<input type="text" name="filepath" required="required" placeholder="URL for albumcover">
   								<input type="hidden" name="albumid" value="{{album.albumid}}">
   								<input type="hidden" name="actiontype" value="6">
   								<button type="submit" name="update_album" class="btn btn-default">Update</button>
