@@ -8,7 +8,7 @@ from dao.artist import *
 from dao.album import *
 from dao import messages as Messages
 import datetime
-from song import insert_song
+from song import *
 from genre import insert_genre
 from artist import *
 from album import *
@@ -371,7 +371,7 @@ def create_song_table():
             ARTIST INTEGER REFERENCES ARTIST(ID) ON DELETE CASCADE,
             ALBUM INTEGER REFERENCES ALBUM(ID) ON DELETE CASCADE,
             GENRE INTEGER REFERENCES GENRE(ID) ON DELETE SET NULL,
-            FILEPATH VARCHAR(64) UNIQUE NOT NULL
+            FILEPATH VARCHAR(200) UNIQUE NOT NULL
             )"""
             cursor.execute(statement)
             connection.commit()
@@ -612,3 +612,5 @@ def insert_sample_data():
     insert_default_genres()
     insert_sample_artists()
     insert_sample_albums()
+    insert_sample_songs()
+

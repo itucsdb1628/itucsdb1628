@@ -1,6 +1,6 @@
 import psycopg2 as dbapi2
 from flask import request
-
+from dao.song import *
 from dsn_conf import get_dsn
 
 dsn = get_dsn()
@@ -24,7 +24,7 @@ def delete_song(DELETEID):
             connection.commit()
         except dbapi2.DatabaseError as e:
             connection.rollback()
-            
+
 def select_all_song2():
     with dbapi2.connect(dsn) as connection:
         try:
@@ -75,6 +75,37 @@ def select_song_album():
             return content
         except dbapi2.DatabaseError as e:
             connection.rollback()
+
+def insert_sample_songs():
+    #name album artist genre filepath
+    insert_song(Song('Fix You'                          ,19 ,1  ,2,'http://berkaygiris.com/itucsdb1628/songs/Coldplay/X&Y/FixYou.mp3'))
+    insert_song(Song('Get Lucky'                        ,4  ,2  ,6,'http://berkaygiris.com/itucsdb1628/songs/Daft_Punk/Random_Access_Memories/GetLucky.mp3'))
+    insert_song(Song('Lose Yourself To Dance'           ,4  ,2  ,6,'http://berkaygiris.com/itucsdb1628/songs/Daft_Punk/Random_Access_Memories/LoseYourselftoDance.mp3'))
+    insert_song(Song('Hotline Bling'                    ,16 ,3  ,2,'http://berkaygiris.com/itucsdb1628/songs/Drake/Views/HotlineBling.mp3'))
+    insert_song(Song('Lose Yourself'                    ,3  ,4  ,5,'http://berkaygiris.com/itucsdb1628/songs/Eminem/Curtain_Call/loseyourself.mp3'))
+    insert_song(Song('Without Me'                       ,3  ,4  ,5,'http://berkaygiris.com/itucsdb1628/songs/Eminem/Curtain_Call/Withoutme.mp3'))
+    insert_song(Song('A Place for my Head'              ,5  ,5  ,1,'http://berkaygiris.com/itucsdb1628/songs/Linkin_Park/Hybrid_Theory/aplaceformyhead.mp3'))
+    insert_song(Song('Papercut'                         ,5  ,5  ,1,'http://berkaygiris.com/itucsdb1628/songs/Linkin_Park/Hybrid_Theory/papercut.mp3'))
+    insert_song(Song('Bleed It Out'                     ,6  ,5  ,1,'http://berkaygiris.com/itucsdb1628/songs/Linkin_Park/Minutes_to_Midnight/bleeditout.mp3'))
+    insert_song(Song('Given Up'                         ,6  ,5  ,1,'http://berkaygiris.com/itucsdb1628/songs/Linkin_Park/Minutes_to_Midnight/givenup.mp3'))
+    insert_song(Song('What a Wonderful World'           ,17 ,6  ,4,'http://berkaygiris.com/itucsdb1628/songs/Louis_Armstrong/What_a_wonderful_world/whatawonderfulworld.mp3'))
+    insert_song(Song('Detroit'                          ,11 ,7  ,4,'http://berkaygiris.com/itucsdb1628/songs/Marcus_Miller/Renaissance/detroit.mp3'))
+    insert_song(Song('February'                         ,11 ,7  ,4,'http://berkaygiris.com/itucsdb1628/songs/Marcus_Miller/Renaissance/february.mp3'))
+    insert_song(Song('Master of Puppets'                ,7  ,8  ,1,'http://berkaygiris.com/itucsdb1628/songs/Metallica/Master_of_Puppets/masterofpuppets.mp3'))
+    insert_song(Song('Fuel'                             ,10 ,8  ,1,'http://berkaygiris.com/itucsdb1628/songs/Metallica/Reload/mtlc_fuel.mp3'))
+    insert_song(Song('Come As You Are'                  ,8  ,9  ,1,'http://berkaygiris.com/itucsdb1628/songs/Nirvana/Nevermind/comeasyouare.mp3'))
+    insert_song(Song('Smells Like Teen Spirit'          ,8  ,9  ,1,'http://berkaygiris.com/itucsdb1628/songs/Nirvana/Nevermind/smellsliketeenspirit.mp3'))
+    insert_song(Song('Another Brick in the Wall'        ,14 ,10 ,1,'http://berkaygiris.com/itucsdb1628/songs/Pink_Floyd/The_wall/pinkfloyd_anotherbrick.mp3'))
+    insert_song(Song('Comfortably Numb'                 ,14 ,10 ,1,'http://berkaygiris.com/itucsdb1628/songs/Pink_Floyd/The_wall/pinkfloyd_comfortably.mp3'))
+    insert_song(Song('Wish You Were Here'               ,18 ,10 ,1,'http://berkaygiris.com/itucsdb1628/songs/Pink_Floyd/Wish_you_were_here/pinkfloyd_wishyouwerehere.mp3'))
+    insert_song(Song('Scar Tissue'                      ,2  ,11 ,1,'http://berkaygiris.com/itucsdb1628/songs/Red_Hot_Chili_Peppers/Californication/rhcp_scartissue.mp3'))
+    insert_song(Song('Dani California'                  ,13 ,11 ,1,'http://berkaygiris.com/itucsdb1628/songs/Red_Hot_Chili_Peppers/Stadium_Arcadium/danicalifornia.mp3'))
+    insert_song(Song('Snow'                             ,13 ,11 ,1,'http://berkaygiris.com/itucsdb1628/songs/Red_Hot_Chili_Peppers/Stadium_Arcadium/rhcp_snow.mp3'))
+    insert_song(Song('Dark Nescessities'                ,15 ,11 ,1,'http://berkaygiris.com/itucsdb1628/songs/Red_Hot_Chili_Peppers/The_Getaway/rhcp_darknescessities.mp3'))
+    insert_song(Song('La Tortura'                       ,9  ,12 ,2,'http://berkaygiris.com/itucsdb1628/songs/Shakira/Oral_Fixation/latortura.mp3'))
+    insert_song(Song('Scary Monsters and Nice Sprites'  ,12 ,13 ,6,'http://berkaygiris.com/itucsdb1628/songs/Skrillex/Scary_Monsters_And_Nice_Sprites/scarymonsters.mp3'))
+    insert_song(Song('Four Seasons - Spring'            ,1  ,14 ,3,'http://berkaygiris.com/itucsdb1628/songs/Vivaldi/Best of Vivaldi/Fourseasonsspring.mp3'))
+    insert_song(Song('Four Seasons - Winter'            ,1  ,14 ,3,'http://berkaygiris.com/itucsdb1628/songs/Vivaldi/Best of Vivaldi/FourseasonsWinter.mp3'))
 
 
 
