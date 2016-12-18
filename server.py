@@ -149,11 +149,14 @@ def suggestion_delete_page(DELETEID):
 @login_required
 def adminpanel_page():
     if request.method == 'GET':
-        albums=[]
-        allgenre=[]
-        allartist=[]
-        song_album=[]
-        return render_template('adminpanel.html', albums=select_albums(), allgenre=select_all_genre(), allartist=select_all_artist(), song_album=select_song_album(),suggestions =  select_suggestions(), artist_pics= select_artist_pics())
+        if current_user.username == "admin":
+            albums=[]
+            allgenre=[]
+            allartist=[]
+            song_album=[]
+            return render_template('adminpanel.html', albums=select_albums(), allgenre=select_all_genre(), allartist=select_all_artist(), song_album=select_song_album(),suggestions =  select_suggestions(), artist_pics= select_artist_pics())
+        else: 
+            return render_template('adminrestriction.html')
     else:
         actiontype = int(request.form['actiontype'])
         if actiontype == 1:  # addgenre

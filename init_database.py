@@ -582,12 +582,14 @@ def reset_database():
 
 def insert_sample_data():
     create_user_table()
-    firstuser = User(1,"user1", "password1")
+    firstuser = User(1,"admin","admin")
     insert_user(firstuser)
-    seconduser = User(2,"kagan95", "123")
+    seconduser = User(2,"user1", "password1")
     insert_user(seconduser)
-    thirduser = User(3,"listnto", "9999")
+    thirduser = User(3,"kagan95", "123")
     insert_user(thirduser)
+    fourthuser = User(4,"listnto", "9999")
+    insert_user(fourthuser)
     create_userdetails_table()
     userdetails = Userdetails(1,"berkay","g","berkay@listnto.com","+90212xxxxxx")
     insert_userdetails(userdetails)

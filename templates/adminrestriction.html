@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block title %}Admin Panel{% endblock %}
+{% block static_links %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/suggestions.css') }}"/>
+{% endblock %}
+
+{% block layout %}
+
+<div class = "suggestions">
+<div id="background-carousel" align = left>
+    <div id="myCarousel" class="carousel slide" data-ride="carousel">
+      <div class="carousel-inner">
+        <div class="item active" style="background-image:url(/static/images/adminerror.jpg)"></div>
+      </div>
+    </div>
+</div>
+<div id="content-wrapper">
+<!-- PAGE CONTENT -->
+    <div class="container">
+        <div class="page-header"><p class="title" align = "center">
+            It looks like you are lost!<br>
+            You should not be here... <br><br><br>
+            <a href  = "{{ url_for('timeline_page')}}"><button type="button" align = "center" class = "btn btn-danger btn-lg " >Go to homepage!</button></a>
+            </p> 
+    </div>
+           
+    </div><!-- End Container -->
+<!-- PAGE CONTENT -->
+</div>
+
+
+</div>
+{% endblock %}
