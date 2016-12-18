@@ -77,6 +77,7 @@ def select_song_album():
         except dbapi2.DatabaseError as e:
             connection.rollback()
 
+
 def insert_sample_songs():
     #name album artist genre filepath
     insert_song(Song('Fix You'                          ,19 ,1  ,2,'http://berkaygiris.com/itucsdb1628/songs/Coldplay/X&Y/FixYou.mp3'))

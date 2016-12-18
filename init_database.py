@@ -609,6 +609,7 @@ def insert_sample_data():
     insert_post(firstPost)
     create_messages_table()
     # insert_bulk_messages()
+
     insert_default_genres()
     insert_sample_artists()
     insert_sample_albums()
