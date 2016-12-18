@@ -530,15 +530,20 @@ def comment_page(COMMENTID):
                 insert_comment(comment,userid,postid,avatarid,albumcoverid)
                 return redirect("/comment/" + str(postid))
             else:
-                error = 'Please enter a comment'
+                error = 'Comment can not be blank'
                 postid=int(request.form['postid'])
                 return render_template("comments.html", posts=list(select_post(COMMENTID)), comments=select_comments(COMMENTID), error=error)
         if actiontype == 3:
-            commentid=int(request.form['id'])
-            postid=int(request.form['postid'])
-            new_comment=request.form['new_comment']
-            update_comment(new_comment,commentid)
-            return redirect("/comment/" + str(postid))
+            if request.form['new_comment']:
+                commentid=int(request.form['id'])
+                postid=int(request.form['postid'])
+                new_comment=request.form['new_comment']
+                update_comment(new_comment,commentid)
+                return redirect("/comment/" + str(postid))
+            else:
+                error = 'Comment can not be blank'
+                postid=int(request.form['postid'])
+                return render_template("comments.html", posts=list(select_post(COMMENTID)), comments=select_comments(COMMENTID), error=error)
 
 @app.route('/comment/<int:COMMENTID>/<int:C_DELETEID>', methods=['GET', 'POST'])
 @login_required

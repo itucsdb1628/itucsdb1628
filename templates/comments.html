@@ -13,6 +13,11 @@
 {% block content %}
 
  <div class = "container">
+ {% if error %}
+			<div class="alert alert-danger">
+    		<p class=error><strong>Error:</strong> {{ error }}
+    		</div>
+  {% endif %}
   <div class = "row_short">
 	<div class="row">
         		{% for ID, CONTENT,POSTDATE,SONGNAME,ARTISTNAME,FILEPATH ,PICTUREID,USERNAME in posts %}
@@ -49,9 +54,6 @@
                     </div>
         	{% endfor %}
 			<br/>
-			{% if error %}
-    		<p class=error><strong>Error:</strong> {{ error }}
-  			{% endif %}
         	{% for content in comments %}
        		   <div class="container">
 					<div class="row">
@@ -109,7 +111,10 @@
 			        <p>
 			        	<h4 align="center">Update this comment!</h4>
 				  		<form align="center" role="form" action="" method="post" name="comment_update">
-            				<input type="text" name="new_comment">
+				  			<div class="form-group">
+    						<label for="release_year">Comment</label>
+   							 <input type="text" class="form-control" name="new_comment"  required="required">
+  							</div>
             				<input type="hidden" name="id" value="{{content.commentid}}">
             				<input type="hidden" name="postid" value="{{content.postid}}">
             				<input type="hidden" name="actiontype" value="3">
