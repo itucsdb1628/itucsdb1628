@@ -13,7 +13,7 @@
 
 {% block content  %}
 	<div class = "container">
-		{% for ID,USERID,CONTENT,USERNAME,POSTID,FILEPATH in likes_activity %}
+		{% for ID,USERID,CONTENT,SONGNAME,ARTISTNAME,USERNAME,POSTID,FILEPATH in likes_activity %}
 		{%if current_user.username != USERNAME%}
         <div class  = "well" id = "like">
         <div class="media">
@@ -24,7 +24,7 @@
                     <img class="media-object" src="{{FILEPATH}}" alt="Metallica">
                     </a>
                     <div class="media-body">
-                        <h4 class="media-heading" id = "like-heading">Metallica</h4>
+                        <h4 class="media-heading" id = "like-heading">{{SONGNAME}} - {{ARTISTNAME}}</h4>
                         {{CONTENT}}
                     </div>
                 </div>

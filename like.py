@@ -95,11 +95,13 @@ def select_likeFor_activities(userId):
     with dbapi2.connect(dsn) as connection:
         try:
              cursor = connection.cursor()
-             query = """SELECT POST.ID, POST.USERID, POST.CONTENT, USERDATA.USERNAME,LIKES.POSTID, ALBUMCOVER.FILEPATH
-             FROM LIKES,USERDATA,POST,ALBUMCOVER
+             query = """SELECT POST.ID, POST.USERID, POST.CONTENT, SONG.NAME,ARTIST.NAME,USERDATA.USERNAME,LIKES.POSTID, PICTURE.FILEPATH
+             FROM LIKES,USERDATA,POST,PICTURE,SONG,ARTIST
              WHERE (LIKES.USERID = USERDATA.ID
+             AND POST.SONGID = SONG.ID
+             AND SONG.ARTIST = ARTIST.ID
+             AND ARTIST.PICTUREID = PICTURE.ID
              AND LIKES.POSTID = POST.ID
-             AND POST.ALBUMCOVERID = ALBUMCOVER.ID
              AND POST.USERID = %s)
              ORDER BY POSTID"""%userId
              cursor.execute(query,(userId,))

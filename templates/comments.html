@@ -15,7 +15,7 @@
  <div class = "container">
   <div class = "row_short">
 	<div class="row">
-        		{% for ID, CONTENT, SONGID, FILEPATH,USERNAME,ALBUMCOVERID in posts %}
+        		{% for ID, CONTENT,POSTDATE,SONGNAME,ARTISTNAME,FILEPATH ,PICTUREID,USERNAME in posts %}
 				<div class="row">
                     <div class="col-xs-12 col-sm-3 col-md-3">
                         <a href="/timeline">
@@ -37,14 +37,14 @@
                                         </a>
                                     </div>
                                     <small>
-                                        <i class="glyphicon glyphicon-time"></i> 3 days ago <span class="twitter"> <i class="fa fa-twitter"></i> </span>
+                                        <i class="glyphicon glyphicon-time"></i> {{POSTDATE}} <span class="twitter"> <i class="fa fa-twitter"></i> </span>
                                         <br>
 
                                     </small>
                                 </div>
                             </div>
                         </div>
-                        <h4><a href="#">{{SONGID}}</a></h4>
+                        <h4><a href="#">{{ARTISTNAME}} - {{SONGNAME}}</a></h4>
                         <p>{{CONTENT}}</p>
                     </div>
         	{% endfor %}
@@ -123,7 +123,7 @@
 <!-- COMMENT UPDATE  -->
     				{% endfor %}
 
-    		{% for ID, CONTENT, SONGID, FILEPATH,USERNAME,ALBUMCOVERID in posts %}
+    		{% for ID, CONTENT, POSTDATE, SONGNAME,ARTISTNAME,FILEPATH,PICTUREID,USERNAME in posts %}
 			<form align="center" role="form" action="" method="post" name="comment_add"
             class="form-horizontal">
             <textarea style="margin-bottom:0px; margin-left:60px" rows="4" cols="20" maxlength='150' name="comment" required = ""></textarea>
@@ -131,7 +131,7 @@
             <input type="hidden" name="actiontype" value="2">
             <input type="hidden" name="userid" required="required" value="{{current_user.id}}">
             <input type="hidden" name="avatarid" required="required" value="1">
-            <input type="hidden" name="albumcover" required="required" value="{{ALBUMCOVERID}}">
+            <input type="hidden" name="albumcover" required="required" value="{{PICTUREID}}">
             <button align="center"style="margin-top:60px; margin-right:50px" type="submit" name="add_comment" class="btn btn-danger">Add comment</button>
 			</form>
 			{% endfor %}

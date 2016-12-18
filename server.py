@@ -79,9 +79,9 @@ def search_user():
     content = request.form['content']
     user = get_user(content)
     if(user == None):
-         return render_template("error.html" ,posts=list(select_posts(current_user.id)), likes = list(select_user_likes(current_user.id)),error_messages = 'User could not be found.',owner_user = current_user,reposts = list(select_sharedPost(current_user.id)))
+         return render_template("error.html" ,posts=list(select_posts(current_user.id)), likes = list(select_user_likes(current_user.id)),error_messages = 'User could not be found.',owner_user = current_user,reposts = list(select_sharedPost(current_user.id)),songs = select_all_song2())
     if(current_user.id == user.id):
-         return render_template("timeline.html", posts=list(select_posts(current_user.id)), likes = list(select_user_likes(current_user.id)),owner_user = current_user,reposts = list(select_sharedPost(current_user.id)))
+         return render_template("timeline.html", posts=list(select_posts(current_user.id)), likes = list(select_user_likes(current_user.id)),owner_user = current_user,reposts = list(select_sharedPost(current_user.id)),songs = select_all_song2())
     else:
          return render_template("timeline_search.html", posts=list(select_posts(user.id)), likes = list(select_user_likes(current_user.id)), owner_user = user,reposts = list(select_sharedPost(user.id)))
 
@@ -90,7 +90,7 @@ def search_user():
 @login_required
 def timeline_page():
     id = current_user.id
-    return render_template("timeline.html", posts=list(select_posts(id)), likes = list(select_user_likes(current_user.id)),owner_user = current_user,reposts = list(select_sharedPost(id)))
+    return render_template("timeline.html", posts=list(select_posts(id)), likes = list(select_user_likes(current_user.id)),owner_user = current_user,reposts = list(select_sharedPost(id)),songs = select_all_song2())
 
 
 @app.route('/timeline/delete/<int:DELETEID>', methods=['GET', 'POST'])

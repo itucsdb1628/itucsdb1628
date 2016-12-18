@@ -30,11 +30,13 @@ def select_sharedPost(reposterID):
     with dbapi2.connect(dsn) as connection:
         try:
             cursor = connection.cursor()
-            query = """SELECT SHARE.ID,POST.CONTENT,POST.SONGID,ALBUMCOVER.FILEPATH,USERDATA.USERNAME,
-            POST.POSTDATE,SHARE.SHAREDATE FROM POST,ALBUMCOVER,USERDATA,SHARE
+            query = """SELECT SHARE.ID,POST.CONTENT,SONG.NAME,ARTIST.NAME,PICTURE.FILEPATH,USERDATA.USERNAME,
+            POST.POSTDATE,SHARE.SHAREDATE FROM POST,PICTURE,USERDATA,SHARE,SONG,ARTIST
             WHERE(
             SHARE.POSTID = POST.ID
-            AND POST.ALBUMCOVERID = ALBUMCOVER.ID
+            AND POST.SONGID = SONG.ID
+            AND SONG.ARTIST = ARTIST.ID
+            AND ARTIST.PICTUREID = PICTURE.ID
             AND POST.USERID = USERDATA.ID
             AND SHARE.REPOSTERID = %s)
             ORDER BY SHARE.ID""" %reposterID
@@ -47,11 +49,13 @@ def select_sharedFor_activities(userID):
     with dbapi2.connect(dsn) as connection:
         try:
             cursor = connection.cursor()
-            query = """SELECT POST.CONTENT,ALBUMCOVER.FILEPATH,USERDATA.USERNAME
-            FROM POST,ALBUMCOVER,USERDATA,SHARE
+            query = """SELECT POST.CONTENT,PICTURE.FILEPATH,USERDATA.USERNAME
+            FROM POST,USERDATA,SHARE,SONG,PICTURE,ARTIST
             WHERE(
             SHARE.POSTID = POST.ID
-            AND POST.ALBUMCOVERID = ALBUMCOVER.ID
+            AND POST.SONGID = SONG.ID
+            AND SONG.ARTIST = ARTIST.ID
+            AND ARTIST.PICTUREID = PICTURE.ID
             AND SHARE.REPOSTERID = USERDATA.ID
             AND POST.USERID = %s)
             ORDER BY SHARE.ID""" %userID

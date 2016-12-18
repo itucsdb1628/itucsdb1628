@@ -76,9 +76,6 @@ def create_like_table():
             LIKEDATE TIMESTAMP
             )"""
             cursor.execute(statement)
-            statement = """INSERT INTO LIKES(POSTID,USERID,LIKEDATE)
-                            VALUES(%s,%s,%s)"""
-            cursor.execute(statement,(1,1,'1.10.2016'));
             connection.commit()
             cursor.close()
         except dbapi2.DatabaseError as e:
@@ -104,23 +101,10 @@ def create_post_table():
             CONTENT VARCHAR(100) NOT NULL,
             POSTDATE TIMESTAMP,
             USERID INTEGER NOT NULL REFERENCES USERDATA(ID),
-            SONGID INTEGER NOT NULL,
-            ALBUMCOVERID INTEGER NOT NULL REFERENCES ALBUMCOVER(ID),
+            SONGID INTEGER NOT NULL REFERENCES SONG(ID),
             LIKECOUNTER INT DEFAULT 0
             )"""
             cursor.execute(statement)
-            statement = """INSERT INTO POST (CONTENT,POSTDATE,USERID,SONGID,ALBUMCOVERID,LIKECOUNTER)
-                            VALUES(%s,%s,%s,%s,%s,%s)"""
-            cursor.execute(statement,('perfect!',datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),1,1,1,1));
-            statement = """INSERT INTO POST (CONTENT,POSTDATE,USERID,SONGID,ALBUMCOVERID)
-                            VALUES(%s,%s,%s,%s,%s)"""
-            cursor.execute(statement,('great!',datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),1,2,2));
-            statement = """INSERT INTO POST (CONTENT,POSTDATE,USERID,SONGID,ALBUMCOVERID)
-                            VALUES(%s,%s,%s,%s,%s)"""
-            cursor.execute(statement,('excellent!',datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),1,3,3));
-            statement = """INSERT INTO POST (CONTENT,POSTDATE,USERID,SONGID,ALBUMCOVERID)
-                            VALUES(%s,%s,%s,%s,%s)"""
-            cursor.execute(statement,('beatiful!',datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),1,4,4));
             connection.commit()
             cursor.close()
         except dbapi2.DatabaseError as e:
@@ -252,7 +236,7 @@ def create_comment_table():
             USERID INTEGER NOT NULL REFERENCES USERDATA(ID) ON DELETE CASCADE,
             POSTID INTEGER NOT NULL REFERENCES POST(ID) ON DELETE CASCADE,
             AVATARID INTEGER NOT NULL REFERENCES AVATAR(ID) ON DELETE CASCADE,
-            ALBUMCOVERID INTEGER NOT NULL REFERENCES ALBUMCOVER(ID) ON DELETE CASCADE,
+            ALBUMCOVERID INTEGER NOT NULL REFERENCES PICTURE(ID) ON DELETE CASCADE,
             CDATE TIMESTAMP
             )"""
             cursor.execute(statement)
@@ -623,18 +607,18 @@ def insert_sample_data():
     insert_userdetails(user2details)
     create_suggestion_table()
     create_album_cover_table()
-    create_post_table()
-    create_like_table()
-    create_share_table()
-    firstPost = Post("perfect!", datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"), 1, 1, 1)
-    insert_post(firstPost)
     create_avatar_table()
     create_pic_table()
-    create_comment_table()
     create_album_table()
     create_genre_table()
     create_artist_table()
     create_song_table()
+    create_post_table()
+    create_like_table()
+    create_share_table()
+    create_comment_table()
+    firstPost = Post("perfect!", datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"), 1, 1, 1)
+    insert_post(firstPost)
     create_messages_table()
     insert_bulk_messages()
     insert_default_genres()

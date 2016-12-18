@@ -12,7 +12,7 @@
  <div class = "container">
   <div class = "row_short">
 	<div class="row">
-        		{% for ID, CONTENT, SONGID, FILEPATH,USERNAME,ALBUMCOVER in posts %}
+        		{% for ID, CONTENT, POSTDATE, SONGNAME,ARTISTNAME,FILEPATH,PICTUREID,USERNAME in posts %}
 		<div class="row">
                     <div class="col-xs-12 col-sm-3 col-md-3">
                         <a href="#">
@@ -41,7 +41,7 @@
                                 </div>
                             </div>
                         </div>
-                        <h4><a href="#">{{SONGID}}</a></h4>
+                        <h4><a href="#">{{ARTISTNAME}} - {{SONGNAME}}</a></h4>
                         <form action="APPLY" method = "post">
                             <input type="text" name="content" required="required" value="{{CONTENT}}">
                             <input type="submit" value="Update Post" name="add">

@@ -28,10 +28,9 @@
                             <textarea name="content" class="form-control" placeholder="What's going on..." rows="4" maxlength='100' required = "required"></textarea>
                             </div>
                             <select class="selectpicker" data-style="btn-info" name = "albumcover" data-live-search="true" >
-                                <option value="1">Beatles</option>
-	                            <option value="2">Led Zeppelin</option>
-	                            <option value="3">Metallica</option>
-                                <option value="4">Pink Floyd</option>
+                                 {%for ID,SONGNAME,ARTISTNAME in songs%}
+                                <option value="{{ID}}">{{ARTISTNAME}} - {{SONGNAME}}</option>
+	                            {%endfor%}
                             </select>
                             <input type = "hidden" name= "songid" value = '1'>
                            <button type="submit" class="btn btn-primary pull-right">
@@ -55,7 +54,7 @@
       {%endif%}
 
 	<div class="row">
-        		{% for ID, CONTENT, SONGID, FILEPATH,USERNAME,NUMBER,POSTDATE in posts%}
+        		{% for ID, CONTENT, POSTDATE, SONGNAME,ARTISTNAME,FILEPATH,NUMBER,USERNAME in posts%}
 		<div class="row">
                     <div class="col-xs-12 col-sm-3 col-md-3">
                         <a href="#">
@@ -84,7 +83,7 @@
                                 </div>
                             </div>
                         </div>
-                        <h4><a href="#">{{SONGID}}</a></h4>
+                        <h4><a href="#">{{ARTISTNAME}} - {{SONGNAME}}</a></h4>
                         <p>{{CONTENT}}</p>
                     </div>
                     <p align = "center">
@@ -129,7 +128,7 @@
 				<h4 align="center">Reposts of {{current_user.username}}</h4>
 				<hr>
 				<div class="row">
-        			{% for ID, CONTENT, SONGID, FILEPATH,USERNAME,POSTDATE,SHAREDATE in reposts%}
+        			{% for ID, CONTENT, SONGNAME,ARTISTNAME, FILEPATH,USERNAME,POSTDATE,SHAREDATE in reposts%}
 				<div class="row">
                     <div class="col-xs-12 col-sm-3 col-md-3">
                         <a href="#">
@@ -161,7 +160,7 @@
                                 </div>
                             </div>
                         </div>
-                        <h4><a href="#">{{SONGID}}</a></h4>
+                        <h4><a href="#">{{ARTISTNAME}} - {{SONGNAME}}</a></h4>
                         <p>{{CONTENT}}</p>
                         <a href="{{ url_for('repost_delete_page', repost_deleteID=ID) }}" title="Delete"> <i class="glyphicon glyphicon-remove" style="float:right; margin-right:10px; padding-top:0px" ></i><span class="twitter"> <i class="fa fa-twitter"></i> </span>
                 	</a>

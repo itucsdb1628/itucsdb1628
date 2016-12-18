@@ -24,6 +24,16 @@ def delete_song(DELETEID):
             connection.commit()
         except dbapi2.DatabaseError as e:
             connection.rollback()
+            
+def select_all_song2():
+    with dbapi2.connect(dsn) as connection:
+        try:
+            cursor = connection.cursor()
+            cursor.execute("""SELECT SONG.ID,SONG.NAME,ARTIST.NAME FROM ARTIST,SONG WHERE(SONG.ARTIST = ARTIST.ID)""")
+            connection.commit()
+            return cursor
+        except dbapi2.DatabaseError as e:
+            connection.rollback()
 
 def update_song(UPDATEID,name,artist,album,genre,filepath):
     with dbapi2.connect(dsn) as connection:
