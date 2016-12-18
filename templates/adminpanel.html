@@ -144,8 +144,23 @@
 					    </form>
 						<form align= "center" role="form" action="" method = "post">
 							<p><input type="text" name="albumname" required="required" placeholder="Album Name">
+							{% if 'albumname' in form.errors %}
+            				<div class="alert alert-danger">
+                			{{ form.errors['albumname'] }}
+            				</div>
+            				{% endif %}
 							<p><input type="text" name="albumdate" required="required" placeholder="Release Year(i.e. 1999)">
+							{% if 'albumdate' in form.errors %}
+            				<div class="alert alert-danger">
+                			{{ form.errors['albumdate'] }}
+           					 </div>
+            				{% endif %}
 							<p><input type="text" name="filepath" required="required" placeholder="URL for albumcover">
+							{% if 'filepath' in form.errors %}
+            				<div class="alert alert-danger">
+                			{{ form.errors['filepath'] }}
+           					 </div>
+            				{% endif %}
 							<input type="hidden" name="actiontype" required="required" value ="4">
 							<p><button type="submit" name="add_album" class="btn btn-default">Add</button>
 				        </form>
@@ -196,6 +211,21 @@
 			      <div class="modal-body">
 			        <p>
 				  		<h4 align="center">Update an album</h4>
+				  		{% if 'albumname' in form.errors1 %}
+            			<div class="alert alert-danger">
+                		{{ form.errors1['albumname'] }}
+            			</div>
+            			{% endif %}
+            			{% if 'albumdate' in form.errors1 %}
+            			<div class="alert alert-danger">
+                		{{ form.errors1['albumdate'] }}
+           				</div>
+            			{% endif %}
+            			{% if 'filepath' in form.errors1 %}
+            			<div class="alert alert-danger">
+                		{{ form.errors1['filepath'] }}
+           				</div>
+            			{% endif %}
 				  		{% for album in albums %}
 						<div class="card">
   							<img src="{{album.cover_filepath}}" width="200" height="200">

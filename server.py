@@ -154,7 +154,8 @@ def adminpanel_page():
             allgenre=[]
             allartist=[]
             song_album=[]
-            return render_template('adminpanel.html', albums=select_albums(), allgenre=select_all_genre(), allartist=select_all_artist(), song_album=select_song_album(),suggestions =  select_suggestions(), artist_pics= select_artist_pics())
+            form = request.form
+            return render_template('adminpanel.html', albums=select_albums(), allgenre=select_all_genre(), allartist=select_all_artist(), song_album=select_song_album(),suggestions =  select_suggestions(), artist_pics= select_artist_pics(),form=form)
         else:
             return render_template('adminrestriction.html')
     else:
@@ -174,26 +175,38 @@ def adminpanel_page():
             delete_genre(genreid)
             return redirect(url_for('adminpanel_page'))
         if actiontype == 4: #add_album
-            filename = request.form['filepath']
-            insert_picture(Picture(filename,2))
-            pictureid = select_picture_id(filename)
-            albumname = request.form['albumname']
-            albumdate = int(request.form['albumdate'])
-            insert_album2(Album(albumname,pictureid[0],albumdate))
-            return redirect(url_for('adminpanel_page'))
+            valid = validate_album_data(request.form)
+            if valid:
+                filename = request.form['filepath']
+                insert_picture(Picture(filename,2))
+                pictureid = select_picture_id(filename)
+                albumname = request.form['albumname']
+                albumdate = int(request.form['albumdate'])
+                insert_album2(Album(albumname,pictureid[0],albumdate))
+                return redirect(url_for('adminpanel_page'))
+            else:
+                form = request.form
+                return render_template('adminpanel.html', albums=select_albums(), allgenre=select_all_genre(), allartist=select_all_artist(), song_album=select_song_album(),suggestions =  select_suggestions(), artist_pics= select_artist_pics(),form=form)
+
         if actiontype == 5: #delete_album
             albumid = int(request.form['albumid'])
             delete_album(albumid)
             return redirect(url_for('adminpanel_page'))
         if actiontype == 6: #update_album
-            albumname = request.form['albumname']
-            albumdate = int(request.form['albumdate'])
-            filename = request.form['filepath']
-            insert_picture(Picture(filename,1))
-            albumcoverid = select_picture_id(filename)
-            albumid = int(request.form['albumid'])
-            update_album(albumid,albumname,albumcoverid[0],albumdate)
-            return redirect(url_for('adminpanel_page'))
+            valid = validate_UpdateAlbum_data(request.form)
+            if valid:
+                albumname = request.form['albumname']
+                albumdate = int(request.form['albumdate'])
+                filename = request.form['filepath']
+                insert_picture(Picture(filename,1))
+                albumcoverid = select_picture_id(filename)
+                albumid = int(request.form['albumid'])
+                update_album(albumid,albumname,albumcoverid[0],albumdate)
+                return redirect(url_for('adminpanel_page'))
+            else:
+                form = request.form
+                return render_template('adminpanel.html', albums=select_albums(), allgenre=select_all_genre(), allartist=select_all_artist(), song_album=select_song_album(),suggestions =  select_suggestions(), artist_pics= select_artist_pics(),form=form)
+
         if actiontype == 7:  # addartist
             filename = request.form['filepath']
             insert_picture(Picture(filename,1))
@@ -567,6 +580,62 @@ def activities_page_update():
         updateid = int(request.form['commentid'])
         update_comment(updateid)
     return redirect(url_for('activities_page'))
+
+def validate_album_data(form):
+    form.data = {}
+    form.errors = {}
+
+    if len(form['albumname'].strip()) == 0:
+        form.errors['albumname'] = 'Albumname can not be blank.'
+    else:
+        form.data['albumname'] = form['albumname']
+
+    if len(form['filepath'].strip()) == 0:
+        form.errors['filepath'] = 'URL can not be blank.'
+    else:
+        form.data['filepath'] = form['filepath']
+
+    if not form['albumdate']:
+        form.errors['albumdate'] = 'Year can not be blank'
+    elif not form['albumdate'].isdigit():
+        form.errors['albumdate'] = 'Year must consist of digits only.'
+    else:
+        albumdate = int(form['albumdate'])
+        if (albumdate < 1887) or (albumdate > 2017):
+            form.errors['albumdate'] = 'Year not in valid range.'
+        else:
+            form.data['albumdate'] = albumdate
+
+    return len(form.errors) == 0
+
+def validate_UpdateAlbum_data(form):
+    form.data1 = {}
+    form.errors1 = {}
+
+    if len(form['albumname'].strip()) == 0:
+        form.errors1['albumname'] = 'Albumname can not be blank.'
+    else:
+        form.data1['albumname'] = form['albumname']
+
+    if len(form['filepath'].strip()) == 0:
+        form.errors1['filepath'] = 'URL can not be blank.'
+    else:
+        form.data1['filepath'] = form['filepath']
+
+    if not form['albumdate']:
+        form.errors1['albumdate'] = 'Year can not be blank'
+    elif not form['albumdate'].isdigit():
+        form.errors1['albumdate'] = 'Year must consist of digits only.'
+    else:
+        albumdate = int(form['albumdate'])
+        if (albumdate < 1887) or (albumdate > 2017):
+            form.errors1['albumdate'] = 'Year not in valid range.'
+        else:
+            form.data1['albumdate'] = albumdate
+
+    return len(form.errors1) == 0
+
+
 
 
 '''Activity Routes-Salih'''
