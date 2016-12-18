@@ -21,12 +21,12 @@
 			                 <div class="panel-body">
                             <textarea name="content" class="form-control" placeholder="What's going on..." rows="4" maxlength='100' required = "required"></textarea>
                             </div>
-                            <select class="selectpicker" data-style="btn-info" name = "albumcover" data-live-search="true" >
+                            <select class="selectpicker" data-style="btn-info" name = "songid" data-live-search="true">
                                {%for ID,SONGNAME,ARTISTNAME in songs%}
                                 <option value="{{ID}}">{{ARTISTNAME}} - {{SONGNAME}}</option>
 	                            {%endfor%}
                             </select>
-                            <input type = "hidden" name= "songid" value = '1'>
+                            
                            <button type="submit" class="btn btn-primary pull-right">
                                 Share
                                 <span class="glyphicon glyphicon-share-alt"></span>
