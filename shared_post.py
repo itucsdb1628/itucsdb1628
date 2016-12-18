@@ -49,7 +49,7 @@ def select_sharedFor_activities(userID):
     with dbapi2.connect(dsn) as connection:
         try:
             cursor = connection.cursor()
-            query = """SELECT POST.CONTENT,PICTURE.FILEPATH,USERDATA.USERNAME
+            query = """SELECT POST.CONTENT,PICTURE.FILEPATH,USERDATA.USERNAME,SONG.NAME,ARTIST.NAME
             FROM POST,USERDATA,SHARE,SONG,PICTURE,ARTIST
             WHERE(
             SHARE.POSTID = POST.ID
