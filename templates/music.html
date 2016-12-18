@@ -16,7 +16,6 @@
 					<div class="col-xs-8">
 						<button type="button" class="btn btn-primary btn-block" data-toggle="tab" href="#artists">Artists</button>
 						<button type="button" class="btn btn-primary btn-block" data-toggle="tab" href="#albums">Albums</button>
-						<button type="button" class="btn btn-primary btn-block" data-toggle="tab" href="#genre">Genre</button>
 					</div>
 				</div>
 			</div>
@@ -31,7 +30,6 @@
 								    <a href="#{{HREF}}_artist" class="thumbnail" data-toggle="tab">
 								      <img src="{{PICTUREID}}" alt="cover" width="128" height="128">
 								      <p class="name">{{NAME}}</p>
-								      <p class="song_count">("song count here")</p>
 								    </a>
 								  </div>
 						{% endfor %}
@@ -42,7 +40,6 @@
 								    <a href="#{{HREF}}_artist" class="thumbnail" data-toggle="tab">
 								      <img src="{{PICTUREID}}" alt="cover" width="128" height="128">
 								      <p class="name">{{NAME}}</p>
-								      <p class="song_count">("song count here")</p>
 								    </a>
 								  </div>
 
@@ -95,7 +92,11 @@
 												<div class="panel panel-default">
 											  		<div class="panel-heading">{{SONGNAME}}</div>
 											    	<div class="panel-body">
-											    		<audio controls style="width: 100%;" src="{{FILEPATH}}" preload="auto" />
+											    		<audio controls style="width: 94%;" src="{{FILEPATH}}" preload="auto"></audio>
+											    		<a href="JavaScript:newPopup('/share/{{ID}}');">
+												    		<img alt="Logo" src="{{ url_for('static', filename='images/logo/logo_vector.svg') }}"
+				        										 align="right" width = "5%">
+			        									</a>
 													</div>
 											 	</div>
 											 	{% endfor %}
@@ -109,7 +110,11 @@
 												<div class="panel panel-default">
 											  		<div class="panel-heading">{{SONGNAME}}</div>
 											    	<div class="panel-body">
-											    		<audio controls style="width: 100%;" src="{{FILEPATH}}" preload="auto" />
+											    		<audio controls style="width: 94%;" src="{{FILEPATH}}" preload="auto"></audio>
+											    		<a href="JavaScript:newPopup('/share/{{ID}}');">
+												    		<img alt="Logo" src="{{ url_for('static', filename='images/logo/logo_vector.svg') }}"
+				        										 align="right" width = "5%">
+			        									</a>
 													</div>
 											 	</div>
 											 	{% endfor %}
@@ -128,6 +133,21 @@
 		</div><!--  main row -->
 	</div>
 
+<script type="text/javascript">
+// Popup window code
+function newPopup(url) {
+	popupWindow = window.open(
+		url,'popUpWindow','height=300,width=600,left=10,top=10,resizable=yes,scrollbars=yes,toolbar=yes,menubar=no,location=no,directories=no,status=yes')
+}
+//stop playing music when a new one starts
+$("audio").on("play", function(){
+    var _this = $(this);
+    $("audio").each(function(i,el){
+        if(!$(el).is(_this))
+            $(el).get(0).pause();
+    });
+});
+</script>
 
 
 {% endblock %}

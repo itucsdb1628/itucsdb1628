@@ -133,6 +133,19 @@ def select_song_album():
         except dbapi2.DatabaseError as e:
             connection.rollback()
 
+def select_song_name(id):
+    content = []
+    with dbapi2.connect(dsn) as connection:
+        try:
+            cursor = connection.cursor()
+            cursor.execute("""SELECT  SONG.NAME  FROM SONG
+                                WHERE SONG.ID = %s""" % (int(id)))
+            connection.commit()
+            content = list(cursor)
+            a=content[0]
+            return a[0]
+        except dbapi2.DatabaseError as e:
+            connection.rollback()
 
 def insert_sample_songs():
     #name album artist genre filepath

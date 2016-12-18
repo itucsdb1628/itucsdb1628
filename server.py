@@ -486,6 +486,22 @@ def music_page():
     albums=[]
     return render_template("music.html",albums=select_albums_music(),allartist=select_artists_music(),songsbyartists=select_songs_by_artist(),songsbyalbums=select_songs_by_album())
 
+@app.route('/share/<int:SONGID>', methods=['GET', 'POST'])
+@login_required
+def share_popup(SONGID):
+    if request.method == 'GET':
+        return render_template("share.html",id=SONGID,name=select_song_name(SONGID))
+    else:
+        insert_post_page()
+        return redirect(url_for('share_func'))
+
+
+@app.route('/shared', methods=['GET', 'POST'])
+@login_required
+def share_func():
+    if request.method == 'GET':
+        return render_template("shared.html")
+
 ''''''''''''''''''''''''''''''''''''''''''''''''' MUSIC PAGE '''''''''''''''''''''''''''''''''''''''''''''''''
 
 

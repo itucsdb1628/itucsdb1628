@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block static_links %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/share.css') }}" />
+{% endblock %}
+{% block title %}Listnto{% endblock %}
+
+{% block layout %}
+<div class="row">
+<h4>Sharing:  {{name}}</h4>
+
+		<div class="row">
+
+                    <form align = "right" action="" method = "post">
+			                 <div class="panel-body">
+                            <textarea name="content" class="form-control" placeholder="Share your idea" rows="4" maxlength='100' required = "required"></textarea>
+                            </div>
+							<input type="hidden" name="songid" required="required" value ="{{id}}">
+                           <button type="submit" class="btn btn-primary pull-right">
+                                Share
+                                <span class="glyphicon glyphicon-share-alt"></span>
+                            </button>
+                    </form>
+
+	</div>
+  </div>
+
+{% endblock %}
