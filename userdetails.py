@@ -2,17 +2,16 @@ import psycopg2 as dbapi2
 from flask import request
 from dsn_conf import get_dsn
 from dao.user import *
-
+from flask_login import current_user, login_required, login_user, logout_user
 dsn = get_dsn()
 
 
-def delete_userdetails(name,surname):
+def delete_userdetails():
     with dbapi2.connect(dsn) as connection:
         try:
             cursor = connection.cursor()
-            query = """DELETE FROM USERDETAILS WHERE (NAME = %s
-             AND SURNAME = %s)"""
-            cursor.execute(query,(name,surname))
+            query = """DELETE FROM USERDETAILS WHERE (USERID = %s)""" %(current_user.id)
+            cursor.execute(query)
             connection.commit()
         except dbapi2.DatabaseError as e:
             connection.rollback()
@@ -31,8 +30,7 @@ def select_an_user_userdetails(username):
        with dbapi2.connect(dsn) as connection:
         try:
              cursor = connection.cursor()
-             query = """SELECT * FROM USERDETAILS INNER JOIN USERDATA on USERDATA.ID = USERDETAILS.USERID
-             WHERE USERNAME = %s """ %(username)
+             query = """SELECT * FROM USERDETAILS INNER JOIN USERDATA on USERDATA.ID = USERDETAILS.USERID WHERE USERNAME = '%s' """ %(username)
              cursor.execute(query)
              connection.commit()
              return cursor
@@ -51,16 +49,15 @@ def select_userdetails():
              connection.rollback()
 
 
-def update_userdetails(older_name,name,userid,surname,email,phonenumber):
+def update_myuserdetail(name,surname,email,phonenumber):
     with dbapi2.connect(dsn) as connection:
         try:
              cursor = connection.cursor()
-             query = """UPDATE USERDETAILS SET USERID = '%s', NAME = '%s', SURNAME = '%s', EMAIL = '%s', PHONENUMBER = '%s' WHERE NAME = '%s' """%(userid,name,surname,email,phonenumber,older_name)
+             query = """UPDATE USERDETAILS SET  NAME = '%s', SURNAME = '%s', EMAIL = '%s', PHONENUMBER = '%s' WHERE USERID = '%s' """%(name,surname,email,phonenumber,current_user.id)
              cursor.execute(query)
              connection.commit()
              return cursor
         except dbapi2.DatabaseError as e:
              connection.rollback()
-
 
 

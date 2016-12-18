@@ -13,6 +13,7 @@ from genre import insert_genre
 from artist import *
 from album import *
 from dao.userdetails import *
+from followers import *
 
 from dsn_conf import get_dsn
 
@@ -305,7 +306,7 @@ def create_messages_table():
                       message_room (
                        id             SERIAL    PRIMARY KEY,
                        room_name      TEXT      NULL,
-                       admin_id       INTEGER   NOT NULL   REFERENCES USERDATA(ID) ON DELETE SET NULL,
+                       admin_id       INTEGER  NOT NULL REFERENCES USERDATA(ID) ON DELETE CASCADE,
                        activity_date  TIMESTAMP NOT NULL  DEFAULT CURRENT_TIMESTAMP
                       );
 
@@ -519,6 +520,36 @@ def insert_userdetails(userdetails):
             connection.rollback()
 
 '''*************************************************************************************************************************'''
+'''******************************************* Followers*************************************************************'''
+
+def create_followers_table():
+    with dbapi2.connect(dsn) as connection:
+        try:
+            cursor = connection.cursor()
+            statement = """CREATE TABLE IF NOT EXISTS FOLLOWERS(
+                ID SERIAL PRIMARY KEY,
+                USERNAME VARCHAR(50)  REFERENCES USERDATA(USERNAME) ON DELETE CASCADE ON UPDATE CASCADE,
+                FOLLOWER VARCHAR(50) REFERENCES USERDATA(USERNAME) ON DELETE CASCADE ON UPDATE CASCADE,
+                UNIQUE(USERNAME,FOLLOWER)
+                )"""
+            cursor.execute(statement)
+            connection.commit()
+            cursor.close()
+        except dbapi2.DatabaseError as e:
+            connection.rollback()
+
+def drop_followers_table():
+    with dbapi2.connect(dsn) as connection:
+        try:
+            cursor = connection.cursor()
+            statement = """DROP TABLE IF EXISTS FOLLOWERS"""
+            cursor.execute(statement);
+            connection.commit()
+            cursor.close()
+        except dbapi2.DatabaseError as e:
+            connection.rollback()
+
+'''******************************************************************************************************************'''
 ## create album-table ##
 def create_album_table():
     with dbapi2.connect(dsn) as connection:
@@ -569,6 +600,7 @@ def reset_database():
     drop_genre_table()
     drop_album_table() #####
     drop_messages_table()
+    drop_followers_table()
     drop_user_table()
 
 
@@ -592,6 +624,8 @@ def insert_sample_data():
     insert_userdetails(userdetails)
     user2details = Userdetails(2,"kagan","ozgun","kagan@listnto.com","+90212xxxxxx")
     insert_userdetails(user2details)
+    create_followers_table()
+    insert_follower("user1","kagan95")
     create_suggestion_table()
     create_album_cover_table()
     create_avatar_table()

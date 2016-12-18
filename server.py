@@ -70,7 +70,7 @@ def like_post(LIKEID,USERNAME):
           return redirect(url_for('timeline_page'))
     else:
           user = get_user(USERNAME)
-          return render_template("timeline_search.html", posts=list(select_posts(user.id)), likes = list(select_user_likes(current_user.id)),owner_user = user)
+          return render_template("timeline_search.html", posts=list(select_posts(user.id)), likes = list(select_user_likes(current_user.id)),owner_user = user,isfollower = check_follower(current_user.username,user.username).fetchone())
 
 
 @app.route('/timeline/search' ,methods=['GET', 'POST'])
@@ -81,9 +81,9 @@ def search_user():
     if(user == None):
          return render_template("error.html" ,posts=list(select_posts(current_user.id)), likes = list(select_user_likes(current_user.id)),error_messages = 'User could not be found.',owner_user = current_user,reposts = list(select_sharedPost(current_user.id)),songs = select_all_song2())
     if(current_user.id == user.id):
-         return render_template("timeline.html", posts=list(select_posts(current_user.id)), likes = list(select_user_likes(current_user.id)),owner_user = current_user,reposts = list(select_sharedPost(current_user.id)),songs = select_all_song2())
+         return render_template("timeline.html", posts=list(select_posts(current_user.id)), likes = list(select_user_likes(current_user.id)),owner_user = current_user,reposts = list(select_sharedPost(current_user.id)),songs = select_all_song2(), isfollower = check_follower(current_user.username,user.username).fetchone())
     else:
-         return render_template("timeline_search.html", posts=list(select_posts(user.id)), likes = list(select_user_likes(current_user.id)), owner_user = user,reposts = list(select_sharedPost(user.id)))
+         return render_template("timeline_search.html", posts=list(select_posts(user.id)), likes = list(select_user_likes(current_user.id)), owner_user = user,reposts = list(select_sharedPost(user.id)), isfollower = check_follower(current_user.username,user.username).fetchone())
 
 
 @app.route('/timeline')
@@ -304,10 +304,10 @@ def signup():
 @login_required
 def update_profile():
     form=LoginForm(request.form)
-    old_username = request.form['old_username']
     username = request.form['new_username']
     password = request.form['new_password']
-    update_user_login(username, password, old_username)
+    update_user_login(username, password, current_user.username)
+    logout_user()
     return render_template('home.html', form = form)
 
 
@@ -315,14 +315,22 @@ def update_profile():
 @login_required
 def delete_profile():
     form=LoginForm(request.form)
-    username = request.form['username']
     password = request.form['password']
-    delete_user_login(username, password)
+    delete_user_login(current_user.username, password)
     return render_template('home.html',form = form)
 
 
 '''*********************************************** END OF USERDATA TABLE OPERATIONS ****************************'''
+@app.route('/follow/<string:followusername>')
+def follow(followusername):
+    if(check_follower(current_user.username,followusername).fetchone()):
+       delete_follower(current_user.username,followusername)
+    else:
+       insert_follower(current_user.username,followusername)
 
+    user = get_user(followusername)
+
+    return render_template("timeline_search.html", posts=list(select_posts(user.id)), likes = list(select_user_likes(current_user.id)),owner_user = user,isfollower = check_follower(current_user.username,followusername).fetchone())
 # ################################################ Messages #################################################
 
 
@@ -430,45 +438,79 @@ def messages_new_message():
 
 
 @app.route('/profiledetails')
-@login_required
 def profiledetails():
-        return render_template("profiledetails.html", userdetails = select_userdetails(), users = select_users_from_login())
+        userdetails = select_an_user_userdetails(current_user.username).fetchone()
+        check = userdetails
+        if(check):
+            name =userdetails[2]
+            surname = userdetails[3]
+            mail = userdetails[4]
+            phone = userdetails[5]
+        else:
+            name =None
+            surname = None
+            mail = None
+            phone = None
+        return render_template("profiledetails.html",name = name,surname = surname, mail = mail, phone = phone, users = current_user)
 
-@app.route('/delete',methods=['GET','POST'])
-@login_required
-def showdetails():
-    name = request.form['name']
-    surname = request.form['surname']
-    delete_userdetails(name,surname)
+@app.route('/update_userdetails',methods=['GET','POST'])
+def update_userdetails():
+    type = request.form['form_type']
+    list = []
+    list = select_an_user_userdetails(current_user.username).fetchone()
+    name = ""
+    surname = ""
+    email = ""
+    phonenum = ""
+    if(type == "1"):
+        name = request.form['update_name']
+        surname = list[3]
+        email = list[4]
+        phonenum = list[5]
+
+    elif(type == "2"):
+        surname = request.form['update_surname']
+        name = list[2];
+        email = list[4]
+        phonenum = list[5]
+
+    elif(type == "3"):
+        email = request.form['update_email']
+        name = list[2];
+        surname = list[3]
+        phonenum = list[5]
+
+    elif(type == "4"):
+        phonenum = request.form['update_phone']
+        name = list[2];
+        surname = list[3]
+        email = list[4]
+    else:
+        name = list[2];
+        surname = list[3]
+        email = list[4]
+        phonenum = list[5]
+
+    update_myuserdetail(name,surname,email,phonenum)
     return redirect(url_for('profiledetails'))
 
-@app.route('/update',methods=['GET','POST'])
-@login_required
-def update():
-    username = request.form['older_name']
-    name = request.form['name']
-    surname = request.form['surname']
-    email = request.form['email']
-    phonenum = request.form['phonenum']
-    userid = request.form['userid']
-    update_userdetails(username,name,userid,surname,email,phonenum)
-    return redirect(url_for('profiledetails'))
-
+@app.route('/deleteuserdetails',methods=['GET','POST'])
+def delete_user_details():
+    password = request.form['password']
+    delete_userdetails()
+    return redirect(url_for('timeline_page'))
 
 @app.route('/insert_details',methods=['GET','POST'])
-@login_required
 def insert_details():
     name = request.form['name']
     surname = request.form['surname']
     email = request.form['email']
     phonenum = request.form['phonenum']
-    userid = request.form['userid']
-    userx = Userdetails(userid,name,surname,email,phonenum)
+    userx = Userdetails(current_user.id,name,surname,email,phonenum)
     insert_userdetails(userx)
     return redirect(url_for('profiledetails'))
 
 @app.route('/gototimeline',methods=['GET','POST'])
-@login_required
 def gototimeline():
     return redirect(url_for('timeline_page'))
 

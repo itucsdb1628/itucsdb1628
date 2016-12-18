@@ -1,139 +1,256 @@
 
-{% block c2 %}
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body class="well"">
+<div class="container">
 
-		<table border="1">
-			<tr align="center">
-				<th colspan="3">Users</th>
-			</tr>
-			<tr>
-				<th>ID</th>
-				<th>USERNAME</th>
-				<th>PASSWORD</th>
-			</tr>
-			{% for ID,USERNAME, PASSWORD in users%}
-			<tr>
-				<td>{{ID}}</td>
-				<td>{{USERNAME}}</td>
-				<td>{{PASSWORD}}</td>
-			</tr>
-			{% endfor %}
-		</table>
-		</br></br>
-		<table border="1">
-			<tr align="center">
-				<th colspan="7">User Details</th>
-			</tr>
-			<tr>
-				<th>USERNAME</th>
-				<th>PASSWORD</th>
-				<th>USERID</th>
-				<th>NAME</th>
-				<th>SURNAME</th>
-				<th>EMAIL</th>
-				<th>PHONENUMBER</th>
-			</tr>
-			{% for USERNAME, PASSWORD, USERID,NAME,SURNAME,EMAIL,PHONENUMBER in userdetails%}
-			<tr>
-				<td>{{USERNAME}}</td>
-				<td>{{PASSWORD}}</td>
-				<td>{{USERID}}</td>
-				<td>{{NAME}}</td>
-				<td>{{SURNAME}}</td>
-				<td>{{EMAIL}}</td>
-				<td>{{PHONENUMBER}}</td>
-			</tr>
-			{% endfor %}
-		</table>
+{%if name == None%}
+	{%if surname == None%}
+		{%if mail == None%}
+			{%if phone == None%}
+
+		<h2>Add User Details</h2>
+  		<div class="table-responsive">
+		<form action = "/insert_details" method = "POST">
+  		<table class="table">
+    			<tbody>
+      				<tr class="success">
+        				<td>Username</td>
+					<td></td>
+        				<td>{{current_user.username}}</td>
+      				</tr>
+      				<tr class="info">
+        				<td>Name</td>
+					<td></td>
+        				<td><input type = "text" name = "name" /></td>
+      				</tr>
+      				<tr class="info">
+        				<td>Surname</td>
+					<td></td>
+        				<td><input type = "text" name = "surname" /></td>
+      				</tr>
+      				<tr class="info">
+        				<td>E-mail</td>
+					<td></td>
+        				<td><input type = "text" name = "email" /></td>
+      				</tr>
+      				<tr class = info>
+        				<td>Phone Number</td>
+					<td></td>
+        				<td><input type = "text" name = "phonenum" /></td>
+      				</tr>
+      				<tr class = info>
+        				<td></td>
+					<td></td>
+        				<td><button type="submit" value = "Add" class="btn btn-danger">Add</button></td>
+      				</tr>
+    		    </tbody>
+ 		 </table>
+         	</form>
+ 	 </div>
+
+			{%endif%}
+		{%endif%}
+	{%endif%}
+{%else%}
+
+  <h2>User Details</h2>
+  <div class="table-responsive">
+  <table class="table">
+    <tbody>
+      <tr class="success">
+        <td>Username</td>
+        <td colspan="2">{{current_user.username}}</td>
+      </tr>
+      <tr class="info">
+        <td>Name</td>
+        <td>{{name}}</td>
+        <td><button type="button" class="btn-lg btn-info " data-toggle="modal" data-target="#update_name">Update </button></td>
+      </tr>
+      <tr class="info">
+        <td>Surname</td>
+        <td>{{surname}}</td>
+        <td><button type="button" class="btn-lg btn-info " data-toggle="modal" data-target="#update_surname">Update </button></td>
+      </tr>
+      <tr class="info">
+        <td>E-mail</td>
+        <td>{{mail}}</td>
+        <td><button type="button" class="btn-lg btn-info " data-toggle="modal" data-target="#update_email">Update </button></td>
+      </tr>
+      <tr class = info>
+        <td>Phone Number</td>
+        <td>{{phone}}</td>
+        <td><button type="button" class="btn-lg btn-info " data-toggle="modal" data-target="#update_phone">Update </button></td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+  <form action = "/gototimeline" method = "POST">
+	<button type="submit" value = "Go to Timeline" class="btn btn-success">Go to Timeline</button>
+	</form>
+</br>
+<form action = "/deleteuserdetails" method = "POST">
+	<button type="button" class="btn-lg btn-danger" data-toggle="modal" data-target="#delete_details">Delete Userdetails</button>
+	</form>
+{%endif%}
+</div>
+
+</body>
+</html>
+
+<div id="delete_details" class="modal fade" role="dialog">
+  <div class="modal-dialog modal-sm">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="login-form-1">
+		<form id="delete-details-form" class="text-left" method="post" action="/deleteuserdetails">
+						Password
+                           			<input type="password" name="password" required="required"/>
+
+		</form>
+	</div>
+      </div>
+      <div class="modal-footer">
+        <button type="submit" value="Send" class="btn btn-danger" form="delete-details-form">Delete User Details</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div id="update_name" class="modal fade" role="dialog">
+  <div class="modal-dialog modal-sm">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="login-form-1">
+		<form id="login-form" class="text-left" method="post" action="/update_userdetails">
+						Name
+                           			<input type="text" name="update_name" required="required"/>
+						<input type="hidden" name="form_type" value ="1"/>
+
+		</form>
+	</div>
+      </div>
+      <div class="modal-footer">
+        <button type="submit" value="Send" class="btn btn-default" form="login-form">Update</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div id="update_surname" class="modal fade" role="dialog">
+  <div class="modal-dialog modal-sm">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="login-form-1">
+		<form id="login-form2" class="text-left" method="post" action="/update_userdetails">
+			<div class="login-form-main-message"></div>
+			<div class="main-login-form">
+				<div class="login-group">
+					<div class="form-group">
+						Surname
+                           			<input type="text" name="update_surname" required="required"/>
+					<input type="hidden" name="form_type" value ="2"/>
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
+      </div>
+      <div class="modal-footer">
+        <button type="submit" value="Send" class="btn btn-default" form="login-form2">Update</button>
+      </div>
+    </div>
+
+  </div>
+</div>
 
 
+<div id="update_email" class="modal fade" role="dialog">
+  <div class="modal-dialog modal-sm">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="login-form-1">
+		<form id="login-form3" class="text-left" method="post" action="/update_userdetails">
+			<div class="login-form-main-message"></div>
+			<div class="main-login-form">
+				<div class="login-group">
+					<div class="form-group">
+						Email
+                           			<input type="email" name="update_email" required="required"/>
+						<input type="hidden" name="form_type" value ="3"/>
+
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
+      </div>
+      <div class="modal-footer">
+       	<button type="submit" value="Send" class="btn btn-default" form="login-form3">Update</button>
+      </div>
+    </div>
+
+  </div>
+</div>
 
 
+<div id="update_phone" class="modal fade" role="dialog">
+  <div class="modal-dialog modal-sm">
 
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="login-form-1">
+		<form id="login-form4" class="text-left" method="post" action="/update_userdetails">
+			<div class="login-form-main-message"></div>
+			<div class="main-login-form">
+				<div class="login-group">
+					<div class="form-group">
+						Phonenum
+                           			<input type="text" name="update_phone" required ="required"/>
+						<input type="hidden" name="form_type" value ="4"/>
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
+      </div>
+      <div class="modal-footer">
+        <button type="submit" value="Send" class="btn btn-default" form="login-form4">Update</button>
+      </div>
+    </div>
 
-{% endblock %}
-</br></br>
-Add User Details
-<form action = "/insert_details" method = "POST">
-	<table>
-		<tr>
-			<td>userid</td>
-			<td><input type = "text" name = "userid" /></td>
-		</tr>
-
-		<tr>
-			<td>name</td>
-			<td><input type = "text" name = "name" /></td>
-		</tr>
-		<tr>
-			<td>surname</td>
-			<td><input type = "text" name = "surname" /></td>
-		</tr>
-		<tr>
-			<td>email</td>
-			<td><input type = "text" name = "email" /></td>
-		</tr>
-		<tr>
-			<td>phonenum</td>
-			<td><input type = "text" name = "phonenum" /></td>
-		</tr>
-	</table>
-         <p><input type = "submit" value = "Add" /></p>
-
-</form>
-</br></br>
-Update User Details
-<form action = "/update" method = "POST">
-	<table>
-		<tr>
-			<td>older name</td>
-			<td><input type = "text" name = "older_name" /></td>
-		</tr>
-
-		<tr>
-			<td>new name</td>
-			<td><input type = "text" name = "name" /></td>
-		</tr>
-		<tr>
-			<td>new surname</td>
-			<td><input type = "text" name = "surname" /></td>
-		</tr>
-		<tr>
-			<td>new email</td>
-			<td><input type = "text" name = "email" /></td>
-		</tr>
-		<tr>
-			<td>new phonenum</td>
-			<td><input type = "text" name = "phonenum" /></td>
-		</tr>
-		<tr>
-			<td>new userid</td>
-			<td><input type = "text" name = "userid" /></td>
-		</tr>
-	</table>
-         <p><input type = "submit" value = "Update" /></p>
-
-</form>
-
-</br></br>
-Delete Userdetails
-<form action = "/delete" method = "POST">
-	<table>
-		<tr>
-			<td>name</td>
-			<td><input type = "text" name = "name" /></td>
-		</tr>
-
-		<tr>
-			<td>surname</td>
-			<td><input type = "text" name = "surname" /></td>
-		</tr>
-	</table>
-         <p><input type = "submit" value = "Delete" /></p>
-
-</form>
-</br></br>
-<form action = "/gototimeline" method = "POST">
-	<input type ="submit" value ="Go to Timeline"/>
-</form>
-
+  </div>
+</div>
 

@@ -7,7 +7,7 @@
 
 
 {% block content %}
-    
+
 <div class="container">
 	<div class="row">
 		<div class="col-lg-3 col-sm-6 col-md-3">
@@ -40,9 +40,23 @@
 							</br></br></br>
 
                     <div class="profile-userbuttons">
+						{%if current_user.id != owner_user.id%}
+						{%set var = isfollower%}
+						{%if var%}
+						<a href="{{url_for('follow',followusername = owner_user.username)}}">
+						<button type="button" class="btn btn-danger btn-sm">Unfollow</button>
+						</a>
+
+						{%else%}
+												<a href="{{url_for('follow',followusername = owner_user.username)}}">
 						<button type="button" class="btn btn-success btn-sm">Follow</button>
+						</a>
+						{%endif%}
+					{%endif%}
+					{%if current_user.id != owner_user.id%}
 						<button type="button" class="btn btn-success btn-sm">View</button>
 						<button type="button" class="btn btn-danger btn-sm">Message</button>
+						{%endif%}
 					</div>
                 </div>
             </div>
