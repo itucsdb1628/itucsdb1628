@@ -44,11 +44,11 @@
                     <img class="media-object" src="{{activities.albumcover}}" alt="Metallica">
                     </a>
                     <div class="media-body">
-                        <h4 class="media-heading" id = "comment-heading">Metallica</h4>
+                        <h4 class="media-heading" id = "comment-heading">{{activities.songname}} - {{activities.artistname}}</h4>
                         {{activities.content}}
                     <div class = "media mt-2">
                         <a class="media-left" href="#">
-                    <img class="media-object" src="{{activities.avatarpath}}" alt="Avatar">
+                    <img class="media-object" src="{{ url_for('static', filename='images/logo.jpg') }}" alt="Avatar">
                     </a>
                     <div class="media-body">
                         <h4 class="media-heading" id = "comment-heading">{{activities.username}}</h4>
@@ -62,7 +62,7 @@
     </div>
     {%endif%}
     {% endfor %}
-    	{% for CONTENT,FILEPATH,USERNAME in reposts%}
+    	{% for CONTENT,FILEPATH,USERNAME,SONGNAME, ARTISTNAME in reposts%}
     	{%if current_user.username != USERNAME%}
         <div class  = "well" id = "share">
         <div class="media">
@@ -73,7 +73,7 @@
                     <img class="media-object" src="{{FILEPATH}}" alt="Generic placeholder image">
                     </a>
                     <div class="media-body">
-                        <h4 class="media-heading" id = "like-heading">Metallica</h4>
+                        <h4 class="media-heading" id = "like-heading">{{SONGNAME}} - {{ARTISTNAME}}</h4>
                         {{CONTENT}}
                     </div>
                 </div>

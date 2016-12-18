@@ -33,16 +33,18 @@ def select_comments2():
         try:
             cursor = connection.cursor()
             query = """SELECT COMMENT.COMMENT, USERDATA.USERNAME, AVATAR.FILEPATH, POST.CONTENT, POST.ID, COMMENT.ID, PICTURE.FILEPATH,
-            POST.USERID FROM COMMENT INNER JOIN AVATAR on AVATAR.ID = COMMENT.AVATARID
+            SONG.NAME,ARTIST.NAME,POST.USERID FROM COMMENT INNER JOIN AVATAR on AVATAR.ID = COMMENT.AVATARID
             INNER JOIN USERDATA on COMMENT.USERID = USERDATA.ID
             INNER JOIN POST ON COMMENT.POSTID = POST.ID
             INNER JOIN PICTURE ON COMMENT.ALBUMCOVERID = PICTURE.ID
+            INNER JOIN SONG ON POST.SONGID = SONG.ID
+            INNER JOIN ARTIST ON SONG.ARTIST = ARTIST.ID
             WHERE(POST.USERID = %s)
             ORDER BY COMMENT.ID""" %current_user.id
             cursor.execute(query)
             value = cursor.fetchall()
             for val in value:
-                comment = Comment(val[0],val[1],val[2],val[3],val[4],val[5],val[6])
+                comment = Comment(val[0],val[1],val[2],val[3],val[4],val[5],val[6],val[7],val[8])
                 content.append(comment)
             return content
         except dbapi2.DatabaseError as e:
