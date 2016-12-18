@@ -48,6 +48,24 @@ def select_all_artist():
         except dbapi2.DatabaseError as e:
             connection.rollback()
 
+def select_artists_music():
+    content =[]
+    content2= []
+    with dbapi2.connect(dsn) as connection:
+        try:
+            cursor = connection.cursor()
+            cursor.execute("""SELECT ARTIST.ID, ARTIST.NAME, PICTURE.FILEPATH
+                       FROM ARTIST INNER JOIN PICTURE ON ARTIST.PICTUREID = PICTURE.ID
+                       ORDER BY ARTIST.NAME""")
+            connection.commit()
+            content = list(cursor)
+            for val in content:
+                val = val + (val[1].replace(" ", "_"),)
+                content2.append(val)
+            return content2
+        except dbapi2.DatabaseError as e:
+            connection.rollback()
+
 def insert_artistandpic(artst,pic):
     filename = pic
     insert_picture(Picture(filename,1))

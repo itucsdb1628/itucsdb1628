@@ -155,7 +155,7 @@ def adminpanel_page():
             allartist=[]
             song_album=[]
             return render_template('adminpanel.html', albums=select_albums(), allgenre=select_all_genre(), allartist=select_all_artist(), song_album=select_song_album(),suggestions =  select_suggestions(), artist_pics= select_artist_pics())
-        else: 
+        else:
             return render_template('adminrestriction.html')
     else:
         actiontype = int(request.form['actiontype'])
@@ -466,12 +466,14 @@ def gototimeline():
 def profile_page():
     return render_template("profile.html")
 
-
+''''''''''''''''''''''''''''''''''''''''''''''''' MUSIC PAGE '''''''''''''''''''''''''''''''''''''''''''''''''
 @app.route('/music')
 @login_required
 def music_page():
     albums=[]
-    return render_template("music.html",albums=select_albums(),allartist=select_all_artist())
+    return render_template("music.html",albums=select_albums_music(),allartist=select_artists_music(),songsbyartists=select_songs_by_artist(),songsbyalbums=select_songs_by_album())
+
+''''''''''''''''''''''''''''''''''''''''''''''''' MUSIC PAGE '''''''''''''''''''''''''''''''''''''''''''''''''
 
 
 '''Activity Routes-Salih'''

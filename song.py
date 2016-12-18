@@ -60,6 +60,62 @@ def select_all_song():
         except dbapi2.DatabaseError as e:
             connection.rollback()
 
+def select_songs_by_artist():
+    content = []
+    with dbapi2.connect(dsn) as connection:
+        try:
+            cursor = connection.cursor()
+            query = """SELECT ARTIST.ID, ARTIST.NAME FROM ARTIST"""
+            cursor.execute(query)
+            value = cursor.fetchall()
+            for val in value:
+                query = """SELECT SONG.ID, SONG.NAME, SONG.FILEPATH FROM SONG
+                            WHERE SONG.ARTIST = %s""" % (int(val[0]))
+                cursor.execute(query)
+                value2 = cursor.fetchall()
+                songs = []
+                name1 = val[1]
+                artistname = name1.replace (" ", "_")
+                for val in value2:
+                    id = val[0]
+                    songname = val[1]
+                    filepath = val[2]
+                    song = [id,songname,filepath]
+                    songs.append(song)
+                artist = (artistname,songs)
+                content.append(artist)
+            return content
+        except dbapi2.DatabaseError as e:
+             connection.rollback()
+
+def select_songs_by_album():
+    content = []
+    with dbapi2.connect(dsn) as connection:
+        try:
+            cursor = connection.cursor()
+            query = """SELECT ALBUM.ID, ALBUM.NAME FROM ALBUM"""
+            cursor.execute(query)
+            value = cursor.fetchall()
+            for val in value:
+                query = """SELECT SONG.ID, SONG.NAME, SONG.FILEPATH FROM SONG
+                            WHERE SONG.ALBUM = %s""" % (int(val[0]))
+                cursor.execute(query)
+                value2 = cursor.fetchall()
+                songs = []
+                name1 = val[1]
+                albumname = name1.replace (" ", "_")
+                for val in value2:
+                    id = val[0]
+                    songname = val[1]
+                    filepath = val[2]
+                    song = [id,songname,filepath]
+                    songs.append(song)
+                album = (albumname,songs)
+                content.append(album)
+            return content
+        except dbapi2.DatabaseError as e:
+             connection.rollback()
+
 def select_song_album():
     content = []
     with dbapi2.connect(dsn) as connection:

@@ -48,6 +48,24 @@ def select_albums():
         except dbapi2.DatabaseError as e:
              connection.rollback()
 
+def select_albums_music():
+    content = []
+    with dbapi2.connect(dsn) as connection:
+        try:
+            cursor = connection.cursor()
+            query = """SELECT ALBUM.NAME, PICTURE.FILEPATH, ALBUM.ALBUMDATE, ALBUM.ID
+                       FROM ALBUM INNER JOIN PICTURE ON ALBUM.ALBUMCOVERID = PICTURE.ID
+                       ORDER BY ALBUM.ID"""
+            cursor.execute(query)
+            value = cursor.fetchall()
+            for val in value:
+                album = Album(val[0],val[1],val[2],val[3])
+                underscored = val[0].replace(" ", "_")
+                content.append((album,underscored))
+            return content
+        except dbapi2.DatabaseError as e:
+             connection.rollback()
+
 
 def delete_album(DELETEID):
     with dbapi2.connect(dsn) as connection:

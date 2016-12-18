@@ -26,9 +26,9 @@
 				<!--------------------------------------- artists ---------------------------------------->
 					<div class="tab-pane fade in active col-xs-12" id="artists">
 						<div class="row col-xs-6">
-						{% for ID, NAME, PICTUREID in allartist[0::2] %}
+						{% for ID, NAME, PICTUREID, HREF in allartist[0::2] %}
 							<div class="col-xs-12">
-								    <a href="#" class="thumbnail">
+								    <a href="#{{HREF}}_artist" class="thumbnail" data-toggle="tab">
 								      <img src="{{PICTUREID}}" alt="cover" width="128" height="128">
 								      <p class="name">{{NAME}}</p>
 								      <p class="song_count">("song count here")</p>
@@ -37,9 +37,9 @@
 						{% endfor %}
 						</div>
 						<div class="row col-xs-6">
-						{% for ID, NAME, PICTUREID in allartist[1::2] %}
+						{% for ID, NAME, PICTUREID, HREF in allartist[1::2] %}
 							<div class="col-xs-12">
-								    <a href="#" class="thumbnail">
+								    <a href="#{{HREF}}_artist" class="thumbnail" data-toggle="tab">
 								      <img src="{{PICTUREID}}" alt="cover" width="128" height="128">
 								      <p class="name">{{NAME}}</p>
 								      <p class="song_count">("song count here")</p>
@@ -54,9 +54,9 @@
 					<!--------------------------------------- albums ----------------------------------------->
 					<div class="tab-pane fade in col-xs-12" id="albums">
 						<div class="row col-xs-6">
-						{% for album in albums[0::2] %}
+						{% for album, HREF in albums[0::2] %}
 							<div class="col-xs-12">
-								    <a href="#" class="thumbnail">
+								    <a href="#{{HREF}}_album" class="thumbnail" data-toggle="tab">
 								      <img src="{{album.cover_filepath}}" alt="cover" width="128" height="128">
 								      <p class="name">{{album.name}}</p>
 								      <p class="song_count">({{album.albumdate}})</p>
@@ -65,9 +65,9 @@
 						{% endfor %}
 						</div>
 						<div class="row col-xs-6">
-						{% for album in albums[1::2] %}
+						{% for album, HREF in albums[1::2] %}
 							<div class="col-xs-12">
-								    <a href="#" class="thumbnail">
+								    <a href="#{{HREF}}_album" class="thumbnail" data-toggle="tab">
 								      <img src="{{album.cover_filepath}}" alt="cover" width="128" height="128">
 								      <p class="name">{{album.name}}</p>
 								      <p class="song_count">({{album.albumdate}})</p>
@@ -88,110 +88,39 @@
 								</div>
 								<div class="col-xs-11 right_holder"> <!-- Right holder -->
 									<div class="tab-content"><!-- ALL SONGS ARE HERE -->
+										{% for ARTISTNAME, songs in songsbyartists %}
+										<div id="{{ARTISTNAME}}_artist" class="tab-pane fade">
+											<div class="panel-group">
+												{% for ID, SONGNAME, FILEPATH in songs %}
+												<div class="panel panel-default">
+											  		<div class="panel-heading">{{SONGNAME}}</div>
+											    	<div class="panel-body">
+											    		<audio controls style="width: 100%;" src="{{FILEPATH}}" preload="auto" />
+													</div>
+											 	</div>
+											 	{% endfor %}
+											</div>
+										</div>
+										{% endfor %}
+										{% for ALBUMNAME, songs in songsbyalbums %}
+										<div id="{{ALBUMNAME}}_album" class="tab-pane fade">
+											<div class="panel-group">
+												{% for ID, SONGNAME, FILEPATH in songs %}
+												<div class="panel panel-default">
+											  		<div class="panel-heading">{{SONGNAME}}</div>
+											    	<div class="panel-body">
+											    		<audio controls style="width: 100%;" src="{{FILEPATH}}" preload="auto" />
+													</div>
+											 	</div>
+											 	{% endfor %}
+											</div>
+										</div>
+										{% endfor %}
 
 
-										<div id="rhcp_songs" class="tab-pane fade">
-											<div class="panel-group">
-											  <div class="panel panel-default">
-											  	<div class="panel-heading">Snow(Hey Oh)</div>
-											    <div class="panel-body">
-											    	<audio controls style="width: 100%;" src="{{ url_for('static', filename='songs/rhcp_snow.mp3') }}" preload="auto" />
-												</div>
-											  </div>
-											  <div class="panel panel-default">
-											  	<div class="panel-heading">Dark Nescessities</div>
-											    <div class="panel-body">
-											    	<audio controls style="width: 100%;" src="{{ url_for('static', filename='songs/rhcp_darknescessities.mp3') }}" preload="auto" />
-												</div>
-											  </div>
-											  <div class="panel panel-default">
-											  	<div class="panel-heading">Scar Tissue</div>
-											    <div class="panel-body">
-											    	<audio controls style="width: 100%;" src="{{ url_for('static', filename='songs/rhcp_scartissue.mp3') }}" preload="auto" />
-												</div>
-											  </div>
-											  <div class="panel panel-default">
-											  	<div class="panel-heading">Under The Bridge</div>
-											    <div class="panel-body">
-											    	<audio controls style="width: 100%;" src="{{ url_for('static', filename='songs/rhcp_underthebridge.mp3') }}" preload="auto" />
-												</div>
-											  </div>
-											</div>
-										</div>
-										<div id="mtlc_songs" class="tab-pane fade">
-											<div class="panel-group">
-											  <div class="panel panel-default">
-											  	<div class="panel-heading">Fuel</div>
-											    <div class="panel-body">
-											    	<audio controls style="width: 100%;" src="{{ url_for('static', filename='songs/mtlc_fuel.mp3') }}" preload="auto" />
-												</div>
-											  </div>
-											  <div class="panel panel-default">
-											  	<div class="panel-heading">Seek & Destroy</div>
-											    <div class="panel-body">
-											    	<audio controls style="width: 100%;" src="{{ url_for('static', filename='songs/mtlc_seekanddestroy.mp3') }}" preload="auto" />
-												</div>
-											  </div>
-											</div>
-										</div>
-										<div id="shakira_songs" class="tab-pane fade">
-											<div class="panel-group">
-											  <div class="panel panel-default">
-											  	<div class="panel-heading">Loca</div>
-											    <div class="panel-body">
-											    	<audio controls style="width: 100%;" src="{{ url_for('static', filename='songs/shakira_loca.mp3') }}" preload="auto" />
-												</div>
-											  </div>
-											  <div class="panel panel-default">
-											  	<div class="panel-heading">Whenever Wherever</div>
-											    <div class="panel-body">
-											    	<audio controls style="width: 100%;" src="{{ url_for('static', filename='songs/shakira_whenever.mp3') }}" preload="auto" />
-												</div>
-											  </div>
-											</div>
-										</div>
-										<div id="coldplay_songs" class="tab-pane fade">
-												<div class="panel-group">
-												  <div class="panel panel-default">
-												  	<div class="panel-heading">Hymn For The Weekend</div>
-												    <div class="panel-body">
-												    	<audio controls style="width: 100%;" src="{{ url_for('static', filename='songs/coldplay_hymnforthe.mp3') }}" preload="auto" />
-													</div>
-												  </div>
-												  <div class="panel panel-default">
-												  	<div class="panel-heading">Paradise</div>
-												    <div class="panel-body">
-												    	<audio controls style="width: 100%;" src="{{ url_for('static', filename='songs/coldplay_paradise.mp3') }}" preload="auto" />
-													</div>
-												  </div>
-												</div>
-											</div>
-											<div id="pinkfloyd_songs" class="tab-pane fade">
-												<div class="panel-group">
-												  <div class="panel panel-default">
-												  	<div class="panel-heading">Another Brick in the Wall</div>
-												    <div class="panel-body">
-												    	<audio controls style="width: 100%;" src="{{ url_for('static', filename='songs/pinkfloyd_anotherbrick.mp3') }}" preload="auto" />
-													</div>
-												  </div>
-												  <div class="panel panel-default">
-												  	<div class="panel-heading">Comfortably Numb</div>
-												    <div class="panel-body">
-												    	<audio controls style="width: 100%;" src="{{ url_for('static', filename='songs/pinkfloyd_comfortably.mp3') }}" preload="auto" />
-													</div>
-												  </div>
-												  <div class="panel panel-default">
-												  	<div class="panel-heading">Wish You Were Here</div>
-												    <div class="panel-body">
-												    	<audio controls style="width: 100%;" src="{{ url_for('static', filename='songs/pinkfloyd_wishyouwerehere.mp3') }}" preload="auto" />
-													</div>
-												  </div>
-												</div>
-											</div>
+
+
 									</div>
-
-
-
 								</div> <!-- Right holder -->
 							</div><!-- row -->
 						</div><!-- not the right holder this is just to add a divider in between -->
