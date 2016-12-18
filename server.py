@@ -31,7 +31,7 @@ from userdetails import *
 from settings import *
 from flask_login import LoginManager
 from flask_login import current_user, login_required, login_user, logout_user
-
+from followers import *
 from dsn_conf import get_dsn
 from flask.globals import request
 
