@@ -29,7 +29,8 @@ def select_all_song2():
     with dbapi2.connect(dsn) as connection:
         try:
             cursor = connection.cursor()
-            cursor.execute("""SELECT SONG.ID,SONG.NAME,ARTIST.NAME FROM ARTIST,SONG WHERE(SONG.ARTIST = ARTIST.ID)""")
+            cursor.execute("""SELECT SONG.ID,SONG.NAME,ARTIST.NAME FROM ARTIST,SONG WHERE(SONG.ARTIST = ARTIST.ID)
+             ORDER BY ARTIST.NAME """)
             connection.commit()
             return cursor
         except dbapi2.DatabaseError as e:
