@@ -325,21 +325,40 @@ def messages_page(room_id=None):
         if room is None:  # Verilen id'ye sahip bir room yok.
             return redirect(url_for("messages_page"))
 
-    return render_template('messages.html', Rooms=Messages.Room.get_headers(), SelectedRoom=room, User=Messages.get_user_id())
+    return render_template('messages.html',
+                           Rooms=Messages.Room.get_headers(),
+                           SelectedRoom=room,
+                           User=current_user,
+                           UserList=Messages.get_fr_list())
 
 
 @app.route('/messages/new_room', methods=['POST'])
+@app.route('/messages/new_room/<int:user_id>', methods=['GET'])
 @login_required
-def messages_new_room():
+def messages_new_room(user_id=None):
     """ Create new room """
     room_id = None
+
+    if request.method == 'GET':
+        if user_id is None:
+            return redirect(url_for('messages_page'))
+        user = Messages.get_user_by_id(user_id)
+        if user is None:
+            return redirect(url_for('messages_page'))
+
+        # create new room and save to database
+        room = Messages.Room(name=None, admin=current_user, participants=[current_user, user])
+        room_id = room.create()
+
+        return redirect(url_for('messages_page', room_id=room_id))
+
     if request.method == 'POST':
         # get form values
         group_name = request.form['group_name']
-        participants = request.form.getlist('participants')
+        participants = [Messages.get_user_by_id(int(pid)) for pid in request.form.getlist('participants')]
 
         # create room and save to database
-        room = Messages.Room(name=group_name, admin=Messages.get_user_id(), participants=participants + [Messages.get_user_id()])
+        room = Messages.Room(name=group_name, admin=current_user, participants=participants + [current_user])
         room_id = room.create()
 
     return redirect(url_for('messages_page', room_id=room_id))
@@ -351,12 +370,12 @@ def messages_update_room():
     if request.method == 'POST':
         room_id = request.form['room_id']
         group_name = request.form['group_name']
-        participants = request.form.getlist('participants')
+        participants = [Messages.get_user_by_id(int(pid)) for pid in request.form.getlist('participants')]
 
         room = Messages.Room.get_details(room_id)
-        if room is not None and room.admin == Messages.get_user_id():
+        if room is not None and room.admin.id == current_user.id:
             room.update_name(group_name)
-            room.update_participants(participants + [Messages.get_user_id()])
+            room.update_participants(participants + [current_user])
 
     return redirect(url_for('messages_page', room_id=room_id))
 
@@ -368,7 +387,7 @@ def messages_leave_room():
         room_id = request.form['room_id']
         room = Messages.Room.get_details(room_id)
         if room is not None:
-            room.remove_participant(Messages.get_user_id())
+            room.remove_participant(current_user)
     return redirect(url_for('messages_page'))
 
 
@@ -390,13 +409,6 @@ def messages_new_message():
         room.id = request.form['room_id']
         room.send_message(request.form['message'])
     return redirect(url_for('messages_page', room_id=room.id))
-
-
-@app.route('/messages/change_user/<user_id>')
-@login_required
-def messages_change_user(user_id=""):
-    Messages.tempLoggedUser = user_id
-    return redirect(url_for('messages_page'))
 
 
 # ################################################ End Of Messages ##########################################

@@ -15,19 +15,7 @@
                     <span class="glyphicon glyphicon-plus"></span>&nbsp; New Conversation
                 </a>
             </span>
-{#            <input type="text" class="form-control" placeholder="Search Friend" disabled>#}
-        &nbsp;&nbsp;&nbsp;View as:
-                        <div class="btn-group">
-                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
-                                    aria-expanded="false">
-                                {{ User }} <span class="caret"></span>
-                            </button>
-                            <ul class="dropdown-menu">
-                                {% for i in range(11) %}
-                                <li><a href="{{ url_for('messages_change_user',user_id="pk"+(i + 1)|string)-}}">pk{{- i + 1 -}}</a></li>
-                                {% endfor %}
-                            </ul>
-                        </div>
+            <input type="text" class="form-control" placeholder="Search User" disabled>
             <span class="input-group-btn">
                 <button class="btn btn-default disabled" type="button"> <span class="glyphicon glyphicon-search"></span></button>
             </span>
@@ -69,11 +57,13 @@
                             {% endif %}
                             <span class="glyphicon glyphicon-user" aria-hidden="true">
                                 {%- for p in SelectedRoom.participants %}
-                                    {{ p|e -}}
+                                    {% if p.id != User.id %}
+                                    {{ p.username|e -}}
+                                    {% endif %}
                                 {% endfor %}
                             </span>
                             <span class="glyphicon glyphicon-sunglasses" aria-hidden="true">
-                                {{ SelectedRoom.admin }}
+                                {{ SelectedRoom.admin.username }}
                             </span>
                             <a href="{{ url_for('messages_page') }}" type="button" class="close">&times;</a>
                         </div>
@@ -81,9 +71,9 @@
                         <div id="message_area" class="panel-body">
                             {% for message in SelectedRoom.items |sort(attribute='date')%}
 
-                                {% if message.sender_id != null %}
+                                {% if message.sender != null %}
 
-                                {% if message.sender_id != User %}
+                                {% if message.sender.id != User.id %}
                                 <div class="media message_item">
                                     <div class="media-left">
                                 {% else %}
@@ -95,7 +85,7 @@
                                             <img class="media-object" src="{{ url_for('static', filename='images/logo.jpg') }}">
                                         </a>
                                     </div>
-                                {% if message.sender_id != User -%}<div class="media-body alert alert-success">
+                                {% if message.sender.id != User.id -%}<div class="media-body alert alert-success">
                                 {%- else -%}
                                     <div class="media-body alert alert-info">
                                 {%- endif -%}
@@ -105,7 +95,7 @@
                                         <span data-toggle="tooltip" data-placement="top" title="{{ message.date.date().strftime("%d.%m.%y") }}">
                                             {{ message.date.time().strftime("%H:%M") }}
                                         </span>
-                                        {% if message.sender_id == User %}
+                                        {% if message.sender.id == User.id %}
                                             {% if message.isRead %}
                                             <span class="glyphicon glyphicon-ok status read" data-toggle="tooltip" data-placement="top"
                                                   title="Read by All"></span>
@@ -144,7 +134,7 @@
                                 Cancel
                             </a>
 
-                            {% if SelectedRoom.admin == User %}
+                            {% if SelectedRoom.admin.id == User.id %}
                                 <div class="btn-group dropup">
                                     <a type="button" class="btn btn-default pull-left" data-toggle="modal" data-target="#editConversationModal">
                                         <span class="glyphicon glyphicon-pencil"></span>
@@ -264,17 +254,17 @@
                         <table id="newRoomFrList" class="table table-bordered">
                             <tbody>
 
-                            {% for i in range(11) %} {# range(User.friends|count) #}
+                            {% for user in UserList %}
                                 {% if loop.index0 % 3 == 0 %}
                                     <tr> {% endif %}
 
                             <td>
                                 <label>
-                                    <input name="participants" type="checkbox" value="pk{{ loop.index }}"
-                                           {% if User == "pk"+loop.index|string %} checked disabled{% endif %}
+                                    <input name="participants" type="checkbox" value="{{ user.id }}"
+                                           {%- if User.id == user.id %} checked disabled{% endif -%}
                                     >
                                     <img src="{{ url_for('static', filename='images/logo.jpg') }}" width="30px"/> {# todo user profile #}
-                                    pk{{ loop.index }} isim soyisim
+                                    {{ user.username }}
                                 </label>
                             </td>
 
@@ -319,17 +309,17 @@
                         <table id="updateRoomFrList" class="table table-bordered">
                             <tbody>
 
-                            {% for i in range(11) %}
+                            {% for user in UserList %}
                                 {% if loop.index0 % 3 == 0 %}
                                     <tr> {% endif %}
 
                             <td>
                                 <label>
-                                    <input name="participants" type="checkbox" value="pk{{ loop.index }}"
-                                            {% if User == "pk"+loop.index|string %} checked disabled
-                                            {% elif "pk"~(loop.index) in SelectedRoom.participants %} checked {% endif %}>
+                                    <input name="participants" type="checkbox" value="{{ user.id }}"
+                                            {% if User.id == user.id %} checked disabled
+                                            {% elif user.id in SelectedRoom.participants|map(attribute='id') %} checked {% endif %}>
                                     <img src="{{ url_for('static', filename='images/logo.jpg') }}" width="30px"/> {# todo user profile #}
-                                    pk{{ loop.index }} isim soyisim
+                                    {{ user.username }}
                                 </label>
                             </td>
 

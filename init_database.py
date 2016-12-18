@@ -305,6 +305,7 @@ def create_messages_table():
                       message_room (
                        id             SERIAL    PRIMARY KEY,
                        room_name      TEXT      NULL,
+                       admin_id       INTEGER   NOT NULL   REFERENCES USERDATA(ID) ON DELETE SET NULL,
                        activity_date  TIMESTAMP NOT NULL  DEFAULT CURRENT_TIMESTAMP
                       );
 
@@ -313,37 +314,30 @@ def create_messages_table():
                         id            SERIAL    PRIMARY KEY,
                         note          TEXT      NOT NULL,
                         message_date  TIMESTAMP NOT NULL   DEFAULT CURRENT_TIMESTAMP,
-                        room_id       INTEGER   REFERENCES message_room(id) ON DELETE CASCADE,
-                        sender_id     VARCHAR(40) --todo refer to userid ON DELETE SET NULL
+                        room_id       INTEGER   NOT NULL   REFERENCES message_room(id) ON DELETE CASCADE,
+                        sender_id     INTEGER   NOT NULL   REFERENCES USERDATA(ID) ON DELETE CASCADE
                       );
 
                     CREATE TABLE
                       message_participant (
-                        room_id       INTEGER   REFERENCES message_room(id) ON DELETE CASCADE,
-                        user_id       VARCHAR(40), --todo refer to userid, ON DELETE SET NULL
-                        join_date     TIMESTAMP NOT NULL  DEFAULT CURRENT_TIMESTAMP,
+                        room_id       INTEGER   NOT NULL   REFERENCES message_room(id) ON DELETE CASCADE,
+                        user_id       INTEGER   NOT NULL   REFERENCES USERDATA(ID) ON DELETE CASCADE,
+                        join_date     TIMESTAMP NOT NULL   DEFAULT CURRENT_TIMESTAMP,
                         PRIMARY KEY (room_id, user_id)
                       );
 
                     CREATE TABLE
                       message_status (
-                        message_id    INTEGER   REFERENCES message(id) ON DELETE CASCADE,
-                        receiver_id   VARCHAR(40), --todo refer to userid ON DELETE CASCADE
+                        message_id    INTEGER   NOT NULL   REFERENCES message(id) ON DELETE CASCADE,
+                        receiver_id   INTEGER   NOT NULL   REFERENCES USERDATA(ID) ON DELETE CASCADE,
                         PRIMARY KEY (message_id, receiver_id)
-                      );
-
-                    CREATE TABLE
-                      message_room_admins (
-                        room_id       INTEGER   REFERENCES message_room(id) ON DELETE CASCADE,
-                        user_id       VARCHAR(40), ---todo refer to userid on delete cascade
-                        PRIMARY KEY(room_id, user_id)
                       );
 
                     CREATE TABLE
                       message_room_event (
                         id            SERIAL    PRIMARY KEY,
-                        room_id       INTEGER   REFERENCES message_room(id) ON DELETE CASCADE,
-                        user_id       VARCHAR(40), ---todo refer to userid on delete cascade
+                        room_id       INTEGER   NOT NULL   REFERENCES message_room(id) ON DELETE CASCADE,
+                        user_id       INTEGER   NOT NULL   REFERENCES USERDATA(ID) ON DELETE CASCADE,
                         event_date    TIMESTAMP NOT NULL   DEFAULT CURRENT_TIMESTAMP,
                         action_id     INTEGER   NOT NULL
                       ); """
@@ -351,23 +345,17 @@ def create_messages_table():
 
 
 def insert_bulk_messages():
-    room1 = Messages.Room(name="roomName1", admin="pk1", participants=["pk1", "pk2", "pk3", "pk4", "pk5"])  # todo userID
+    room1 = Messages.Room(name="roomName1", admin=1, participants=[1, 2, 3])
     room1.create()
-    room2 = Messages.Room(name="roomName2", admin="pk2", participants=["pk1", "pk2", "pk3"])  # todo userID
+    room2 = Messages.Room(name="roomName2", admin=2, participants=[2, 3])
     room2.create()
-    room3 = Messages.Room(name="roomName3", admin="pk1", participants=["pk1", "pk4", "pk5"])  # todo userID
+    room3 = Messages.Room(name="roomName3", admin=1, participants=[1, 3])
     room3.create()
 
     room1.send_message("Hello Room1!")
     room2.send_message("Hello Room2!")
     room2.send_message("Hello Room2 2!")
     room3.send_message("Hello Room3!")
-
-    # print([room.name for room in Room.get_room_headers("p1")])
-    #
-    # print([msg.text for msg in Message.get_messages(room1)])
-    # print([msg.text for msg in Message.get_messages(room2)])
-    # print([msg.text for msg in Message.get_messages(room3)])
 
 #####################################BERKAY#####################################
 #song table
@@ -620,5 +608,5 @@ def insert_sample_data():
     firstPost = Post("perfect!", datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"), 1, 1, 1)
     insert_post(firstPost)
     create_messages_table()
-    insert_bulk_messages()
+    # insert_bulk_messages()
     insert_default_genres()

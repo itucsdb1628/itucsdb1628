@@ -39,28 +39,36 @@ def get_user(username):
             pass
 
 
-
-
 def select_a_user_from_login(userid):
+    """Get Userdata by user_id"""
     with dbapi2.connect(dsn) as connection:
         try:
             cursor = connection.cursor()
-            query = """SELECT ID,USERNAME,PASSWORD FROM USERDATA WHERE USER.ID = %d""" %userid
+            query = """SELECT ID,USERNAME,PASSWORD FROM USERDATA WHERE ID = %d""" %userid
             cursor.execute(query)
             connection.commit()
-            return cursor
+            res = cursor.fetchone()
+            return None if res is None else UserData(res[0], res[1], res[2])
         except dbapi2.DatabaseError as e:
             connection.rollback()
 
+
 def select_users_from_login():
-        with dbapi2.connect(dsn) as connection:
-            try:
-                cursor = connection.cursor()
-                query = """SELECT ID, USERNAME, PASSWORD FROM USERDATA"""
-                cursor.execute(query)
-                return cursor
-            except dbapi2.DatabaseError as e:
-                connection.rollback()
+    """" Get All Users """
+    with dbapi2.connect(dsn) as connection:
+        try:
+            cursor = connection.cursor()
+            query = """SELECT ID, USERNAME, PASSWORD FROM USERDATA"""
+            cursor.execute(query)
+            connection.commit()
+            result = cursor.fetchall()
+            users = []
+            for res in result:
+                users.append(UserData(res[0], res[1], res[2]))
+            return users
+        except dbapi2.DatabaseError as e:
+            connection.rollback()
+
 
 def delete_user_login(username,password):
     with dbapi2.connect(dsn) as connection:
