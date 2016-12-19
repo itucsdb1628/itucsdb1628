@@ -293,7 +293,7 @@ class Room:
                     room.last_message_date = res[2]
                     room.unread_count = res[3]
                     room.participants = [get_user_by_id(pid) for pid in res[4]]
-                    room.last_message = res[5][:60]
+                    room.last_message = res[5][:60] if res[5] is not None else ""
                     if text is not None:
                         for p in room.participants:
                             if p.username.startswith(text):
