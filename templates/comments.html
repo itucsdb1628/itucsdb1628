@@ -62,14 +62,14 @@
 					<div class="row">
 						<div class="col-sm-1">
 							<div class="thumbnail">
-								<img class="img-responsive user-photo" src="{{content.avatarpath}}">
+								<img class="img-responsive user-photo" src="{{ url_for('static', filename='images/logo.jpg') }}">
 							</div><!-- /thumbnail -->
 						</div><!-- /col-sm-1 -->
 
 						<div class="col-sm-5">
 							<div class="panel panel-default">
 								<div class="panel-heading">
-									<strong>{{content.username}}</strong> <span class="text-muted">commented 5 days ago</span>
+									<strong>{{content.username}}</strong> <span class="text-muted"> </span>
 									{%if current_user.username == content.username %}
 									<a href="{{ url_for('comment_page_delete', C_DELETEID=content.commentid, COMMENTID=content.postid) }}" title="Delete"> <i class="glyphicon glyphicon-remove" style="float:right"></i><span class="twitter"> <i class="fa fa-twitter"></i> </span>
                 					</a>
