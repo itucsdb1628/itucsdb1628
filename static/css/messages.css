@@ -66,6 +66,10 @@
     border-radius: 20px;
 }
 
+.message_userlist .last_message {
+    font-size: 0.8em;
+}
+
 .message_action {
     position: absolute;
     margin: 0;

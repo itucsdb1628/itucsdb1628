@@ -86,6 +86,7 @@ class Room:
         self.participants = [] if participants is None else participants
         self.items = []
         self.unread_count = 0
+        self.last_message = ""
 
     def create(self):
         if self.id is not None or self.admin is None:  # if id is not none it has been in db already
@@ -260,7 +261,7 @@ class Room:
         with dbapi2.connect(dsn) as connection:
             with connection.cursor() as cursor:
                 cursor.execute(
-                    """ SELECT id, room_name, activity_date, msg.unread_cnt, participant.participants
+                    """ SELECT id, room_name, activity_date, msg.unread_cnt, participant.participants, messages.note
                           FROM message_room
                             RIGHT JOIN ( SELECT room_id
                                            FROM message_participant
@@ -276,7 +277,11 @@ class Room:
                             LEFT JOIN ( SELECT ARRAY_AGG(user_id) AS participants, room_id
                                           FROM message_participant
                                           GROUP BY room_id ) AS participant
-                              ON participant.room_id = message_room.id """, {
+                              ON participant.room_id = message_room.id
+                            LEFT JOIN ( SELECT note, room_id
+                                          FROM message
+                                          ORDER BY message_date DESC LIMIT 1 ) AS messages
+                              ON messages.room_id = message_room.id""", {
                         'user_id': current_user.id
                     })
 
@@ -288,6 +293,7 @@ class Room:
                     room.last_message_date = res[2]
                     room.unread_count = res[3]
                     room.participants = [get_user_by_id(pid) for pid in res[4]]
+                    room.last_message = res[5][:60]
                     if text is not None:
                         for p in room.participants:
                             if p.username.startswith(text):

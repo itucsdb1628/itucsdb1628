@@ -39,7 +39,7 @@
                     <span class="badge">{{ room.unread_count }}</span>
                     {% endif %}
                     <h4 class="list-group-item-heading">{{ room.get_display_name()|e }}</h4>
-                    <p class="list-group-item-text">{{ room.id }}</p>
+                    <p class="list-group-item-text last_message">{{ room.last_message }}</p>
                     <div class="clearfix"></div>
                     </a>
                 {% endfor %}
