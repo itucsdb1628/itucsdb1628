@@ -79,19 +79,33 @@ def search_user():
     content = request.form['content']
     user = get_user(content)
     if(user == None):
-         return render_template("error.html" ,posts=list(select_posts(current_user.id)), likes = list(select_user_likes(current_user.id)),error_messages = 'User could not be found.',owner_user = current_user,reposts = list(select_sharedPost(current_user.id)),songs = select_all_song2())
+         return render_template("error.html" ,posts=list(select_posts(current_user.id)), likes = list(select_user_likes(current_user.id)),
+                                error_messages = 'User could not be found.',owner_user = current_user,reposts = list(select_sharedPost(current_user.id)),
+                                songs = select_all_song2(),
+                           follower_number = number_of_follower(current_user.username).fetchone()[0]
+                           ,following_number = number_of_following(current_user.username).fetchone()[0])
     if(current_user.id == user.id):
-         return render_template("timeline.html", posts=list(select_posts(current_user.id)), likes = list(select_user_likes(current_user.id)),owner_user = current_user,reposts = list(select_sharedPost(current_user.id)),songs = select_all_song2(), isfollower = check_follower(current_user.username,user.username).fetchone())
+         return render_template("timeline.html", posts=list(select_posts(current_user.id)), likes = list(select_user_likes(current_user.id)),
+                                owner_user = current_user,reposts = list(select_sharedPost(current_user.id)),
+                                songs = select_all_song2(), isfollower = check_follower(current_user.username,user.username).fetchone(),
+                           follower_number = number_of_follower(current_user.username).fetchone()[0]
+                           ,following_number = number_of_following(current_user.username).fetchone()[0])
     else:
-         return render_template("timeline_search.html", posts=list(select_posts(user.id)), likes = list(select_user_likes(current_user.id)), owner_user = user,reposts = list(select_sharedPost(user.id)), isfollower = check_follower(current_user.username,user.username).fetchone())
-
-
+         return render_template("timeline_search.html", posts=list(select_posts(user.id)),
+                                likes = list(select_user_likes(current_user.id)), owner_user = user,
+                                reposts = list(select_sharedPost(user.id)),
+                                isfollower = check_follower(current_user.username,user.username).fetchone(),
+                           follower_number = number_of_follower(user.username).fetchone()[0]
+                           ,following_number = number_of_following(user.username).fetchone()[0])
 @app.route('/timeline')
 @login_required
 def timeline_page():
     id = current_user.id
-    return render_template("timeline.html", posts=list(select_posts(id)), likes = list(select_user_likes(current_user.id)),owner_user = current_user,reposts = list(select_sharedPost(id)),songs = select_all_song2())
-
+    return render_template("timeline.html", posts=list(select_posts(id)), likes = list(select_user_likes(current_user.id)),
+                           owner_user = current_user,reposts = list(select_sharedPost(id)),songs = select_all_song2()
+                           ,
+                           follower_number = number_of_follower(current_user.username).fetchone()[0]
+                           ,following_number = number_of_following(current_user.username).fetchone()[0])
 
 @app.route('/timeline/delete/<int:DELETEID>', methods=['GET', 'POST'])
 @login_required
@@ -330,8 +344,11 @@ def follow(followusername):
 
     user = get_user(followusername)
 
-    return render_template("timeline_search.html", posts=list(select_posts(user.id)), likes = list(select_user_likes(current_user.id)),owner_user = user,isfollower = check_follower(current_user.username,followusername).fetchone())
-# ################################################ Messages #################################################
+    return render_template("timeline_search.html", posts=list(select_posts(user.id)), likes = list(select_user_likes(current_user.id)),owner_user = user
+                           ,isfollower = check_follower(current_user.username,followusername).fetchone(),
+                           follower_number = number_of_follower(user.username).fetchone()[0]
+                           ,following_number = number_of_following(user.username).fetchone()[0])
+    ######################################### Messages #################################################
 
 
 @app.route('/messages')

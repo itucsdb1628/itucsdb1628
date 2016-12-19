@@ -37,7 +37,7 @@ def delete_follower(name,f_name):
         except dbapi2.DatabaseError as e:
             connection.rollback()
 
-def number_of_followers(name):
+def number_of_following(name):
     with dbapi2.connect(dsn) as connection:
         try:
             cursor = connection.cursor()
@@ -48,7 +48,7 @@ def number_of_followers(name):
         except dbapi2.DatabaseError as e:
             connection.rollback()
 
-def number_of_following(name):
+def number_of_follower(name):
     with dbapi2.connect(dsn) as connection:
         try:
             cursor = connection.cursor()
