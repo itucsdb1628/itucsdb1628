@@ -450,6 +450,24 @@ def messages_new_message():
     return redirect(url_for('messages_page', room_id=room.id))
 
 
+@app.route('/messages/search', methods=['POST'], defaults={'text': None})
+@app.route('/messages/search/<text>', methods=['GET'])
+@login_required
+def messages_search(text=None):
+    if request.method == 'POST':
+        text = request.form['text']
+        if text is None or len(text.strip()) == 0:
+            return redirect(url_for('messages_page'))
+        return redirect(url_for('messages_search', text=text))
+
+    return render_template('messages.html',
+                           Rooms=Messages.Room.get_headers(text.strip()),
+                           SelectedRoom=None,
+                           User=current_user,
+                           UserList=Messages.get_fr_list(),
+                           search_text=text)
+
+
 # ################################################ End Of Messages ##########################################
 ''' Userdetail Routes- Kağan'''
 
@@ -740,6 +758,6 @@ if __name__ == '__main__':
 
     # add get total unread message count function to jinja2 global variables
     # because almost every template must reach it
-    #app.jinja_env.globals.update(get_unread_message_count=Messages.get_unread_count)
+    app.jinja_env.globals.update(get_unread_message_count=Messages.get_unread_count)
 
     app.run(host='0.0.0.0', port=port, debug=debug)

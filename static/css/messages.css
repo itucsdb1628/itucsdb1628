@@ -49,6 +49,13 @@
     text-align: center;
 }
 
+.message_filter .close{
+    margin-top: -28px;
+    margin-right: 3px;
+    z-index: 1000;
+    position: relative;
+}
+
 .message_userlist {
     direction: ltr;
 }

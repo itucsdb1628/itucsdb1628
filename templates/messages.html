@@ -9,19 +9,23 @@
     <div class="messages">
 
 
+    <form method="POST" action="{{ url_for('messages_search') }}">
         <div class="input-group message_filter">
             <span class="input-group-btn">
                 <a class="btn btn-default" type="button" data-toggle="modal" data-target="#newConversationModal">
                     <span class="glyphicon glyphicon-plus"></span>&nbsp; New Conversation
                 </a>
             </span>
-            <input type="text" class="form-control" placeholder="Search User" disabled>
+            <input name="text" type="text" class="form-control" placeholder="Search User" {% if search_text %} value="{{ search_text }}"{% endif %}>
+            {% if search_text %}
+            <a href="{{ url_for('messages_page') }}" type="button" class="close">&times;</a>
+            {% endif %}
             <span class="input-group-btn">
-                <button class="btn btn-default disabled" type="button"> <span class="glyphicon glyphicon-search"></span></button>
+                <button class="btn btn-default" type="submit"> <span class="glyphicon glyphicon-search"></span></button>
             </span>
 
         </div>
-
+    </form>
 
         <div class="left_col">
             <div class="list-group message_userlist">
@@ -82,7 +86,12 @@
                                 {% endif %}
                                         <a href="#">
                                             {# todo message sender profile info #}
-                                            <img class="media-object" src="{{ url_for('static', filename='images/logo.jpg') }}">
+                                            <img class="media-object" src="{{ url_for('static', filename='images/logo.jpg') }}"
+                                                 data-toggle="tooltip"  title="{{ message.sender.username }}"
+                                                 {%- if message.sender.id != User.id %}data-placement="right"
+                                                     {%- else %} data-placement="left"
+                                                 {% endif %}
+                                            >
                                         </a>
                                     </div>
                                 {% if message.sender.id != User.id -%}<div class="media-body alert alert-success">
@@ -353,7 +362,7 @@
     <script type="text/javascript">
 
         var checkFriendList = function (area) {
-            if (area.find(":input[type=checkbox]:checked").length == 0) {
+            if (area.find(":input[type=checkbox]:checked").length == 1) {
                 alert("You must select at least one friend.");
                 return false;
             }

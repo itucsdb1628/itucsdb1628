@@ -254,7 +254,7 @@ class Room:
                 return res[0] if res is not None else None
 
     @staticmethod
-    def get_headers():
+    def get_headers(text=None):
         """ Load All Room Headers of User participated"""
         rooms = []
         with dbapi2.connect(dsn) as connection:
@@ -288,7 +288,13 @@ class Room:
                     room.last_message_date = res[2]
                     room.unread_count = res[3]
                     room.participants = [get_user_by_id(pid) for pid in res[4]]
-                    rooms.append(room)
+                    if text is not None:
+                        for p in room.participants:
+                            if p.username.startswith(text):
+                                rooms.append(room)
+                                continue
+                    else:
+                        rooms.append(room)
 
         return rooms
 
