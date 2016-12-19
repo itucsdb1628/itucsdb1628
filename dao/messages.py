@@ -278,9 +278,12 @@ class Room:
                                           FROM message_participant
                                           GROUP BY room_id ) AS participant
                               ON participant.room_id = message_room.id
-                            LEFT JOIN ( SELECT note, room_id
-                                          FROM message
-                                          ORDER BY message_date DESC LIMIT 1 ) AS messages
+                            LEFT JOIN ( SELECT message.room_id, message.note
+                                          FROM ( SELECT room_id, MAX(message_date) AS latest
+                                                   FROM message
+                                                     GROUP BY room_id ) AS m
+                                            INNER JOIN message
+                                              ON message.room_id = m.room_id and message.message_date = m.latest  ) AS messages
                               ON messages.room_id = message_room.id""", {
                         'user_id': current_user.id
                     })
