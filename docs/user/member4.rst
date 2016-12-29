@@ -63,7 +63,7 @@ Sharing a Post
    :alt: Share post
    :align: center
 
-* **Current user** can **share** other user's post by clicking **share** link.
+* **Current user** can **share** other user's post by clicking **share** link. Sharing posts also means **reposting**.
 
 .. image:: ../_static/images/Salih_images/repost2.png
    :alt: View reposts(Current user)
@@ -76,6 +76,12 @@ Sharing a Post
    :align: center
 
 * **Current user** can also view **another user's** reposts as mentioned above.
+
+.. image:: ../_static/images/Salih_images/repost4.png
+   :alt: View reposts(Another user)
+   :align: center
+
+* Repost could be viewed in popups windows, after clicking **"See reposts!"** button.
 
 ***************
 Activities Page
@@ -103,7 +109,7 @@ Album
    :alt: Admin panel
    :align: center
 
-* Only **admin** can add, update and delete songs from **Admin Panel**.
+* Only **admin** can add, update and delete albums from **Admin Panel**.
 
 Add Album
 =========
