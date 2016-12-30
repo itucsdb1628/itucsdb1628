@@ -68,26 +68,26 @@ Selection for Timeline Page
 
 .. code-block:: python
    
-	def select_posts(userid):
-    with dbapi2.connect(dsn) as connection:
-        try:
-             cursor = connection.cursor()
-             query = """SELECT SONG.FILEPATH AS SONGFILEPATH,
-             POST.ID, POST.CONTENT, POST.POSTDATE ,
-             SONG.NAME,ARTIST.NAME, PICTURE.FILEPATH,
-             POST.LIKECOUNTER AS NUMBER,USERDATA.USERNAME
-             FROM POST,SONG,ARTIST,USERDATA,PICTURE
-             WHERE(
-             POST.SONGID = SONG.ID
-             AND SONG.ARTIST = ARTIST.ID
-             AND PICTURE.ID = ARTIST.PICTUREID
-             AND POST.USERID = USERDATA.ID
-             AND POST.USERID = %s)
-             ORDER BY POST.POSTDATE DESC""" % userid
-             cursor.execute(query)
-             return cursor
-        except dbapi2.DatabaseError as e:
-             connection.rollback()
+   def select_posts(userid):
+	    with dbapi2.connect(dsn) as connection:
+	        try:
+	             cursor = connection.cursor()
+	             query = """SELECT SONG.FILEPATH AS SONGFILEPATH,
+	             POST.ID, POST.CONTENT, POST.POSTDATE ,
+	             SONG.NAME,ARTIST.NAME, PICTURE.FILEPATH,
+	             POST.LIKECOUNTER AS NUMBER,USERDATA.USERNAME
+	             FROM POST,SONG,ARTIST,USERDATA,PICTURE
+	             WHERE(
+	             POST.SONGID = SONG.ID
+	             AND SONG.ARTIST = ARTIST.ID
+	             AND PICTURE.ID = ARTIST.PICTUREID
+	             AND POST.USERID = USERDATA.ID
+	             AND POST.USERID = %s)
+	             ORDER BY POST.POSTDATE DESC""" % userid
+	             cursor.execute(query)
+	             return cursor
+	        except dbapi2.DatabaseError as e:
+	             connection.rollback()
              
 * This function gets the user id as an argument. This user id shows which user's posts will be selected from the database.
   All posts of this user are selected from the database. Five tables are joined each others by this select query.
