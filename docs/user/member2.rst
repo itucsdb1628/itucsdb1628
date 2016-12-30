@@ -196,7 +196,7 @@ Suggestion Operations
 General View of Suggestion Page
 ================================
 
-.. image:: ../_static/images/post/dislike.png
+.. image:: ../_static/images/post/suggestion_page.png
    :alt: General View of Suggestion Page 	
    :align: center
    
