@@ -162,6 +162,7 @@ Select
 * Function to select artists for music page
 
 This function is created for the need of unique div tags
+
 .. code-block:: python
 
    def select_artists_music():
