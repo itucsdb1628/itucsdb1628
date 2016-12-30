@@ -92,8 +92,8 @@ Selection for Timeline Page
 * This function gets the user id as an argument. This user id shows which user's posts will be selected from the database.
   All posts of this user are selected from the database. Five tables are joined each others by this select query.
   Because the name of the user, name of artist, picture of artist, file path of song, name of song are necessary for timeline.
-  Picture of artist is hold by picture table so we joined picture table. Path of song, song name are hold by song table so
-  we joined song table. Artist name is hold by artist table so we joined artist table. User name is hold by userdata table 
+  Picture of artist is held by picture table so we joined picture table. Path of song, song name are held by song table so
+  we joined song table. Artist name is held by artist table so we joined artist table. User name is held by userdata table 
   so we joined userdata table.  
 
 
@@ -146,7 +146,7 @@ Insertion
 	        except dbapi2.DatabaseError as e:
 	            connection.rollback()
 
-* The content,songid which is taken from user thanks to form is assigned to the content and songid of post to be inserted.
+* The content,song id which is taken from user thanks to form is assigned to the content and song id of post to be inserted.
   Posting date is taken with "datetime.datetime.now()" when the this function works. Also user id is taken as current user id, because
   only the user who has logged in can send a post. A new row is added to post table by sending these values to the query. 
   
