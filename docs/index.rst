@@ -1,5 +1,5 @@
-Welcome to itucsdb's documentation!
-===================================
+Welcome to itucsdb1628's documentation!
+=======================================
 
 :Team: ListnTo
 
@@ -12,9 +12,10 @@ Welcome to itucsdb's documentation!
    * Berkay Giriş         150130060
 
 
-* ListTo is a social media website where people enjoy listening to music more than ever.
-* ListTo users can play songs, share their opinions about songs and chat with each other.
-* ListTo offer user to Homepage,Menu bar, user details, timeline and posts, reposts, likes and comments, searching users, sugessting songs, notifications, music page and messaging system.
+* ListnTo is a social media website where people enjoy listening to music more than ever.
+* ListnTo users can play songs, share their opinions about songs and chat with each other.
+* ListnTo offer user to Homepage,Menu bar, user details, timeline and posts, reposts, likes and comments, searching users, suggesting songs,
+   notifications, music page and messaging system.
 
 
 
