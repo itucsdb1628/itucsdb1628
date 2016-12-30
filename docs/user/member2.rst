@@ -54,7 +54,7 @@ Searching an Existing User
 
 
 * If a user with searched user name is found, you are redirected to that user's timeline. Perspective difference in the post
-  will be explained in the section of the :ref:`Post_from_different_perspectives`.
+  will be explained in the section of the "Post from different perspectives".
 
 Searching non Existing User
 ================================
@@ -94,7 +94,6 @@ Sharing Post
 
 
 
-.. _Post_from_different_perspectives:
 
 
 Post from Different Perspectives
@@ -196,7 +195,7 @@ Suggestion Operations
 General View of Suggestion Page
 ================================
 
-.. image:: ../_static/images/post/dislike.png
+.. image:: ../_static/images/post/suggestion_page.png
    :alt: General View of Suggestion Page 	
    :align: center
    
@@ -222,7 +221,7 @@ View your Suggestions
 
 
 * The user can display own suggestions and their status by clicking **see your suggestion button**. Status will be explained
-  on the section of :ref:`Suggestion_status`
+  on the section of "Suggestion Status"
 
 Delete your Suggestions
 ========================
@@ -230,7 +229,6 @@ Delete your Suggestions
 * The user can delete own suggestion by clicking remove button on the see your suggestion page.
 
 
-.. _Suggestion_status:
 
 Suggestion Status
 =====================
