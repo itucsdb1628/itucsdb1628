@@ -19,6 +19,8 @@ General View of Messages Page
 Room Operations
 ***************
 
+.. _Listing_Rooms:
+
 Listing Rooms
 =============
 
