@@ -31,7 +31,6 @@ Initialization of table
 ===========================
 
 .. code-block:: python
-   :linenos:
    
    def create_post_table():
     with dbapi2.connect(dsn) as connection:
@@ -68,7 +67,6 @@ Selection for Timeline Page
 -------------------------------
 
 .. code-block:: python
-   :linenos:
    
 	def select_posts(userid):
     with dbapi2.connect(dsn) as connection:
@@ -105,7 +103,6 @@ Selection for Update Page
 ------------------------------	
 
 .. code-block:: python
-   :linenos:
    
     def select_post(UPDATEID):
 	    with dbapi2.connect(dsn) as connection:
@@ -134,7 +131,6 @@ Selection for Update Page
 Insertion
 ==========
 .. code-block:: python
-   :linenos:
    
 	def insert_post_page():
 	    with dbapi2.connect(dsn) as connection:
@@ -157,8 +153,7 @@ Insertion
 Updation
 =========
 .. code-block:: python
-   :linenos:
-   
+
    def update_post(UPDATEID):
     with dbapi2.connect(dsn) as connection:
         try:
@@ -176,7 +171,6 @@ Updation
 Deletion
 ==========
 .. code-block:: python
-   :linenos:
    
    def delete_post(DELETEID):
     with dbapi2.connect(dsn) as connection:
@@ -198,7 +192,6 @@ Initialization of table
 ===========================
 
 .. code-block:: python
-   :linenos:
   
    def create_suggestion_table():
     with dbapi2.connect(dsn) as connection:
@@ -225,10 +218,8 @@ Initialization of table
             
 * Suggestion table has following columns as you can see above.
 * **ID:** It is a serial and primary key  for this table.
-* **USERID:** It is a foreign key. It references id of **USERDATA**. The attribute that holds the which user makes this 
-			  suggestion.
-		      I added **ON DELETE CASCADE** so i provided if the user is deleted, suggestions belongs to this user are 7
-		      deleted too.
+* **USERID:** It is a foreign key. It references id of **USERDATA**. The attribute that holds the which user makes this suggestion.
+		      I added **ON DELETE CASCADE** so i provided if the user is deleted, suggestions belongs to this user are deleted too.
 * **ARTIST:** The attribute created to hold name of artist who the song belongs to.
 * **SONGNAME:** The attribute created to hold name of song.
 * **SUGGESTIONDATE:**  The attribute created to hold send date of suggestion.
@@ -246,7 +237,6 @@ Selection
 Selection for Admin
 --------------------------
 .. code-block:: python
-   :linenos:
    
    def select_suggestions():
     with dbapi2.connect(dsn) as connection:
@@ -272,7 +262,6 @@ Selection for Admin
 Selection for Regular User
 ----------------------------
 .. code-block:: python
-   :linenos:
    
    def select_suggestions_user():
     with dbapi2.connect(dsn) as connection:
@@ -297,7 +286,6 @@ Insertion
 =============
 
 .. code-block:: python
-   :linenos:
    
    def insert_suggestion(userid,artist,songname,releasedate):
     with dbapi2.connect(dsn) as connection:
@@ -323,7 +311,6 @@ Updation
 Reject Suggestion 
 ------------------
 .. code-block:: python
-   :linenos:
    
 	def reject_suggestion(updateId):
     	 with dbapi2.connect(dsn) as connection:
@@ -343,7 +330,6 @@ Approve Suggestion
 --------------------
 
 .. code-block:: python
-   :linenos:
    
 	def approve_suggestion(updateId):
 	      with dbapi2.connect(dsn) as connection:
@@ -363,7 +349,6 @@ Deletion
 
 
 .. code-block:: python
-   :linenos:
    
 	def delete_suggestion(deleteId):
 	    with dbapi2.connect(dsn) as connection:
@@ -387,7 +372,6 @@ Initialization of table
 ===========================
 
 .. code-block:: python 
-   :linenos:
    
    def create_like_table():
      with dbapi2.connect(dsn) as connection:
@@ -417,7 +401,6 @@ Initialization of table
 Selection
 =============
 .. code-block:: python 
-   :linenos:
    
 	def select_user_likes(userId):
 	       with dbapi2.connect(dsn) as connection:
@@ -438,7 +421,6 @@ Insertion
 ============
 
 .. code-block:: python 
-   :linenos:
    
    def insert_like(userId,postId):
     with dbapi2.connect(dsn) as connection:
@@ -464,7 +446,6 @@ Deletion
 ===========
 
 .. code-block:: python 
-   :linenos:
    
    
    def delete_like(userId,postId):
@@ -502,7 +483,6 @@ Searhing User
 -------------------
 
 .. code-block:: python 
-   :linenos:
    
 	@app.route('/timeline/search' ,methods=['GET', 'POST'])
 	@login_required
@@ -546,8 +526,7 @@ Searhing User
 Like and Dislike a Post
 --------------------------
 
-.. code-block:: python 
-   :linenos:	
+.. code-block:: python 	
    
 	@app.route('/timeline/like/<int:LIKEID>/<string:USERNAME>', methods=['GET', 'POST'])
 	@login_required
@@ -575,8 +554,7 @@ Like and Dislike a Post
 
 Control Like
 -------------------
-.. code-block:: python 
-   :linenos:	
+.. code-block:: python
 
 
 	def control_like(userId,postId):
