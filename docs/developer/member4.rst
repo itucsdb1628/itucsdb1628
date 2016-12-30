@@ -78,7 +78,7 @@ Select Comment
 
 
 * This select function takes postid as an argument and returns list of comment objects. This id shows which post's comments will be selected from database. Four tables are joined each other
-  to select username, user's profile picture, post's content, comment and post's id from comment table. This select function is used for the comment page.
+  to select username, user's profile picture, post's content, comment and post's id from database. This select function is used for the comment page.
 
 
 .. code-block:: python
@@ -109,7 +109,7 @@ Select Comment
 
 
 * This select function is used for the selecting comments, usernames, post's contents, user's profile pictures, album covers, song names and artist names
-  from comment table for printing notifications on activities page.
+  from database for printing notifications on activities page.
 
 
 Insert Comment
