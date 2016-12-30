@@ -1,16 +1,30 @@
 User Guide
 ==========
 
-**explain how your application works from the user perspective, use
-screenshots whereever appropriate**
 
-**to add a picture, use the following example**::
+.. image:: ../_static/images/index/slayt1.png
+      :scale: 65 %
+      :align: center
+      :alt: intro1
 
-   .. figure:: picture.png
-      :scale: 50 %
-      :alt: map to buried treasure
 
-      This is the caption of the figure (a simple paragraph).
+
+.. image:: ../_static/images/index/slayt2.png
+      :scale: 65 %
+      :align: center
+      :alt: intro2
+
+
+.. image:: ../_static/images/index/slayt3.png
+      :scale: 65 %
+      :align: center
+      :alt: intro3
+
+
+
+
+
+
 
 .. toctree::
 
@@ -19,4 +33,3 @@ screenshots whereever appropriate**
    member3
    member4
    member5
-   

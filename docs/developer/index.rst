@@ -4,23 +4,25 @@ Developer Guide
 Database Design
 ---------------
 
-**explain the database design of your project**
+.. figure:: ../_static/images/index/diagram.png
+      :scale: 100 %
+      :align: center
+      :alt: intro3
 
-**include the E/R diagram(s)**
+      Er diagram of the database
+
+* This project developed using  postgresql as database mamagement system.
+* Nineteen tables implemented for this project.
 
 Code
 ----
 
-**explain the technical structure of your code**
+* This project based on object-oriented programming using python flask framework.
 
-**to include a code listing, use the following example**::
+* We use data access objects for ensuring layered structure for application.
 
-   .. code-block:: python
+* We use templates and bootstrap framework for better design.
 
-      class Foo:
-
-         def __init__(self, x):
-            self.x = x
 
 .. toctree::
 

@@ -1,22 +1,27 @@
 Welcome to itucsdb's documentation!
 ===================================
 
-:Team: Team Name
+:Team: ListnTo
 
 :Members:
 
-   * Member 1
-   * Member 2
-   * Member 3
-   * Member 4
-   * Member 5
+   * Kağan Özgün          150130055
+   * İsmail Pamir         150130010
+   * Serkan Suyabak       150140001
+   * Salih Can Yurtkulu   150130054
+   * Berkay Giriş         150130060
 
-**project description goes here (a few paragraphs)**
 
-Contents:
+* ListTo is a social media website where people enjoy listening to music more than ever.
+* ListTo users can play songs, share their opinions about songs and chat with each other.
+* ListTo offer user to Homepage,Menu bar, user details, timeline and posts, reposts, likes and comments, searching users, sugessting songs, notifications, music page and messaging system.
+
+
+
+
 
 .. toctree::
-   :maxdepth: 1
+   :maxdepth: 4
 
    user/index
    developer/index
