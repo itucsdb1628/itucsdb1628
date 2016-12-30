@@ -1,3 +1,4 @@
+
 =======================================
 Parts Implemented by Salih Can Yurtkulu
 =======================================
@@ -31,7 +32,6 @@ Create Comment Table
 
 
 .. code-block:: sql
-   :linenos:
 
          CREATE TABLE IF NOT EXISTS COMMENT(
             ID SERIAL PRIMARY KEY,
@@ -54,7 +54,6 @@ Select Comment
 
 
 .. code-block:: python
-   :linenos:
 
 
         def select_comments(id):
@@ -83,7 +82,6 @@ Select Comment
 
 
 .. code-block:: python
-   :linenos:
 
 
          def select_comments2():
@@ -119,7 +117,6 @@ Insert Comment
 
 
 .. code-block:: python
-   :linenos:
 
          def insert_comment(comment,userid,postid,avatarid,albumcoverid):
              with dbapi2.connect(dsn) as connection:
@@ -139,7 +136,6 @@ Delete Comment
 
 
 .. code-block:: python
-   :linenos:
 
          def delete_comment(DELETEID):
              with dbapi2.connect(dsn) as connection:
@@ -158,7 +154,6 @@ Update Comment
 
 
 .. code-block:: python
-   :linenos:
 
 
          def update_comment(comment,UPDATEID):
@@ -178,7 +173,6 @@ Input Validations
 =================
 
 .. code-block:: python
-   :linenos:
 
          if request.form['comment']:
                    comment=request.form['comment']
@@ -196,7 +190,6 @@ Input Validations
 * This function is added to handle validation. If inputs are not valid, it returns an error message and nothing is inserted into comment table.
 
 .. code-block:: python
-   :linenos:
 
          if request.form['new_comment']:
                 commentid=int(request.form['id'])
@@ -215,7 +208,6 @@ Comment Class
 =============
 
 .. code-block:: python
-   :linenos:
 
          class Comment:
              def __init__(self, comment, username, avatarpath, content=None, postid = None ,commentid=None, albumcover=None, songname=None, artistname=None,cdate=None):
@@ -253,7 +245,6 @@ Create Share Table
 
 
 .. code-block:: sql
-   :linenos:
 
          CREATE TABLE IF NOT EXISTS SHARE(
             ID SERIAL PRIMARY KEY,
@@ -270,7 +261,6 @@ Select Share
 
 
 .. code-block:: python
-   :linenos:
 
          def select_sharedPost(reposterID):
              with dbapi2.connect(dsn) as connection:
@@ -295,7 +285,6 @@ Select Share
   post-owner username, post sharing time, and post's repost time. It is used to show every user's reposts.
 
 .. code-block:: python
-   :linenos:
 
          def select_sharedFor_activities(userID):
              with dbapi2.connect(dsn) as connection:
@@ -323,7 +312,6 @@ Insert Share
 ============
 
 .. code-block:: python
-   :linenos:
 
       def insert_sharedPost(postID):
           with dbapi2.connect(dsn) as connection:
@@ -343,7 +331,6 @@ Delete Share
 ============
 
 .. code-block:: python
-   :linenos:
 
          def delete_sharedPost(repostID):
              with dbapi2.connect(dsn) as connection:
@@ -375,7 +362,6 @@ Create Album Table
 
 
 .. code-block:: sql
-   :linenos:
 
          CREATE TABLE IF NOT EXISTS ALBUM(
                   ID SERIAL PRIMARY KEY,
@@ -391,7 +377,6 @@ Select Album
 ============
 
 .. code-block:: python
-   :linenos:
 
 
          def select_albums():
@@ -417,7 +402,6 @@ Insert Album
 ============
 
 .. code-block:: python
-   :linenos:
 
 
          def insert_album2(album):
@@ -440,7 +424,6 @@ Delete Album
 ============
 
 .. code-block:: python
-   :linenos:
 
 
          def delete_album(DELETEID):
@@ -458,7 +441,6 @@ Update Album
 ============
 
 .. code-block:: python
-   :linenos:
 
 
          def update_album(UPDATEID,newname,newcover,newyear):
@@ -477,7 +459,6 @@ Input Validations
 =================
 
 .. code-block:: python
-   :linenos:
 
          def validate_album_data(form):
              form.data = {}
@@ -510,7 +491,6 @@ Input Validations
 
 
 .. code-block:: python
-   :linenos:
 
          def validate_UpdateAlbum_data(form):
              form.data1 = {}
@@ -546,7 +526,6 @@ Album Class
 ===========
 
 .. code-block:: python
-   :linenos:
 
          class Album:
              def __init__(self, name, cover_filepath, albumdate=None, albumid=None):
